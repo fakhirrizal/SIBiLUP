@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/kemensos/';
-// $config['base_url'] = 'http://pfm.gbnku.co.id/';
+$config['base_url'] = 'http://localhost:8080/sibilup/';
+// $config['base_url'] = 'http://sibilup.aplikasiku.online/';
 
 /*
 |--------------------------------------------------------------------------
