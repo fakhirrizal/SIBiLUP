@@ -3,23 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class App extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+	
     function __construct() {
         parent::__construct();
+		$this->load->view('template/header');
+        $this->load->view('template/aside');
 	}
 	public function launcher()
 	{
@@ -29,24 +17,12 @@ class App extends CI_Controller {
 	}
     public function home()
 	{
-		$data['parent'] = 'home';
-		$data['child'] = '';
-		$data['grand_child'] = '';
-		// $q = "SELECT a.* FROM user a WHERE a.role='radiografer' AND a.deleted='0'";
-		// $data['radiografer'] = $this->Main_model->manualQuery($q);
-		// $q2 = "SELECT a.* FROM job a WHERE a.deleted='0'";
-		// $data['do_kegiatan'] = $this->Main_model->manualQuery($q2);
-		// $q3 = "SELECT a.* FROM job_type a WHERE a.deleted='0'";
-		// $data['jenis_kegiatan'] = $this->Main_model->manualQuery($q3);
-		// $q4 = "SELECT a.* FROM category a WHERE a.deleted='0'";
-		// $data['jenis_pemeriksaan'] = $this->Main_model->manualQuery($q4);
-		// $q5 = "SELECT a.id,b.job_name,c.fullname,d.name,a.created_at FROM monitoring a LEFT JOIN job b ON a.job_id=b.id LEFT JOIN user_profile c ON a.user_id=c.user_id LEFT JOIN patient d ON a.patient_id=d.id WHERE a.deleted='0' ORDER BY `a`.`created_at` DESC";
-		// $data['laporan'] = $this->Main_model->manualQuery($q5);
-		// $q6 = "SELECT a.* FROM job_type a WHERE a.deleted='0'";
-		// $data['data_jenis'] = $this->Main_model->manualQuery($q6);
-		$this->load->view('admin/template/header',$data);
-		$this->load->view('admin/app/home',$data);
-		$this->load->view('admin/template/footer');
+		$data['title_page'] = "DASHBOARD";
+        $data['breadcrumb'] = "Home,Dashboard";
+        $data['load']    =  array("home"); 
+
+        
+        $this->load->view('template/footer', $data);
 	}
 	public function menu()
 	{
