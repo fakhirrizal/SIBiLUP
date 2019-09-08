@@ -37,7 +37,7 @@ $config['base_url'] = 'http://localhost/sibilup/';
 |
 */
 $config['index_page'] = '';
-
+$config['composer_autoload'] = '/path/to/vendor/autoload.php';
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
