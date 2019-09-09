@@ -59,7 +59,7 @@ class Perpustakaan extends CI_Controller {
 
 		$output = $crud->render();
 		$output->title_page = "Regulasi";
-        $output->breadcrumb = "Home,Regulasi";
+        $output->breadcrumb = "Perpustakaan,Regulasi";
 		$this->output($output);
 	}
 
@@ -86,7 +86,7 @@ class Perpustakaan extends CI_Controller {
 
 		$output = $crud->render();
 		$output->title_page = "Modul";
-        $output->breadcrumb = "Home,Modul";
+        $output->breadcrumb = "Perpustakaan,Modul";
 		$this->output($output);
 	}
 
@@ -113,7 +113,7 @@ class Perpustakaan extends CI_Controller {
 
 		$output = $crud->render();
 		$output->title_page = "Materi";
-        $output->breadcrumb = "Home,Materi";
+        $output->breadcrumb = "Perpustakaan,Materi";
 		$this->output($output);
 	}
 
@@ -142,8 +142,8 @@ class Perpustakaan extends CI_Controller {
 		$crud->callback_before_insert(array($this,'foto'));
 
 		$output = $crud->render();
-		$output->title_page = "Materi";
-        $output->breadcrumb = "Home,Materi";
+		$output->title_page = "Galeri Foto";
+        $output->breadcrumb = "Perpustakaan,Galeri Foto";
 		$this->output($output);
 	}
 
@@ -172,8 +172,8 @@ class Perpustakaan extends CI_Controller {
 		$crud->callback_before_insert(array($this,'vidios'));
 
 		$output = $crud->render();
-		$output->title_page = "Galeri Vidio";
-        $output->breadcrumb = "Home,Galeri Vidio";
+		$output->title_page = "Galeri Video";
+        $output->breadcrumb = "Perpustakaan,Galeri Video";
 		$this->output($output);
 	}
 
@@ -198,7 +198,7 @@ class Perpustakaan extends CI_Controller {
 
 		$output = $crud->render();
 		$output->title_page = "Agenda";
-        $output->breadcrumb = "Home,Agenda";
+        $output->breadcrumb = "";
 		$this->output($output);
 	}
 

@@ -57,14 +57,14 @@ class Master extends CI_Controller {
 
 		$output = $crud->render();
 		$output->title_page = "Visi dan Misi";
-        $output->breadcrumb = "Home,Visi dan Misi,Edit";
+        $output->breadcrumb = "Profil Direktorat,Visi dan Misi,Ubah Data";
 		$this->output($output);
 	}
 
 	public function visi_misi() {
 		$this->templates();
         $data['title_page'] = "Visi dan Misi";
-        $data['breadcrumb'] = "Home,Visi dan Misi";
+        $data['breadcrumb'] = "Profil Direktorat,Visi dan Misi";
         $data['load']       =  array("admin/master/list_visi"); 
 
         $dt['table'] = "profil_dir";
@@ -96,14 +96,14 @@ class Master extends CI_Controller {
 
 		$output = $crud->render();
 		$output->title_page = "Tugas Pokok dan Fungsi";
-        $output->breadcrumb = "Home,Tugas Pokok dan Fungsi,Edit";
+        $output->breadcrumb = "Profil Direktorat,Tugas Pokok dan Fungsi,Ubah Data";
 		$this->output($output);
 	}
 
     public function tupoksi() {
 		$this->templates();
         $data['title_page'] = "Tugas Pokok dan Fungsi";
-        $data['breadcrumb'] = "Home,Tugas Pokok dan Fungsi";
+        $data['breadcrumb'] = "Profil Direktorat,Tugas Pokok dan Fungsi";
         $data['load']       =  array("admin/master/list_tupoksi"); 
 
         $dt['table'] = "profil_dir";
@@ -136,14 +136,14 @@ class Master extends CI_Controller {
 
 		$output = $crud->render();
 		$output->title_page = "Struktur Organisasi";
-        $output->breadcrumb = "Home,Struktur Organisasi,Edit";
+        $output->breadcrumb = "Profil Direktorat,Struktur Organisasi,Ubah Data";
 		$this->output($output);
 	}
 
     public function struktur() {
 		$this->templates();
         $data['title_page'] = "Struktur Organisasi";
-        $data['breadcrumb'] = "Home,Struktur Organisasi";
+        $data['breadcrumb'] = "Profil Direktorat,Struktur Organisasi";
         $data['load']       =  array("admin/master/list_struktur"); 
 
         $dt['table'] = "profil_dir";

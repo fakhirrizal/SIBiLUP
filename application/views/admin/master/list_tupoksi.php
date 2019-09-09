@@ -10,7 +10,7 @@
                                 <h2 class="card-title" align="center">Tugas Pokok dan Fungsi</h2>
                             </div>
                             <div class="ml-auto">
-                                <a href="<?= base_url()."admin/master/tupok_si/edit/1" ?>" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down">Edit Data</a>
+                                <a href="<?= base_url()."admin/master/tupok_si/edit/1" ?>" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down">Ubah Data</a>
                             </div>
                         </div>
                     </div>

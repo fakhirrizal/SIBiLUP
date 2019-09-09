@@ -10,7 +10,7 @@
                                 <h2 class="card-title" align="center">Visi dan Misi</h2>
                             </div>
                             <div class="ml-auto">
-                                <a href="<?= base_url()."admin/master/visimisi/edit/1" ?>" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down">Edit Data</a>
+                                <a href="<?= base_url()."admin/master/visimisi/edit/1" ?>" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down">Ubah Data</a>
                             </div>
                         </div>
                     </div>

@@ -4,15 +4,15 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="Kementerian Sosial Republik Indonesia">
-		<meta name="author" content="Kementerian Sosial Republik Indonesia">
-		<title>Kementerian Sosial Republik Indonesia - Halaman Login</title>
+		<meta name="description" content="Kementerian Pekerjaan Umum dan Perumahan Rakyat">
+		<meta name="author" content="Kementerian Pekerjaan Umum dan Perumahan Rakyat">
+		<title>Kementerian Pekerjaan Umum dan Perumahan Rakyat - Halaman Login</title>
 		<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<link href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_of_the_Ministry_of_Social_Affairs_of_the_Republic_of_Indonesia.svg/220px-Logo_of_the_Ministry_of_Social_Affairs_of_the_Republic_of_Indonesia.svg.png" rel="icon" type="image/png">
+		<link href="https://seeklogo.com/images/D/Departemen_Pekerjaan_Umum-logo-7E29323DFE-seeklogo.com.png" rel="icon" type="image/png">
 		<style type="text/css">
 			body {
 				color: #434343;
@@ -156,7 +156,7 @@
 				<p class="hint-text">Sign in with your social media account</p> -->
 				<div class="social-btn text-center">
 					<!-- <a href="#" class="btn btn-danger btn-lg" title="Google"><i class="fa fa-google"></i></a> -->
-					<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_of_the_Ministry_of_Social_Affairs_of_the_Republic_of_Indonesia.svg/220px-Logo_of_the_Ministry_of_Social_Affairs_of_the_Republic_of_Indonesia.svg.png" width='45%'>
+					<img src="https://seeklogo.com/images/D/Departemen_Pekerjaan_Umum-logo-7E29323DFE-seeklogo.com.png" width='45%'>
 					<br><br><p><font size="5">Silahkan login<br>untuk menggunakan sistem</font></p><hr>
 				</div>
 				<!-- <div class="or-seperator"><b></b></div> -->
