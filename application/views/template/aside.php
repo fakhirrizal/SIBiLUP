@@ -8,9 +8,9 @@
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile </span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="index.html">Visi & Misi</a></li>
-                        <li><a href="index2.html">Tugas pokok dan fungsi</a></li>
-                        <li><a href="index3.html">Struktur Organisasi</a></li>
+                        <li><a href="<?= base_url()."admin_side/visimisi" ?>">Visi & Misi</a></li>
+                        <li><a href="<?= base_url()."admin_side/tupoksi" ?>">Tugas dan fungsi</a></li>
+                        <li><a href="<?= base_url()."admin_side/struktur" ?>">Struktur Organisasi</a></li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Perpustakaan </span></a>

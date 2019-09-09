@@ -23,188 +23,136 @@ class Master extends CI_Controller {
 
 	}
 
+	public function templates()
+	{	
+		// echo $output;
+		$this->load->view('template/header');
+		$this->load->view('template/aside');
+
+	}
+
 
 	public function index($output = null) {
 		echo "<script>document.location.href='".base_url('sm-admin')."'</script>";
 	}
 
-	public function bahasa()
-	{
+	public function visimisi(){
 		$crud = new grocery_CRUD();
 
 		$crud->set_language('indonesian');
 		$crud->set_theme('flexigrid');
-		$crud->set_table('smt_setting');
-		$crud->set_subject('Bahasa');
-		//$crud->unset_operations(); 
-		//$crud->unset_list();
+		$crud->set_table('profil_dir');
 
-		$crud->edit_fields('bahasa');
+		$crud->display_as('visi_misi','Visi dan Misi');
 
-		$crud->unset_list();
-		$crud->unset_add();
-		$crud->unset_back_to_list();
+		$crud->unset_columns('tupoksi','struktur_organisasi');
 
-		try{
-			$output = $crud->render();
-			$this->output($output);
-		} catch(Exception $e) {
-		 
-			if($e->getCode() == 14) //The 14 is the code of the "You don't have permissions" error on grocery CRUD.
-			{
-			        echo direct(strtolower(__CLASS__).'/'.strtolower(__FUNCTION__).'/edit/1');
-			}
-			else
-			{
-			        show_error($e->getMessage());
-			}
-		}
-	}
-
-	public function sitemap()
-	{
-		$crud = new grocery_CRUD();
-
-		$crud->set_language('indonesian');
-		$crud->set_theme('flexigrid');
-		$crud->set_table('smt_setting');
-		$crud->set_subject('Sitemap');
-		//$crud->unset_operations(); 
-		//$crud->unset_list();
-
-		$crud->edit_fields('sitemap');
-		$crud->unset_texteditor('sitemap');
-
-		$crud->unset_list();
-		$crud->unset_add();
-		$crud->unset_back_to_list();
-
-		try{
-			$output = $crud->render();
-			$this->output($output);
-		} catch(Exception $e) {
-		 
-			if($e->getCode() == 14) //The 14 is the code of the "You don't have permissions" error on grocery CRUD.
-			{
-			        echo direct(strtolower(__CLASS__).'/'.strtolower(__FUNCTION__).'/edit/1');
-			}
-			else
-			{
-			        show_error($e->getMessage());
-			}
-		}
-	}
-
-	public function change_password()
-	{
-		$crud = new grocery_CRUD();
-		
-		$crud->set_language('indonesian');
-		$crud->set_theme('flexigrid');
-		$crud->set_table('ms_users');
-		$crud->set_subject('Password');
-		
-		$crud->edit_fields('pasid_usr','password_lama','password_baru','konfirmasi_password');
-
-		$crud->change_field_type('pasid_usr' , 'invisible');
-		$crud->change_field_type('password_lama' , 'password');
-		$crud->change_field_type('password_baru' , 'password');
-		$crud->change_field_type('konfirmasi_password' , 'password');
-
-		$crud->callback_before_update(array($this,'password'));
-
-		$config=array(
-            array(
-                'field'   => 'password_lama',
-                'label'   => 'Password Lama',
-                'rules'   => 'trim|required|callback_password_lama', // Note: Notice added callback verifier.
-                'errors' => array(
-                        'required' => '%s harus diisi.',
-                )
-            ),
-            array(
-                'field'   => 'konfirmasi_password',
-                'label'   => 'konfirmasi password',
-                'rules'   => 'trim|required|matches[password_baru]',
-                'errors' => array(
-                        'required' => '%s harus diisi.',
-                        'matches' => 'Password baru dan password lama tidak sesuai'
-                )
-            ),
-            array(
-                'field'   => 'password_baru',
-                'label'   => 'password baru',
-                'rules'   => 'trim|required',
-                'errors' => array(
-                        'required' => '%s harus diisi.',
-                )
-            ));
-        $crud->set_rules($config);
-
-		$crud->unset_list();
-		$crud->unset_add();
-		$crud->unset_back_to_list();
-
-
-
-		try{
-			$output = $crud->render();
-			$this->output($output);
-		} catch(Exception $e) {
-		 
-			if($e->getCode() == 14) //The 14 is the code of the "You don't have permissions" error on grocery CRUD.
-			{
-			        echo direct(strtolower(__CLASS__).'/'.strtolower(__FUNCTION__).'/edit/1');
-			}
-			else
-			{
-			        show_error($e->getMessage());
-			}
-		}
-	}
-
-	public function users(){
-		$crud = new grocery_CRUD();
-
-		$crud->set_language('indonesian');
-		$crud->set_theme('flexigrid');
-		$crud->set_table('ms_users');
-
-		$crud->display_as('usrid_usr','Username');
-		$crud->display_as('nama_usr','Nama');
-		$crud->display_as('level_usr','Hak Akses');
-		$crud->display_as('photo_usr','Photo');
-
-		$crud->set_field_upload('photo_usr','images/user');
-
-		$list = array(
-				'00' => 'Super Admin',
-				'01' => 'Administrator',
-				'02' => 'Penulis'
-			);
-
-		$crud->display_as('activ_usr','Aktif');
-
-		$crud->field_type('level_usr','dropdown',$list);
-
-		$crud->unset_columns('pasid_usr','create_at','update_at');
-
-		$crud->change_field_type('create_at' , 'invisible');
-		$crud->change_field_type('update_at' , 'invisible');
-		$crud->change_field_type('pasid_usr' , 'password');
-
-		$crud->add_action('Users', 'https://image.flaticon.com/icons/png/128/149/149071.png', 'adm_user/index');	
-
-		$crud->callback_before_insert(array($this,'get_init_date'));
-		$crud->callback_before_insert(array($this,'md5'));
-		$crud->callback_before_update(array($this,'get_init_date'));
-		$crud->callback_before_update(array($this,'md5'));
+		$crud->change_field_type('tupoksi' , 'invisible');
+		$crud->change_field_type('struktur_organisasi' , 'invisible');
 
 		$crud->unset_read();
+		//$crud->unset_edit();
+		$crud->unset_delete();
+		$crud->unset_back_to_list();
 
 		$output = $crud->render();
+		$output->title_page = "Visi dan Misi";
+        $output->breadcrumb = "Home,Visi dan Misi,Edit";
 		$this->output($output);
 	}
+
+	public function visi_misi() {
+		$this->templates();
+        $data['title_page'] = "Visi dan Misi";
+        $data['breadcrumb'] = "Home,Visi dan Misi";
+        $data['load']       =  array("admin/master/list_visi"); 
+
+        $dt['table'] = "profil_dir";
+		$dt['type'] = "single";
+		$dt['condition']['id_profil'] = "1";
+		$data['data'] = $this->Crud_model->get_data($dt);
+        
+        $this->load->view('template/footer', $data);
+    }
+
+    public function tupok_si(){
+		$crud = new grocery_CRUD();
+
+		$crud->set_language('indonesian');
+		$crud->set_theme('flexigrid');
+		$crud->set_table('profil_dir');
+
+		$crud->display_as('tupoksi','Tugas Pokok dan Fungsi');
+
+		$crud->unset_columns('visi_misi','struktur_organisasi');
+
+		$crud->change_field_type('visi_misi' , 'invisible');
+		$crud->change_field_type('struktur_organisasi' , 'invisible');
+
+		$crud->unset_read();
+		//$crud->unset_edit();
+		$crud->unset_delete();
+		$crud->unset_back_to_list();
+
+		$output = $crud->render();
+		$output->title_page = "Tugas Pokok dan Fungsi";
+        $output->breadcrumb = "Home,Tugas Pokok dan Fungsi,Edit";
+		$this->output($output);
+	}
+
+    public function tupoksi() {
+		$this->templates();
+        $data['title_page'] = "Tugas Pokok dan Fungsi";
+        $data['breadcrumb'] = "Home,Tugas Pokok dan Fungsi";
+        $data['load']       =  array("admin/master/list_tupoksi"); 
+
+        $dt['table'] = "profil_dir";
+		$dt['type'] = "single";
+		$dt['condition']['id_profil'] = "1";
+		$data['data'] = $this->Crud_model->get_data($dt);
+        
+        $this->load->view('template/footer', $data);
+    }
+
+
+    public function sturktur_or(){
+		$crud = new grocery_CRUD();
+
+		$crud->set_language('indonesian');
+		$crud->set_theme('flexigrid');
+		$crud->set_table('profil_dir');
+
+		$crud->display_as('struktur_organisasi','Struktur Organisasi');
+
+		$crud->unset_columns('visi_misi','tupoksi');
+
+		$crud->change_field_type('visi_misi' , 'invisible');
+		$crud->change_field_type('tupoksi' , 'invisible');
+
+		$crud->unset_read();
+		//$crud->unset_edit();
+		$crud->unset_delete();
+		$crud->unset_back_to_list();
+
+		$output = $crud->render();
+		$output->title_page = "Struktur Organisasi";
+        $output->breadcrumb = "Home,Struktur Organisasi,Edit";
+		$this->output($output);
+	}
+
+    public function struktur() {
+		$this->templates();
+        $data['title_page'] = "Struktur Organisasi";
+        $data['breadcrumb'] = "Home,Struktur Organisasi";
+        $data['load']       =  array("admin/master/list_struktur"); 
+
+        $dt['table'] = "profil_dir";
+		$dt['type'] = "single";
+		$dt['condition']['id_profil'] = "1";
+		$data['data'] = $this->Crud_model->get_data($dt);
+        
+        $this->load->view('template/footer', $data);
+    }
 
 	public function pegawai(){
 		$crud = new grocery_CRUD();

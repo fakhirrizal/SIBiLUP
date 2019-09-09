@@ -62,6 +62,9 @@ $route['register_process'] = 'Auth/register_process';
 /* Admin */
 $route['admin_side/launcher'] = 'admin/App/launcher';
 $route['admin_side/beranda'] = 'admin/App/home';
+$route['admin_side/visimisi'] = 'admin/Master/visi_misi';
+$route['admin_side/tupoksi'] = 'admin/Master/tupoksi';
+$route['admin_side/struktur'] = 'admin/Master/struktur';
 $route['admin_side/menu'] = 'admin/App/menu';
 $route['admin_side/log_activity'] = 'admin/App/log_activity';
 $route['admin_side/cleaning_log'] = 'admin/App/cleaning_log';
