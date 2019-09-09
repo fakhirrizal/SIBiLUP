@@ -13,18 +13,18 @@
                         <li><a href="<?= base_url()."admin_side/struktur" ?>">Struktur Organisasi</a></li>
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Perpustakaan </span></a>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Perpustakaan </span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="index.html">Regulasi</a></li>
-                        <li><a href="index2.html">Materi</a></li>
-                        <li><a href="index3.html">Modul</a></li>
-                        <li><a href="index.html">Soal Ujian</a></li>
-                        <li><a href="index2.html">Galeri Foto</a></li>
-                        <li><a href="index3.html">Galeri Vidio</a></li>
-                        <li><a href="index3.html">Ujian Online</a></li>
+                        <li><a href="<?= base_url()."admin/Perpustakaan/regulasi" ?>">Regulasi</a></li>
+                        <li><a href="<?= base_url()."admin/Perpustakaan/materi" ?>">Materi</a></li>
+                        <li><a href="<?= base_url()."admin/Perpustakaan/modul" ?>">Modul</a></li>
+                        <li><a href="<?= base_url()."admin/Perpustakaan/soal_un" ?>">Soal Ujian</a></li>
+                        <li><a href="<?= base_url()."admin/Perpustakaan/photo" ?>">Galeri Foto</a></li>
+                        <li><a href="<?= base_url()."admin/Perpustakaan/vidio" ?>">Galeri Vidio</a></li>
+                        <li><a href="<?= base_url()."admin/Perpustakaan/ujian_ol" ?>">Ujian Online</a></li>
                     </ul>
                 </li>
-                <li> <a class="waves-effect waves-dark" href="icon-material.html" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Agenda</span></a>
+                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/Perpustakaan/agenda" ?>" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Agenda</span></a>
                 </li>
                 <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Diskusi</span></a>
                 </li>

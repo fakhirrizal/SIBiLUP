@@ -59,6 +59,15 @@ $route['login_process'] = 'Auth/login_process';
 $route['registrasi'] = 'Auth/registration';
 $route['register_process'] = 'Auth/register_process';
 
+/* Perpustakaan */
+/*$route['regulasi'] = 'admin/Perpustakaan/regulasi';
+$route['materi'] = 'admin/Perpustakaan/materi';
+$route['modul'] = 'admin/Perpustakaan/modul';
+$route['soal_un'] = 'admin/Perpustakaan/soal_un';
+$route['photo'] = 'admin/Perpustakaan/photo';
+$route['vidio'] = 'admin/Perpustakaan/vidio';
+$route['ujian_ol'] = 'admin/Perpustakaan/ujian_ol';*/
+
 /* Admin */
 $route['admin_side/launcher'] = 'admin/App/launcher';
 $route['admin_side/beranda'] = 'admin/App/home';

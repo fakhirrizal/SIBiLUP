@@ -37,7 +37,7 @@ $config['base_url'] = 'http://localhost/sibilup/';
 |
 */
 $config['index_page'] = '';
-$config['composer_autoload'] = '/path/to/vendor/autoload.php';
+//$config['grocery_crud_file_upload_allow_file_types'] = 'gif|jpeg|jpg|png|tiff|doc|docx|txt|odt|xls|xlsx|pdf';
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
