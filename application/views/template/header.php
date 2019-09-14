@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="<?php echo base_url(); ?>___/css/style.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>___/plugin/fa/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>___/plugin/datatables/dataTables.bootstrap.css" rel="stylesheet">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="https://seeklogo.com/images/D/Departemen_Pekerjaan_Umum-logo-7E29323DFE-seeklogo.com.png">
     <title>Kementerian Pekerjaan Umum dan Perumahan Rakyat</title>
@@ -106,7 +111,7 @@
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="ti-user"></i> Profil</a></li>
+                                    <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
                                     <li><a href="#"><i class="ti-settings"></i> Pengaturan Akun</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#"><i class="fa fa-power-off"></i> Keluar</a></li>

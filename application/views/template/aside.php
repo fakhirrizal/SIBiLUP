@@ -4,12 +4,12 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li> <a class="waves-effect waves-dark" href="index.html" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dasbor</span></a>
+                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin_side/beranda" ?>" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Beranda</span></a>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profil Direktorat </span></a>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile Direktorat </span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="<?= base_url()."admin_side/visimisi" ?>">Visi & Misi</a></li>
-                        <li><a href="<?= base_url()."admin_side/tupoksi" ?>">Tugas Pokok dan Fungsi</a></li>
+                        <li><a href="<?= base_url()."admin_side/tupoksi" ?>">Tugas Pokok dan fungsi</a></li>
                         <li><a href="<?= base_url()."admin_side/struktur" ?>">Struktur Organisasi</a></li>
                     </ul>
                 </li>
@@ -18,10 +18,14 @@
                         <li><a href="<?= base_url()."admin/Perpustakaan/regulasi" ?>">Regulasi</a></li>
                         <li><a href="<?= base_url()."admin/Perpustakaan/materi" ?>">Materi</a></li>
                         <li><a href="<?= base_url()."admin/Perpustakaan/modul" ?>">Modul</a></li>
-                        <li><a href="<?= base_url()."admin/Perpustakaan/soal_un" ?>">Soal Ujian</a></li>
+                        <li><a href="<?= base_url()."admin/ujian_ol/soal" ?>">Soal Ujian</a></li>
                         <li><a href="<?= base_url()."admin/Perpustakaan/photo" ?>">Galeri Foto</a></li>
-                        <li><a href="<?= base_url()."admin/Perpustakaan/vidio" ?>">Galeri Video</a></li>
-                        <li><a href="<?= base_url()."admin/Perpustakaan/ujian_ol" ?>">Ujian Online</a></li>
+                        <li><a href="<?= base_url()."admin/Perpustakaan/vidio" ?>">Galeri Vidio</a></li>
+                        <?php if ($this->session->userdata('admin_level') == "siswa") { ?>
+                            <li><a href="<?= base_url()."adm/ikuti_ujian" ?>">Ujian Online</a></li>
+                        <?php } else { ?>
+                            <li><a href="<?= base_url()."adm/m_ujian" ?>">Ujian Online</a></li>
+                        <?php } ?>
                     </ul>
                 </li>
                 <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/Perpustakaan/agenda" ?>" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Agenda</span></a>
@@ -39,8 +43,8 @@
     <!-- End Sidebar scroll-->
     <!-- Bottom points-->
     <div class="sidebar-footer">
-        <!-- item--><a href="" class="link" data-toggle="tooltip" title="Pengaturan"><i class="ti-settings"></i></a>
+        <!-- item--><a href="" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings"></i></a>
         <!-- item--><a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
-        <!-- item--><a href="" class="link" data-toggle="tooltip" title="Keluar"><i class="mdi mdi-power"></i></a> </div>
+        <!-- item--><a href="" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a> </div>
     <!-- End Bottom points-->
 </aside>

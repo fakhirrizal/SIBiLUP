@@ -15,7 +15,7 @@
 		background:#FBFBFB; 
 	}
 	.flexigrid table tr.hDiv{
-		background: #25668F;
+		background: #f4a42c;
 		color: #ffff;
 	}
 	.flexigrid div.pDiv{
