@@ -14,7 +14,7 @@
                   <tr>
                     <th width="5%">No</th>
                     <th width="20%">Nama Tes</th>
-                    <th width="20%">Mata Pelajaran</th>
+                    <th width="20%">Role User</th>
                     <th width="10%">Jumlah Soal</th>
                     <th width="15%">Waktu</th>
                     <th width="15%">Pengacakan Soal</th>
