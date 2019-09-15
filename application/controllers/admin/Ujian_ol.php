@@ -90,8 +90,8 @@ class Ujian_ol extends CI_Controller {
 		//$crud->unset_back_to_list();
 
 		$output = $crud->render();
-		$output->title_page = "Modul";
-        $output->breadcrumb = "Home,Modul";
+		$output->title_page = "Soal Ujian";
+        $output->breadcrumb = "Perpustakaan,Soal Ujian";
 		$this->output($output);
 	}
 

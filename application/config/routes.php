@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = TRUE;
 
 /* Auth */
 $route['login'] = 'Auth/login';
+$route['adm/act_login'] = 'Adm/act_login';
 $route['login_process'] = 'Auth/login_process';
 $route['registrasi'] = 'Auth/registration';
 $route['register_process'] = 'Auth/register_process';
@@ -79,58 +80,6 @@ $route['admin_side/log_activity'] = 'admin/App/log_activity';
 $route['admin_side/cleaning_log'] = 'admin/App/cleaning_log';
 $route['admin_side/tentang_aplikasi'] = 'admin/App/about';
 $route['admin_side/bantuan'] = 'admin/App/helper';
-
-$route['admin_side/dasbor_peta'] = 'admin/Dashboard';
-$route['admin_side/peta_provinsi/(:any)'] = 'admin/Dashboard/province/$1';
-$route['admin_side/peta_kabupaten/(:any)'] = 'admin/Dashboard/city/$1';
-$route['admin_side/peta_kecamatan/(:any)'] = 'admin/Dashboard/sub_district/$1';
-
-$route['admin_side/dasbor_grafik'] = 'admin/Dashboard/main_graph';
-
-$route['admin_side/administrator'] = 'admin/Master/administrator_data';
-$route['admin_side/tambah_data_admin'] = 'admin/Master/add_administrator_data';
-$route['admin_side/simpan_data_admin'] = 'admin/Master/save_administrator_data';
-$route['admin_side/detail_data_admin/(:any)'] = 'admin/Master/detail_administrator_data/$1';
-$route['admin_side/ubah_data_admin/(:any)'] = 'admin/Master/edit_administrator_data/$1';
-$route['admin_side/perbarui_data_admin'] = 'admin/Master/update_administrator_data';
-$route['admin_side/atur_ulang_kata_sandi_admin/(:any)'] = 'admin/Master/reset_password_administrator_account/$1';
-$route['admin_side/hapus_data_admin/(:any)'] = 'admin/Master/delete_administrator_data/$1';
-
-$route['admin_side/kube'] = 'admin/Master/kube_data';
-$route['admin_side/tambah_data_kube'] = 'admin/Master/add_kube_data';
-$route['admin_side/simpan_data_kube'] = 'admin/Master/save_kube_data';
-$route['admin_side/detil_data_kube/(:any)'] = 'admin/Master/detail_kube_data/$1';
-$route['admin_side/ubah_data_kube/(:any)'] = 'admin/Master/edit_kube_data/$1';
-$route['admin_side/perbarui_data_kube'] = 'admin/Master/update_kube_data';
-$route['admin_side/simpan_data_anggota_kube'] = 'admin/Master/save_kube_member';
-$route['admin_side/perbarui_data_anggota_kube'] = 'admin/Master/update_kube_member';
-$route['admin_side/atur_ulang_kata_sandi_anggota_kube/(:any)'] = 'admin/Master/reset_password_kube_member_account/$1';
-$route['admin_side/hapus_data_kube/(:any)'] = 'admin/Master/delete_kube_data/$1';
-$route['admin_side/hapus_data_anggota_kube/(:any)'] = 'admin/Master/delete_kube_member/$1';
-
-$route['admin_side/rutilahu'] = 'admin/Master/rutilahu_data';
-$route['admin_side/tambah_data_rutilahu'] = 'admin/Master/add_rutilahu_data';
-$route['admin_side/simpan_data_rutilahu'] = 'admin/Master/save_rutilahu_data';
-$route['admin_side/detil_data_rutilahu/(:any)'] = 'admin/Master/detail_rutilahu_data/$1';
-$route['admin_side/ubah_data_rutilahu/(:any)'] = 'admin/Master/edit_rutilahu_data/$1';
-$route['admin_side/perbarui_data_rutilahu'] = 'admin/Master/update_rutilahu_data';
-$route['admin_side/simpan_data_anggota_rutilahu'] = 'admin/Master/save_rutilahu_member';
-$route['admin_side/perbarui_data_anggota_rutilahu'] = 'admin/Master/update_rutilahu_member';
-$route['admin_side/atur_ulang_kata_sandi_anggota_rutilahu/(:any)'] = 'admin/Master/reset_password_rutilahu_member_account/$1';
-$route['admin_side/hapus_data_rutilahu/(:any)'] = 'admin/Master/delete_rutilahu_data/$1';
-$route['admin_side/hapus_data_anggota_rutilahu/(:any)'] = 'admin/Master/delete_rutilahu_member/$1';
-
-$route['admin_side/sarling'] = 'admin/Master/sarling_data';
-$route['admin_side/tambah_data_sarling'] = 'admin/Master/add_sarling_data';
-$route['admin_side/simpan_data_sarling'] = 'admin/Master/save_sarling_data';
-$route['admin_side/detil_data_sarling/(:any)'] = 'admin/Master/detail_sarling_data/$1';
-$route['admin_side/ubah_data_sarling/(:any)'] = 'admin/Master/edit_sarling_data/$1';
-$route['admin_side/perbarui_data_sarling'] = 'admin/Master/update_sarling_data';
-$route['admin_side/simpan_data_anggota_sarling'] = 'admin/Master/save_sarling_member';
-$route['admin_side/perbarui_data_anggota_sarling'] = 'admin/Master/update_sarling_member';
-$route['admin_side/atur_ulang_kata_sandi_anggota_sarling/(:any)'] = 'admin/Master/reset_password_sarling_member_account/$1';
-$route['admin_side/hapus_data_sarling/(:any)'] = 'admin/Master/delete_sarling_data/$1';
-$route['admin_side/hapus_data_anggota_sarling/(:any)'] = 'admin/Master/delete_sarling_member/$1';
 
 $route['admin_side/data_provinsi'] = 'admin/Map/province';
 $route['admin_side/tambah_data_provinsi'] = 'admin/Map/add_province';
@@ -157,43 +106,8 @@ $route['admin_side/ubah_data_kelurahan/(:any)'] = 'admin/Map/edit_village/$1';
 $route['admin_side/perbarui_data_kelurahan'] = 'admin/Map/update_village_data';
 $route['admin_side/hapus_data_kelurahan/(:any)'] = 'admin/Map/delete_village/$1';
 
-$route['admin_side/laporan_kube'] = 'admin/Report/kube';
-$route['admin_side/tambah_laporan_kube'] = 'admin/Report/add_kube_report';
-$route['admin_side/simpan_laporan_kube'] = 'admin/Report/save_kube_report';
-$route['admin_side/detil_laporan_kube/(:any)'] = 'admin/Report/detail_kube_report/$1';
-$route['admin_side/hapus_data_laporan_kube/(:any)'] = 'admin/Report/delete_kube_report/$1';
-
-$route['admin_side/laporan_rutilahu'] = 'admin/Report/rutilahu';
-$route['admin_side/tambah_laporan_rutilahu'] = 'admin/Report/add_rutilahu_report';
-$route['admin_side/simpan_laporan_rutilahu'] = 'admin/Report/save_rutilahu_report';
-$route['admin_side/detil_laporan_rutilahu/(:any)'] = 'admin/Report/detail_rutilahu_report/$1';
-$route['admin_side/hapus_data_laporan_rutilahu/(:any)'] = 'admin/Report/delete_rutilahu_report/$1';
-
-$route['admin_side/laporan_sarling'] = 'admin/Report/sarling';
-$route['admin_side/tambah_laporan_sarling'] = 'admin/Report/add_sarling_report';
-$route['admin_side/simpan_laporan_sarling'] = 'admin/Report/save_sarling_report';
-$route['admin_side/detil_laporan_sarling/(:any)'] = 'admin/Report/detail_sarling_report/$1';
-$route['admin_side/hapus_data_laporan_sarling/(:any)'] = 'admin/Report/delete_sarling_report/$1';
-
 /* REST API */
 $route['api'] = 'Rest_server/documentation';
-
-$route['api/login'] = 'api/auth/Login';
-$route['api/change_password'] = 'api/auth/Change_password';
-
-$route['api/indikator'] = 'api/master/Indikator';
-$route['api/user_data'] = 'api/master/User_data';
-$route['api/device'] = 'api/master/Device';
-$route['api/provinsi'] = 'api/master/Provinsi';
-$route['api/kabupaten'] = 'api/master/Kabupaten';
-$route['api/kecamatan'] = 'api/master/Kecamatan';
-$route['api/desa'] = 'api/master/Desa';
-
-$route['api/kube'] = 'api/kube/Master';
-$route['api/anggota_kube'] = 'api/kube/Member';
-$route['api/laporan_kube'] = 'api/kube/Report';
-
-$route['api/rutilahu'] = 'api/rutilahu/Master';
 
 /*
 | -------------------------------------------------------------------------

@@ -17,7 +17,7 @@ class App extends CI_Controller {
 	}
     public function home()
 	{
-		$data['title_page'] = "Dasbor";
+		$data['title_page'] = "Beranda";
         $data['breadcrumb'] = "";
         $data['load']    =  array("home"); 
 

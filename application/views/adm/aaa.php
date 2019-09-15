@@ -34,7 +34,7 @@
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $this->session->userdata('admin_nama')." (".$this->session->userdata('admin_user').")"; ?> <span class="caret"></span></a>
                      <ul class="dropdown-menu" role="menu">
                         <li><a href="#" onclick="return rubah_password();">Ubah Password</a></li>
-                        <li><a href="<?php echo base_url(); ?>adm/logout" onclick="return confirm('keluar..?');">Logout</a></li>
+                        <li><a href="<?php echo base_url(); ?>adm/logout" onclick="return confirm('keluar..?');">Keluar</a></li>
                      </ul>
                   </li>
                </ul>

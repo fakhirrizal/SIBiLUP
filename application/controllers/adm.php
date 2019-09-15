@@ -1010,7 +1010,7 @@ class Adm extends CI_Controller {
 		}
 
 		$a['title_page'] = "Ujian Online";
-        $a['breadcrumb'] = "Home,Ujian Online";
+        $a['breadcrumb'] = "Perpustakaan,Ujian Online";
 		$this->load->view('template/header');
 		$this->load->view('template/aside');
 		$this->load->view('template/footer', $a);

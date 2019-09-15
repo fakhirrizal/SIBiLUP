@@ -25,15 +25,15 @@
               </table>
 
               <div class="modal fade" id="m_ujian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 id="myModalLabel">Buat Ujian</h4>
+                      <h4 id="myModalLabel">Form Tambah Data Ujian</h4>
                     </div>
                     <div class="modal-body">
                       <div class="alert alert-info">
-                      <a href="#" onclick="return view_petunjuk('petunjuk');">petunjuk ..?</a>
+                      <a href="#" onclick="return view_petunjuk('petunjuk');">Petunjuk Pengisian</a>
                       <div id="petunjuk">
                         <ul>
                           <li><b>Jml Soal</b>, harap dimasukkan sesuai jumlah soal yang sudah ada di bank soal</li>
