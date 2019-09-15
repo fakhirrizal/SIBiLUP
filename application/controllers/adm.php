@@ -851,7 +851,7 @@ class Adm extends CI_Controller {
 		$a['pola_tes'] = array(""=>"Pengacakan Soal", "acak"=>"Soal Diacak", "set"=>"Soal Diurutkan");
 
 //		$a['p_mapel'] = obj_to_array($this->db->query("SELECT * FROM m_mapel WHERE id IN (SELECT id_mapel FROM tr_guru_mapel WHERE id_guru = '".$a['sess_konid']."')")->result(), "id,nama");
-		$a['p_mapel'] = obj_to_array($this->db->query("SELECT * FROM m_admin ")->result(), "id,level");
+		$a['p_mapel'] = obj_to_array($this->db->query("SELECT * FROM kabupaten")->result(), "id_kabupaten,nm_kabupaten");
 		
 		if ($uri3 == "det") {
 			$are = array();
@@ -955,15 +955,15 @@ class Adm extends CI_Controller {
 		        $search = $this->input->post('search');
 
 		        $d_total_row = $this->db->query("SELECT a.id
-		        	FROM tr_guru_tes a/*
-		        	INNER JOIN m_admin b ON a.id_mapel = b.kon_id*/ 
+		        	FROM tr_guru_tes a
+		        	INNER JOIN kabupaten b ON a.id_guru = b.id_kabupaten INNER JOIN provinsi c ON b.id_provinsi=c.id_provinsi   
 		        	WHERE (a.nama_ujian LIKE '%".$search['value']."%')")->num_rows();
 		    	
 		    	//echo $this->db->last_query();
 
-		        $q_datanya = $this->db->query("SELECT a.*/*, b.daerah AS mapel*/
-												FROM tr_guru_tes a/*
-									        	INNER JOIN m_admin b ON a.id_guru = b.kon_id*/ 
+		        $q_datanya = $this->db->query("SELECT a.*, c.nm_provinsi AS prov, b.nm_kabupaten AS kab
+												FROM tr_guru_tes a
+									        	INNER JOIN kabupaten b ON a.id_guru = b.id_kabupaten INNER JOIN provinsi c ON b.id_provinsi=c.id_provinsi 
 									        	WHERE (a.nama_ujian LIKE '%".$search['value']."%') 
 		                                        ORDER BY a.id DESC LIMIT ".$start.", ".$length."")->result_array();
 		        $data = array();
@@ -975,7 +975,7 @@ class Adm extends CI_Controller {
 		            $data_ok = array();
 		            $data_ok[0] = $no++;
 		            $data_ok[1] = $d['nama_ujian']/*."<br>Token : <b>".$d['token']."</b> &nbsp;&nbsp; <a href='#' onclick='return refresh_token(".$d['id'].")' title='Perbarui Token'><i class='fa fa-refresh'></i></a>"*/;
-		            $data_ok[2] = "Jawa Tengah";//$d['mapel'];
+		            $data_ok[2] = $d['kab']." - ".$d['prov'];
 		            $data_ok[3] = $d['jumlah_soal'];
 		            $data_ok[4] = tjs($d['tgl_mulai'],"s")."<br>(".$d['waktu']." menit)";
 		            $data_ok[5] = $jenis_soal;
