@@ -8,6 +8,9 @@ class App extends CI_Controller {
         parent::__construct();
 		$this->load->view('template/header');
         $this->load->view('template/aside');
+        if ($this->session->userdata('admin_valid') == false && $this->session->userdata('admin_id') == "") {
+			redirect('auth/login');
+		} 
 	}
 	public function launcher()
 	{

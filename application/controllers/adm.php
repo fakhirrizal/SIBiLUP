@@ -18,7 +18,7 @@ class Adm extends CI_Controller {
 
 	public function cek_aktif() {
 		if ($this->session->userdata('admin_valid') == false && $this->session->userdata('admin_id') == "") {
-			redirect('adm/login');
+			redirect('auth/login');
 		} 
 	}
 	
@@ -1177,7 +1177,7 @@ class Adm extends CI_Controller {
 	/* == SISWA == */
 	public function ikuti_ujian() {
 		$this->cek_aktif();
-		cek_hakakses(array("3"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("3","4"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
@@ -1195,14 +1195,14 @@ class Adm extends CI_Controller {
 		//$a['sess_konid']
 		$a['data'] = $this->db->query("SELECT 
 									a.id, a.nama_ujian, a.jumlah_soal, a.waktu,
-									b.nama nmmapel,
-									c.nama nmguru,
+									b.judul nmmapel,
+									c.nama_level nmguru,
 									IF((d.status='Y' AND NOW() BETWEEN d.tgl_mulai AND d.tgl_selesai),'Sedang Tes',
 									IF(d.status='Y' AND NOW() NOT BETWEEN d.tgl_mulai AND d.tgl_selesai,'Waktu Habis',
 									IF(d.status='N','Selesai','Belum Ikut'))) status 
 									FROM tr_guru_tes a
-									INNER JOIN m_mapel b ON a.id_mapel = b.id
-									INNER JOIN m_guru c ON a.id_guru = c.id
+									INNER JOIN modul b ON a.id_mapel = b.id_modul
+									INNER JOIN level_user c ON a.id_guru = c.id_level
 									LEFT JOIN tr_ikut_ujian d ON CONCAT('".$a['sess_konid']."',a.id) = CONCAT(d.id_user,d.id_tes)
 									ORDER BY a.id ASC")->result();
 		//echo $this->db->last_query();
@@ -1229,7 +1229,7 @@ class Adm extends CI_Controller {
 		$uri4 = $this->uri->segment(4);
 		//var post from json
 		$p = json_decode(file_get_contents('php://input'));
-		$a['detil_user'] = $this->db->query("SELECT * FROM m_siswa WHERE id = '".$a['sess_konid']."'")->row();
+		$a['detil_user'] = $this->db->query("SELECT * FROM pegawai WHERE id_pegawai = '".$a['sess_konid']."'")->row();
 		if ($uri3 == "simpan_satu") {
 			$p			= json_decode(file_get_contents('php://input'));
 			
@@ -1312,18 +1312,18 @@ class Adm extends CI_Controller {
 			
 			$a['du'] = $this->db->query("SELECT a.id, a.tgl_mulai, a.terlambat, 
 										a.token, a.nama_ujian, a.jumlah_soal, a.waktu,
-										b.nama nmguru, c.nama nmmapel,
+										b.nama_level nmguru, c.judul nmmapel,
 										(case
 											when (now() < a.tgl_mulai) then 0
 											when (now() >= a.tgl_mulai and now() <= a.terlambat) then 1
 											else 2
 										end) statuse
 										FROM tr_guru_tes a 
-										INNER JOIN m_guru b ON a.id_guru = b.id
-										INNER JOIN m_mapel c ON a.id_mapel = c.id 
+										INNER JOIN level_user b ON a.id_guru = b.id_level
+										INNER JOIN modul c ON a.id_mapel = c.id_modul 
 										WHERE a.id = '$uri4'")->row_array();
 
-			$a['dp'] = $this->db->query("SELECT * FROM m_siswa WHERE id = '".$a['sess_konid']."'")->row_array();
+			$a['dp'] = $this->db->query("SELECT * FROM pegawai WHERE id_pegawai = '".$a['sess_konid']."'")->row_array();
 			//$q_status = $this->db->query();
 
 			if (!empty($a['du']) || !empty($a['dp'])) {
@@ -1584,12 +1584,12 @@ class Adm extends CI_Controller {
 		$_log		= array();
 		if ($j_data === 1) {
 			$sess_nama_user = "";
-			if ($a_data->level == "siswa") {
+			if ($a_data->level == "3" OR $a_data->level == "4") {
 				$det_user = $this->db->query("SELECT nama FROM m_siswa WHERE id = '".$a_data->kon_id."'")->row();
 				if (!empty($det_user)) {
 					$sess_nama_user = $det_user->nama;
 				}
-			} else if ($a_data->level == "guru") {
+			} else if ($a_data->level == "2") {
 				$det_user = $this->db->query("SELECT nama FROM m_guru WHERE id = '".$a_data->kon_id."'")->row();
 				if (!empty($det_user)) {
 					$sess_nama_user = $det_user->nama;

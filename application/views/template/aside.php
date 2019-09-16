@@ -21,7 +21,7 @@
                         <li><a href="<?= base_url()."admin/ujian_ol/soal" ?>">Soal Ujian</a></li>
                         <li><a href="<?= base_url()."admin/Perpustakaan/photo" ?>">Galeri Foto</a></li>
                         <li><a href="<?= base_url()."admin/Perpustakaan/vidio" ?>">Galeri Video</a></li>
-                        <?php if ($this->session->userdata('admin_level') == "siswa") { ?>
+                        <?php if ($this->session->userdata('admin_level') >= "3") { ?>
                             <li><a href="<?= base_url()."adm/ikuti_ujian" ?>">Ujian Online</a></li>
                         <?php } else { ?>
                             <li><a href="<?= base_url()."adm/m_ujian" ?>">Ujian Online</a></li>

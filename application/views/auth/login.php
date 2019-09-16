@@ -147,11 +147,10 @@
 			}
 		</style> -->
 	</head>
-
 	<body onload="getLocation()">
 		<div class="signin-form">
 			<?= $this->session->flashdata('error') ?>
-			<form action="" method="post" name="fl" id="f_login" onsubmit="return login();">
+			<form role="form" action="<?= site_url('login_process'); ?>" method='post'>
 				<p id="getLocation"></p>
 				<!-- <h2>Sign in</h2>
 				<p class="hint-text">Sign in with your social media account</p> -->
@@ -162,10 +161,10 @@
 				</div>
 				<!-- <div class="or-seperator"><b></b></div> -->
 				<div class="form-group">
-					<input type="text" class="form-control input-lg" id="username" name="username" autofocus value="" placeholder="Username" required="required">
+					<input type="text" class="form-control input-lg" name="username" placeholder="Nama Pengguna" required="required">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control input-lg" id="password" name="password" value="" placeholder="Password" required="required">
+					<input type="password" class="form-control input-lg" name="password" placeholder="Kata Sandi" required="required">
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Masuk</button>
@@ -186,13 +185,6 @@
 					view.innerHTML = "<input type='hidden' name='location' value='" + position.coords.latitude + "," + position.coords.longitude +"' />";
 				}
 			</script>
-			<script src="<?php echo base_url(); ?>___/js/jquery-1.11.3.min.js"></script> 
-			<script src="<?php echo base_url(); ?>___/js/bootstrap.js"></script>
-			<script type="text/javascript">
-				base_url = "<?php echo base_url(); ?>";
-				uri_js = "<?php echo $this->config->item('uri_js'); ?>";
-			</script>
-			<script src="<?php echo base_url(); ?>___/js/aplikasi.js"></script> 
 		</div>
 	</body>
 </html>

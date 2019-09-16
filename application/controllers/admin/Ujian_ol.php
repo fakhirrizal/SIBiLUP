@@ -8,6 +8,9 @@ class Ujian_ol extends CI_Controller {
 		$this->load->helper('url');
 
 		$this->load->library('grocery_CRUD');
+		if ($this->session->userdata('admin_valid') == false && $this->session->userdata('admin_id') == "") {
+			redirect('auth/login');
+		} 
 
 		// //ROLE ACCESS
 		// cek_role();
@@ -104,7 +107,7 @@ class Ujian_ol extends CI_Controller {
 
 	public function cek_aktif() {
 		if ($this->session->userdata('admin_valid') == false && $this->session->userdata('admin_id') == "") {
-			redirect('adm/login');
+			redirect('auth/login');
 		} 
 	}
 	
