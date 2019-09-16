@@ -29,7 +29,7 @@ class Adm extends CI_Controller {
 	/* == ADMIN == */
 	public function m_siswa() {
 		$this->cek_aktif();
-		cek_hakakses(array("admin"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("1"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
@@ -216,7 +216,7 @@ class Adm extends CI_Controller {
 	}
 	public function m_guru() {
 		$this->cek_aktif();
-		cek_hakakses(array("admin"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("1"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
@@ -402,7 +402,7 @@ class Adm extends CI_Controller {
 	}
 	public function m_mapel() {
 		$this->cek_aktif();
-		cek_hakakses(array("admin"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("1"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
@@ -485,7 +485,7 @@ class Adm extends CI_Controller {
 	/* == GURU == */
 	public function m_soal() {
 		$this->cek_aktif();
-		cek_hakakses(array("admin", "guru"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("1","2"), $this->session->userdata('admin_level'));
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
 		$a['sess_user'] = $this->session->userdata('admin_user');
@@ -829,7 +829,7 @@ class Adm extends CI_Controller {
 	}
 	public function m_ujian() {
 		$this->cek_aktif();
-		cek_hakakses(array("guru","admin"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("2","1"), $this->session->userdata('admin_level'));
 
 		
 		//var def session
@@ -851,7 +851,7 @@ class Adm extends CI_Controller {
 		$a['pola_tes'] = array(""=>"Pengacakan Soal", "acak"=>"Soal Diacak", "set"=>"Soal Diurutkan");
 
 //		$a['p_mapel'] = obj_to_array($this->db->query("SELECT * FROM m_mapel WHERE id IN (SELECT id_mapel FROM tr_guru_mapel WHERE id_guru = '".$a['sess_konid']."')")->result(), "id,nama");
-		$a['p_mapel'] = obj_to_array($this->db->query("SELECT * FROM kabupaten")->result(), "id_kabupaten,nm_kabupaten");
+		$a['p_mapel'] = obj_to_array($this->db->query("SELECT * FROM level_user WHERE publish = '1'")->result(), "id_level,nama_level");
 		
 		if ($uri3 == "det") {
 			$are = array();
@@ -956,14 +956,14 @@ class Adm extends CI_Controller {
 
 		        $d_total_row = $this->db->query("SELECT a.id
 		        	FROM tr_guru_tes a
-		        	INNER JOIN kabupaten b ON a.id_guru = b.id_kabupaten INNER JOIN provinsi c ON b.id_provinsi=c.id_provinsi   
+		        	INNER JOIN level_user b ON a.id_guru = b.id_level   
 		        	WHERE (a.nama_ujian LIKE '%".$search['value']."%')")->num_rows();
 		    	
 		    	//echo $this->db->last_query();
 
-		        $q_datanya = $this->db->query("SELECT a.*, c.nm_provinsi AS prov, b.nm_kabupaten AS kab
+		        $q_datanya = $this->db->query("SELECT a.*, b.nama_level AS level
 												FROM tr_guru_tes a
-									        	INNER JOIN kabupaten b ON a.id_guru = b.id_kabupaten INNER JOIN provinsi c ON b.id_provinsi=c.id_provinsi 
+									        	INNER JOIN level_user b ON a.id_guru = b.id_level
 									        	WHERE (a.nama_ujian LIKE '%".$search['value']."%') 
 		                                        ORDER BY a.id DESC LIMIT ".$start.", ".$length."")->result_array();
 		        $data = array();
@@ -975,7 +975,7 @@ class Adm extends CI_Controller {
 		            $data_ok = array();
 		            $data_ok[0] = $no++;
 		            $data_ok[1] = $d['nama_ujian']/*."<br>Token : <b>".$d['token']."</b> &nbsp;&nbsp; <a href='#' onclick='return refresh_token(".$d['id'].")' title='Perbarui Token'><i class='fa fa-refresh'></i></a>"*/;
-		            $data_ok[2] = $d['kab']." - ".$d['prov'];
+		            $data_ok[2] = $d['level'];
 		            $data_ok[3] = $d['jumlah_soal'];
 		            $data_ok[4] = tjs($d['tgl_mulai'],"s")."<br>(".$d['waktu']." menit)";
 		            $data_ok[5] = $jenis_soal;
@@ -1017,7 +1017,7 @@ class Adm extends CI_Controller {
 	}
 	public function h_ujian() {
 		$this->cek_aktif();
-		cek_hakakses(array("guru","admin"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("2","1"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
@@ -1177,7 +1177,7 @@ class Adm extends CI_Controller {
 	/* == SISWA == */
 	public function ikuti_ujian() {
 		$this->cek_aktif();
-		cek_hakakses(array("siswa"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("3"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
@@ -1216,7 +1216,7 @@ class Adm extends CI_Controller {
 	}
 	public function ikut_ujian() {
 		$this->cek_aktif();
-		cek_hakakses(array("siswa"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("3"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');

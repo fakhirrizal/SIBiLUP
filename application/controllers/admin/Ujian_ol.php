@@ -123,7 +123,7 @@ class Ujian_ol extends CI_Controller {
 	/* == ADMIN == */
 	public function m_siswa() {
 		$this->cek_aktif();
-		cek_hakakses(array("admin"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("1"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
@@ -310,7 +310,7 @@ class Ujian_ol extends CI_Controller {
 	}
 	public function m_guru() {
 		$this->cek_aktif();
-		cek_hakakses(array("admin"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("1"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
@@ -496,7 +496,7 @@ class Ujian_ol extends CI_Controller {
 	}
 	public function m_mapel() {
 		$this->cek_aktif();
-		cek_hakakses(array("admin"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("1"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
@@ -579,7 +579,7 @@ class Ujian_ol extends CI_Controller {
 	/* == GURU == */
 	public function m_soal() {
 		$this->cek_aktif();
-		cek_hakakses(array("admin", "guru"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("1","2"), $this->session->userdata('admin_level'));
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
 		$a['sess_user'] = $this->session->userdata('admin_user');
@@ -923,7 +923,7 @@ class Ujian_ol extends CI_Controller {
 	}
 	public function m_ujian() {
 		$this->cek_aktif();
-		cek_hakakses(array("guru","admin"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("2","1"), $this->session->userdata('admin_level'));
 
 		
 		//var def session
@@ -1109,7 +1109,7 @@ class Ujian_ol extends CI_Controller {
 	}
 	public function h_ujian() {
 		$this->cek_aktif();
-		cek_hakakses(array("guru","admin"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("2","1"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
@@ -1269,7 +1269,7 @@ class Ujian_ol extends CI_Controller {
 	/* == SISWA == */
 	public function ikuti_ujian() {
 		$this->cek_aktif();
-		cek_hakakses(array("siswa"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("3"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
@@ -1303,7 +1303,7 @@ class Ujian_ol extends CI_Controller {
 	}
 	public function ikut_ujian() {
 		$this->cek_aktif();
-		cek_hakakses(array("siswa"), $this->session->userdata('admin_level'));
+		cek_hakakses(array("3"), $this->session->userdata('admin_level'));
 		
 		//var def session
 		$a['sess_level'] = $this->session->userdata('admin_level');
