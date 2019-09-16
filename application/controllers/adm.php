@@ -848,7 +848,7 @@ class Adm extends CI_Controller {
 		
 		//$a['data'] = $this->db->query("SELECT tr_guru_tes.*, m_mapel.nama AS mapel FROM tr_guru_tes INNER JOIN m_mapel ON tr_guru_tes.id_mapel = m_mapel.id WHERE tr_guru_tes.id_guru = '".$a['sess_konid']."'")->result();
 
-		$a['pola_tes'] = array(""=>"Pengacakan Soal", "acak"=>"Soal Diacak", "set"=>"Soal Diurutkan");
+		$a['pola_tes'] = array(""=>"-- Pilih --", "acak"=>"Soal Diacak", "set"=>"Soal Diurutkan");
 
 //		$a['p_mapel'] = obj_to_array($this->db->query("SELECT * FROM m_mapel WHERE id IN (SELECT id_mapel FROM tr_guru_mapel WHERE id_guru = '".$a['sess_konid']."')")->result(), "id,nama");
 		$a['p_mapel'] = obj_to_array($this->db->query("SELECT * FROM level_user WHERE publish = '1'")->result(), "id_level,nama_level");

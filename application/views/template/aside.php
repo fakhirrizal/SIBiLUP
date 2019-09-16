@@ -4,7 +4,12 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin_side/beranda" ?>" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Beranda</span></a>
+                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin_side/beranda" ?>" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">Beranda</span></a>
+                </li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-inbox"></i><span class="hide-menu">Master </span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="<?= base_url()."admin_side/pengguna" ?>">Pengguna</a></li>
+                    </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profil Direktorat </span></a>
                     <ul aria-expanded="false" class="collapse">
@@ -28,13 +33,13 @@
                         <?php } ?>
                     </ul>
                 </li>
-                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/Perpustakaan/agenda" ?>" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Agenda</span></a>
+                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/Perpustakaan/agenda" ?>" aria-expanded="false"><i class="mdi mdi-bulletin-board"></i><span class="hide-menu">Agenda</span></a>
                 </li>
-                <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Diskusi</span></a>
+                <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Diskusi</span></a>
                 </li>
                 <li> <a class="waves-effect waves-dark" href="pages-error-404.html" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Hubungi Kami</span></a>
                 </li>
-                <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">FAQ</span></a>
+                <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-file-document-box"></i><span class="hide-menu">FAQ</span></a>
                 </li>
             </ul>
         </nav>
@@ -42,9 +47,9 @@
     </div>
     <!-- End Sidebar scroll-->
     <!-- Bottom points-->
-    <div class="sidebar-footer">
-        <!-- item--><a href="" class="link" data-toggle="tooltip" title="Pengaturan"><i class="ti-settings"></i></a>
-        <!-- item--><a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
-        <!-- item--><a href="<?php echo site_url('Auth/logout'); ?>" class="link" data-toggle="tooltip" title="Keluar"><i class="mdi mdi-power"></i></a> </div>
+    <!-- <div class="sidebar-footer">
+        <a href="" class="link" data-toggle="tooltip" title="Pengaturan"><i class="ti-settings"></i></a>
+        <a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
+        <a href="<?php echo site_url('Auth/logout'); ?>" class="link" data-toggle="tooltip" title="Keluar"><i class="mdi mdi-power"></i></a> </div> -->
     <!-- End Bottom points-->
 </aside>
