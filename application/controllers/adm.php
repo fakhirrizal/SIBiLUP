@@ -898,15 +898,15 @@ class Adm extends CI_Controller {
 		} else if ($uri3 == "simpan") {
 			$ket 	= "";
 
-			$ambil_data = $this->db->query("SELECT id FROM m_soal WHERE id_mapel = '".bersih($p, "mapel")."' AND id_guru = '".$a['sess_konid']."'")->num_rows();
+			$ambil_data = $this->db->query("SELECT id FROM m_soal WHERE id_guru = '".bersih($p, "mapel")."'")->num_rows();
 
 
 			$jml_soal_diminta = intval(bersih($p, "jumlah_soal"));
 			
-			if ($ambil_data < $jml_soal_diminta) {
+			/*if ($ambil_data < $jml_soal_diminta) {
 				$ret_arr['status'] 	= "gagal";
 				$ret_arr['caption']	= "Jumlah soal diinput, melebihi jumlah soal yang ada: ".$ambil_data;
-			} else {
+			} else {*/
 				if ($p->id != 0) {
 					$this->db->query("UPDATE tr_guru_tes SET 
 						id_mapel = '".bersih($p,"mapel")."', 
@@ -924,8 +924,8 @@ class Adm extends CI_Controller {
 
 					$this->db->query("INSERT INTO tr_guru_tes VALUES (
 						null, 
-						'".$a['sess_konid']."', 
 						'".bersih($p,"mapel")."',
+						'',
 						'".bersih($p,"nama_ujian")."', 
 						'".bersih($p,"jumlah_soal")."', 
 						'".bersih($p,"waktu")."', 
@@ -939,7 +939,7 @@ class Adm extends CI_Controller {
 
 				$ret_arr['status'] 	= "ok";
 				$ret_arr['caption']	= $ket." sukses";
-			}
+			//}
 			j($ret_arr);
 			exit();
 		} else if ($uri3 == "hapus") {
@@ -981,6 +981,7 @@ class Adm extends CI_Controller {
 		            $data_ok[5] = $jenis_soal;
 		            $data_ok[6] = '
 		            	<div class="btn-group">
+                          <a href="'.base_url().'adm/m_modul/'.$d['id'].'" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Lihat Soal</a>
                           <a href="#" onclick="return m_ujian_e('.$d['id'].');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
                           <a href="#" onclick="return m_ujian_h('.$d['id'].');" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
                         </div>
@@ -1015,6 +1016,194 @@ class Adm extends CI_Controller {
 		$this->load->view('template/aside');
 		$this->load->view('template/footer', $a);
 	}
+
+	public function m_modul() {
+		$this->cek_aktif();
+		cek_hakakses(array("2","1"), $this->session->userdata('admin_level'));
+
+		
+		//var def session
+		$a['sess_level'] = $this->session->userdata('admin_level');
+		$a['sess_user'] = $this->session->userdata('admin_user');
+		$a['sess_konid'] = $this->session->userdata('admin_konid');
+		//var def uri segment
+		$uri2 = $this->uri->segment(2);
+		$uri3 = $this->uri->segment(3);
+		$uri4 = $this->uri->segment(4);
+		//var post from json
+		$p = json_decode(file_get_contents('php://input'));
+		//return as json
+		$jeson = array();
+		
+		//$a['data'] = $this->db->query("SELECT tr_guru_tes.*, m_mapel.nama AS mapel FROM tr_guru_tes INNER JOIN m_mapel ON tr_guru_tes.id_mapel = m_mapel.id WHERE tr_guru_tes.id_guru = '".$a['sess_konid']."'")->result();
+
+		$a['pola_tes'] = array(""=>"-- Pilih --", "acak"=>"Soal Diacak", "set"=>"Soal Diurutkan");
+
+//		$a['p_mapel'] = obj_to_array($this->db->query("SELECT * FROM m_mapel WHERE id IN (SELECT id_mapel FROM tr_guru_mapel WHERE id_guru = '".$a['sess_konid']."')")->result(), "id,nama");
+		$a['p_mapel'] = obj_to_array($this->db->query("SELECT * FROM level_user WHERE publish = '1'")->result(), "id_level,nama_level");
+		
+		if ($uri3 == "det") {
+			$are = array();
+
+			$a = $this->db->query("SELECT * FROM tr_guru_tes WHERE id = '$uri4'")->row();
+			
+			if (!empty($a)) {
+				$pc_waktu = explode(" ", $a->tgl_mulai);
+				$pc_tgl = explode("-", $pc_waktu[0]);
+
+				$pc_terlambat = explode(" ", $a->terlambat);
+
+				$are['id'] = $a->id;
+				$are['id_guru'] = $a->id_guru;
+				$are['id_mapel'] = $a->id_mapel;
+				$are['nama_ujian'] = $a->nama_ujian;
+				$are['jumlah_soal'] = $a->jumlah_soal;
+				$are['waktu'] = $a->waktu;
+				$are['terlambat'] = $pc_terlambat[0];
+				$are['terlambat2'] = substr($pc_terlambat[1],0,5);
+				$are['jenis'] = $a->jenis;
+				$are['detil_jenis'] = $a->detil_jenis;
+				$are['tgl_mulai'] = $pc_waktu[0];
+				$are['wkt_mulai'] = substr($pc_waktu[1],0,5);
+				$are['token'] = $a->token;
+			} else {
+				$are['id'] = "";
+				$are['id_guru'] = "";
+				$are['id_mapel'] = "";
+				$are['nama_ujian'] = "";
+				$are['jumlah_soal'] = "";
+				$are['waktu'] = "";
+				$are['terlambat'] = "";
+				$are['terlambat2'] = "";
+				$are['jenis'] = "";
+				$are['detil_jenis'] = "";
+				$are['tgl_mulai'] = "";
+				$are['wkt_mulai'] = "";
+				$are['token'] = "";
+			}
+
+			j($are);
+			exit();
+		} else if ($uri3 == "simpan") {
+			$ket 	= "";
+
+			$ambil_data = $this->db->query("SELECT id FROM m_soal WHERE id_guru = '".bersih($p, "mapel")."'")->num_rows();
+
+
+			$jml_soal_diminta = intval(bersih($p, "jumlah_soal"));
+			
+			/*if ($ambil_data < $jml_soal_diminta) {
+				$ret_arr['status'] 	= "gagal";
+				$ret_arr['caption']	= "Jumlah soal diinput, melebihi jumlah soal yang ada: ".$ambil_data;
+			} else {*/
+				if ($p->id != 0) {
+					$this->db->query("UPDATE tr_guru_tes SET 
+						id_mapel = '".bersih($p,"mapel")."', 
+						nama_ujian = '".bersih($p,"nama_ujian")."', 
+						jumlah_soal = '".bersih($p,"jumlah_soal")."', 
+						waktu = '".bersih($p,"waktu")."', 
+						terlambat = '".bersih($p,"terlambat")." ".bersih($p,"terlambat2")."', 
+						tgl_mulai = '".bersih($p,"tgl_mulai")." ".bersih($p,"wkt_mulai")."', 
+						jenis = '".bersih($p,"acak")."'
+						WHERE id = '".bersih($p,"id")."'");
+					$ket = "edit";
+				} else {
+					$ket = "tambah";
+					$token = strtoupper(random_string('alpha', 5));
+
+					$this->db->query("INSERT INTO tr_guru_tes VALUES (
+						null, 
+						'".bersih($p,"mapel")."',
+						'',
+						'".bersih($p,"nama_ujian")."', 
+						'".bersih($p,"jumlah_soal")."', 
+						'".bersih($p,"waktu")."', 
+						'".bersih($p,"acak")."', 
+						'', 
+						'".bersih($p,"tgl_mulai")." ".bersih($p,"wkt_mulai")."', 
+						'".bersih($p,"terlambat")." ".bersih($p,"terlambat2")."', 
+						'$token')");
+				}
+
+
+				$ret_arr['status'] 	= "ok";
+				$ret_arr['caption']	= $ket." sukses";
+			//}
+			j($ret_arr);
+			exit();
+		} else if ($uri3 == "hapus") {
+			$this->db->query("DELETE FROM tr_guru_tes WHERE id = '".$uri4."'");
+			$ret_arr['status'] 	= "ok";
+			$ret_arr['caption']	= "hapus sukses";
+			j($ret_arr);
+			exit();
+		} else if ($uri3 == "data") {
+				$start = $this->input->post('start');
+		        $length = $this->input->post('length');
+		        $draw = $this->input->post('draw');
+		        $search = $this->input->post('search');
+
+		        $d_total_row = $this->db->query("SELECT a.id_ujianmodul
+		        	FROM ujian_modul a
+		        	INNER JOIN modul b ON a.id_modul = b.id_modul   
+		        	WHERE a.id_ujian='$uri4' AND (b.judul LIKE '%".$search['value']."%')")->num_rows();
+		    	
+		    	//echo $this->db->last_query();
+
+		        $q_datanya = $this->db->query("SELECT a.*, b.judul AS judul
+												FROM ujian_modul a
+									        	INNER JOIN modul b ON a.id_modul = b.id_modul
+									        	WHERE a.id_ujian='$uri4' AND (b.judul LIKE '%".$search['value']."%') 
+		                                        ORDER BY b.judul ASC LIMIT ".$start.", ".$length."")->result_array();
+		        $data = array();
+		        $no = ($start+1);
+
+		        foreach ($q_datanya as $d) {
+		        	//$jenis_soal = $d['jenis'] == "acak" ? "Soal diacak" : "Soal urut";
+                
+		            $data_ok = array();
+		            $data_ok[0] = $no++;
+		            $data_ok[1] = $d['judul']/*."<br>Token : <b>".$d['token']."</b> &nbsp;&nbsp; <a href='#' onclick='return refresh_token(".$d['id'].")' title='Perbarui Token'><i class='fa fa-refresh'></i></a>"*/;
+		            $data_ok[2] = $d['jml_soal'];
+		            $data_ok[3] = $d['urutan'];
+		            $data_ok[4] = '
+		            	<div class="btn-group">
+                          <a href="'.base_url().'adm/m_modul/'.$d['id_ujianmodul'].'" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Lihat Soal</a>
+                          <a href="#" onclick="return m_ujian_e('.$d['id_ujianmodul'].');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
+                          <a href="#" onclick="return m_ujian_h('.$d['id_ujianmodul'].');" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
+                        </div>
+	                         ';
+
+		            $data[] = $data_ok;
+		        }
+
+		        $json_data = array(
+		                    "draw" => $draw,
+		                    "iTotalRecords" => $d_total_row,
+		                    "iTotalDisplayRecords" => $d_total_row,
+		                    "data" => $data
+		                );
+		        j($json_data);
+		        exit;
+		} else if ($uri3 == "refresh_token") {
+			$token = strtoupper(random_string('alpha', 5));
+
+			$this->db->query("UPDATE tr_guru_tes SET token = '$token' WHERE id = '$uri4'");
+
+			$ret_arr['status'] = "ok";
+			j($ret_arr);
+			exit();
+		} else {
+			$a['load']    =  array("adm/m_modul_tes"); 
+		}
+		
+		$a['title_page'] = "Soal Ujian Online";
+        $a['breadcrumb'] = "Perpustakaan,Soal Ujian Online";
+		$this->load->view('template/header');
+		$this->load->view('template/aside');
+		$this->load->view('template/footer', $a);
+	}
+
 	public function h_ujian() {
 		$this->cek_aktif();
 		cek_hakakses(array("2","1"), $this->session->userdata('admin_level'));

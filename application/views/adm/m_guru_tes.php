@@ -49,7 +49,7 @@
                       <input type="hidden" name="jumlah_soal1" id="jumlah_soal1" value="0">
                       <table class="table table-form">
                         <tr><td style="width: 25%">Nama Ujian</td><td style="width: 75%"><input type="text" class="form-control" name="nama_ujian" id="nama_ujian" required></td></tr>
-                        <tr><td>Role User</td><td><?php echo form_dropdown('mapel', $p_mapel, '', 'class="form-control"  id="mapel" required'); ?></td></tr>
+                        <tr><td>Role User</td><td><?php echo form_dropdown('guru', $p_mapel, '', 'class="form-control"  id="guru" required'); ?></td></tr>
                         <tr><td>Jumlah soal</td><td><?php echo form_input('jumlah_soal', '', 'class="form-control" id="jumlah_soal" required'); ?></td></tr>
                         <tr><td>Tanggal Mulai</td><td>
                           <input type="date" name='tgl_mulai' class="form-control" style="width: 200px; display: inline; float: left" id="tgl_mulai" placeholder="Tgl" data-tooltip="waktu awal boleh menge-klik tombol \"mulai\" ujian" required>

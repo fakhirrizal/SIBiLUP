@@ -48,6 +48,12 @@ $(document).ready(function() {
 		} else {
 			pagination("datatabel", base_url+"adm/m_ujian/data", []);	
 		}
+	} else if (url == "m_modul") {
+		if (url2 == "det") {
+			pagination("datatabel", base_url+"adm/m_modul/data_det/"+url3, []);
+		} else {
+			pagination("datatabel", base_url+"adm/m_modul/data/"+url2, []);	
+		}
 	} else if (url == "ikut_ujian") {
 		if (url2 == "token") {
 			timer();
@@ -209,6 +215,7 @@ function m_ujian_e(id) {
 			$("#id").val(data.id);
 			$("#nama_ujian").val(data.nama_ujian);
 			$("#mapel").val(data.id_mapel);
+			$("#guru").val(data.id_guru);
 			$("#jumlah_soal").val(data.jumlah_soal);
 			$("#waktu").val(data.waktu);
 			$("#terlambat").val(data.terlambat);
