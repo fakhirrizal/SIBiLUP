@@ -81,6 +81,10 @@ $route['admin_side/cleaning_log'] = 'admin/App/cleaning_log';
 $route['admin_side/tentang_aplikasi'] = 'admin/App/about';
 $route['admin_side/bantuan'] = 'admin/App/helper';
 
+$route['admin_side/pengguna'] = 'admin/Master/administrator_data';
+$route['admin_side/tambah_pengguna'] = 'admin/Master/add_administrator_data';
+$route['admin_side/simpan_data_pengguna'] = 'admin/Master/save_administrator_data';
+
 $route['admin_side/data_provinsi'] = 'admin/Map/province';
 $route['admin_side/tambah_data_provinsi'] = 'admin/Map/add_province';
 $route['admin_side/simpan_data_provinsi'] = 'admin/Map/save_province';

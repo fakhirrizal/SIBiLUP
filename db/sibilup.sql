@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 16 Sep 2019 pada 10.41
+-- Generation Time: 18 Sep 2019 pada 03.37
 -- Versi Server: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `activity_logs` (
   `activity_os` varchar(16) DEFAULT NULL,
   `activity_browser` varchar(16) DEFAULT NULL,
   `activity_location` text
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `activity_logs`
@@ -52,7 +52,11 @@ INSERT INTO `activity_logs` (`activity_id`, `user_id`, `company_id`, `activity_t
 (5, 1, 0, 'Login to system', 'Login via web browser', '2019-09-12 09:04:33', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
 (6, 1, 0, 'Login to system', 'Login via web browser', '2019-09-12 09:34:49', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
 (7, 1, 0, 'Login to system', 'Login via web browser', '2019-09-16 14:17:29', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(8, 1, 0, 'Login to system', 'Login via web browser', '2019-09-16 14:36:00', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL);
+(8, 1, 0, 'Login to system', 'Login via web browser', '2019-09-16 14:36:00', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
+(9, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 10:17:21', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
+(10, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 10:19:28', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
+(11, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 17:28:15', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
+(12, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 17:45:35', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL);
 
 -- --------------------------------------------------------
 
@@ -644,7 +648,7 @@ INSERT INTO `level_user` (`id_level`, `nama_level`, `publish`, `create_date`, `u
 (1, 'Super Admin', 0, '2019-09-16 04:13:03', '0000-00-00 00:00:00'),
 (2, 'Admin', 0, '2019-09-16 04:13:03', '0000-00-00 00:00:00'),
 (3, 'Admin Provinsi', 1, '2019-09-16 04:14:00', '0000-00-00 00:00:00'),
-(4, 'Admin Daerah', 2, '2019-09-16 04:14:02', '0000-00-00 00:00:00');
+(4, 'Admin Daerah', 1, '2019-09-17 03:20:13', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -741,7 +745,7 @@ INSERT INTO `m_soal` (`id`, `id_guru`, `id_mapel`, `bobot`, `file`, `tipe_file`,
 (45, 3, 1, 1, '', '', '<p>Sejak zaman dahulu, nenek moyang kita sudah mengenal tanaman lidah buaya serta manfaatnya. Manfaat tumbuhan yang bernama latin Aloe Vera ini tidak hanya sebagai penyubur rambut, tetapi juga bermanfaat bagi kesehatan. Tumbuhan tanpa buah ini mempunyai ciri-ciri, seperti daun berbentuk panjang, tebal, dan berwarna hijau. Daunnya mengandung serat bening sebagai daging. Meskipun sejak dahulu dikenal memiliki banyak khasiat, belum banyak yang mengetahui bahwa tanaman ini bisa menjadi komoditas yang menguntungkan. Komoditas yang berbahan lidah buaya, di antaranya obat untuk mempercepat proses penyembuhan penyakit, jus lidah buaya atau gel sebagai obat pencahar yang baik dan sangat membantu jika mengalami sembelit, ramuan penyubur rambut, juga sebagai minuman yang menyehatkan.</p>\r\n\r\n<p>Ringkasan paragraf tersebut adalah....</p>\r\n', '#####<p>Lidah buaya bermanfaat sebagai penyubur rambut juga untuk kesehatan.</p>\r\n', '#####<p>Lidah buaya sangat bermanfaat untuk mengobati berbagai macam penyakit.</p>\r\n', '#####<p>Lidah buaya selain bermanfaat juga menjadi komoditas yang menguntungkan</p>\r\n', '#####<p>Lidah buaya memiliki ciri-ciri tertentu dan nilai komoditas yang menguntungkan</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 1, 5),
 (46, 3, 1, 1, '', '', '<p>Perlunya Resapan Air untuk Mencegah Banjir</p>\r\n\r\n<p>Banjir sudah menjadi agenda tahunan bagi masyarakat Indonesia. Tidak heran bila pemerintah berjuang keras dan mengeluarkan biaya yang sangat besar untuk menyelesaikan masalah ini. Membangun saluran air yang bagus merupakan salah satu cara pemerintah menanggulangi banjir. Namun, itu semua tidak akan berhasil apabila tidak diimbangi dengan pembangunan daerah resapan air. Jadi, resapan air ini merupakan syarat mutlak untuk menanggulangi banjir.</p>\r\n\r\n<p>Pendapat yang mendukung kutipan isi teks tersebut adalah ...</p>\r\n', '#####<p>Solusi tersebut hanya akan menghamburkan uang negara.</p>\r\n', '#####<p>Solusi seperti itu sudah tepat sehingga harus segera direalisasikan.</p>\r\n', '#####<p>Solusi yang dipilih pemerintah tidak akan mampu menanggulangi banjir</p>\r\n', '#####<p>Solusi tersebut masuk akal, tetapi sulit membangun resapan air di perkotaan.</p>\r\n', '#####<p>opsi E.13</p>\r\n', 'B', '2017-01-25 10:13:02', 0, 6),
 (47, 3, 1, 1, '', '', '<p>Ternyata jeruk nipis bermanfaat dalam mengobati batuk. Buah ini memiliki kandungan berupa minyak asiri dan zat yang dapat bermanfaat mengendalikan otot-otot pernapasan sehingga mampu meredakan batuk. Adapun cara penggunaannya yaitu dengan cara meminum air perasan dari jeruk nipis yang dapat dicampur dengan madu, kecap atau gula sehingga rasa asamnya berkurang. (http://informasiana.com)</p>\r\n\r\n<p>Isi yang tersirat pada bagian teks tersebut adalah ....</p>\r\n', '#####<p>Jeruk nipis dapat dicampur dengan zat lainnya</p>\r\n', '#####<p>Jeruk nipis dapat ditanam di pekarangan rumah</p>\r\n', '#####<p>Jeruk nipis memiliki khasiat untuk menjaga kesehatan</p>\r\n', '#####<p>Jeruk nipis lebih berkhasiat dibandingkan jeruk lainnya</p>\r\n', '#####<p>opsi E.14</p>\r\n', 'C', '2017-01-25 10:13:02', 2, 4),
-(48, 3, 1, 1, '', '', '<p>Ternyata jeruk nipis bermanfaat dalam mengobati batuk. Buah ini memiliki kandungan berupa minyak asiri dan zat yang dapat bermanfaat mengendalikan otot-otot pernapasan sehingga mampu meredakan batuk. Adapun cara penggunaannya yaitu dengan cara meminum air perasan dari jeruk nipis yang dapat dicampur dengan madu, kecap atau gula sehingga rasa asamnya berkurang. (http://informasiana.com)</p>\r\n\r\n<p>Ide pokok teks tersebut adalah ....</p>\r\n', '#####<p>manfaat jeruk nipis</p>\r\n', '#####<p>kandungan jeruk nipis</p>\r\n', '#####<p>campuran jeruk nipis</p>\r\n', '#####<p>cara penggunaan jeruk nipis</p>\r\n', '#####<p>opsi E.15</p>\r\n', 'A', '2017-01-25 10:13:02', 0, 4),
+(48, 3, 1, 1, '', '', '<p>Ternyata jeruk nipis bermanfaat dalam mengobati batuk. Buah ini memiliki kandungan berupa minyak asiri dan zat yang dapat bermanfaat mengendalikan otot-otot pernapasan sehingga mampu meredakan batuk. Adapun cara penggunaannya yaitu dengan cara meminum air perasan dari jeruk nipis yang dapat dicampur dengan madu, kecap atau gula sehingga rasa asamnya berkurang. (http://informasiana.com)</p>\r\n\r\n<p>Ide pokok teks tersebut adalah ....</p>\r\n', '#####<p>manfaat jeruk nipis</p>\r\n', '#####<p>kandungan jeruk nipis</p>\r\n', '#####<p>campuran jeruk nipis</p>\r\n', '', '', 'A', '2017-01-25 10:13:02', 0, 4),
 (49, 3, 1, 1, '', '', '<p>Kelestarian Lingkungan Hidup</p>\r\n\r\n<p>Lingkungan adalah sesuatu yang ada di sekitar manusia yang dapat memengaruhi kehidupan manusia. Lingkungan hidup adalah kesatuan ruang dengan benda dan kesatuan makhluk hidup termasuk manusia terlibat di dalamnya. Manusia harus menyadari bahwa lingkungan merupakan sarana pengembangan hidup yang harus dijaga kelestariannya.</p>\r\n\r\n<p>Dalam lingkungan hidup terdapat ekosistem, yaitu tatanan unsur lingkungan hidup yang merupakan kesatuan utuh menyeluruh dan saling memengaruhi dalam membentuk keseimbangan, stabilitas, dan produktivitas lingkungan hidup. Lingkungan hidup dapat dibedakan menjadi tiga, yaitu unsur hayati (biotik), unsur sosial budaya, dan unsur fisik (abiotik). Unsur hayati (biotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk hidup, seperti manusia, hewan, tumbuhan dan jasad renik. Unsur sosial budaya, yaitu lingkungan sosial dan budaya yang dibuat oleh manusia berupa sistem nilai, gagasan, dan keyakinan dalam perilaku sebagai makhluk&nbsp;sosial. Unsur fisik (abiotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk tak hidup, seperti tanah, air, iklim, udara dan lain sebagainya. Keberadaan unsur ini sangat besar bagi kelangsungan hidup segenap kehidupan di bumi.</p>\r\n\r\n<p>Simpulan isi teks tersebut adalah ...</p>\r\n', '#####<p>Manusia harus menjaga kelestarian lingkungan hidup.</p>\r\n', '#####<p>Manusia dapat memanfaatkan seluruh isi lingkungan hidup</p>\r\n', '#####<p>Seluruh unsur lingkungan hidup saling mempengaruhi demi kehidupan manusia.</p>\r\n', '#####<p>Unsur biotik, sosial budaya, dan abiotik harus dimanfaatkan manusia secara seimbang.</p>\r\n', '#####<p>opsi E.16</p>\r\n', 'A', '2017-01-25 10:13:02', 3, 5),
 (50, 3, 2, 1, '', '', '<p>Kelestarian Lingkungan Hidup</p>\r\n\r\n<p>Lingkungan adalah sesuatu yang ada di sekitar manusia yang dapat memengaruhi kehidupan manusia. Lingkungan hidup adalah kesatuan ruang dengan benda dan kesatuan makhluk hidup termasuk manusia terlibat di dalamnya. Manusia harus menyadari bahwa lingkungan merupakan sarana pengembangan hidup yang harus dijaga kelestariannya.</p>\r\n\r\n<p>Dalam lingkungan hidup terdapat ekosistem, yaitu tatanan unsur lingkungan hidup yang merupakan kesatuan utuh menyeluruh dan saling memengaruhi dalam membentuk keseimbangan, stabilitas, dan produktivitas lingkungan hidup. Lingkungan hidup dapat dibedakan menjadi tiga, yaitu unsur hayati (biotik), unsur sosial budaya, dan unsur fisik (abiotik). Unsur hayati (biotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk hidup, seperti manusia, hewan, tumbuhan dan jasad renik. Unsur sosial budaya, yaitu lingkungan sosial dan budaya yang dibuat oleh manusia berupa sistem nilai, gagasan, dan keyakinan dalam perilaku sebagai makhluk&nbsp;sosial. Unsur fisik (abiotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk tak hidup, seperti tanah, air, iklim, udara dan lain sebagainya. Keberadaan unsur ini sangat besar bagi kelangsungan hidup segenap kehidupan di bumi.</p>\r\n\r\n<p>Informasi yang sesuai dengan isi teks tersebut adalah &hellip;.</p>\r\n\r\n<p>&nbsp;</p>\r\n', '#####<p>Tanpa adanya unsur lingkungan hidup, manusia tidak hidup di bumi ini.</p>\r\n', '#####<p>Unsur abiotik tidak terlalu berpengaruh terhadap kelangsungan hidup manusia</p>\r\n', '#####<p>Unsur sosial budaya diciptakan oleh manusia untuk kelestarian kehidupan di bumi.</p>\r\n', '#####<p>Lingkungan hidup yang meliputi unsur biotik, sosial budaya, dan abiotik harus dijaga kelestariannya.</p>\r\n', '#####<p>opsi E.17</p>\r\n', 'D', '2017-01-25 10:13:02', 0, 7),
 (51, 3, 2, 1, '', '', '<p>Biografi Mario Teguh</p>\r\n\r\n<p>&quot;Salam Super&quot; itulah kata-kata pembuka yang biasa diucapkan oleh Mario Teguh ketika ia mulai membawakan acara di Metro TV yang bertajuk &#39;Mario Teguh Golden Ways&#39;. Terkenal sebagai <em>motivator </em>terbaik di Indonesia yang memiliki kepribadian yang cerdas serta mampu memotivasi banyak orang melalui rangkaian kata-kata bijaknya sehingga ia makin banyak disukai oleh orang-orang.<br />\r\n&nbsp;</p>\r\n\r\n<p>Makna kata bercetak miring pada kutipan teks tersebut adalah &hellip;</p>\r\n', '#####<p>Orang yang bertugas mengingatkan orang lain agar selalu melakukan perbuatan baik.</p>\r\n', '#####<p>Orang yang bertugas membantu seseorang dalam menyelesaikan masalah pribadinya.</p>\r\n', '#####<p>Orang yang menyebabkan timbulnya dorongan pada orang lain untuk melakukan sesuatu.</p>\r\n', '#####<p>Orang yang membangkitkan semangat seseorang agar berasil dalam menjalankan usahanya.</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 1, 7);
@@ -758,7 +762,7 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
   `alamat` text NOT NULL,
   `email` varchar(50) NOT NULL,
   `phone` varchar(15) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `pegawai`
@@ -912,7 +916,7 @@ CREATE TABLE IF NOT EXISTS `tr_guru_tes` (
   `tgl_mulai` datetime NOT NULL,
   `terlambat` datetime NOT NULL,
   `token` varchar(5) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tr_guru_tes`
@@ -920,7 +924,9 @@ CREATE TABLE IF NOT EXISTS `tr_guru_tes` (
 
 INSERT INTO `tr_guru_tes` (`id`, `id_guru`, `id_mapel`, `nama_ujian`, `jumlah_soal`, `waktu`, `jenis`, `detil_jenis`, `tgl_mulai`, `terlambat`, `token`) VALUES
 (1, 3, 1, 'tes', 10, 100, 'acak', '', '2019-09-09 10:10:00', '2019-09-20 10:10:00', 'UWZCK'),
-(2, 3, 2, 'tes', 2, 30, 'acak', '', '2019-09-14 10:10:00', '2019-09-30 10:08:00', '');
+(2, 3, 2, 'tes', 2, 30, 'acak', '', '2019-09-14 10:10:00', '2019-09-30 10:08:00', ''),
+(3, 0, 3, 'tes', 10, 30, 'acak', '', '2019-09-17 10:10:00', '2019-10-31 10:10:00', ''),
+(4, 3, 0, 'cek', 5, 35, 'acak', '', '2019-09-17 10:10:00', '2019-10-31 10:10:00', '');
 
 -- --------------------------------------------------------
 
@@ -940,14 +946,15 @@ CREATE TABLE IF NOT EXISTS `tr_ikut_ujian` (
   `tgl_mulai` datetime NOT NULL,
   `tgl_selesai` datetime NOT NULL,
   `status` enum('Y','N') NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tr_ikut_ujian`
 --
 
 INSERT INTO `tr_ikut_ujian` (`id`, `id_tes`, `id_user`, `list_soal`, `list_jawaban`, `jml_benar`, `nilai`, `nilai_bobot`, `tgl_mulai`, `tgl_selesai`, `status`) VALUES
-(19, 2, 8, '50,51', '50:C:N,51:B:N', 0, '0.00', '0.00', '2019-09-16 14:55:07', '2019-09-16 15:25:07', 'N');
+(19, 2, 8, '50,51', '50:C:N,51:B:N', 0, '0.00', '0.00', '2019-09-16 14:55:07', '2019-09-16 15:25:07', 'N'),
+(20, 1, 8, '48,46,39,40,49,41,43,37,34,45', '48:C:N,46:C:N,39::N,40::N,49::N,41::N,43::N,37::N,34::N,45::N', 0, '0.00', '0.00', '2019-09-17 17:29:17', '2019-09-17 19:09:17', 'Y');
 
 -- --------------------------------------------------------
 
@@ -1008,7 +1015,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `pass`, `total_login`, `last_login`, `last_activity`, `login_attempts`, `last_login_attempt`, `remember_time`, `remember_exp`, `ip_address`, `is_active`, `verification_token`, `recovery_token`, `unlock_token`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_by`, `deleted_at`, `deleted`) VALUES
-(1, 'admin', '1', 8, '2019-09-16 14:36:00', '2019-09-16 14:36:00', 8, '2019-09-16 14:36:00', NULL, NULL, '::1', 1, NULL, NULL, NULL, 0, '2019-09-06 12:45:51', NULL, NULL, NULL, NULL, 0);
+(1, 'admin', '1', 12, '2019-09-17 17:45:35', '2019-09-17 17:45:35', 14, '2019-09-17 17:45:35', NULL, NULL, '::1', 1, NULL, NULL, NULL, 0, '2019-09-06 12:45:51', NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1067,7 +1074,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 INSERT INTO `user_role` (`id`, `company_id`, `name`, `level`, `kon_id`, `definition`, `description`, `route`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_by`, `deleted_at`, `deleted`) VALUES
 (0, 0, 'Super Admin', 1, 0, 'Super Administrator', NULL, 'admin_side/menu', 0, '2018-10-27 17:52:08', NULL, NULL, NULL, NULL, 0),
 (1, 0, 'Admin', 2, 0, 'Administrator (Owner)', NULL, 'admin_side/beranda', 0, '2017-03-06 01:19:26', 2, '2018-10-27 18:55:37', NULL, NULL, 0),
-(2, 0, 'Anggota Kube', 3, 8, 'Anggota Kube', NULL, NULL, 0, '2017-03-06 01:19:26', NULL, NULL, NULL, NULL, 0),
+(2, 0, 'Anggota Kube', 3, 8, 'Anggota Kube', NULL, 'admin_side/beranda', 0, '2017-03-06 01:19:26', NULL, NULL, NULL, NULL, 0),
 (3, 0, 'Anggota Rutilahu', 4, 6, 'Anggota Rutilahu', NULL, NULL, 0, '2018-09-02 14:20:07', NULL, NULL, NULL, NULL, 0),
 (4, 0, 'Anggota Sarling', 3, 7, 'Anggota Sarling', NULL, NULL, 0, '2018-09-02 14:20:08', NULL, NULL, NULL, NULL, 0);
 
@@ -1087,7 +1094,7 @@ CREATE TABLE IF NOT EXISTS `user_to_role` (
 --
 
 INSERT INTO `user_to_role` (`user_id`, `role_id`) VALUES
-(1, 2);
+(1, 1);
 
 --
 -- Indexes for dumped tables
@@ -1242,7 +1249,7 @@ ALTER TABLE `user_to_role`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `activity_id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `activity_id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `agenda`
 --
@@ -1282,7 +1289,7 @@ ALTER TABLE `m_soal`
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `profil_dir`
 --
@@ -1307,12 +1314,12 @@ ALTER TABLE `tr_guru_mapel`
 -- AUTO_INCREMENT for table `tr_guru_tes`
 --
 ALTER TABLE `tr_guru_tes`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tr_ikut_ujian`
 --
 ALTER TABLE `tr_ikut_ujian`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `ujian_modul`
 --

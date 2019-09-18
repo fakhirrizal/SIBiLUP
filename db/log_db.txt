@@ -12,3 +12,5 @@ Tanggal 5 September 2019
 Tanggal 15 September 2019
     - Buat tabel baru provinsi
     - Buat tabel baru kabupaten
+Tanggal 18 September 2019
+    - ALTER TABLE `pegawai` ADD `user_id` INT(10) NOT NULL AFTER `id_pegawai`, ADD `wilayah` INT(10) NULL AFTER `user_id`, ADD INDEX `user_id` (`user_id`), ADD INDEX `wilayah` (`wilayah`);

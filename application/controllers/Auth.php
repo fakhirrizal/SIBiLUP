@@ -41,10 +41,17 @@ class Auth extends CI_Controller {
 					);
 					$this->Main_model->updateData('user',$data_log,array('id'=>$value->id));
 					$this->Main_model->log_activity($value->id,'Login to system','Login via web browser',$this->input->post('location'));
-					$role = $this->Main_model->getSelectedData('user_to_role a', 'b.*,a.user_id', array('a.user_id'=>$value->id,'b.deleted'=>'0'), "",'','','',array(
-						'table' => 'user_role b',
-						'on' => 'a.role_id=b.id',
-						'pos' => 'left',
+					$role = $this->Main_model->getSelectedData('user_to_role a', 'b.*,a.user_id,c.id_pegawai,c.nama_pegawai', array('a.user_id'=>$value->id,'b.deleted'=>'0'), "",'','','',array(
+						array(
+							'table' => 'user_role b',
+							'on' => 'a.role_id=b.id',
+							'pos' => 'left'
+						),
+						array(
+							'table' => 'pegawai c',
+							'on' => 'a.user_id=c.user_id',
+							'pos' => 'left'
+						)
 					))->result();
 					if($role==NULL){
 						$this->session->set_flashdata('error','<div class="alert alert-danger alert-dismissible" role="alert" style="text-align: justify;">
@@ -56,11 +63,11 @@ class Auth extends CI_Controller {
 						foreach ($role as $key => $value2) {
 							$sess_data['id'] = $value2->user_id;
 							$sess_data['location'] = $this->input->post('location');
-							$sess_data['admin_id'] = $value2->id;
+							$sess_data['admin_id'] = $value2->id; // ini mau ambil user_id atau id_pegawai?kalo user_id ada di session "id", kalo id_pegawai ada di session "admin_konid"
 		                    $sess_data['admin_user'] = $this->input->post('username');
-		                    $sess_data['admin_level'] = $value2->level;
-		                    $sess_data['admin_konid'] = $value2->kon_id;
-		                    $sess_data['admin_nama'] = $value2->name;
+		                    $sess_data['admin_level'] = $value2->id;
+		                    $sess_data['admin_konid'] = $value2->id_pegawai;
+		                    $sess_data['admin_nama'] = $value2->nama_pegawai;
 							$sess_data['admin_valid'] = true;
 							$this->session->set_userdata($sess_data);
 							redirect($value2->route);

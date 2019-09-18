@@ -1072,4 +1072,235 @@ class Master extends CI_Controller {
 	    			</script>";
 	    return $returner;
 	}
+	/* Pengguna */
+	public function administrator_data(){
+		$this->templates();
+        $data['title_page'] = "Pengguna";
+        $data['breadcrumb'] = "Master,Pengguna";
+        $data['load']       =  array("admin/master/administrator_data"); 
+
+        $this->load->view('template/footer', $data);
+	}
+	public function json_administrator_data(){
+		$get_data1 = $this->Main_model->getSelectedData('pegawai a', 'a.user_id,a.nama_pegawai,b.username,d.definition,e.nm_provinsi',array('b.is_active'=>'1','b.deleted'=>'0','d.id'=>'3'),'','','','',array(
+			array(
+				'table' => 'user b',
+				'on' => 'a.user_id=b.id',
+				'pos' => 'LEFT'
+			),
+			array(
+				'table' => 'user_to_role c',
+				'on' => 'a.user_id=c.user_id',
+				'pos' => 'LEFT'
+			),
+			array(
+				'table' => 'user_role d',
+				'on' => 'c.role_id=d.id',
+				'pos' => 'LEFT'
+			),
+			array(
+				'table' => 'provinsi e',
+				'on' => 'a.wilayah=e.id_provinsi',
+				'pos' => 'LEFT'
+			)
+		))->result();
+		$get_data2 = $this->Main_model->getSelectedData('pegawai a', 'a.user_id,a.nama_pegawai,b.username,d.definition,e.nm_kabupaten',array('b.is_active'=>'1','b.deleted'=>'0','d.id'=>'4'),'','','','',array(
+			array(
+				'table' => 'user b',
+				'on' => 'a.user_id=b.id',
+				'pos' => 'LEFT'
+			),
+			array(
+				'table' => 'user_to_role c',
+				'on' => 'a.user_id=c.user_id',
+				'pos' => 'LEFT'
+			),
+			array(
+				'table' => 'user_role d',
+				'on' => 'c.role_id=d.id',
+				'pos' => 'LEFT'
+			),
+			array(
+				'table' => 'kabupaten e',
+				'on' => 'a.wilayah=e.id_kabupaten',
+				'pos' => 'LEFT'
+			)
+		))->result();
+		$data_tampil = array();
+		$no = 1;
+		foreach ($get_data1 as $key => $value) {
+			$isi['number'] = $no++.'.';
+			$isi['nama'] = $value->nama_pegawai;
+			$isi['username'] = $value->username;
+			$isi['keterangan'] = $value->definition.' ('.$value->nm_provinsi.')';
+			$return_on_click = "return confirm('Anda yakin?')";
+			$isi['action'] =	'
+								<div class="dropdown">
+									<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Aksi
+									</button>
+									<ul class="dropdown-menu pull-right" role="menu">
+										<li>
+											<a href="'.site_url('admin_side/detil_data_kube/'.md5($value->user_id)).'">
+												<i class="icon-eye"></i> Detil Data </a>
+										</li>
+										<li>
+											<a href="'.site_url('admin_side/ubah_data_kube/'.md5($value->user_id)).'">
+												<i class="icon-wrench"></i> Ubah Data </a>
+										</li>
+										<li>
+											<a onclick="'.$return_on_click.'" href="'.site_url('admin_side/hapus_data_kube/'.md5($value->user_id)).'">
+												<i class="icon-trash"></i> Hapus Data </a>
+										</li>
+									</ul>
+								</div>
+								';
+			$data_tampil[] = $isi;
+		}
+		foreach ($get_data2 as $key => $value) {
+			$isi['number'] = $no++.'.';
+			$isi['nama'] = $value->nama_pegawai;
+			$isi['username'] = $value->username;
+			$isi['keterangan'] = $value->definition.' ('.$value->nm_kabupaten.')';
+			$return_on_click = "return confirm('Anda yakin?')";
+			$isi['action'] =	'
+								<div class="dropdown">
+									<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Aksi
+									</button>
+									<ul class="dropdown-menu pull-right" role="menu">
+										<li>
+											<a href="'.site_url('admin_side/detil_data_kube/'.md5($value->user_id)).'">
+												<i class="icon-eye"></i> Detil Data </a>
+										</li>
+										<li>
+											<a href="'.site_url('admin_side/ubah_data_kube/'.md5($value->user_id)).'">
+												<i class="icon-wrench"></i> Ubah Data </a>
+										</li>
+										<li>
+											<a onclick="'.$return_on_click.'" href="'.site_url('admin_side/hapus_data_kube/'.md5($value->user_id)).'">
+												<i class="icon-trash"></i> Hapus Data </a>
+										</li>
+									</ul>
+								</div>
+								';
+			$data_tampil[] = $isi;
+		}
+		$results = array(
+			"sEcho" => 1,
+			"iTotalRecords" => count($data_tampil),
+			"iTotalDisplayRecords" => count($data_tampil),
+			"aaData"=>$data_tampil);
+		echo json_encode($results);
+	}
+	public function add_administrator_data(){
+		$this->templates();
+        $data['title_page'] = "Tambah Pengguna";
+        $data['breadcrumb'] = "Master,Pengguna, Tambah Data";
+        $data['load']       =  array("admin/master/add_administrator_data"); 
+
+        $this->load->view('template/footer', $data);
+	}
+	public function save_administrator_data(){
+		$check = $this->Main_model->getSelectedData('user a', 'a.*',array('a.username'=>$this->input->post('username')))->row();
+		if($check==NULL){
+			$this->db->trans_start();
+			$get_user_id = $this->Main_model->getLastID('user','id');
+			$data_insert1 = array(
+				'id' => $get_user_id['id']+1,
+				'username' => $this->input->post('username'),
+				'pass' => $this->input->post('pass'),
+				'is_active' => '1',
+				'created_by' => $this->session->userdata('id'),
+				'created_at' => date('Y-m-d H:i:s')
+			);
+			// print_r($data_insert1);
+			$this->Main_model->insertData('user',$data_insert1);
+			$data_insert2 = array(
+				'user_id' => $get_user_id['id']+1,
+				'wilayah' => $this->input->post('wilayah'),
+				'nama_pegawai' => $this->input->post('nama_pegawai'),
+				'alamat' => $this->input->post('alamat'),
+				'email' => $this->input->post('email'),
+				'phone' => $this->input->post('phone')
+			);
+			$this->Main_model->insertData('pegawai',$data_insert2);
+			// print_r($data_insert2);
+			$data_insert3 = array(
+				'user_id' => $get_user_id['id']+1,
+				'role_id' => $this->input->post('user_role')
+			);
+			$this->Main_model->insertData('user_to_role',$data_insert3);
+			// print_r($data_insert3);
+			$this->Main_model->log_activity($this->session->userdata('id'),'Adding data',"Add admin data",$this->session->userdata('location'));
+			$this->db->trans_complete();
+			if($this->db->trans_status() === false){
+				$this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>data gagal ditambahkan.<br /></div>' );
+				echo "<script>window.location='".base_url()."admin_side/tambah_pengguna/'</script>";
+			}
+			else{
+				$this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil ditambahkan.<br /></div>' );
+				echo "<script>window.location='".base_url()."admin_side/pengguna/'</script>";
+			}
+		}else{
+			$this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>username telah digunakan.<br /></div>' );
+			echo "<script>window.location='".base_url()."admin_side/tambah_pengguna/'</script>";
+		}
+	}
+	/* Other function */
+	public function ajax_function(){
+		if($this->input->post('modul')=='get_wilayah_by_user_role'){
+			if($this->input->post('id')=='3'){
+				$data_provinsi = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
+				echo'
+				<div class="form-group form-md-line-input has-danger">
+					<label class="col-md-2 control-label" for="form_control_1">Provinsi <font color="red">*</font></label>
+					<div class="col-md-10">
+						<div class="input-icon">
+							<select name="wilayah" class="form-control select2-allow-clear" required>
+								<option value="">-- Pilih --</option>';
+								foreach ($data_provinsi as $key => $value) {
+									echo'<option value="'.$value->id_provinsi.'">'.$value->nm_provinsi.'</option>';
+								}
+				echo		'</select>
+						</div>
+					</div>
+				</div>
+				';
+			}elseif($this->input->post('id')=='4'){
+				$data_provinsi = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
+				echo'
+				<div class="form-group form-md-line-input has-danger">
+					<label class="col-md-2 control-label" for="form_control_1">Provinsi <font color="red">*</font></label>
+					<div class="col-md-10">
+						<div class="input-icon">
+							<select id="id_provinsi" class="form-control select2-allow-clear" required>
+								<option value="">-- Pilih --</option>';
+								foreach ($data_provinsi as $key => $value) {
+									echo'<option value="'.$value->id_provinsi.'">'.$value->nm_provinsi.'</option>';
+								}
+				echo		'</select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group form-md-line-input has-danger">
+					<label class="col-md-2 control-label" for="form_control_1">Kabupaten <font color="red">*</font></label>
+					<div class="col-md-10">
+						<div class="input-icon">
+							<select name="wilayah" id="id_kabupaten" class="form-control select2-allow-clear" required>
+								<option value="">-- Pilih --</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				';
+			}
+		}
+		elseif($this->input->post('modul')=='get_kabupaten_by_id_provinsi'){
+			$data_kab = $this->Main_model->getSelectedData('kabupaten a', 'a.*',array('a.id_provinsi'=>$this->input->post('id')))->result();
+			echo'
+			<option value="">-- Pilih --</option>';
+			foreach ($data_kab as $key => $value) {
+				echo'<option value="'.$value->id_kabupaten.'">'.$value->nm_kabupaten.'</option>';
+			}
+		}
+	}
 }
