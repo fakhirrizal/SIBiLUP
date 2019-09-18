@@ -43,10 +43,10 @@
 		<h3>Catatan</h3>
 	</li>
 	<li>
-		1.
+		
 	</li>
 	<li>
-		2.
+		
 	</li>
 </ul>
 <br>
@@ -72,7 +72,7 @@
 										<th style="text-align: center;"> Nama </th>
 										<th style="text-align: center;"> Username </th>
 										<th style="text-align: center;"> Keterangan </th>
-										<th style="text-align: center;" width="7%"> Aksi </th>
+										<th style="text-align: center;" width="9%"> Aksi </th>
 									</tr>
 								</thead>
 							</table>
@@ -89,7 +89,7 @@
 													{ mData: 'nama' },
 													{ mData: 'username', sClass: "alignCenter" } ,
 													{ mData: 'keterangan', sClass: "alignCenter" },
-													{ mData: 'action' }
+													{ mData: 'action', sClass: "alignCenter" }
 												]
 									});
 								});

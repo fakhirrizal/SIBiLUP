@@ -1135,24 +1135,8 @@ class Master extends CI_Controller {
 			$isi['keterangan'] = $value->definition.' ('.$value->nm_provinsi.')';
 			$return_on_click = "return confirm('Anda yakin?')";
 			$isi['action'] =	'
-								<div class="dropdown">
-									<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Aksi
-									</button>
-									<ul class="dropdown-menu pull-right" role="menu">
-										<li>
-											<a href="'.site_url('admin_side/detil_data_kube/'.md5($value->user_id)).'">
-												<i class="icon-eye"></i> Detil Data </a>
-										</li>
-										<li>
-											<a href="'.site_url('admin_side/ubah_data_kube/'.md5($value->user_id)).'">
-												<i class="icon-wrench"></i> Ubah Data </a>
-										</li>
-										<li>
-											<a onclick="'.$return_on_click.'" href="'.site_url('admin_side/hapus_data_kube/'.md5($value->user_id)).'">
-												<i class="icon-trash"></i> Hapus Data </a>
-										</li>
-									</ul>
-								</div>
+									<a href="'.base_url('admin_side/ubah_data_pengguna/'.md5($value->user_id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									<a href="'.base_url('admin_side/hapus_data_pengguna/'.md5($value->user_id)).'" onclick="'.$return_on_click.'" class="link" title="Hapus Data"><i class="mdi mdi-delete-empty"></i></a>
 								';
 			$data_tampil[] = $isi;
 		}
@@ -1161,26 +1145,10 @@ class Master extends CI_Controller {
 			$isi['nama'] = $value->nama_pegawai;
 			$isi['username'] = $value->username;
 			$isi['keterangan'] = $value->definition.' ('.$value->nm_kabupaten.')';
-			$return_on_click = "return confirm('Anda yakin?')";
+			$return_on_click = "return confirm('Anda yakin?');";
 			$isi['action'] =	'
-								<div class="dropdown">
-									<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Aksi
-									</button>
-									<ul class="dropdown-menu pull-right" role="menu">
-										<li>
-											<a href="'.site_url('admin_side/detil_data_kube/'.md5($value->user_id)).'">
-												<i class="icon-eye"></i> Detil Data </a>
-										</li>
-										<li>
-											<a href="'.site_url('admin_side/ubah_data_kube/'.md5($value->user_id)).'">
-												<i class="icon-wrench"></i> Ubah Data </a>
-										</li>
-										<li>
-											<a onclick="'.$return_on_click.'" href="'.site_url('admin_side/hapus_data_kube/'.md5($value->user_id)).'">
-												<i class="icon-trash"></i> Hapus Data </a>
-										</li>
-									</ul>
-								</div>
+									<a href="'.base_url('admin_side/ubah_data_pengguna/'.md5($value->user_id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									<a href="'.base_url('admin_side/hapus_data_pengguna/'.md5($value->user_id)).'" onclick="'.$return_on_click.'" class="link" title="Hapus Data"><i class="mdi mdi-delete-empty"></i></a>
 								';
 			$data_tampil[] = $isi;
 		}
@@ -1194,7 +1162,7 @@ class Master extends CI_Controller {
 	public function add_administrator_data(){
 		$this->templates();
         $data['title_page'] = "Tambah Pengguna";
-        $data['breadcrumb'] = "Master,Pengguna, Tambah Data";
+        $data['breadcrumb'] = "Master,Pengguna,Tambah Data";
         $data['load']       =  array("admin/master/add_administrator_data"); 
 
         $this->load->view('template/footer', $data);
@@ -1243,6 +1211,97 @@ class Master extends CI_Controller {
 		}else{
 			$this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>username telah digunakan.<br /></div>' );
 			echo "<script>window.location='".base_url()."admin_side/tambah_pengguna/'</script>";
+		}
+	}
+	public function edit_administrator_data()
+	{
+		$data['data_utama'] = $this->Main_model->getSelectedData('pegawai a', 'a.*,b.username,c.role_id', array('md5(a.user_id)'=>$this->uri->segment(3),'b.is_active'=>'1','b.deleted'=>'0'),'','','','',array(
+			array(
+				'table' => 'user b',
+				'on' => 'a.user_id=b.id',
+				'pos' => 'left'
+			),
+			array(
+				'table' => 'user_to_role c',
+				'on' => 'a.user_id=c.user_id',
+				'pos' => 'left'
+			)
+		))->result();
+		$this->templates();
+        $data['title_page'] = "Ubah Pengguna";
+        $data['breadcrumb'] = "Master,Pengguna,Ubah Data";
+        $data['load']       =  array("admin/master/edit_administrator_data"); 
+
+        $this->load->view('template/footer', $data);
+	}
+	public function update_administrator_data(){
+		$check = $this->Main_model->getSelectedData('user a', 'a.*','a.username="'.$this->input->post('username').'" AND md5(a.id) NOT IN ("'.$this->input->post('user_id').'")')->result();
+		if($check==NULL){
+			$this->db->trans_start();
+			if($this->input->post('username')==$this->input->post('username_old')){
+				echo'';
+			}else{
+				$data_1 = array(
+					'username' => $this->input->post('username'),
+					'updated_by' => $this->session->userdata('id'),
+					'updated_at' => date('Y-m-d H:i:s')
+				);
+				// print_r($data_1);
+				$this->Main_model->updateData('user',$data_1,array('md5(id)'=>$this->input->post('user_id')));
+			}
+			if($this->input->post('pass')==NULL){
+				echo'';
+			}else{
+				$data_1 = array(
+					'pass' => $this->input->post('pass'),
+					'updated_by' => $this->session->userdata('id'),
+					'updated_at' => date('Y-m-d H:i:s')
+				);
+				// print_r($data_1);
+				$this->Main_model->updateData('user',$data_1,array('md5(id)'=>$this->input->post('user_id')));
+			}
+			$data_2 = array(
+				'wilayah' => $this->input->post('wilayah'),
+				'nama_pegawai' => $this->input->post('nama_pegawai'),
+				'alamat' => $this->input->post('alamat'),
+				'email' => $this->input->post('email'),
+				'phone' => $this->input->post('phone')
+			);
+			$this->Main_model->updateData('pegawai',$data_2,array('md5(user_id)'=>$this->input->post('user_id')));
+			// print_r($data_2);
+			$data_3 = array(
+				'role_id' => $this->input->post('user_role')
+			);
+			$this->Main_model->updateData('user_to_role',$data_3,array('md5(user_id)'=>$this->input->post('user_id')));
+			// print_r($data_3);
+			$this->Main_model->log_activity($this->session->userdata('id'),'Updating data',"Update admin data",$this->session->userdata('location'));
+			$this->db->trans_complete();
+			if($this->db->trans_status() === false){
+				$this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>data gagal diubah.<br /></div>' );
+				echo "<script>window.location='".base_url()."admin_side/ubah_data_pengguna/".$this->input->post('user_id')."'</script>";
+			}
+			else{
+				$this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil diubah.<br /></div>' );
+				echo "<script>window.location='".base_url()."admin_side/pengguna/'</script>";
+			}
+		}else{
+			$this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>username telah digunakan.<br /></div>' );
+			echo "<script>window.location='".base_url()."admin_side/ubah_data_pengguna/".$this->input->post('user_id')."'</script>";
+		}
+	}
+	public function delete_administrator_data(){
+		$this->db->trans_start();
+		$this->Main_model->updateData('user',array('is_active'=>'0','deleted_by'=>$this->session->userdata('id'),'deleted_at'=>date('Y-m-d H:i:s'),'deleted'=>'1'),array('md5(id)'=>$this->uri->segment(3)));
+
+		$this->Main_model->log_activity($this->session->userdata('id'),'Deleting data',"Delete administrator data",$this->session->userdata('location'));
+		$this->db->trans_complete();
+		if($this->db->trans_status() === false){
+			$this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>data gagal dihapus.<br /></div>' );
+			echo "<script>window.location='".base_url()."admin_side/pengguna/'</script>";
+		}
+		else{
+			$this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil dihapus.<br /></div>' );
+			echo "<script>window.location='".base_url()."admin_side/pengguna/'</script>";
 		}
 	}
 	/* Other function */

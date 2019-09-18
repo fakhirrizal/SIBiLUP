@@ -84,6 +84,9 @@ $route['admin_side/bantuan'] = 'admin/App/helper';
 $route['admin_side/pengguna'] = 'admin/Master/administrator_data';
 $route['admin_side/tambah_pengguna'] = 'admin/Master/add_administrator_data';
 $route['admin_side/simpan_data_pengguna'] = 'admin/Master/save_administrator_data';
+$route['admin_side/ubah_data_pengguna/(:any)'] = 'admin/Master/edit_administrator_data/$1';
+$route['admin_side/perbarui_data_pengguna'] = 'admin/Master/update_administrator_data';
+$route['admin_side/hapus_data_pengguna/(:any)'] = 'admin/Master/delete_administrator_data/$1';
 
 $route['admin_side/data_provinsi'] = 'admin/Map/province';
 $route['admin_side/tambah_data_provinsi'] = 'admin/Map/add_province';
