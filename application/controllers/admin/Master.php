@@ -1082,7 +1082,7 @@ class Master extends CI_Controller {
         $this->load->view('template/footer', $data);
 	}
 	public function json_administrator_data(){
-		$get_data1 = $this->Main_model->getSelectedData('pegawai a', 'a.user_id,a.nama_pegawai,b.username,d.definition,e.nm_provinsi',array('b.is_active'=>'1','b.deleted'=>'0','d.id'=>'3'),'','','','',array(
+		$get_data1 = $this->Main_model->getSelectedData('pegawai a', 'a.user_id,a.nama_pegawai,b.username,d.definition,d.description,e.nm_provinsi','b.is_active="1" AND b.deleted="0" AND (d.id="3" OR d.id="5" OR d.id="7")','','','','',array(
 			array(
 				'table' => 'user b',
 				'on' => 'a.user_id=b.id',
@@ -1104,7 +1104,29 @@ class Master extends CI_Controller {
 				'pos' => 'LEFT'
 			)
 		))->result();
-		$get_data2 = $this->Main_model->getSelectedData('pegawai a', 'a.user_id,a.nama_pegawai,b.username,d.definition,e.nm_kabupaten',array('b.is_active'=>'1','b.deleted'=>'0','d.id'=>'4'),'','','','',array(
+		$get_data2 = $this->Main_model->getSelectedData('pegawai a', 'a.user_id,a.nama_pegawai,b.username,d.definition,d.description,e.nm_kabupaten','b.is_active="1" AND b.deleted="0" AND (d.id="4" OR d.id="6" OR d.id="8")','','','','',array(
+			array(
+				'table' => 'user b',
+				'on' => 'a.user_id=b.id',
+				'pos' => 'LEFT'
+			),
+			array(
+				'table' => 'user_to_role c',
+				'on' => 'a.user_id=c.user_id',
+				'pos' => 'LEFT'
+			),
+			array(
+				'table' => 'user_role d',
+				'on' => 'c.role_id=d.id',
+				'pos' => 'LEFT'
+			),
+			array(
+				'table' => 'kabupaten e',
+				'on' => 'a.wilayah=e.id_kabupaten',
+				'pos' => 'LEFT'
+			)
+		))->result();
+		$get_data3 = $this->Main_model->getSelectedData('pegawai a', 'a.user_id,a.nama_pegawai,b.username,d.definition,d.description,e.nm_kabupaten','b.is_active="1" AND b.deleted="0" AND d.id="2"','','','','',array(
 			array(
 				'table' => 'user b',
 				'on' => 'a.user_id=b.id',
@@ -1132,7 +1154,8 @@ class Master extends CI_Controller {
 			$isi['number'] = $no++.'.';
 			$isi['nama'] = $value->nama_pegawai;
 			$isi['username'] = $value->username;
-			$isi['keterangan'] = $value->definition.' ('.$value->nm_provinsi.')';
+			$isi['user_role'] = $value->definition.' ('.$value->nm_provinsi.')';
+			$isi['keterangan'] = $value->description;
 			$return_on_click = "return confirm('Anda yakin?')";
 			$isi['action'] =	'
 									<a href="'.base_url('admin_side/ubah_data_pengguna/'.md5($value->user_id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
@@ -1144,7 +1167,21 @@ class Master extends CI_Controller {
 			$isi['number'] = $no++.'.';
 			$isi['nama'] = $value->nama_pegawai;
 			$isi['username'] = $value->username;
-			$isi['keterangan'] = $value->definition.' ('.$value->nm_kabupaten.')';
+			$isi['user_role'] = $value->definition.' ('.$value->nm_kabupaten.')';
+			$isi['keterangan'] = $value->description;
+			$return_on_click = "return confirm('Anda yakin?');";
+			$isi['action'] =	'
+									<a href="'.base_url('admin_side/ubah_data_pengguna/'.md5($value->user_id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									<a href="'.base_url('admin_side/hapus_data_pengguna/'.md5($value->user_id)).'" onclick="'.$return_on_click.'" class="link" title="Hapus Data"><i class="mdi mdi-delete-empty"></i></a>
+								';
+			$data_tampil[] = $isi;
+		}
+		foreach ($get_data3 as $key => $value) {
+			$isi['number'] = $no++.'.';
+			$isi['nama'] = $value->nama_pegawai;
+			$isi['username'] = $value->username;
+			$isi['user_role'] = $value->definition;
+			$isi['keterangan'] = '-';
 			$return_on_click = "return confirm('Anda yakin?');";
 			$isi['action'] =	'
 									<a href="'.base_url('admin_side/ubah_data_pengguna/'.md5($value->user_id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
@@ -1311,6 +1348,19 @@ class Master extends CI_Controller {
 				$data_provinsi = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
 				echo'
 				<div class="form-group form-md-line-input has-danger">
+					<label class="col-md-2 control-label" for="form_control_1">Unit <font color="red">*</font></label>
+					<div class="col-md-10">
+						<div class="input-icon">
+							<select name="user_role" class="form-control select2-allow-clear" required>
+								<option value="">-- Pilih --</option>
+								<option value="3">Kepala Bidang</option>
+								<option value="5">Kepala Bagian</option>
+								<option value="7">Staff</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group form-md-line-input has-danger">
 					<label class="col-md-2 control-label" for="form_control_1">Provinsi <font color="red">*</font></label>
 					<div class="col-md-10">
 						<div class="input-icon">
@@ -1327,6 +1377,19 @@ class Master extends CI_Controller {
 			}elseif($this->input->post('id')=='4'){
 				$data_provinsi = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
 				echo'
+				<div class="form-group form-md-line-input has-danger">
+					<label class="col-md-2 control-label" for="form_control_1">Unit <font color="red">*</font></label>
+					<div class="col-md-10">
+						<div class="input-icon">
+							<select name="user_role" class="form-control select2-allow-clear" required>
+								<option value="">-- Pilih --</option>
+								<option value="4">Kepala Bidang</option>
+								<option value="6">Kepala Bagian</option>
+								<option value="8">Staff</option>
+							</select>
+						</div>
+					</div>
+				</div>
 				<div class="form-group form-md-line-input has-danger">
 					<label class="col-md-2 control-label" for="form_control_1">Provinsi <font color="red">*</font></label>
 					<div class="col-md-10">
@@ -1351,6 +1414,8 @@ class Master extends CI_Controller {
 					</div>
 				</div>
 				';
+			}else{
+				echo'';
 			}
 		}
 		elseif($this->input->post('modul')=='get_kabupaten_by_id_provinsi'){

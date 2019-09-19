@@ -71,6 +71,7 @@
 										<th style="text-align: center;" width="4%"> No </th>
 										<th style="text-align: center;"> Nama </th>
 										<th style="text-align: center;"> Username </th>
+										<th style="text-align: center;"> User Role </th>
 										<th style="text-align: center;"> Keterangan </th>
 										<th style="text-align: center;" width="9%"> Aksi </th>
 									</tr>
@@ -88,6 +89,7 @@
 													{ mData: 'number', sClass: "alignCenter" },
 													{ mData: 'nama' },
 													{ mData: 'username', sClass: "alignCenter" } ,
+													{ mData: 'user_role', sClass: "alignCenter" },
 													{ mData: 'keterangan', sClass: "alignCenter" },
 													{ mData: 'action', sClass: "alignCenter" }
 												]

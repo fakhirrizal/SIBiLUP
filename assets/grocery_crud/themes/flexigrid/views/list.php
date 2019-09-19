@@ -16,7 +16,7 @@
 					<div class="text-center">No</div></th>
 				<?php foreach($columns as $column){?>
 				<th width='<?php echo $column_width?>%'>
-					<div class="text-left field-sorting <?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?><?php echo $order_by[1]?><?php }?>" 
+					<div class="text-center field-sorting <?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?><?php echo $order_by[1]?><?php }?>" 
 						rel='<?php echo $column->field_name?>'>
 						<?php echo $column->display_as?>
 					</div>
@@ -24,7 +24,7 @@
 				<?php }?>
 				<?php if(!$unset_delete || !$unset_edit || !$unset_read || !$unset_clone || !empty($actions)){?>
 				<th align="left" abbr="tools" axis="col1" class="" width='17%'>
-					<div class="text-right">
+					<div class="text-center">
 						<?php echo $this->l('list_actions'); ?>
 					</div>
 				</th>
@@ -44,8 +44,8 @@
 			</td>
 			<?php }?>
 			<?php if(!$unset_delete || !$unset_edit || !$unset_read || !empty($actions)){?>
-			<center><td align="right" width='20%' >
-				<div class='tools text-right' float="right">
+			<center><td align="center" width='20%' >
+				<div class='tools text-center' float="center">
 					<?php 
 					if(!empty($row->action_urls)){
 						foreach($row->action_urls as $action_unique_id => $action_url){ 

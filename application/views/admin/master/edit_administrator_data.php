@@ -102,13 +102,19 @@
 											<div class="input-icon">
 												<select name='user_role' id='user_role' class="form-control select2-allow-clear" required>
 													<option value=''>-- Pilih --</option>
-													<option value='3' <?php if($value->role_id=='3'){echo'selected';}else{echo'';} ?>>Admin Provinsi</option>
-													<option value='4' <?php if($value->role_id=='4'){echo'selected';}else{echo'';} ?>>Admin Kabupaten/ Kota</option>
+													<option value='2' <?php if($value->role_id=='2'){echo'selected';}else{echo'';} ?>>Admin Pusat</option>
+													<option value='3' <?php if($value->role_id=='3' OR $value->role_id=='5' OR $value->role_id=='7'){echo'selected';}else{echo'';} ?>>Admin Provinsi</option>
+													<option value='4' <?php if($value->role_id=='4' OR $value->role_id=='6' OR $value->role_id=='8'){echo'selected';}else{echo'';} ?>>Admin Kabupaten/ Kota</option>
 												</select>
 											</div>
 										</div>
 									</div>
 									<div id='wilayah'>
+                                    <?php
+                                    if($value->role_id=='2'){
+                                        echo'';
+                                    }else{
+                                    ?>
 									<div class="form-group form-md-line-input has-danger">
 										<label class="col-md-2 control-label" for="form_control_1">Provinsi <font color='red'>*</font></label>
 										<div class="col-md-10">
@@ -117,9 +123,9 @@
                                                     <option value=''>-- Pilih --</option>
                                                     <?php
                                                     $penanda = '';
-                                                    if($value->role_id=='3'){
+                                                    if($value->role_id=='3' OR $value->role_id=='5' OR $value->role_id=='7'){
                                                         $penanda = $value->wilayah;
-                                                    }elseif($value->role_id=='4'){
+                                                    }elseif($value->role_id=='4' OR $value->role_id=='6' OR $value->role_id=='8'){
                                                         $data_kab = $this->Main_model->getSelectedData('kabupaten a', 'a.*', array('a.id_kabupaten'=>$value->wilayah))->row();
                                                         $penanda = $data_kab->id_provinsi;
                                                     }else{
@@ -139,6 +145,39 @@
 										</div>
                                     </div>
                                     <?php
+                                    if($value->role_id=='3' OR $value->role_id=='5' OR $value->role_id=='7'){
+                                    ?>
+                                    <div class="form-group form-md-line-input has-danger">
+										<label class="col-md-2 control-label" for="form_control_1">Unit <font color='red'>*</font></label>
+										<div class="col-md-10">
+											<div class="input-icon">
+												<select name='user_role' class="form-control select2-allow-clear" required>
+													<option value=''>-- Pilih --</option>
+													<option value='3' <?php if($value->role_id=='3'){echo'selected';}else{echo'';} ?>>Kepala Bidang</option>
+													<option value='5' <?php if($value->role_id=='5'){echo'selected';}else{echo'';} ?>>Kepala Bagian</option>
+													<option value='7' <?php if($value->role_id=='7'){echo'selected';}else{echo'';} ?>>Staff</option>
+												</select>
+											</div>
+										</div>
+                                    </div>
+                                    <?php
+                                    }else{
+                                    ?>
+                                    <div class="form-group form-md-line-input has-danger">
+										<label class="col-md-2 control-label" for="form_control_1">Unit <font color='red'>*</font></label>
+										<div class="col-md-10">
+											<div class="input-icon">
+												<select name='user_role' class="form-control select2-allow-clear" required>
+													<option value=''>-- Pilih --</option>
+													<option value='4' <?php if($value->role_id=='4'){echo'selected';}else{echo'';} ?>>Kepala Bidang</option>
+													<option value='6' <?php if($value->role_id=='6'){echo'selected';}else{echo'';} ?>>Kepala Bagian</option>
+													<option value='8' <?php if($value->role_id=='8'){echo'selected';}else{echo'';} ?>>Staff</option>
+												</select>
+											</div>
+										</div>
+                                    </div>
+                                    <?php
+                                    }}
                                     if($value->role_id=='4'){
                                     ?>
                                     <div class="form-group form-md-line-input has-danger">

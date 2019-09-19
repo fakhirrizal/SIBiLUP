@@ -91,6 +91,7 @@
 											<div class="input-icon">
 												<select name='user_role' id='user_role' class="form-control select2-allow-clear" required>
 													<option value=''>-- Pilih --</option>
+													<option value='2'>Admin Pusat</option>
 													<option value='3'>Admin Provinsi</option>
 													<option value='4'>Admin Kabupaten/ Kota</option>
 												</select>
