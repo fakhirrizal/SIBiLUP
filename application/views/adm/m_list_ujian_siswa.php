@@ -9,7 +9,7 @@
                             <tr>
                               <th width="5%">No</th>
                               <th width="20%">Nama Tes</th>
-                              <th width="20%">Mapel / Guru</th>
+                              <th width="20%">Modul</th>
                               <th width="10%">Jumlah Soal</th>
                               <th width="10%">Waktu</th>
                               <th width="10%">Status</th>
@@ -22,11 +22,16 @@
                               if (!empty($data)) {
                                 $no = 1;
                                 foreach ($data as $d) {
-                                  
+                                  $modul = $this->db->query("SELECT b.judul FROM ujian_modul a LEFT JOIN modul b ON a.id_modul=b.id_modul WHERE a.id_ujian='$d->id'")->result();
+                                  $nm_modul = "";
+                                  foreach ($modul as $m) {
+                                    $nm_modul .= "- ".$m->judul."<br>";
+                                  }
+                                  $nm_modul = substr($nm_modul, 0, -4);
                                   echo '<tr>
                                         <td class="ctr">'.$no.'</td>
                                         <td>'.$d->nama_ujian.'</td>
-                                        <td>'.$d->nmmapel .' ('.$d->nmguru.')</td>
+                                        <td>'.$nm_modul.'</td>
                                         <td class="ctr">'.$d->jumlah_soal.'</td>
                                         <td class="ctr">'.$d->waktu.' menit</td>
                                         <td class="ctr">'.$d->status.'</td>

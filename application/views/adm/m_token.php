@@ -16,7 +16,7 @@
                           <table class="table table-bordered">
                             <tr><td width="35%">Nama</td><td width="65%"><?php echo $dp['nama_pegawai']; ?></td></tr>
                             <tr><td>Alamat</td><td><?php echo $dp['alamat']; ?></td></tr>
-                            <tr><td>Level / Modul</td><td><?php echo $du['nmguru']."/".$du['nmmapel']; ?></td></tr>
+                            <tr><td>Level / Modul</td><td><?php echo $du['nmguru']; ?></td></tr>
                             <tr><td>Nama Ujian</td><td><?php echo $du['nama_ujian']; ?></td></tr>
                             <tr><td>Jml Soal</td><td><?php echo $du['jumlah_soal']; ?></td></tr>
                             <tr><td>Waktu</td><td><?php echo $du['waktu']; ?> menit</td></tr>

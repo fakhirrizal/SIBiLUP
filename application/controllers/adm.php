@@ -26,807 +26,6 @@ class Adm extends CI_Controller {
 		redirect('admin_side/beranda');
 	}
 	
-	/* == ADMIN == */
-	public function m_siswa() {
-		$this->cek_aktif();
-		cek_hakakses(array("1"), $this->session->userdata('admin_level'));
-		
-		//var def session
-		$a['sess_level'] = $this->session->userdata('admin_level');
-		$a['sess_user'] = $this->session->userdata('admin_user');
-		$a['sess_konid'] = $this->session->userdata('admin_konid');
-
-
-		//var def uri segment
-		$uri2 = $this->uri->segment(2);
-		$uri3 = $this->uri->segment(3);
-		$uri4 = $this->uri->segment(4);
-		
-		//var post from json
-		$p = json_decode(file_get_contents('php://input'));
-		//return as json
-		$jeson = array();
-		//$a['data'] = $this->db->query("")->result();
-		
-		if ($uri3 == "det") {
-			$a = $this->db->query("SELECT * FROM m_siswa WHERE id = '$uri4'")->row();
-			j($a);
-			exit();
-		} else if ($uri3 == "simpan") {
-			$ket 	= "";
-			if ($p->id != 0) {
-				$this->db->query("UPDATE m_siswa SET nama = '".bersih($p,"nama")."', nim = '".bersih($p,"nim")."', jurusan = '".bersih($p,"jurusan")."'	WHERE id = '".bersih($p,"id")."'");
-				$ket = "edit";
-			} else {
-				$ket = "tambah";
-				$this->db->query("INSERT INTO m_siswa VALUES (null, '".bersih($p,"nama")."', '".bersih($p,"nim")."', '".bersih($p,"jurusan")."')");
-			}
-			
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= $ket." sukses";
-			j($ret_arr);
-			exit();
-		} else if ($uri3 == "hapus") {
-			$this->db->query("DELETE FROM m_siswa WHERE id = '".$uri4."'");
-			$this->db->query("DELETE FROM m_admin WHERE level = 'siswa' AND kon_id = '".$uri4."'");			
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= "hapus sukses";
-			j($ret_arr);
-			exit();
-		} else if ($uri3 == "user") {
-			$det_user = $this->db->query("SELECT id, nim FROM m_siswa WHERE id = '$uri4'")->row();
-
-			if (!empty($det_user)) {
-				$q_cek_username = $this->db->query("SELECT id FROM m_admin WHERE username = '".$det_user->nim."' AND level = 'siswa'")->num_rows();
-
-				if ($q_cek_username < 1) {
-
-					$this->db->query("INSERT INTO m_admin VALUES (null, '".$det_user->nim."', md5('".$det_user->nim."'), 'siswa', '".$det_user->id."')");
-					$ret_arr['status'] 	= "ok";
-					$ret_arr['caption']	= "tambah user sukses";
-					j($ret_arr);
-				} else {
-					$ret_arr['status'] 	= "gagal";
-					$ret_arr['caption']	= "Username telah digunakan";
-					j($ret_arr);					
-				}
-			} else {
-				$ret_arr['status'] 	= "gagal";
-				$ret_arr['caption']	= "tambah user gagal";
-				j($ret_arr);
-			}
-			exit();
-		} else if ($uri3 == "user_reset") {
-			$det_user = $this->db->query("SELECT id, nim FROM m_siswa WHERE id = '$uri4'")->row();
-
-			$this->db->query("UPDATE m_admin SET password = md5('".$det_user->nim."') WHERE level = 'siswa' AND kon_id = '".$det_user->id."'");
-
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= "Update password sukses";
-			j($ret_arr);
-
-			exit();
-		} else if ($uri3 == "ambil_matkul") {
-			$matkul = $this->db->query("SELECT m_mapel.*,
-										(SELECT COUNT(id) FROM tr_siswa_mapel WHERE id_siswa = ".$uri4." AND id_mapel = m_mapel.id) AS ok
-										FROM m_mapel
-										")->result();
-			$ret_arr['status'] = "ok";
-			$ret_arr['data'] = $matkul;
-			j($ret_arr);
-			exit;
-		} else if ($uri3 == "simpan_matkul") {
-			$ket 	= "";
-			//echo var_dump($p);
-			$ambil_matkul = $this->db->query("SELECT id FROM m_mapel ORDER BY id ASC")->result();
-			if (!empty($ambil_matkul)) {
-				foreach ($ambil_matkul as $a) {
-					$p_sub = "id_mapel_".$a->id;
-					if (!empty($p->$p_sub)) {
-						
-						$cek_sudah_ada = $this->db->query("SELECT id FROM tr_siswa_mapel WHERE  id_siswa = '".$p->id_mhs."' AND id_mapel = '".$a->id."'")->num_rows();
-						
-						if ($cek_sudah_ada < 1) {
-							$this->db->query("INSERT INTO tr_siswa_mapel VALUES (null, '".$p->id_mhs."', '".$a->id."')");
-						} else {
-							$this->db->query("UPDATE tr_siswa_mapel SET id_mapel = '".$p->$p_sub."' WHERE id_siswa = '".$p->id_mhs."' AND id_mapel = '".$a->id."'");
-						}
-					} else {
-						//echo "0<br>";
-						$this->db->query("DELETE FROM tr_siswa_mapel WHERE id_siswa = '".$p->id_mhs."' AND id_mapel = '".$a->id."'");
-					}
-				}
-			}
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= $ket." sukses";
-			j($ret_arr);
-			exit();
-		} else if ($uri3 == "data") {
-			$start = $this->input->post('start');
-	        $length = $this->input->post('length');
-	        $draw = $this->input->post('draw');
-	        $search = $this->input->post('search');
-
-	        $d_total_row = $this->db->query("SELECT id FROM m_siswa a WHERE a.nama LIKE '%".$search['value']."%'")->num_rows();
-	    
-	        $q_datanya = $this->db->query("SELECT a.*,
-											(SELECT COUNT(id) FROM m_admin WHERE level = 'siswa' AND kon_id = a.id) AS ada
-											FROM m_siswa a
-	                                        WHERE a.nama LIKE '%".$search['value']."%' ORDER BY a.id DESC LIMIT ".$start.", ".$length."")->result_array();
-	        $data = array();
-	        $no = ($start+1);
-
-	        foreach ($q_datanya as $d) {
-	            $data_ok = array();
-	            $data_ok[] = $no++;
-	            $data_ok[] = $d['nama'];
-	            $data_ok[] = $d['nim'];
-	            $data_ok[] = $d['jurusan'];
-
-
-
-	            $data_ok[] = '<div class="btn-group">
-                          <a href="#" onclick="return m_siswa_e('.$d['id'].');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
-                          <a href="#" onclick="return m_siswa_h('.$d['id'].');" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
-                         ';
-
-                if ($d['ada'] == "0") {
-                  $data_ok[4] .= '<a href="#" onclick="return m_siswa_u('.$d['id'].');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-user" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Aktifkan User</a>';
-                } else {
-                  $data_ok[4] .= '<a href="#" onclick="return m_siswa_ur('.$d['id'].');" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-random" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Reset Password</a>';
-                }
-
-	            $data[] = $data_ok;
-	        }
-
-	        $json_data = array(
-	                    "draw" => $draw,
-	                    "iTotalRecords" => $d_total_row,
-	                    "iTotalDisplayRecords" => $d_total_row,
-	                    "data" => $data
-	                );
-	        j($json_data);
-	        exit;
-		} else if ($uri3 == "import") {
-			$a['p']	= "f_siswa_import";
-		} else if ($uri3 == "aktifkan_semua") {
-			$q_get_user = $this->db->query("select 
-								a.id, a.nama, a.nim, ifnull(b.username,'N') usernya
-								from m_siswa a 
-								left join m_admin b on concat(b.level,b.kon_id) = concat('siswa',a.id)")->result_array();
-			$jml_aktif = 0;
-			if (!empty($q_get_user)) {
-				foreach ($q_get_user as $j) {
-					if ($j['usernya'] == "N") {
-						$this->db->query("INSERT INTO m_admin VALUES (null, '".$j['nim']."', md5('".$j['nim']."'), 'siswa', '".$j['id']."')");
-						$jml_aktif++;
-					}
-				}
-			}
-
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= $jml_aktif." user diaktifkan";
-			j($ret_arr);
-			exit();
-
-		} else {
-			$a['p']	= "m_siswa";
-		}
-		$this->load->view('aaa', $a);
-	}
-	public function m_guru() {
-		$this->cek_aktif();
-		cek_hakakses(array("1"), $this->session->userdata('admin_level'));
-		
-		//var def session
-		$a['sess_level'] = $this->session->userdata('admin_level');
-		$a['sess_user'] = $this->session->userdata('admin_user');
-		$a['sess_konid'] = $this->session->userdata('admin_konid');
-
-		//var def uri segment
-		$uri2 = $this->uri->segment(2);
-		$uri3 = $this->uri->segment(3);
-		$uri4 = $this->uri->segment(4);
-		//var post from json
-		$p = json_decode(file_get_contents('php://input'));
-		//return as json
-		$jeson = array();
-		/*
-		$a['data'] = $this->db->query("SELECT m_guru.*,
-									(SELECT COUNT(id) FROM m_admin WHERE level = 'guru' AND kon_id = m_guru.id) AS ada
-									FROM m_guru")->result();
-		*/
-
-		if ($uri3 == "det") {
-			$a = $this->db->query("SELECT * FROM m_guru WHERE id = '$uri4'")->row();
-			j($a);
-			exit();
-		} else if ($uri3 == "simpan") {
-			$ket 	= "";
-			if ($p->id != 0) {
-				$this->db->query("UPDATE m_guru SET nama = '".bersih($p,"nama")."', nip = '".bersih($p,"nip")."' WHERE id = '".bersih($p,"id")."'");
-				$ket = "edit";
-			} else {
-				$ket = "tambah";
-				$this->db->query("INSERT INTO m_guru VALUES (null, '".bersih($p,"nip")."', '".bersih($p,"nama")."')");
-			}
-			
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= $ket." sukses";
-			j($ret_arr);
-			exit();
-		} else if ($uri3 == "hapus") {
-			$this->db->query("DELETE FROM m_guru WHERE id = '".$uri4."'");
-			$this->db->query("DELETE FROM m_admin WHERE level = 'guru' AND kon_id = '".$uri4."'");
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= "hapus sukses";
-			j($ret_arr);
-			exit();
-		} else if ($uri3 == "user") {
-			$det_user = $this->db->query("SELECT id, nip FROM m_guru WHERE id = '$uri4'")->row();
-
-			if (!empty($det_user)) {
-				$q_cek_username = $this->db->query("SELECT id FROM m_admin WHERE username = '".$det_user->nip."' AND level = 'guru'")->num_rows();
-
-				if ($q_cek_username < 1) {
-
-					$this->db->query("INSERT INTO m_admin VALUES (null, '".$det_user->nip."', md5('".$det_user->nip."'), 'guru', '".$det_user->id."')");
-					$ret_arr['status'] 	= "ok";
-					$ret_arr['caption']	= "tambah user sukses";
-					j($ret_arr);
-				} else {
-					$ret_arr['status'] 	= "gagal";
-					$ret_arr['caption']	= "Username telah digunakan";
-					j($ret_arr);					
-				}
-			} else {
-				$ret_arr['status'] 	= "gagal";
-				$ret_arr['caption']	= "tambah user gagal";
-				j($ret_arr);
-			}
-			exit();
-		} else if ($uri3 == "user_reset") {
-			$det_user = $this->db->query("SELECT id, nip FROM m_guru WHERE id = '$uri4'")->row();
-
-			$this->db->query("UPDATE m_admin SET password = md5('".$det_user->nip."') WHERE level = 'guru' AND kon_id = '".$det_user->id."'");
-
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= "Update password sukses";
-			j($ret_arr);
-
-			exit();
-		} else if ($uri3 == "ambil_matkul") {
-			$matkul = $this->db->query("SELECT m_mapel.*,
-										(SELECT COUNT(id) FROM tr_guru_mapel WHERE id_guru = ".$uri4." AND id_mapel = m_mapel.id) AS ok
-										FROM m_mapel
-										")->result();
-			$ret_arr['status'] = "ok";
-			$ret_arr['data'] = $matkul;
-			j($ret_arr);
-			exit;
-		} else if ($uri3 == "simpan_matkul") {
-			$ket 	= "";
-			//echo var_dump($p);
-			$ambil_matkul = $this->db->query("SELECT id FROM m_mapel ORDER BY id ASC")->result();
-			if (!empty($ambil_matkul)) {
-				foreach ($ambil_matkul as $a) {
-					$p_sub = "id_mapel_".$a->id;
-					if (!empty($p->$p_sub)) {
-						
-						$cek_sudah_ada = $this->db->query("SELECT id FROM tr_guru_mapel WHERE  id_guru = '".$p->id_mhs."' AND id_mapel = '".$a->id."'")->num_rows();
-						
-						if ($cek_sudah_ada < 1) {
-							$this->db->query("INSERT INTO tr_guru_mapel VALUES (null, '".$p->id_mhs."', '".$a->id."')");
-						} else {
-							$this->db->query("UPDATE tr_guru_mapel SET id_mapel = '".$p->$p_sub."' WHERE id_guru = '".$p->id_mhs."' AND id_mapel = '".$a->id."'");
-						}
-					} else {
-						//echo "0<br>";
-						$this->db->query("DELETE FROM tr_guru_mapel WHERE id_guru = '".$p->id_mhs."' AND id_mapel = '".$a->id."'");
-					}
-				}
-			}
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= $ket." sukses";
-			j($ret_arr);
-			exit();
-		} else if ($uri3 == "data") {
-			$start = $this->input->post('start');
-	        $length = $this->input->post('length');
-	        $draw = $this->input->post('draw');
-	        $search = $this->input->post('search');
-
-	        $d_total_row = $this->db->query("SELECT id FROM m_guru a WHERE a.nama LIKE '%".$search['value']."%'")->num_rows();
-	    
-	        $q_datanya = $this->db->query("SELECT a.*,
-											(SELECT COUNT(id) FROM m_admin WHERE level = 'guru' AND kon_id = a.id) AS ada
-											FROM m_guru a
-	                                        WHERE a.nama LIKE '%".$search['value']."%' ORDER BY a.id DESC LIMIT ".$start.", ".$length."")->result_array();
-	        $data = array();
-	        $no = ($start+1);
-
-	        foreach ($q_datanya as $d) {
-	            $data_ok = array();
-	            $data_ok[0] = $no++;
-	            $data_ok[1] = $d['nama'];
-	            $data_ok[2] = $d['nip'];
-	            $data_ok[3] = '<div class="btn-group">
-                          <a href="#" onclick="return m_guru_e('.$d['id'].');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
-                          <a href="#" onclick="return m_guru_h('.$d['id'].');" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
-                          <a href="#" onclick="return m_guru_matkul('.$d['id'].');" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-th-list" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;MaPel Diampu</a>
-                         ';
-
-                if ($d['ada'] == "0") {
-                  $data_ok[3] .= '<a href="#" onclick="return m_guru_u('.$d['id'].');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-user" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Aktif User</a>';
-                } else {
-                  $data_ok[3] .= '<a href="#" onclick="return m_guru_ur('.$d['id'].');" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-random" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Reset Pass</a>';
-                }
-
-	            $data[] = $data_ok;
-	        }
-
-	        $json_data = array(
-	                    "draw" => $draw,
-	                    "iTotalRecords" => $d_total_row,
-	                    "iTotalDisplayRecords" => $d_total_row,
-	                    "data" => $data
-	                );
-	        j($json_data);
-	        exit;
-		} else if ($uri3 == "import") {
-			$a['p']	= "f_guru_import";
-		} else if ($uri3 == "aktifkan_semua") {
-			$q_get_user = $this->db->query("select 
-								a.id, a.nama, a.nip, ifnull(b.username,'N') usernya
-								from m_guru a 
-								left join m_admin b on concat(b.level,b.kon_id) = concat('guru',a.id)")->result_array();
-			$jml_aktif = 0;
-			if (!empty($q_get_user)) {
-				foreach ($q_get_user as $j) {
-					if ($j['usernya'] == "N") {
-						$this->db->query("INSERT INTO m_admin VALUES (null, '".$j['nip']."', md5('".$j['nip']."'), 'guru', '".$j['id']."')");
-						$jml_aktif++;
-					}
-				}
-			}
-
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= $jml_aktif." user diaktifkan";
-			j($ret_arr);
-			exit();
-
-		} else {
-			$a['p']	= "m_guru";
-		}
-		$this->load->view('aaa', $a);
-	}
-	public function m_mapel() {
-		$this->cek_aktif();
-		cek_hakakses(array("1"), $this->session->userdata('admin_level'));
-		
-		//var def session
-		$a['sess_level'] = $this->session->userdata('admin_level');
-		$a['sess_user'] = $this->session->userdata('admin_user');
-		$a['sess_konid'] = $this->session->userdata('admin_konid');
-
-		//var def uri segment
-		$uri2 = $this->uri->segment(2);
-		$uri3 = $this->uri->segment(3);
-		$uri4 = $this->uri->segment(4);
-		//var post from json
-		$p = json_decode(file_get_contents('php://input'));
-		//return as json
-		$jeson = array();
-		$a['data'] = $this->db->query("SELECT m_mapel.* FROM m_mapel")->result();
-		if ($uri3 == "det") {
-			$a = $this->db->query("SELECT * FROM m_mapel WHERE id = '$uri4'")->row();
-			j($a);
-			exit();
-		} else if ($uri3 == "simpan") {
-			$ket 	= "";
-			if ($p->id != 0) {
-				$this->db->query("UPDATE m_mapel SET nama = '".bersih($p,"nama")."'
-								WHERE id = '".bersih($p,"id")."'");
-				$ket = "edit";
-			} else {
-				$ket = "tambah";
-				$this->db->query("INSERT INTO m_mapel VALUES (null, '".bersih($p,"nama")."')");
-			}
-			
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= $ket." sukses";
-			j($ret_arr);
-			exit();
-		} else if ($uri3 == "hapus") {
-			$this->db->query("DELETE FROM m_mapel WHERE id = '".$uri4."'");
-			$ret_arr['status'] 	= "ok";
-			$ret_arr['caption']	= "hapus sukses";
-			j($ret_arr);
-			exit();
-		} else if ($uri3 == "data") {
-			$start = $this->input->post('start');
-	        $length = $this->input->post('length');
-	        $draw = $this->input->post('draw');
-	        $search = $this->input->post('search');
-
-	        $d_total_row = $this->db->query("SELECT id FROM m_mapel a WHERE a.nama LIKE '%".$search['value']."%'")->num_rows();
-	    
-	        $q_datanya = $this->db->query("SELECT a.*
-											FROM m_mapel a
-	                                        WHERE a.nama LIKE '%".$search['value']."%' ORDER BY a.id DESC LIMIT ".$start.", ".$length."")->result_array();
-	        $data = array();
-	        $no = ($start+1);
-
-	        foreach ($q_datanya as $d) {
-	            $data_ok = array();
-	            $data_ok[0] = $no++;
-	            $data_ok[1] = $d['nama'];
-	            $data_ok[2] = '<div class="btn-group">
-                          <a href="#" onclick="return m_mapel_e('.$d['id'].');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
-                          <a href="#" onclick="return m_mapel_h('.$d['id'].');" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
-                         ';
-
-	            $data[] = $data_ok;
-	        }
-
-	        $json_data = array(
-	                    "draw" => $draw,
-	                    "iTotalRecords" => $d_total_row,
-	                    "iTotalDisplayRecords" => $d_total_row,
-	                    "data" => $data
-	                );
-	        j($json_data);
-	        exit;
-		} else {
-			$a['p']	= "m_mapel";
-		}
-		$this->load->view('aaa', $a);
-	}
-	/* == GURU == */
-	public function m_soal() {
-		$this->cek_aktif();
-		cek_hakakses(array("1","2"), $this->session->userdata('admin_level'));
-		//var def session
-		$a['sess_level'] = $this->session->userdata('admin_level');
-		$a['sess_user'] = $this->session->userdata('admin_user');
-		$a['sess_konid'] = $this->session->userdata('admin_konid');
-
-		$a['huruf_opsi'] = array("a","b","c","d","e");
-		$a['jml_opsi'] = $this->config->item('jml_opsi');
-
-		//var def uri segment
-		$uri2 = $this->uri->segment(2);
-		$uri3 = $this->uri->segment(3);
-		$uri4 = $this->uri->segment(4);
-		$uri5 = $this->uri->segment(5);
-		//var post from json
-		$p = json_decode(file_get_contents('php://input'));
-		//return as json
-		$jeson = array();
-
-		if ($a['sess_level'] == "guru") {
-			$a['p_guru'] = obj_to_array($this->db->query("SELECT * FROM m_guru WHERE id = '".$a['sess_konid']."'")->result(), "id,nama");
-			$a['p_mapel'] = obj_to_array($this->db->query("SELECT 
-											b.id, b.nama
-											FROM tr_guru_mapel a
-											INNER JOIN m_mapel b ON a.id_mapel = b.id
-											WHERE a.id_guru = '".$a['sess_konid']."'")->result(), "id,nama");
-		} else {
-			$a['p_guru'] = obj_to_array($this->db->query("SELECT * FROM m_guru")->result(), "id,nama");
-			$a['p_mapel'] = obj_to_array($this->db->query("SELECT 
-											b.id, b.nama
-											FROM tr_guru_mapel a
-											INNER JOIN m_mapel b ON a.id_mapel = b.id")->result(), "id,nama");
-		}
-
-		if ($uri3 == "det") {
-			$a = $this->db->query("SELECT * FROM m_soal WHERE id = '$uri4' ORDER BY id DESC")->row();
-			j($a);
-			exit();
-		} else if ($uri3 == "import") {
-			$a['p']	= "f_soal_import";
-		} else if ($uri3 == "hapus_gambar") {
-			$nama_gambar = $this->db->query("SELECT file FROM m_soal WHERE id = '".$uri5."'")->row();
-			$this->db->query("UPDATE m_soal SET file = '', tipe_file = '' WHERE id = '".$uri5."'");
-			@unlink("./upload/gambar_soal/".$nama_gambar->file);
-			redirect('adm/m_soal/pilih_mapel/'.$uri4);
-		} else if ($uri3 == "pilih_mapel") {
-			if ($a['sess_level'] == "guru") {
-				$a['data'] = $this->db->query("SELECT m_soal.*, m_guru.nama AS nama_guru FROM m_soal INNER JOIN m_guru ON m_soal.id_guru = m_guru.id WHERE m_soal.id_guru = '".$a['sess_konid']."' AND m_soal.id_mapel = '$uri4' ORDER BY id DESC")->result();
-			} else {
-				$a['data'] = $this->db->query("SELECT m_soal.*, m_guru.nama AS nama_guru FROM m_soal INNER JOIN m_guru ON m_soal.id_guru = m_guru.id WHERE m_soal.id_mapel = '$uri4' ORDER BY id DESC")->result();
-			}
-			//echo $this->db->last_query();
-			$a['p']	= "m_soal";
-		} else if ($uri3 == "simpan") {
-			$p = $this->input->post();
-			$pembuat_soal = ($a['sess_level'] == "admin") ? $p['id_guru'] : $a['sess_konid'];
-			$pembuat_soal_u = ($a['sess_level'] == "admin") ? ", id_guru = '".$p['id_guru']."'" : "";
-			//etok2nya config
-			$folder_gb_soal = "./upload/gambar_soal/";
-			$folder_gb_opsi = "./upload/gambar_opsi/";
-
-			$buat_folder_gb_soal = !is_dir($folder_gb_soal) ? @mkdir("./upload/gambar_soal/") : false;
-			$buat_folder_gb_opsi = !is_dir($folder_gb_opsi) ? @mkdir("./upload/gambar_opsi/") : false;
-
-			$allowed_type 	= array("image/jpeg", "image/png", "image/gif", 
-			"audio/mpeg", "audio/mpg", "audio/mpeg3", "audio/mp3", "audio/x-wav", "audio/wave", "audio/wav",
-			"video/mp4", "application/octet-stream");
-
-			$gagal 		= array();
-			$nama_file 	= array();
-			$tipe_file 	= array();
-
-			//get mode
-			$__mode = $p['mode'];
-			$__id_soal = 0;
-			//ambil data post sementara
-			$pdata = array(
-				"id_guru"=>$p['id_guru'],
-				"id_mapel"=>$p['id_mapel'],
-				"bobot"=>$p['bobot'],
-				"soal"=>$p['soal'],
-				"jawaban"=>$p['jawaban'],
-			);
-
-			if ($__mode == "edit") {
-				$this->db->where("id", $p['id']);
-				$this->db->update("m_soal", $pdata);
-				$__id_soal = $p['id'];
-			} else {
-				$this->db->insert("m_soal", $pdata);
-				$get_id_akhir = $this->db->query("SELECT MAX(id) maks FROM m_soal LIMIT 1")->row_array();
-				$__id_soal = $get_id_akhir['maks'];
-			}
-
-			//mulai dari sini id soal diambil dari variabel $__id
-
-			//lakukan perulangan sejumlah file upload yang terdeteksi
-			foreach ($_FILES as $k => $v) {
-				//var file upload
-				//$k = nama field di form
-				$file_name 		= $_FILES[$k]['name'];
-				$file_type		= $_FILES[$k]['type'];
-				$file_tmp		= $_FILES[$k]['tmp_name'];
-				$file_error		= $_FILES[$k]['error'];
-				$file_size		= $_FILES[$k]['size'];
-				//kode ref file upload jika error
-				$kode_file_error = array("File berhasil diupload", "Ukuran file terlalu besar", "Ukuran file terlalu besar", "File upload error", "Tidak ada file yang diupload", "File upload error");
-				
-				//jika file error = 0 / tidak ada, tipe file ada di file yang diperbolehkan, dan nama file != kosong
-				//echo $file_error."<br>".$file_type;
-				//exit;
-				//echo var_dump($file_error == 0 || in_array($file_type, $allowed_type) || $file_name != "");
-				//exit;
-				if ($file_error != 0) {
-					$gagal[$k] = $kode_file_error[$file_error];
-					$nama_file[$k]	= "";
-					$tipe_file[$k]	= "";
-				} else if (!in_array($file_type, $allowed_type)) {
-					$gagal[$k] = "Tipe file ini tidak diperbolehkan..";
-					$nama_file[$k]	= "";
-					$tipe_file[$k]	= "";
-				} else if ($file_name == "") {
-					$gagal[$k] = "Tidak ada file yang diupload";
-					$nama_file[$k]	= "";
-					$tipe_file[$k]	= "";					
-				} else {
-					$ekstensi = explode(".", $file_name);
-
-					$file_name = $k."_".$__id_soal.".".$ekstensi[1];
-
-					if ($k == "gambar_soal") {
-						@move_uploaded_file($file_tmp, $folder_gb_soal.$file_name);
-					} else {
-						@move_uploaded_file($file_tmp, $folder_gb_opsi.$file_name);
-					}
-
-					$gagal[$k]	 	= $kode_file_error[$file_error]; //kode kegagalan upload file
-					$nama_file[$k]	= $file_name; //ambil nama file
-					$tipe_file[$k]	= $file_type; //ambil tipe file
-				}
-			}
-
-
-			//ambil data awal
-			$get_opsi_awal = $this->db->query("SELECT opsi_a, opsi_b, opsi_c, opsi_d, opsi_e FROM m_soal WHERE id = '".$__id_soal."'")->row_array();
-
-			$data_simpan = array();
-
-			if (!empty($nama_file['gambar_soal'])) {
-				$data_simpan = array(
-								"file"=>$nama_file['gambar_soal'],
-								"tipe_file"=>$tipe_file['gambar_soal'],
-								);
-			}
-
-			for ($t = 0; $t < $a['jml_opsi']; $t++) {
-				$idx 	= "opsi_".$a['huruf_opsi'][$t];
-				$idx2 	= "gj".$a['huruf_opsi'][$t];
-
-
-				//jika file kosong
-				$pc_opsi_awal = explode("#####", $get_opsi_awal[$idx]);
-				$nama_file_opsi = empty($nama_file[$idx2]) ? $pc_opsi_awal[0] : $nama_file[$idx2];
-
-				$data_simpan[$idx] = $nama_file_opsi."#####".$p[$idx];
-			}
-
-			$this->db->where("id", $__id_soal);
-			$this->db->update("m_soal", $data_simpan);
-
-			$teks_gagal = "";
-			foreach ($gagal as $k => $v) {
-				$arr_nama_file_upload = array("gambar_soal"=>"File Soal ", "gja"=>"File opsi A ", "gjb"=>"File opsi B ", "gjc"=>"File opsi C ", "gjd"=>"File opsi D ", "gje"=>"File opsi E ");
-				$teks_gagal .= $arr_nama_file_upload[$k].': '.$v.'<br>';
-			}
-			$this->session->set_flashdata('k', '<div class="alert alert-info">'.$teks_gagal.'</div>');
-			
-			redirect('adm/m_soal/pilih_mapel/'.$p['id_mapel']);
-		} else if ($uri3 == "edit") {
-			$a['opsij'] = array(""=>"Jawaban","A"=>"A","B"=>"B","C"=>"C","D"=>"D","E"=>"E");
-			
-			$id_guru = $this->session->userdata('admin_level') == "guru" ? "WHERE a.id_guru = '".$a['sess_konid']."'" : "";
-
-			$a['p_mapel'] = obj_to_array($this->db->query("SELECT b.id, b.nama FROM tr_guru_mapel a INNER JOIN m_mapel b ON a.id_mapel = b.id $id_guru")->result(),"id,nama");
-
-			if ($uri4 == 0) {
-				$a['d'] = array("mode"=>"add","id"=>"0","id_guru"=>$id_guru,"id_mapel"=>"","bobot"=>"1","file"=>"","soal"=>"","opsi_a"=>"#####","opsi_b"=>"#####","opsi_c"=>"#####","opsi_d"=>"#####","opsi_e"=>"#####","jawaban"=>"","tgl_input"=>"");
-			} else {
-				$a['d'] = $this->db->query("SELECT m_soal.*, 'edit' AS mode FROM m_soal WHERE id = '$uri4'")->row_array();
-
-			}
-
-			$data = array();
-
-			for ($e = 0; $e < $a['jml_opsi']; $e++) {
-				$iidata = array();
-				$idx = "opsi_".$a['huruf_opsi'][$e];
-				$idx2 = $a['huruf_opsi'][$e];
-
-				$pc_opsi_edit = explode("#####", $a['d'][$idx]);
-				$iidata['opsi'] = $pc_opsi_edit[1];
-				$iidata['gambar'] = $pc_opsi_edit[0];
-				$data[$idx2] = $iidata;
-			}
-
-
-			$a['data_pc'] = $data;
-			$a['p'] = "f_soal";
-
-		} else if ($uri3 == "hapus") {
-			$nama_gambar = $this->db->query("SELECT id_mapel, file, opsi_a, opsi_b, opsi_c, opsi_d, opsi_e FROM m_soal WHERE id = '".$uri4."'")->row();
-			$pc_opsi_a = explode("#####", $nama_gambar->opsi_a);
-			$pc_opsi_b = explode("#####", $nama_gambar->opsi_b);
-			$pc_opsi_c = explode("#####", $nama_gambar->opsi_c);
-			$pc_opsi_d = explode("#####", $nama_gambar->opsi_d);
-			$pc_opsi_e = explode("#####", $nama_gambar->opsi_e);
-			$this->db->query("DELETE FROM m_soal WHERE id = '".$uri4."'");
-			@unlink("./upload/gambar_soal/".$nama_gambar->file);
-			@unlink("./upload/gambar_soal/".$pc_opsi_a[0]);
-			@unlink("./upload/gambar_soal/".$pc_opsi_b[0]);
-			@unlink("./upload/gambar_soal/".$pc_opsi_c[0]);
-			@unlink("./upload/gambar_soal/".$pc_opsi_d[0]);
-			@unlink("./upload/gambar_soal/".$pc_opsi_e[0]);
-			
-			redirect('adm/m_soal/pilih_mapel/'.$nama_gambar->id_mapel);
-		} else if ($uri3 == "cetak") {
-			$html = "<link href='".base_url()."___/css/style_print.css' rel='stylesheet' media='' type='text/css'/>";
-			if ($a['sess_level'] == "admin") {
-				$data = $this->db->query("SELECT * FROM m_soal")->result();
-			} else {
-				$data = $this->db->query("SELECT * FROM m_soal WHERE id_guru = '".$a['sess_konid']."'")->result();
-			}
-
-			$mapel = $this->db->query("SELECT nama FROM m_mapel WHERE id = '".$uri4."'")->row();
-			if (!empty($data)) {
-				
-				$no = 1;
-				$jawaban = array("A","B","C","D","E");
-				foreach ($data as $d) {
-					
-		            $arr_tipe_media = array(""=>"none","image/jpeg"=>"gambar","image/png"=>"gambar","image/gif"=>"gambar",
-					"audio/mpeg"=>"audio","audio/mpg"=>"audio","audio/mpeg3"=>"audio","audio/mp3"=>"audio","audio/x-wav"=>"audio","audio/wave"=>"audio","audio/wav"=>"audio",
-					"video/mp4"=>"video", "application/octet-stream"=>"video");
-		            $tipe_media = $arr_tipe_media[$d->tipe_file];
-		            $file_ada = file_exists("./upload/gambar_soal/".$d->file) ? "ada" : "tidak_ada";
-		            $tampil_media = "";
-		            if ($file_ada == "ada" && $tipe_media == "audio") {
-		              $tampil_media = '<<< Ada media Audionya >>>';
-		            } else if ($file_ada == "ada" && $tipe_media == "video") {
-		              $tampil_media = '<<< Ada media Videonya >>>';
-		            } else if ($file_ada == "ada" && $tipe_media == "gambar") {
-		              $tampil_media = '<p><img src="'.base_url().'upload/gambar_soal/'.$d->file.'" class="thumbnail" style="width: 300px; height: 280px; display: inline; float: left"></p>';
-		            } else {
-		              $tampil_media = '';
-		            }
-	                $html .= '<table>
-	                <tr><td>'.$no.'.</td><td colspan="2">'.$d->soal.'<br>'.$tampil_media.'</td></tr>';
-	                for ($j=0; $j<($this->config->item('jml_opsi'));$j++) {
-	                  	$opsi = "opsi_".strtolower($jawaban[$j]);
-	                    $pc_pilihan_opsi = explode("#####", $d->$opsi);
-	                    $tampil_media_opsi = (file_exists('./upload/gambar_soal/'.$pc_pilihan_opsi[0]) AND $pc_pilihan_opsi[0] != "") ? '<img src="'.base_url().'upload/gambar_soal/'.$pc_pilihan_opsi[0].'" style="width: 100px; height: 100px; margin-right: 20px">' : '';
-	                  if ($jawaban[$j] == $d->jawaban) {
-	                    $html .= '<tr><td width="2%" style="font-weight: bold">'.$jawaban[$j].'</td><td style="font-weight: bold">'.$tampil_media_opsi.$pc_pilihan_opsi[1].'</td></label></tr>';
-	                  } else {
-	                    $html .= '<tr><td width="2%">'.$jawaban[$j].'</td><td>'.$tampil_media_opsi.$pc_pilihan_opsi[1].'</td></label></tr>';
-	                  }
-	                }
-	                $html .= '</table></div>';
-		            $no++;
-				}
-				}
-
-				echo $html;
-				exit;
-			} else if ($uri3 == "data") {
-				$start = $this->input->post('start');
-		        $length = $this->input->post('length');
-		        $draw = $this->input->post('draw');
-		        $search = $this->input->post('search');
-
-		        $wh = '';
-
-		        if ($a['sess_level'] == "guru") {
-					$wh = "a.id_guru = '".$a['sess_konid']."' AND ";
-				} else if ($a['sess_level'] == "admin") {
-					$wh = "";
-				}
-
-
-		        $d_total_row = $this->db->query("SELECT a.*
-												FROM m_soal a
-												INNER JOIN m_guru b ON a.id_guru = b.id
-												INNER JOIN m_mapel c ON a.id_mapel = c.id
-		                                        WHERE ".$wh." (a.soal LIKE '%".$search['value']."%' 
-												OR b.nama LIKE '%".$search['value']."%' 
-												OR c.nama LIKE '%".$search['value']."%')")->num_rows();
-
-		        $q_datanya = $this->db->query("SELECT a.*, b.nama nmguru, c.nama nmmapel
-												FROM m_soal a
-												INNER JOIN m_guru b ON a.id_guru = b.id
-												INNER JOIN m_mapel c ON a.id_mapel = c.id
-		                                        WHERE ".$wh." (a.soal LIKE '%".$search['value']."%' 
-												OR b.nama LIKE '%".$search['value']."%' 
-												OR c.nama LIKE '%".$search['value']."%')
-		                                        ORDER BY a.id DESC LIMIT ".$start.", ".$length."")->result_array();
-		        //echo $this->db->last_query();
-		    
-		        $data = array();
-		        $no = ($start+1);
-
-		        foreach ($q_datanya as $d) {
-		            	$jml_benar = empty($d['jml_benar']) ? 0 : intval($d['jml_benar']);
-		        	$jml_salah = empty($d['jml_salah']) ? 0 : intval($d['jml_salah']);
-		        	$total = ($jml_benar + $jml_salah);
-		        	$persen_benar = $total > 0 ? (($jml_benar / $total) * 100) : 0; 
-
-				$data_ok = array();
-				$data_ok[0] = $no++;
-				$data_ok[1] = substr($d['soal'], 0, 300);
-				$data_ok[2] = $d['nmmapel'].'<br>'.$d['nmguru'];
-				$data_ok[3] = "Jml dipakai : ".($total)."<br>Benar: ".$jml_salah.", Salah: ".$jml_salah."<br>Persentase benar : ".number_format($persen_benar)." %";
-				$data_ok[4] = '<div class="btn-group">
-				  <a href="'.base_url().'adm/m_soal/edit/'.$d['id'].'" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
-				  <a href="'.base_url().'adm/m_soal/hapus/'.$d['id'].'" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
-				 ';
-
-		            	$data[] = $data_ok;
-		        }
-
-		        $json_data = array(
-		                    "draw" => $draw,
-		                    "iTotalRecords" => $d_total_row,
-		                    "iTotalDisplayRecords" => $d_total_row,
-		                    "data" => $data
-		                );
-		        j($json_data);
-		        exit;
-		} else {
-			$a['p']	= "m_soal";
-		}
-		$this->load->view('aaa', $a);
-	}
 	public function m_ujian() {
 		$this->cek_aktif();
 		cek_hakakses(array("2","1"), $this->session->userdata('admin_level'));
@@ -1165,12 +364,11 @@ class Adm extends CI_Controller {
 		            $data_ok[0] = $no++;
 		            $data_ok[1] = $d['judul']/*."<br>Token : <b>".$d['token']."</b> &nbsp;&nbsp; <a href='#' onclick='return refresh_token(".$d['id'].")' title='Perbarui Token'><i class='fa fa-refresh'></i></a>"*/;
 		            $data_ok[2] = $d['jml_soal'];
-		            $data_ok[3] = $d['urutan'];
-		            $data_ok[4] = '
+		            $data_ok[3] = '
 		            	<div class="btn-group">
-                          <a href="'.base_url().'adm/m_modul/'.$d['id_ujianmodul'].'" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Lihat Soal</a>
-                          <a href="#" onclick="return m_ujian_e('.$d['id_ujianmodul'].');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
-                          <a href="#" onclick="return m_ujian_h('.$d['id_ujianmodul'].');" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
+                          <a href="'.base_url().'admin/ujian_ol/soal/'.$d['id_ujianmodul'].'" target="_blank" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Detail Soal</a>
+                          <a href="#" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
+                          <a href="#" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
                         </div>
 	                         ';
 
@@ -1203,166 +401,57 @@ class Adm extends CI_Controller {
 		$this->load->view('template/aside');
 		$this->load->view('template/footer', $a);
 	}
-
-	public function h_ujian() {
+	public function pilih_soal() {
 		$this->cek_aktif();
 		cek_hakakses(array("2","1"), $this->session->userdata('admin_level'));
-		
-		//var def session
+
 		$a['sess_level'] = $this->session->userdata('admin_level');
 		$a['sess_user'] = $this->session->userdata('admin_user');
 		$a['sess_konid'] = $this->session->userdata('admin_konid');
-
-		//var def uri segment
-		$uri2 = $this->uri->segment(2);
-		$uri3 = $this->uri->segment(3);
-		$uri4 = $this->uri->segment(4);
-		$uri5 = $this->uri->segment(5);
-		//var post from json
-		$p = json_decode(file_get_contents('php://input'));
-		//return as json
-		$jeson = array();
-
-		$wh_1 = $a['sess_level'] == "admin" ? "" : " AND a.id_guru = '".$a['sess_konid']."'";
-		//$a['data'] = $this->db->query($wh_1)->result();
-		
-
-		$a['p_mapel'] = obj_to_array($this->db->query("SELECT * FROM m_mapel")->result(), "id,nama");
-		
-		if ($uri3 == "det") {
-			$a['detil_tes'] = $this->db->query("SELECT m_mapel.nama AS namaMapel, m_guru.nama AS nama_guru, 
-												tr_guru_tes.* 
-												FROM tr_guru_tes 
-												INNER JOIN m_mapel ON tr_guru_tes.id_mapel = m_mapel.id
-												INNER JOIN m_guru ON tr_guru_tes.id_guru = m_guru.id
-												WHERE tr_guru_tes.id = '$uri4'")->row();
-			$a['statistik'] = $this->db->query("SELECT MAX(nilai) AS max_, MIN(nilai) AS min_, AVG(nilai) AS avg_ 
-											FROM tr_ikut_ujian
-											WHERE tr_ikut_ujian.id_tes = '$uri4'")->row();
-
-			//$a['hasil'] = $this->db->query("")->result();
-			$a['p'] = "m_guru_tes_hasil_detil";
-			//echo $this->db->last_query();
-		} else if ($uri3 == "data_det") {
-			$start = $this->input->post('start');
-	        $length = $this->input->post('length');
-	        $draw = $this->input->post('draw');
-	        $search = $this->input->post('search');
-
-	        $d_total_row = $this->db->query("
-	        	SELECT a.id
-				FROM tr_ikut_ujian a
-				INNER JOIN m_siswa b ON a.id_user = b.id
-				WHERE a.id_tes = '$uri4' 
-				AND b.nama LIKE '%".$search['value']."%'")->num_rows();
-
-	        $q_datanya = $this->db->query("
-	        	SELECT a.id, b.nama, a.nilai, a.jml_benar, a.nilai_bobot
-				FROM tr_ikut_ujian a
-				INNER JOIN m_siswa b ON a.id_user = b.id
-				WHERE a.id_tes = '$uri4' 
-				AND b.nama LIKE '%".$search['value']."%' ORDER BY a.id DESC LIMIT ".$start.", ".$length."")->result_array();
-
-	        $data = array();
-	        $no = ($start+1);
-
-
-	        foreach ($q_datanya as $d) {
-	            $data_ok = array();
-	            $data_ok[0] = $no++;
-	            $data_ok[1] = $d['nama'];
-	            $data_ok[2] = $d['jml_benar'];
-	            $data_ok[3] = $d['nilai'];
-	            $data_ok[4] = $d['nilai_bobot'];
-	            $data_ok[5] = '<a href="'.base_url().'adm/h_ujian/batalkan_ujian/'.$d['id'].'/'.$this->uri->segment(4).'" class="btn btn-danger btn-xs" onclick="return confirm(\'Anda yakin...?\');"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Batalkan Ujian</a>';
-
-	            $data[] = $data_ok;
-	        }
-
-	        $json_data = array(
-	                    "draw" => $draw,
-	                    "iTotalRecords" => $d_total_row,
-	                    "iTotalDisplayRecords" => $d_total_row,
-	                    "data" => $data
-	                );
-	        j($json_data);
-	        exit;
-		} else if ($uri3 == "batalkan_ujian") {
-			$this->db->query("DELETE FROM tr_ikut_ujian WHERE id = '$uri4'");
-			redirect('adm/h_ujian/det/'.$uri5);
-		} else if ($uri3 == "data") {
-			$start = $this->input->post('start');
-	        $length = $this->input->post('length');
-	        $draw = $this->input->post('draw');
-	        $search = $this->input->post('search');
-
-	        $d_total_row = $this->db->query("SELECT a.id FROM tr_guru_tes a
-	        	INNER JOIN m_mapel b ON a.id_mapel = b.id 
-	        	INNER JOIN m_guru c ON a.id_guru = c.id
-	            WHERE (a.nama_ujian LIKE '%".$search['value']."%' OR b.nama LIKE '%".$search['value']."%' OR c.nama LIKE '%".$search['value']."%') ".$wh_1."")->num_rows();
-	    	//echo $this->db->last_query();
-
-	        $q_datanya = $this->db->query("SELECT a.*, b.nama AS mapel, c.nama AS nama_guru FROM tr_guru_tes a
-	        	INNER JOIN m_mapel b ON a.id_mapel = b.id 
-	        	INNER JOIN m_guru c ON a.id_guru = c.id
-	            WHERE (a.nama_ujian LIKE '%".$search['value']."%' OR b.nama LIKE '%".$search['value']."%' OR c.nama LIKE '%".$search['value']."%') ".$wh_1." ORDER BY a.id DESC LIMIT ".$start.", ".$length."")->result_array();
-
-	        $data = array();
-	        $no = ($start+1);
-
-
-	        foreach ($q_datanya as $d) {
-	            $data_ok = array();
-	            $data_ok[0] = $no++;
-	            $data_ok[1] = $d['nama_ujian'];
-	            $data_ok[2] = $d['nama_guru'];
-	            $data_ok[3] = $d['mapel'];
-	            $data_ok[4] = $d['jumlah_soal'];
-	            $data_ok[5] = $d['waktu']." menit";
-	            $data_ok[6] = '<a href="'.base_url().'adm/h_ujian/det/'.$d['id'].'" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-search" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Lihat Hasil</a>
-                         ';
-
-	            $data[] = $data_ok;
-	        }
-
-	        $json_data = array(
-	                    "draw" => $draw,
-	                    "iTotalRecords" => $d_total_row,
-	                    "iTotalDisplayRecords" => $d_total_row,
-	                    "data" => $data
-	                );
-	        j($json_data);
-	        exit;
+		if ($this->input->get('modul')) {
+			$moduls = $this->input->get('modul');
+			$wheres = "id_mapel='$moduls'";
 		} else {
-			$a['p']	= "m_guru_tes_hasil";
+			$wheres = "id_mapel = '00'";
+		}
+		$a['soal'] = $this->db->query("SELECT * FROM m_soal WHERE $wheres")->result();
+		$a['modul'] = $this->db->query("SELECT * FROM modul")->result();
+		$a['load']    =  array("adm/pilih_soal"); 
+		$a['title_page'] = "Soal Ujian Online";
+        $a['breadcrumb'] = "Perpustakaan,Soal Ujian Online";
+		$this->load->view('template/header');
+		$this->load->view('template/aside');
+		$this->load->view('template/footer', $a);
+		//$this->load->view('adm/pilih_soal', $a);
+	}
+	public function simpan_soal() {
+		$this->cek_aktif();
+		cek_hakakses(array("2","1"), $this->session->userdata('admin_level'));
+
+		$list_id_soal	= "";
+		
+		$soal = $this->input->post('soal');
+		$modul = $this->input->post('id_modul');
+		$id_tes = $this->input->post('id_tes');
+		$jumsoal = count($soal);
+
+		for ($i=0; $i < $jumsoal; $i++) {
+            $list_id_soal .= $soal[$i]."|^|";
 		}
 
+		$list_id_soal = substr($list_id_soal, 0, -3);
 
-		$this->load->view('aaa', $a);
-	}
-	public function hasil_ujian_cetak() {
-		$this->cek_aktif();
+		$datinput= array(
+		     "id_modul" => $modul,
+		     "id_soal" => $list_id_soal,
+		     "id_ujian" => $id_tes,
+		     "jml_soal" => $jumsoal
+		    );
+		$this->Crud_model->input('ujian_modul',$datinput);
 		
-		//var def uri segment
-		$uri2 = $this->uri->segment(2);
-		$uri3 = $this->uri->segment(3);
-		$uri4 = $this->uri->segment(4);
-		$a['detil_tes'] = $this->db->query("SELECT m_mapel.nama AS namaMapel, m_guru.nama AS nama_guru, 
-												tr_guru_tes.* 
-												FROM tr_guru_tes 
-												INNER JOIN m_mapel ON tr_guru_tes.id_mapel = m_mapel.id
-												INNER JOIN m_guru ON tr_guru_tes.id_guru = m_guru.id
-												WHERE tr_guru_tes.id = '$uri3'")->row();
-		
-		$a['statistik'] = $this->db->query("SELECT MAX(nilai) AS max_, MIN(nilai) AS min_, AVG(nilai) AS avg_ 
-										FROM tr_ikut_ujian
-										WHERE tr_ikut_ujian.id_tes = '$uri3'")->row();
-		$a['hasil'] = $this->db->query("SELECT m_siswa.nama, tr_ikut_ujian.nilai, tr_ikut_ujian.jml_benar, tr_ikut_ujian.nilai_bobot
-										FROM tr_ikut_ujian
-										INNER JOIN m_siswa ON tr_ikut_ujian.id_user = m_siswa.id
-										WHERE tr_ikut_ujian.id_tes = '$uri3'")->result();
-		$this->load->view("m_guru_tes_hasil_detil_cetak", $a);
+		redirect('adm/m_modul/'.$id_tes, 'refresh');
 	}
+
 	/* == SISWA == */
 	public function ikuti_ujian() {
 		$this->cek_aktif();
@@ -1384,13 +473,11 @@ class Adm extends CI_Controller {
 		//$a['sess_konid']
 		$a['data'] = $this->db->query("SELECT 
 									a.id, a.nama_ujian, a.jumlah_soal, a.waktu,
-									b.judul nmmapel,
 									c.nama_level nmguru,
 									IF((d.status='Y' AND NOW() BETWEEN d.tgl_mulai AND d.tgl_selesai),'Sedang Tes',
 									IF(d.status='Y' AND NOW() NOT BETWEEN d.tgl_mulai AND d.tgl_selesai,'Waktu Habis',
 									IF(d.status='N','Selesai','Belum Ikut'))) status 
 									FROM tr_guru_tes a
-									INNER JOIN modul b ON a.id_mapel = b.id_modul
 									INNER JOIN level_user c ON a.id_guru = c.id_level
 									LEFT JOIN tr_ikut_ujian d ON CONCAT('".$a['sess_konid']."',a.id) = CONCAT(d.id_user,d.id_tes)
 									ORDER BY a.id ASC")->result();
@@ -1501,7 +588,7 @@ class Adm extends CI_Controller {
 			
 			$a['du'] = $this->db->query("SELECT a.id, a.tgl_mulai, a.terlambat, 
 										a.token, a.nama_ujian, a.jumlah_soal, a.waktu,
-										b.nama_level nmguru, c.judul nmmapel,
+										b.nama_level nmguru,
 										(case
 											when (now() < a.tgl_mulai) then 0
 											when (now() >= a.tgl_mulai and now() <= a.terlambat) then 1
@@ -1509,7 +596,6 @@ class Adm extends CI_Controller {
 										end) statuse
 										FROM tr_guru_tes a 
 										INNER JOIN level_user b ON a.id_guru = b.id_level
-										INNER JOIN modul c ON a.id_mapel = c.id_modul 
 										WHERE a.id = '$uri4'")->row_array();
 
 			$a['dp'] = $this->db->query("SELECT * FROM pegawai WHERE id_pegawai = '".$a['sess_konid']."'")->row_array();
@@ -1554,9 +640,26 @@ class Adm extends CI_Controller {
 				$cek_sdh_ujian	= $q_cek_sdh_ujian->num_rows();
 				$acakan = $cek_detil_tes->jenis == "acak" ? "ORDER BY RAND()" : "ORDER BY id ASC";
 
+				$data_so =  $this->db->query("SELECT * FROM ujian_modul WHERE id_ujian='$uri4'")->result();
+				if (!empty($data_so)) {
+					$soal_where = "";
+					foreach ($data_so as $ds) {
+						$list_data_so	= "";
+						$idsoal = explode("|^|", $ds->id_soal);
+
+						foreach ($idsoal as $keys) {
+							$list_data_so .= "id='".$keys."' OR ";
+						}
+
+						$list_data_so = substr($list_data_so, 0, -3);
+						
+						$soal_where .= $list_data_so." OR ";
+					}
+					$soal_where = substr($soal_where, 0, -3);
+				}
 				if ($cek_sdh_ujian < 1)	{		
 					$soal_urut_ok = array();
-					$q_soal			= $this->db->query("SELECT b.judul, a.id, a.file, a.tipe_file, a.soal, a.opsi_a, a.opsi_b, a.opsi_c, a.opsi_d, a.opsi_e, '' AS jawaban FROM m_soal a LEFT JOIN modul b ON a.id_mapel=b.id_modul WHERE id_mapel = '".$cek_detil_tes->id_mapel."' AND id_guru = '".$cek_detil_tes->id_guru."' ".$acakan." LIMIT ".$cek_detil_tes->jumlah_soal)->result();
+					$q_soal			= $this->db->query("SELECT b.judul, a.id, a.file, a.tipe_file, a.soal, a.opsi_a, a.opsi_b, a.opsi_c, a.opsi_d, a.opsi_e, '' AS jawaban FROM m_soal a LEFT JOIN modul b ON a.id_mapel=b.id_modul WHERE (".$soal_where.") ".$acakan." LIMIT ".$cek_detil_tes->jumlah_soal)->result();
 					$i = 0;
 					foreach ($q_soal as $s) {
 						$soal_per = new stdClass();
@@ -1674,49 +777,6 @@ class Adm extends CI_Controller {
 		j($data_soal);
 		exit;
 	}
-	public function rubah_password() {
-		$this->cek_aktif();
-		
-		//var def session
-		$a['sess_admin_id'] = $this->session->userdata('admin_id');
-		$a['sess_level'] = $this->session->userdata('admin_level');
-		$a['sess_user'] = $this->session->userdata('admin_user');
-		$a['sess_konid'] = $this->session->userdata('admin_konid');
-
-		//var def uri segment
-		$uri2 = $this->uri->segment(2);
-		$uri3 = $this->uri->segment(3);
-		$uri4 = $this->uri->segment(4);
-		//var post from json
-		$p = json_decode(file_get_contents('php://input'));
-		$ret = array();
-		if ($uri3 == "simpan") {
-			$p1_md5 = md5($p->p1);
-			$p2_md5 = md5($p->p2);
-			$p3_md5 = md5($p->p3);
-			$cek_pass_lama = $this->db->query("SELECT password FROM m_admin WHERE id = '".$a['sess_admin_id']."'")->row();
-			if ($cek_pass_lama->password != $p1_md5) {
-				$ret['status'] = "error";
-				$ret['msg'] = "Password lama tidak sama...";
-			} else if ($p2_md5 != $p3_md5) {
-				$ret['status'] = "error";
-				$ret['msg'] = "Password baru konfirmasinya tidak sama...";
-			} else if (strlen($p->p2) < 6) {
-				$ret['status'] = "error";
-				$ret['msg'] = "Password baru minimal terdiri dari 6 huruf..";
- 			} else {
-				$this->db->query("UPDATE m_admin SET password = '".$p3_md5."' WHERE id = '".$a['sess_admin_id']."'");
-				$ret['status'] = "ok";
-				$ret['msg'] = "Password berhasil diubah...";
-			}
-			j($ret);
-			exit;
-		} else {
-			$data = $this->db->query("SELECT id, kon_id, level, username FROM m_admin WHERE id = '".$a['sess_admin_id']."'")->row();
-			j($data);
-			exit;
-		}
-	}
 	public function sudah_selesai_ujian() {
 		$this->cek_aktif();
 		
@@ -1753,71 +813,6 @@ class Adm extends CI_Controller {
 		$this->load->view('template/footer', $a);
 
 	//	$this->load->view('aaa', $a);
-	}
-	/* Login Logout */
-	public function login() {
-		$this->load->view('auth/login');
-	}
-	
-	public function act_login() {
-		
-		$username	= $this->input->post('username');
-		$password	= $this->input->post('password');
-		
-		$password2	= md5($password);
-		
-		$q_data		= $this->db->query("SELECT * FROM m_admin WHERE username = '".$username."' AND password = '$password2'");
-		$j_data		= $q_data->num_rows();
-		$a_data		= $q_data->row();
-		
-		$_log		= array();
-		if ($j_data === 1) {
-			$sess_nama_user = "";
-			if ($a_data->level == "3" OR $a_data->level == "4") {
-				$det_user = $this->db->query("SELECT nama FROM m_siswa WHERE id = '".$a_data->kon_id."'")->row();
-				if (!empty($det_user)) {
-					$sess_nama_user = $det_user->nama;
-				}
-			} else if ($a_data->level == "2") {
-				$det_user = $this->db->query("SELECT nama FROM m_guru WHERE id = '".$a_data->kon_id."'")->row();
-				if (!empty($det_user)) {
-					$sess_nama_user = $det_user->nama;
-				}
-			} else {
-				$sess_nama_user = "Administrator Pusat";
-			}
-			$data = array(
-                    'admin_id' => $a_data->id,
-                    'admin_user' => $a_data->username,
-                    'admin_level' => $a_data->level,
-                    'admin_konid' => $a_data->kon_id,
-                    'admin_nama' => $sess_nama_user,
-					'admin_valid' => true
-                    );
-            $this->session->set_userdata($data);
-			$_log['log']['status']			= "1";
-			$_log['log']['keterangan']		= "Login berhasil";
-			$_log['log']['detil_admin']		= $this->session->userdata;
-		} else {
-			$_log['log']['status']			= "0";
-			$_log['log']['keterangan']		= "Maaf, username dan password tidak ditemukan";
-			$_log['log']['detil_admin']		= null;
-		}
-		
-		j($_log);
-	}
-	
-	public function logout() {
-		$data = array(
-                    'admin_id' 		=> "",
-                    'admin_user' 	=> "",
-                    'admin_level' 	=> "",
-                    'admin_konid' 	=> "",
-                    'admin_nama' 	=> "",
-					'admin_valid' 	=> false
-                    );
-        $this->session->set_userdata($data);
-		redirect('adm');
 	}
 	//fungsi tambahan
 	public function get_akhir($tabel, $field, $kode_awal, $pad) {

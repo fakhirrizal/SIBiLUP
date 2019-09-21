@@ -6,7 +6,7 @@
             <div class="row">
               <div class="panel-heading">
                 <div class="col-md-12">
-                  <a class="btn btn-success btn-sm tombol-kanan" href="#" onclick="return m_ujian_e(0);"><i class="glyphicon glyphicon-plus"></i> &nbsp;&nbsp;Tambah Soal</a>
+                  <a class="btn btn-success btn-sm tombol-kanan" href="<?= base_url().'adm/pilih_soal/'.$this->uri->segment(3) ?>"><i class="glyphicon glyphicon-plus"></i> &nbsp;&nbsp;Tambah Soal</a>
                 </div><br>
               </div>
               <table class="table table-bordered" id="datatabel" style="width: 1029px">
@@ -15,7 +15,6 @@
                     <th width="5%">No</th>
                     <th>Nama Modul</th>
                     <th width="20%">Jumlah Soal</th>
-                    <th width="10%">Urutan</th>
                     <th width="20%">Aksi</th>
                   </tr>
                 </thead>

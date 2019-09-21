@@ -49,7 +49,7 @@ class Auth extends CI_Controller {
 						),
 						array(
 							'table' => 'pegawai c',
-							'on' => 'a.user_id=c.user_id',
+							'on' => 'b.kon_id=c.id_pegawai',
 							'pos' => 'left'
 						)
 					))->result();
@@ -65,7 +65,7 @@ class Auth extends CI_Controller {
 							$sess_data['location'] = $this->input->post('location');
 							$sess_data['admin_id'] = $value2->id; // ini mau ambil user_id atau id_pegawai?kalo user_id ada di session "id", kalo id_pegawai ada di session "admin_konid"
 		                    $sess_data['admin_user'] = $this->input->post('username');
-		                    $sess_data['admin_level'] = $value2->id;
+		                    $sess_data['admin_level'] = $value2->level;
 		                    $sess_data['admin_konid'] = $value2->id_pegawai;
 		                    $sess_data['admin_nama'] = $value2->nama_pegawai;
 							$sess_data['admin_valid'] = true;
