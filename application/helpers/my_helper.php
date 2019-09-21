@@ -1004,6 +1004,22 @@ function obj_to_array($obj, $pilih) {
     return $array;
 }
 
+function obj_to_array_soal($obj, $pilih) {
+    $pilihpc    = explode(",", $pilih);
+    $array      = array(""=>"-");
+
+    foreach ($obj as $o) {
+        $xx = $pilihpc[0];
+        $x = $o->$xx;
+        $y = $pilihpc[1];
+        $z = $pilihpc[2];
+
+        $array[$x] = $o->$z." (".$o->$y.")"; 
+    }
+
+    return $array;
+}
+
 function gen_menu() {
     $CI     =& get_instance();
     $sess_level = $CI->session->userdata('admin_level');
