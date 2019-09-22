@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<link href="https://seeklogo.com/images/D/Departemen_Pekerjaan_Umum-logo-7E29323DFE-seeklogo.com.png" rel="icon" type="image/png">
+		<link href="https://upload.wikimedia.org/wikipedia/id/a/a7/Logo_PU_%28RGB%29.jpg" rel="icon" type="image/png">
 		<style type="text/css">
 			body {
 				color: #434343;
@@ -156,7 +156,7 @@
 				<p class="hint-text">Sign in with your social media account</p> -->
 				<div class="social-btn text-center">
 					<!-- <a href="#" class="btn btn-danger btn-lg" title="Google"><i class="fa fa-google"></i></a> -->
-					<img src="https://seeklogo.com/images/D/Departemen_Pekerjaan_Umum-logo-7E29323DFE-seeklogo.com.png" width='45%'>
+					<img src="https://upload.wikimedia.org/wikipedia/id/a/a7/Logo_PU_%28RGB%29.jpg" width='45%'>
 					<br><br><p><font size="5">Silahkan login<br>untuk menggunakan sistem</font></p><hr>
 				</div>
 				<!-- <div class="or-seperator"><b></b></div> -->

@@ -6,6 +6,12 @@
             <ul id="sidebarnav">
                 <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin_side/beranda" ?>" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">Beranda</span></a>
                 </li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-buffer"></i><span class="hide-menu">Dashboard </span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="<?= base_url()."admin_side/rekap_prov" ?>">Rekap Provinsi</a></li>
+                        <li><a href="<?= base_url()."admin_side/rekap_kabkot" ?>">Rekap Kabupaten/ Kota</a></li>
+                    </ul>
+                </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-inbox"></i><span class="hide-menu">Master </span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="<?= base_url()."admin_side/pengguna" ?>">Pengguna</a></li>
