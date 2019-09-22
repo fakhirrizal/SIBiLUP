@@ -75,6 +75,25 @@
             </div>
             <div class="panel-body" style="overflow: auto;  height: 450px; padding: 10px">
                 <div id="tampil_jawaban" class="text-center"></div>
+                <?php
+                $uri4 = $this->uri->segment(4);
+                $modul = $this->db->query("SELECT a.id_modul,a.keterangan,b.judul FROM ujian_modul a LEFT JOIN modul b ON a.id_modul=b.id_modul WHERE id_ujian='$uri4'")->result();
+                foreach ($modul as $md) { ?>
+                    <button onclick="myFunction_<?= $md->id_modul ?>()"><?= $md->judul ?></button><br><br>
+
+                    <script>
+                    function myFunction_<?= $md->id_modul ?>() {
+                      var x = document.getElementById("myDIV_<?= $md->id_modul ?>");
+                      if (x.style.display === "none") {
+                        x.style.display = "block";
+                      } else {
+                        x.style.display = "none";
+                      }
+                    }
+                    </script>
+
+                    <p align="justify" style="display:none" id="myDIV_<?= $md->id_modul ?>"><?= $md->keterangan ?></p>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -412,5 +431,6 @@
         $("#v_jawaban").toggle();
     }
     </script>
+
 </body>
 </html>

@@ -28,22 +28,8 @@
   <div class="col-lg-12 col-md-12">
     <div class="card">
         <div class="card-block">
-          <form method="get" action="">
-          <div class="row">
-            <div class="col-md-3"><label>Pilih Modul</label>
-              <select name="modul" class="form-control">
-                <option>-Pilih Modul-</option>
-                <?php foreach ($modul as $m) {?>
-                  <option value="<?= $m->id_modul ?>" <?php if ($m->id_modul == $this->input->get('modul')) { echo "selected"; } ?>><?= $m->judul ?></option>
-                <?php } ?>
-              </select></div>
-            <div class="col-md-3">
-              <label> </label><br>
-              <input type="submit" value="FILTER" class="btn btn-primary"></div>
-          </div> 
-          </form><br>
             <div class="row">
-              <form method="post" action="<?= base_url()."adm/simpan_soal" ?>">
+              <form method="post" action="<?= base_url()."adm/edit_soal/".$this->uri->segment(3) ?>">
               <table class="table table-bordered" id="datatabedl" style="width: 1000px">
                 <thead>
                   <tr>
@@ -53,11 +39,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $no = 0; foreach ($soal as $s) { ?>
+                  <?php $no = 0; foreach ($soal as $s) { 
+                    $uri3 = $this->uri->segment(3);
+                    $modul = $this->db->query("SELECT * FROM ujian_modul WHERE id_ujianmodul='$uri3'")->row();
+                    $isimodul = explode("|^|", $modul->id_soal);
+                    ?>
                   <input type="hidden" name="id_modul" value="<?= $this->input->get('modul') ?>">
                   <input type="hidden" name="id_tes" value="<?= $this->uri->segment(3) ?>">
                   <tr>
-                    <td align="center"><input type="checkbox" name="soal[]" id="language" value="<?= $s->id ?>"></td>
+                    <td align="center"><input type="checkbox" name="soal[]" id="language" value="<?= $s->id ?>" 
+                      <?php foreach ($isimodul as $val) {
+                        if ($s->id == $val) { echo "checked"; }
+                      } ?>></td>
                     <td><?= ++$no ?></td>
                     <td style="text-align: justify;"><?= $s->soal ?></td>
                   </tr>
@@ -65,7 +58,7 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="3"><textarea name="keterangan" class="form-control" required="" placeholder="Isi keterangan dari modul yang telah dipilih tersebut"></textarea></td>
+                    <td colspan="3"><textarea name="keterangan" class="form-control" required="" placeholder="Isi keterangan dari modul yang telah dipilih tersebut"><?= $modul->keterangan ?></textarea></td>
                   </tr>
                   <tr>
                     <td colspan="3"><input type="submit" name="simpan" value="SIMPAN" class="btn btn-primary"></td>

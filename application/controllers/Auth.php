@@ -49,7 +49,7 @@ class Auth extends CI_Controller {
 						),
 						array(
 							'table' => 'pegawai c',
-							'on' => 'b.kon_id=c.id_pegawai',
+							'on' => 'a.user_id=c.user_id',
 							'pos' => 'left'
 						)
 					))->result();

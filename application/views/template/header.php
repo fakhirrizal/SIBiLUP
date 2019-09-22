@@ -58,17 +58,9 @@
                 <!-- ============================================================== -->
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
-                        <!-- Logo icon --><b>
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            
-                            <!-- Light Logo icon -->
-                            <img style="width: 240px;" src="<?= base_url() ?>assets/images/Kementerian-PUPR.png" alt="homepage" class="light-logo" />
-                        </b>
-                        <!--End Logo icon -->
-                        <!-- Logo text --> <!-- <span> --> 
-                         
-                         <!-- Light Logo text -->    
-                          <!-- <img src="<?= base_url() ?>assets/images/logo-light-text.png" class="light-logo" alt="homepage" /></span> --> </a> 
+                        
+                            <img style="width: 240px;" src="<?= base_url() ?>assets/images/Kementerian-PUPR.png" />
+                        </a> 
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
