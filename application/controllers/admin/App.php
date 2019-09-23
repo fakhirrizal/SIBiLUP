@@ -5,9 +5,9 @@ class App extends CI_Controller {
 
 	
     function __construct() {
-        parent::__construct();
+        parent::__construct();/*
 		$this->load->view('template/header');
-        $this->load->view('template/aside');
+        $this->load->view('template/aside');*/
         if ($this->session->userdata('admin_valid') == false && $this->session->userdata('admin_id') == "") {
 			redirect('auth/login');
 		} 
@@ -25,7 +25,7 @@ class App extends CI_Controller {
         $data['load']    =  array("home"); 
 
         
-        $this->load->view('template/footer', $data);
+        $this->load->view('template/layout', $data);
 	}
 	public function menu()
 	{

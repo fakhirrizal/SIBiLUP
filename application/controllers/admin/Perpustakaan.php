@@ -23,6 +23,18 @@ class Perpustakaan extends CI_Controller {
 
 	}
 
+	public function home()
+	{
+		$data['title_page'] = "Beranda";
+        $data['breadcrumb'] = "";
+       // $data['load']    =  array("home"); 
+
+        
+		$this->load->view('template/header');
+        $this->load->view('template/aside');
+        $this->load->view('template/footer', $data);
+	}
+
 	public function templates()
 	{	
 		// echo $output;
