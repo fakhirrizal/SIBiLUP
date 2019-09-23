@@ -5,46 +5,41 @@ class Map extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 	}
+	public function templates()
+	{	
+		$this->load->view('template/header');
+		$this->load->view('template/aside');
+	}
 	/* Provinsi */
 	public function province()
 	{
-		$data['parent'] = 'master';
-		$data['child'] = 'map';
-		$data['grand_child'] = 'province';
-		$this->load->view('admin/template/header',$data);
-		$this->load->view('admin/master/map/province',$data);
-		$this->load->view('admin/template/footer');
+		$this->templates();
+        $data['title_page'] = "Data Provinsi";
+        $data['breadcrumb'] = "Master,Peta,Data Provinsi";
+        $data['load']       =  array("admin/master/map/province"); 
+
+        $this->load->view('template/footer', $data);
 	}
 	public function json_peta_provinsi(){
 		$get_data = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
 		$data_tampil = array();
 		$no = 1;
 		foreach ($get_data as $key => $value) {
-			$isi['checkbox'] =	'
-								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="checkboxes" name="selected_id[]" value="'.$value->id_provinsi.'"/>
-									<span></span>
-								</label>
-								';
 			$isi['number'] = $no++.'.';
 			$isi['nm_provinsi'] = $value->nm_provinsi;
 			$return_on_click = "return confirm('Anda yakin?')";
+			$regional = '';
+			if($value->regional=='B'){
+				$regional = 'Barat';
+			}elseif($value->regional=='T'){
+				$regional = 'Timur';
+			}else{
+				echo'';
+			}
+			$isi['regional'] = $regional;
 			$isi['action'] =	'
-								<div class="btn-group">
-									<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Aksi
-										<i class="fa fa-angle-down"></i>
-									</button>
-									<ul class="dropdown-menu" role="menu">
-										<li>
-											<a href="'.site_url('admin_side/ubah_data_provinsi/'.md5($value->id_provinsi)).'">
-												<i class="icon-wrench"></i> Ubah Data </a>
-										</li>
-										<li>
-											<a onclick="'.$return_on_click.'" href="'.site_url('admin_side/hapus_data_provinsi/'.md5($value->id_provinsi)).'">
-												<i class="icon-trash"></i> Hapus Data </a>
-										</li>
-									</ul>
-								</div>
+									<a href="'.base_url('admin_side/ubah_data_provinsi/'.md5($value->id_provinsi)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									<a href="'.base_url('admin_side/hapus_data_provinsi/'.md5($value->id_provinsi)).'" onclick="'.$return_on_click.'" class="link" title="Hapus Data"><i class="mdi mdi-delete-empty"></i></a>
 								';
 			$data_tampil[] = $isi;
 		}
@@ -57,12 +52,12 @@ class Map extends CI_Controller {
 	}
 	public function add_province()
 	{
-		$data['parent'] = 'master';
-		$data['child'] = 'map';
-		$data['grand_child'] = 'province';
-		$this->load->view('admin/template/header',$data);
-		$this->load->view('admin/master/map/add_province',$data);
-		$this->load->view('admin/template/footer');
+		$this->templates();
+        $data['title_page'] = "Tambah Data Provinsi";
+        $data['breadcrumb'] = "Master,Peta,Data Provinsi,Tambah Data";
+        $data['load']       =  array("admin/master/map/add_province"); 
+
+		$this->load->view('template/footer', $data);
 	}
 	public function save_province(){
 		$this->db->trans_start();
@@ -108,13 +103,13 @@ class Map extends CI_Controller {
 	}
 	public function edit_province()
 	{
-		$data['parent'] = 'master';
-		$data['child'] = 'map';
-		$data['grand_child'] = 'province';
+		$this->templates();
+        $data['title_page'] = "Ubah Data Provinsi";
+        $data['breadcrumb'] = "Master,Peta,Data Provinsi,Ubah Data";
+		$data['load']       =  array("admin/master/map/edit_province");
 		$data['data_utama'] = $this->Main_model->getSelectedData('provinsi a', 'a.*', array('md5(a.id_provinsi)'=>$this->uri->segment(3)))->row();
-		$this->load->view('admin/template/header',$data);
-		$this->load->view('admin/master/map/edit_province',$data);
-		$this->load->view('admin/template/footer');
+
+		$this->load->view('template/footer', $data);
 	}
 	public function update_province_data(){
 		$this->db->trans_start();
@@ -179,12 +174,12 @@ class Map extends CI_Controller {
 	/* Kabupaten/ Kota */
 	public function city()
 	{
-		$data['parent'] = 'master';
-		$data['child'] = 'map';
-		$data['grand_child'] = 'city';
-		$this->load->view('admin/template/header',$data);
-		$this->load->view('admin/master/map/city',$data);
-		$this->load->view('admin/template/footer');
+		$this->templates();
+        $data['title_page'] = "Data Kabupaten/ Kota";
+        $data['breadcrumb'] = "Master,Peta,Data Kabupaten/ Kota";
+        $data['load']       =  array("admin/master/map/city"); 
+
+		$this->load->view('template/footer', $data);
 	}
 	public function json_peta_kabupaten(){
 		$get_data = $this->Main_model->getSelectedData('kabupaten a', 'a.*,b.nm_provinsi','','','','','',array(
@@ -206,21 +201,8 @@ class Map extends CI_Controller {
 			$isi['nm_kabupaten'] = $value->nm_kabupaten;
 			$return_on_click = "return confirm('Anda yakin?')";
 			$isi['action'] =	'
-								<div class="btn-group">
-									<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Aksi
-										<i class="fa fa-angle-down"></i>
-									</button>
-									<ul class="dropdown-menu" role="menu">
-										<li>
-											<a href="'.site_url('admin_side/ubah_data_kabkot/'.md5($value->id_kabupaten)).'">
-												<i class="icon-wrench"></i> Ubah Data </a>
-										</li>
-										<li>
-											<a onclick="'.$return_on_click.'" href="'.site_url('admin_side/hapus_data_kabkot/'.md5($value->id_kabupaten)).'">
-												<i class="icon-trash"></i> Hapus Data </a>
-										</li>
-									</ul>
-								</div>
+									<a href="'.base_url('admin_side/ubah_data_kabkot/'.md5($value->id_kabupaten)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									<a href="'.base_url('admin_side/hapus_data_kabkot/'.md5($value->id_kabupaten)).'" onclick="'.$return_on_click.'" class="link" title="Hapus Data"><i class="mdi mdi-delete-empty"></i></a>
 								';
 			$data_tampil[] = $isi;
 		}
@@ -233,13 +215,13 @@ class Map extends CI_Controller {
 	}
 	public function add_city()
 	{
-		$data['parent'] = 'master';
-		$data['child'] = 'map';
-		$data['grand_child'] = 'city';
-		$data['provinsi'] = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
-		$this->load->view('admin/template/header',$data);
-		$this->load->view('admin/master/map/add_city',$data);
-		$this->load->view('admin/template/footer');
+		$this->templates();
+        $data['title_page'] = "Tambah Data Kabupaten/ Kota";
+        $data['breadcrumb'] = "Master,Peta,Data Kabupaten/ Kota,Tambah Data";
+		$data['load']       =  array("admin/master/map/add_city");
+		$data['provinsi'] = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result(); 
+
+		$this->load->view('template/footer', $data);
 	}
 	public function save_city(){
 		$this->db->trans_start();
@@ -286,14 +268,13 @@ class Map extends CI_Controller {
 	}
 	public function edit_city()
 	{
-		$data['parent'] = 'master';
-		$data['child'] = 'map';
-		$data['grand_child'] = 'city';
+		$this->templates();
+        $data['title_page'] = "Ubah Data Kabupaten/ Kota";
+        $data['breadcrumb'] = "Master,Peta,Data Kabupaten/ Kota,Ubah Data";
+		$data['load']       =  array("admin/master/map/edit_city");
 		$data['provinsi'] = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
 		$data['data_utama'] = $this->Main_model->getSelectedData('kabupaten a', 'a.*', array('md5(a.id_kabupaten)'=>$this->uri->segment(3)))->row();
-		$this->load->view('admin/template/header',$data);
-		$this->load->view('admin/master/map/edit_city',$data);
-		$this->load->view('admin/template/footer');
+		$this->load->view('template/footer', $data);
 	}
 	public function update_city_data(){
 		$this->db->trans_start();

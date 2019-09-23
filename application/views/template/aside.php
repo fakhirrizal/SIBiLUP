@@ -15,6 +15,12 @@
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-inbox"></i><span class="hide-menu">Master </span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="<?= base_url()."admin_side/pengguna" ?>">Pengguna</a></li>
+                        <li><a href="#" class="has-arrow">Peta</a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="<?php echo site_url('admin_side/data_provinsi'); ?>">Provinsi</a></li>
+                                <li><a href="<?php echo site_url('admin_side/data_kabkot'); ?>">Kabupaten/ Kota</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profil Direktorat </span></a>
