@@ -50,6 +50,66 @@ class Map extends CI_Controller {
 			"aaData"=>$data_tampil);
 		echo json_encode($results);
 	}
+	public function json_rekap_provinsi(){
+		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi,a.regional', '', '', '', '', '', array(
+			'table' => 'rekap_provinsi b',
+			'on' => 'a.id_provinsi=b.id_provinsi',
+			'pos' => 'LEFT'
+		))->result();
+		$data_tampil = array();
+		$no = 1;
+		foreach ($get_data as $key => $value) {
+			$isi['number'] = $no++.'.';
+			$isi['nm_provinsi'] = $value->nm_provinsi;
+			if($value->belum==NULL){
+				$isi['belum'] = 'X';
+			}else{
+				$isi['belum'] = $value->belum;
+			}
+			if($value->menganggarkan==NULL){
+				$isi['menganggarkan'] = 'X';
+			}else{
+				$isi['menganggarkan'] = $value->menganggarkan;
+			}
+			if($value->sedang==NULL){
+				$isi['sedang'] = 'X';
+			}else{
+				$isi['sedang'] = $value->sedang;
+			}
+			if($value->review==NULL){
+				$isi['review'] = 'X';
+			}else{
+				$isi['review'] = $value->review;
+			}
+			if($value->sudah==NULL){
+				$isi['sudah'] = 'X';
+			}else{
+				$isi['sudah'] = $value->sudah;
+			}
+            $isi['bentuk_kegiatan'] = $value->bentuk_kegiatan;
+			$isi['anggaran'] = 'Rp '.number_format($value->anggaran,2);
+			$regional = '';
+			if($value->regional=='B'){
+				$regional = 'Barat';
+			}elseif($value->regional=='T'){
+				$regional = 'Timur';
+			}else{
+				echo'';
+            }
+            $isi['regional'] = $regional;
+			$isi['action'] =	'
+									<a href="'.base_url('admin_side/ubah_data_rekap_provinsi/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+								';
+			$data_tampil[] = $isi;
+		}
+		$results = array(
+			"sEcho" => 1,
+			"iTotalRecords" => count($data_tampil),
+			"iTotalDisplayRecords" => count($data_tampil),
+			"aaData"=>$data_tampil);
+		echo json_encode($results);
+		// print_r($get_data);
+	}
 	public function add_province()
 	{
 		$this->templates();
@@ -212,6 +272,59 @@ class Map extends CI_Controller {
 			"iTotalDisplayRecords" => count($data_tampil),
 			"aaData"=>$data_tampil);
 		echo json_encode($results);
+	}
+	public function json_rekap_kabupaten(){
+		$get_data = $this->Main_model->getSelectedData('kabupaten a', 'b.*,a.id_kabupaten AS id,a.nm_kabupaten', '', '', '', '', '', array(
+			array(
+                'table' => 'rekap_kabkota b',
+				'on' => 'a.id_kabupaten=b.id_kabupaten',
+				'pos' => 'LEFT'
+            ),
+            array(
+                'table' => 'provinsi aa',
+                'on' => 'a.id_provinsi=aa.id_provinsi',
+                'pos' => 'LEFT'
+            )
+		))->result();
+		$data_tampil = array();
+		$no = 1;
+		foreach ($get_data as $key => $value) {
+			$isi['number'] = $no++.'.';
+			$isi['nm_kabupaten'] = $value->nm_kabupaten;
+			if($value->belum==NULL){
+				$isi['belum'] = 'X';
+			}else{
+				$isi['belum'] = $value->belum;
+			}
+			if($value->sedang==NULL){
+				$isi['sedang'] = 'X';
+			}else{
+				$isi['sedang'] = $value->sedang;
+			}
+			if($value->review==NULL){
+				$isi['review'] = 'X';
+			}else{
+				$isi['review'] = $value->review;
+			}
+			if($value->sudah==NULL){
+				$isi['sudah'] = 'X';
+			}else{
+				$isi['sudah'] = $value->sudah;
+			}
+            $isi['bentuk_kegiatan'] = $value->bentuk_kegiatan;
+			$isi['anggaran'] = 'Rp '.number_format($value->anggaran,2);
+			$isi['action'] =	'
+									<a href="'.base_url('admin_side/ubah_data_rekap_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+								';
+			$data_tampil[] = $isi;
+		}
+		$results = array(
+			"sEcho" => 1,
+			"iTotalRecords" => count($data_tampil),
+			"iTotalDisplayRecords" => count($data_tampil),
+			"aaData"=>$data_tampil);
+		echo json_encode($results);
+		// print_r($get_data);
 	}
 	public function add_city()
 	{

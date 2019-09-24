@@ -61,8 +61,9 @@
 					<div class="portlet light ">
 						<div class="portlet-body">
 							<div class="table-toolbar">
-								<button id="sample_editable_1_new" onclick="window.location.href='<?=base_url('admin_side/tambah_pengguna');?>'" class="btn sbold grey"><i class="fa fa-plus"></i> Tambah Data Baru
-								</button>
+								<!-- <button id="sample_editable_1_new" onclick="window.location.href='<?=base_url('admin_side/tambah_pengguna');?>'" class="btn sbold grey"><i class="fa fa-plus"></i> Tambah Data Baru
+								</button> -->
+								<a class="btn btn-success btn-sm tombol-kanan" href="<?=base_url('admin_side/tambah_pengguna');?>">Tambah Data Baru</a>
 							</div>
 							<br>
 							<table class="table table-striped " id="tbl" style="width: 100%;">

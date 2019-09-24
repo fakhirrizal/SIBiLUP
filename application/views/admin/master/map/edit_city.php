@@ -28,7 +28,7 @@
                                 <input type="hidden" name="id_kabupaten" value="<?= md5($data_utama->id_kabupaten); ?>">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-danger">
-                                        <label class="col-md-2 control-label" for="form_control_1">Provinsi <span class="required"> * </span></label>
+                                        <label class="col-md-2 control-label" for="form_control_1">Provinsi <font color='red'>*</font></label>
                                         <div class="col-md-12">
                                             <div class="input-icon">
                                                 <select name='id_provinsi' id='id_provinsi' class="form-control select2-allow-clear" required>
@@ -47,7 +47,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group form-md-line-input has-danger">
-                                        <label class="col-md-12 control-label" for="form_control_1">Nama Kabupaten/ Kota <span class="required"> * </span></label>
+                                        <label class="col-md-12 control-label" for="form_control_1">Nama Kabupaten/ Kota <font color='red'>*</font></label>
                                         <div class="col-md-12">
                                             <div class="input-icon">
                                                 <input type="text" class="form-control" name="nm_kabupaten" value="<?= $data_utama->nm_kabupaten; ?>" required>
@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group form-md-line-input has-danger">
-                                        <label class="col-md-2 control-label" for="form_control_1">Marker <span class="required"> * </span></label>
+                                        <label class="col-md-2 control-label" for="form_control_1">Marker <font color='red'>*</font></label>
                                         <div class="col-md-12">
                                             <div id="map"></div>
                                         </div>
@@ -80,13 +80,13 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="form-actions margin-top-10">
-                                    <div class="row">
+                                <div class="form-group form-md-line-input has-danger">
+                                    <!-- <div class="row"> -->
                                         <div class="col-md-offset-2 col-md-12">
-                                            <button type="reset" class="btn default">Batal</button>
                                             <button type="submit" class="btn blue">Perbarui</button>
+                                            <button type="reset" class="btn default">Batal</button>
                                         </div>
-                                    </div>
+                                    <!-- </div> -->
                                 </div>
                             </form>
 						</div>
@@ -123,7 +123,7 @@
 		draggable : true
 	});
 
-	var situs = 'http://kemensos.aplikasiku.online/assets/peta_kabupaten/';
+	var situs = 'http://pfm.demokode.com/assets/peta_kabupaten/';
 	var nama_file = '<?php echo $data_utama->kml; ?>';
 	var situs_full = situs.concat(nama_file);
 	var kmldashboard = new google.maps.KmlLayer({
