@@ -64,8 +64,15 @@ class Perpustakaan extends CI_Controller {
 		$this->config->set_item('grocery_crud_file_upload_allow_file_types','pdf');
 		$crud->set_field_upload('file','assets/images/article');
 
-		$crud->unset_read();
+		//$crud->unset_read();
 		$crud->unset_texteditor('keterangan');
+		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
+			$crud->unset_delete();
+			$crud->unset_edit();
+			$crud->unset_add();
+		} else {
+			$crud->unset_read();
+		}
 		//$crud->unset_delete();
 		//$crud->unset_back_to_list();
 
@@ -91,8 +98,15 @@ class Perpustakaan extends CI_Controller {
 		$this->config->set_item('grocery_crud_file_upload_allow_file_types','pdf');
 		$crud->set_field_upload('file','assets/images/article');
 
-		$crud->unset_read();
+	//	$crud->unset_read();
 		$crud->unset_texteditor('keterangan');
+		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
+			$crud->unset_delete();
+			$crud->unset_edit();
+			$crud->unset_add();
+		} else {
+			$crud->unset_read();
+		}
 		//$crud->unset_delete();
 		//$crud->unset_back_to_list();
 
@@ -118,8 +132,15 @@ class Perpustakaan extends CI_Controller {
 		$this->config->set_item('grocery_crud_file_upload_allow_file_types','pdf');
 		$crud->set_field_upload('file','assets/images/article');
 
-		$crud->unset_read();
+		//$crud->unset_read();
 		$crud->unset_texteditor('keterangan');
+		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
+			$crud->unset_delete();
+			$crud->unset_edit();
+			$crud->unset_add();
+		} else {
+			$crud->unset_read();
+		}
 		//$crud->unset_delete();
 		//$crud->unset_back_to_list();
 
@@ -146,10 +167,17 @@ class Perpustakaan extends CI_Controller {
 		$this->config->set_item('grocery_crud_file_upload_allow_file_types','jpg|jpeg|png');
 		$crud->set_field_upload('file','assets/images');
 
-		$crud->unset_read();
+		//$crud->unset_read();
 		$crud->unset_texteditor('keterangan');
 		//$crud->unset_delete();
 		//$crud->unset_back_to_list();
+		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
+			$crud->unset_delete();
+			$crud->unset_edit();
+			$crud->unset_add();
+		} else {
+			$crud->unset_read();
+		}
 
 		$crud->callback_before_insert(array($this,'foto'));
 
@@ -176,8 +204,14 @@ class Perpustakaan extends CI_Controller {
 		$this->config->set_item('grocery_crud_file_upload_allow_file_types','mp4|wmv|avi|mpg|3gp');
 		$crud->set_field_upload('file','assets/images');
 
-		$crud->unset_read();
 		$crud->unset_texteditor('keterangan');
+		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
+			$crud->unset_delete();
+			$crud->unset_edit();
+			$crud->unset_add();
+		} else {
+			$crud->unset_read();
+		}
 		//$crud->unset_delete();
 		//$crud->unset_back_to_list();
 
@@ -201,9 +235,15 @@ class Perpustakaan extends CI_Controller {
 //		$this->config->set_item('grocery_crud_file_upload_allow_file_types','mp4|wmv|avi|mpg|3gp');
 		$crud->set_field_upload('undangan','assets/images');
 
-		$crud->unset_read();
+		
 		$crud->unset_texteditor('deskripsi');
-		//$crud->unset_delete();
+		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
+			$crud->unset_delete();
+			$crud->unset_edit();
+			$crud->unset_add();
+		} else {
+			$crud->unset_read();
+		}
 		//$crud->unset_back_to_list();
 
 	//	$crud->callback_before_insert(array($this,'vidios'));

@@ -61,7 +61,40 @@ class Master extends CI_Controller {
 		$this->output($output);
 	}
 
-	public function visi_misi() {
+	public function faq_input(){
+		$crud = new grocery_CRUD();
+
+		$crud->set_language('indonesian');
+		$crud->set_theme('flexigrid');
+		$crud->set_table('faq');
+		$crud->unset_columns('create_at');
+
+		$crud->change_field_type('create_at' , 'invisible');
+		$crud->unset_read();
+		//$crud->unset_edit();
+		$crud->unset_delete();
+		$crud->unset_back_to_list();
+
+		$output = $crud->render();
+		$output->title_page = "FAQ";
+        $output->breadcrumb = "FAQ";
+		$this->output($output);
+	}
+
+	public function faq() {
+		//$this->templates();
+        $data['title_page'] = "FAQ";
+        $data['breadcrumb'] = "FAQ";
+        $data['load']       =  array("admin/master/faq"); 
+
+        $dt['table'] = "faq";
+		$dt['type'] = "multiple";
+		$data['data'] = $this->Crud_model->get_data($dt);
+        
+        $this->load->view('template/layout', $data);
+    }
+
+    public function visi_misi() {
 		$this->templates();
         $data['title_page'] = "Visi dan Misi";
         $data['breadcrumb'] = "Profil Direktorat,Visi dan Misi";

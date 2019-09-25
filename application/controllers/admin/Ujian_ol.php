@@ -102,7 +102,13 @@ class Ujian_ol extends CI_Controller {
 		$this->config->set_item('grocery_crud_file_upload_allow_file_types','jpg|jpeg|png');
 		$crud->set_field_upload('file','upload/gambar_soal');
 
-		$crud->unset_read();
+		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
+			$crud->unset_delete();
+			$crud->unset_edit();
+			$crud->unset_add();
+		} else {
+			$crud->unset_read();
+		}
 		$crud->callback_before_insert(array($this,'bobot'));
 		//$crud->unset_texteditor('keterangan');
 		//$crud->unset_delete();

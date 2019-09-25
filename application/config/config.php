@@ -23,9 +23,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$root = "http://".$_SERVER['HTTP_HOST'];
-$root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
-$pc_root = explode("/", $root);
+//$root = "http://".$_SERVER['HTTP_HOST'];
+//$root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+
+//$root = "http://localhost/sibilup/";
+$config['base_url'] = 'http://localhost/sibilup/';
+$pc_root = explode("/", $config['base_url']);
 $uri_js = count($pc_root) - 2;
 
 
@@ -37,7 +40,7 @@ $config['versi']			= "2.0";
 $config['tgl']				= "27012017";
 $config['tampil_nilai']		= TRUE; // jika siswa boleh melihat hasil ujian, isikan TRUE, jika tidak FALSE, default TRUE
 
-$config['base_url'] = 'http://localhost:8080/sibilup/';
+//$config['base_url'] = 'http://localhost/sibilup/';
 
 /*
 |--------------------------------------------------------------------------

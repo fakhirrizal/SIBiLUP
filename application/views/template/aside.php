@@ -12,6 +12,7 @@
                         <li><a href="<?= base_url()."admin_side/rekap_kabkota" ?>">Rekap Kabupaten/ Kota</a></li>
                     </ul>
                 </li>
+                <?php if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-inbox"></i><span class="hide-menu">Master </span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="<?= base_url()."admin_side/pengguna" ?>">Pengguna</a></li>
@@ -23,6 +24,7 @@
                         </li>
                     </ul>
                 </li>
+                <?php } ?>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profil Direktorat </span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="<?= base_url()."admin_side/visimisi" ?>">Visi & Misi</a></li>
@@ -47,11 +49,11 @@
                 </li>
                 <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/Perpustakaan/agenda" ?>" aria-expanded="false"><i class="mdi mdi-bulletin-board"></i><span class="hide-menu">Agenda</span></a>
                 </li>
-                <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Diskusi</span></a>
+                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/diskusi" ?>" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Diskusi</span></a>
                 </li>
-                <li> <a class="waves-effect waves-dark" href="pages-error-404.html" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Hubungi Kami</span></a>
+                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/hubungi_kami" ?>" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Hubungi Kami</span></a>
                 </li>
-                <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-file-document-box"></i><span class="hide-menu">FAQ</span></a>
+                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin_side/faq" ?>" aria-expanded="false"><i class="mdi mdi-file-document-box"></i><span class="hide-menu">FAQ</span></a>
                 </li>
             </ul>
         </nav>
