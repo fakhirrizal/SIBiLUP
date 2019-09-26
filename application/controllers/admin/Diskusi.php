@@ -14,7 +14,7 @@ class Diskusi extends CI_Controller {
 	}
     public function index()
 	{
-		$data['title_page'] = "Beranda";
+		$data['title_page'] = "Diskusi";
         $data['breadcrumb'] = "";
 
         $pt['table']      = "diskusi";

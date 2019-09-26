@@ -14,7 +14,7 @@ class Hubungi_kami extends CI_Controller {
 	}
     public function index($id = 0)
 	{
-		$data['title_page'] = "Beranda";
+		$data['title_page'] = "Hubungi Kami";
         $data['breadcrumb'] = "";
         $data['kepada'] = $id;
         $pt['table']			= "hubungi_kami";
