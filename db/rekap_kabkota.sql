@@ -23,13 +23,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rekap_provinsi`
+-- Struktur dari tabel `rekap_kabkota`
 --
 
-CREATE TABLE `rekap_provinsi` (
-  `id_provinsi` int(2) NOT NULL,
+CREATE TABLE `rekap_kabkota` (
+  `id_kabupaten` int(4) NOT NULL,
   `belum` enum('X','V') DEFAULT NULL,
-  `menganggarkan` enum('X','V') DEFAULT NULL,
   `sedang` enum('X','V') DEFAULT NULL,
   `review` enum('X','V') DEFAULT NULL,
   `sudah` enum('X','V') DEFAULT NULL,
@@ -42,11 +41,11 @@ CREATE TABLE `rekap_provinsi` (
 --
 
 --
--- Indexes for table `rekap_provinsi`
+-- Indexes for table `rekap_kabkota`
 --
-ALTER TABLE `rekap_provinsi`
-  ADD PRIMARY KEY (`id_provinsi`),
-  ADD KEY `id_provinsi` (`id_provinsi`);
+ALTER TABLE `rekap_kabkota`
+  ADD PRIMARY KEY (`id_kabupaten`),
+  ADD KEY `id_provinsi` (`id_kabupaten`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
