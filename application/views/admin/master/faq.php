@@ -11,7 +11,7 @@
                             </div>
                             <?php if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
                             <div class="ml-auto">
-                                <a href="<?= base_url()."admin/master/tupok_si/add" ?>" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down">Tambah Data</a>
+                                <a href="<?= base_url()."admin/Master/faq_input" ?>" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down">Tambah Data</a>
                             </div>
                             <?php } ?>
                         </div>

@@ -77,14 +77,14 @@ class Master extends CI_Controller {
 
 		$output = $crud->render();
 		$output->title_page = "FAQ";
-        $output->breadcrumb = "FAQ";
+        $output->breadcrumb = "FAQ (Frequently Ask Question)";
 		$this->output($output);
 	}
 
 	public function faq() {
 		//$this->templates();
         $data['title_page'] = "FAQ";
-        $data['breadcrumb'] = "FAQ";
+        $data['breadcrumb'] = "FAQ (Frequently Ask Question)";
         $data['load']       =  array("admin/master/faq"); 
 
         $dt['table'] = "faq";
