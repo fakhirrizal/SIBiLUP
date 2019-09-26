@@ -79,7 +79,7 @@ div.ex1 {
                                       <div class="form-group">
                                         <label for="exampleInputEmail1">Kepada</label>
                                         <select class="form-control" name="kepada" id="kepada">
-                                            <option disabled="">-Pilih Penerima-</option>
+                                            <option disabled="">-- Pilih Penerima --</option>
                                             <?php foreach ($pegawai as $pgw) { ?>
                                                 <option value="<?= $pgw['id_pegawai'] ?>"><?= $pgw['nama_pegawai'] ?></option>
                                             <?php } ?>
