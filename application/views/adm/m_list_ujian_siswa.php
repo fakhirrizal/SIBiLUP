@@ -7,13 +7,13 @@
                     <table class="table">
                         <thead>
                             <tr>
-                              <th width="5%">No</th>
-                              <th width="20%">Nama Tes</th>
-                              <th width="20%">Modul</th>
-                              <th width="10%">Jumlah Soal</th>
-                              <th width="10%">Waktu</th>
-                              <th width="10%">Status</th>
-                              <th width="15%">Aksi</th>
+                              <th width="5%" style="text-align: center;">No</th>
+                              <th width="20%" style="text-align: center;">Nama Tes</th>
+                              <th width="20%" style="text-align: center;">Modul</th>
+                              <th width="10%" style="text-align: center;">Jumlah Soal</th>
+                              <th width="10%" style="text-align: center;">Waktu</th>
+                              <th width="10%" style="text-align: center;">Status</th>
+                              <th width="15%" style="text-align: center;">Aksi</th>
                             </tr>
                           </thead>
 
@@ -32,19 +32,19 @@
                                         <td class="ctr">'.$no.'</td>
                                         <td>'.$d->nama_ujian.'</td>
                                         <td>'.$nm_modul.'</td>
-                                        <td class="ctr">'.$d->jumlah_soal.'</td>
+                                        <td class="ctr">'.$d->jumlah_soal.' Soal</td>
                                         <td class="ctr">'.$d->waktu.' menit</td>
                                         <td class="ctr">'.$d->status.'</td>
                                         <td class="ctr">';
 
                                   if ($d->status == "Belum Ikut") {
-                                   echo '<a href="'.base_url().'adm/ikut_ujian/token/'.$d->id.'" target="_blank" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Ikuti Ujian</a>';
+                                   echo '<a href="'.base_url().'adm/ikut_ujian/token/'.$d->id.'" target="_blank" class="btn btn-info btn-xs">Ikuti Ujian</a>';
                                   } else if ($d->status == "Sedang Tes") {
-                                    echo '<a href="'.base_url().'adm/ikut_ujian/token/'.$d->id.'" target="_blank" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp; <blink>Ujian Sdg Aktif</blink></a>';
+                                    echo '<a href="'.base_url().'adm/ikut_ujian/token/'.$d->id.'" target="_blank" class="btn btn-success btn-xs"><blink>Ujian Sdg Aktif</blink></a>';
                                   } else if ($d->status == "Waktu Habis") {
-                                    echo '<a href="'.base_url().'adm/ikut_ujian/token/'.$d->id.'" target="_blank" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp; <blink>Waktu Habis</blink></a>';
+                                    echo '<a href="'.base_url().'adm/ikut_ujian/token/'.$d->id.'" target="_blank" class="btn btn-warning btn-xs"><blink>Waktu Habis</blink></a>';
                                   } else {
-                                    echo '<a href="'.base_url().'adm/sudah_selesai_ujian/'.$d->id.'" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-ok" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Anda sudah ikut</a>';
+                                    echo '<a href="'.base_url().'adm/sudah_selesai_ujian/'.$d->id.'" class="btn btn-danger btn-xs">Anda sudah ikut</a>';
                                   }
 
                                   echo '</td></tr>';

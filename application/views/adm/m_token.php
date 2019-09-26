@@ -18,8 +18,8 @@
                             <tr><td>Alamat</td><td><?php echo $dp['alamat']; ?></td></tr>
                             <tr><td>Level User</td><td><?php echo $du['description']." (".$du['definition'].")"; ?></td></tr>
                             <tr><td>Nama Ujian</td><td><?php echo $du['nama_ujian']; ?></td></tr>
-                            <tr><td>Jml Soal</td><td><?php echo $du['jumlah_soal']; ?></td></tr>
-                            <tr><td>Waktu</td><td><?php echo $du['waktu']; ?> menit</td></tr>
+                            <tr><td>Jumlah Soal</td><td><?php echo $du['jumlah_soal']; ?> Soal</td></tr>
+                            <tr><td>Waktu</td><td><?php echo $du['waktu']; ?> Menit</td></tr>
                             <!-- <tr><td>Token</td><td><input type="text" name="token" id="token" required="true" class="form-control col-md-3"></td></tr> -->
                           </table>
                         </div>

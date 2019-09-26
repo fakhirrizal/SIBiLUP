@@ -173,17 +173,17 @@ class Adm extends CI_Controller {
 		        	$jenis_soal = $d['jenis'] == "acak" ? "Soal diacak" : "Soal urut";
                 
 		            $data_ok = array();
-		            $data_ok[0] = $no++;
+		            $data_ok[0] = $no++.'.';
 		            $data_ok[1] = $d['nama_ujian']/*."<br>Token : <b>".$d['token']."</b> &nbsp;&nbsp; <a href='#' onclick='return refresh_token(".$d['id'].")' title='Perbarui Token'><i class='fa fa-refresh'></i></a>"*/;
 		            $data_ok[2] = $d['description']." (".$d['definition'].")";
-		            $data_ok[3] = $d['jumlah_soal'];
+		            $data_ok[3] = $d['jumlah_soal'].' Soal';
 		            $data_ok[4] = tjs($d['tgl_mulai'],"s")."<br>(".$d['waktu']." menit)";
 		            $data_ok[5] = $jenis_soal;
 		            $data_ok[6] = '
 		            	<div class="btn-group">
-                          <a href="'.base_url().'adm/m_modul/'.$d['id'].'" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Lihat Soal</a>
-                          <a href="#" onclick="return m_ujian_e('.$d['id'].');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
-                          <a href="#" onclick="return m_ujian_h('.$d['id'].');" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
+                          <a href="'.base_url().'adm/m_modul/'.$d['id'].'" class="btn btn-primary btn-xs">Lihat Soal</a>
+                          <a href="#" onclick="return m_ujian_e('.$d['id'].');" class="btn btn-info btn-xs">Ubah</a>
+                          <a href="#" onclick="return m_ujian_h('.$d['id'].');" class="btn btn-danger btn-xs">Hapus</a>
                         </div>
 	                         ';
 
@@ -546,8 +546,8 @@ class Adm extends CI_Controller {
 		//echo $this->db->last_query();
 		//$a['p']	= "m_list_ujian_siswa";
 		$a['load']    =  array("adm/m_list_ujian_siswa"); 
-		$a['title_page'] = "DASHBOARD";
-        $a['breadcrumb'] = "Home,Dashboard";
+		$a['title_page'] = "Ujian Online";
+		$a['breadcrumb'] = "Perpustakaan,Ujian Online";
 		$this->load->view('template/header');
 		$this->load->view('template/aside');
 		$this->load->view('template/footer', $a);
@@ -677,8 +677,8 @@ class Adm extends CI_Controller {
 				$a['terlambat'] = $tgl_terlambat_baru;
 
 				$a['load']    =  array("adm/m_token"); 
-				$a['title_page'] = "DASHBOARD";
-		        $a['breadcrumb'] = "Home,Dashboard";
+				$a['title_page'] = "Ujian Online";
+		        $a['breadcrumb'] = "Perpustakaan,Ujian Online";
 				$this->load->view('template/header');
 				$this->load->view('template/aside');
 				$this->load->view('template/footer', $a);

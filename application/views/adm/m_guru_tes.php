@@ -6,19 +6,19 @@
             <div class="row">
               <div class="panel-heading">
                 <div class="col-md-12">
-                  <a class="btn btn-success btn-sm tombol-kanan" href="#" onclick="return m_ujian_e(0);"><i class="glyphicon glyphicon-plus"></i> &nbsp;&nbsp;Tambah Ujian</a>
+                  <a class="btn btn-success btn-sm tombol-kanan" href="#" onclick="return m_ujian_e(0);">Tambah Ujian</a>
                 </div><br>
               </div>
               <table class="table table-bordered" id="datatabel">
                 <thead>
                   <tr>
-                    <th width="5%">No</th>
-                    <th width="15%">Nama Tes</th>
-                    <th width="25%">Role User</th>
-                    <th width="10%">Jumlah Soal</th>
-                    <th width="15%">Waktu</th>
-                    <th width="15%">Pengacakan Soal</th>
-                    <th width="15%">Aksi</th>
+                    <th width="5%" style="text-align: center;">No</th>
+                    <th width="15%" style="text-align: center;">Nama Tes</th>
+                    <th width="25%" style="text-align: center;">Role User</th>
+                    <th width="10%" style="text-align: center;">Jumlah Soal</th>
+                    <th width="15%" style="text-align: center;">Waktu</th>
+                    <th width="15%" style="text-align: center;">Pengacakan Soal</th>
+                    <th width="15%" style="text-align: center;">Aksi</th>
                   </tr>
                 </thead>
                 <tbody></tbody>

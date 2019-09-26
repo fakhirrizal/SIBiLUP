@@ -32,13 +32,13 @@
           <div class="row">
             <div class="col-md-3"><label>Pilih Modul</label>
               <select name="modul" class="form-control">
-                <option>-Pilih Modul-</option>
+                <option>-- Pilih Modul --</option>
                 <?php foreach ($modul as $m) {?>
                   <option value="<?= $m->id_modul ?>" <?php if ($m->id_modul == $this->input->get('modul')) { echo "selected"; } ?>><?= $m->judul ?></option>
                 <?php } ?>
               </select></div>
             <div class="col-md-3">
-              <label> </label><br>
+              <label><font color='white'>Label</font></label><br>
               <input type="submit" value="FILTER" class="btn btn-primary"></div>
           </div> 
           </form><br>
@@ -47,7 +47,7 @@
               <table class="table table-bordered" id="datatabedl" style="width: 1000px">
                 <thead>
                   <tr>
-                    <th width="15%"><input type="checkbox" name="checkall" id="checkall" onClick="check_uncheck_checkbox(this.checked);" />Pilih Semua</th>
+                    <th width="1%"><input type="checkbox" name="checkall" id="checkall" onClick="check_uncheck_checkbox(this.checked);" /></th>
                     <th width="5%">No</th>
                     <th>Soal</th>
                   </tr>
@@ -58,7 +58,7 @@
                   <input type="hidden" name="id_tes" value="<?= $this->uri->segment(3) ?>">
                   <tr>
                     <td align="center"><input type="checkbox" name="soal[]" id="language" value="<?= $s->id ?>"></td>
-                    <td><?= ++$no ?></td>
+                    <td align="center"><?= ++$no ?>.</td>
                     <td style="text-align: justify;"><?= $s->soal ?></td>
                   </tr>
                   <?php } ?>
