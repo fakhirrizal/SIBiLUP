@@ -22,7 +22,7 @@
 					</div>
 				</th>
 				<?php }?>
-				<?php if(!$unset_delete || !$unset_edit || !$unset_read || !$unset_clone || !empty($actions)){?>
+				<?php if(!$unset_delete || !$unset_edit || !$unset_read || !empty($actions)){?>
 				<th align="left" abbr="tools" axis="col1" class="" width='17%'>
 					<div class="text-center">
 						<?php echo $this->l('list_actions'); ?>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.4.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 24 Sep 2019 pada 11.15
--- Versi Server: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: 26 Sep 2019 pada 09.28
+-- Versi Server: 5.6.26
+-- PHP Version: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sibilup`
+-- Database: `sibilup1`
 --
 
 -- --------------------------------------------------------
@@ -26,10 +26,10 @@ SET time_zone = "+00:00";
 -- Struktur dari tabel `activity_logs`
 --
 
-CREATE TABLE `activity_logs` (
-  `activity_id` int(11) UNSIGNED NOT NULL,
-  `user_id` int(11) UNSIGNED NOT NULL,
-  `company_id` int(11) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `activity_logs` (
+  `activity_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) unsigned NOT NULL,
+  `company_id` int(11) unsigned NOT NULL,
   `activity_type` varchar(64) NOT NULL,
   `activity_data` text,
   `activity_time` datetime NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE `activity_logs` (
   `activity_os` varchar(16) DEFAULT NULL,
   `activity_browser` varchar(16) DEFAULT NULL,
   `activity_location` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `activity_logs`
@@ -84,7 +84,7 @@ INSERT INTO `activity_logs` (`activity_id`, `user_id`, `company_id`, `activity_t
 -- Struktur dari tabel `agenda`
 --
 
-CREATE TABLE `agenda` (
+CREATE TABLE IF NOT EXISTS `agenda` (
   `id_agenda` int(11) NOT NULL,
   `judul` varchar(200) NOT NULL,
   `deskripsi` mediumtext NOT NULL,
@@ -96,16 +96,58 @@ CREATE TABLE `agenda` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `diskusi`
+--
+
+CREATE TABLE IF NOT EXISTS `diskusi` (
+  `id_diskusi` int(11) NOT NULL,
+  `id_pgw` int(11) NOT NULL,
+  `isi` mediumtext NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `diskusi`
+--
+
+INSERT INTO `diskusi` (`id_diskusi`, `id_pgw`, `isi`, `create_at`) VALUES
+(1, 8, '<p>cek cek 123</p>', '2019-09-25 09:15:50'),
+(2, 16, '<p xss=removed><strong>Lorem Ipsum<span xss=removed> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</span></strong></p>', '2019-09-25 09:17:34');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `faq`
+--
+
+CREATE TABLE IF NOT EXISTS `faq` (
+  `id_faq` int(11) NOT NULL,
+  `pertanyaan` text NOT NULL,
+  `jawaban` text NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `faq`
+--
+
+INSERT INTO `faq` (`id_faq`, `pertanyaan`, `jawaban`, `create_at`) VALUES
+(1, '<p>\n	APA ITU PUPR ?</p>\n', '<p>\n	<b style="font-family: sans-serif; font-size: 14px;">Kementerian Pekerjaan Umum dan Perumahan Rakyat Republik Indonesia</b><span style="font-family: sans-serif; font-size: 14px;">&nbsp;(disingkat&nbsp;</span><b style="font-family: sans-serif; font-size: 14px;">Kemen PUPR RI</b><span style="font-family: sans-serif; font-size: 14px;">) adalah&nbsp;</span><a href="https://id.wikipedia.org/wiki/Kementerian_Indonesia" style="text-decoration-line: none; color: rgb(11, 0, 128); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Kementerian Indonesia">kementerian</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;dalam&nbsp;</span><a href="https://id.wikipedia.org/wiki/Pemerintah_Indonesia" style="text-decoration-line: none; color: rgb(11, 0, 128); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Pemerintah Indonesia">Pemerintah</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;</span><a href="https://id.wikipedia.org/wiki/Indonesia" style="text-decoration-line: none; color: rgb(11, 0, 128); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Indonesia">Indonesia</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;yang membidangi urusan&nbsp;</span><a class="new" href="https://id.wikipedia.org/w/index.php?title=Pekerjaan_umum&amp;action=edit&amp;redlink=1" style="text-decoration-line: none; color: rgb(165, 88, 88); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Pekerjaan umum (halaman belum tersedia)">pekerjaan umum</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;dan&nbsp;</span><a class="new" href="https://id.wikipedia.org/w/index.php?title=Perumahan_rakyat&amp;action=edit&amp;redlink=1" style="text-decoration-line: none; color: rgb(165, 88, 88); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Perumahan rakyat (halaman belum tersedia)">perumahan rakyat</a><span style="font-family: sans-serif; font-size: 14px;">. Dahulu Kementerian Pekerjaan Umum dan Perumahan Rakyat bernama &quot;Departemen Permukiman dan Pengembangan Wilayah&quot; (1999-2000) dan &quot;Departemen Permukiman dan Prasarana Wilayah&quot; (2000-2004). Kementerian Pekerjaan Umum dan Perumahan Rakyat berada di bawah dan bertanggung jawab kepada Presiden.&nbsp;</span></p>\n', '2019-09-25 09:43:27'),
+(2, '<h2 style="margin: 0px 0px 10px; padding: 0px; font-weight: 400; line-height: 24px; font-family: DauphinPlain; font-size: 24px; color: rgb(0, 0, 0);">\n	What is Lorem Ipsum?</h2>\n', '<p>\n	<strong style="margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;">Lorem Ipsum</strong><span style="color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;">&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</span></p>\n', '2019-09-25 09:44:22');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `galeri`
 --
 
-CREATE TABLE `galeri` (
+CREATE TABLE IF NOT EXISTS `galeri` (
   `id_galeri` int(11) NOT NULL,
   `judul` varchar(100) NOT NULL,
   `file` varchar(200) NOT NULL,
   `keterangan` text NOT NULL,
   `type` tinyint(2) NOT NULL COMMENT '1 = Foto, 2 = Vidio'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `galeri`
@@ -117,17 +159,50 @@ INSERT INTO `galeri` (`id_galeri`, `judul`, `file`, `keterangan`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `hubungi_kami`
+--
+
+CREATE TABLE IF NOT EXISTS `hubungi_kami` (
+  `id_hub` int(11) NOT NULL,
+  `id_pgw` int(11) NOT NULL,
+  `penjawab` int(11) NOT NULL,
+  `isi` mediumtext NOT NULL,
+  `file` varchar(100) NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `hubungi_kami`
+--
+
+INSERT INTO `hubungi_kami` (`id_hub`, `id_pgw`, `penjawab`, `isi`, `file`, `create_at`) VALUES
+(1, 16, 0, 'hello word', 'upload/hubungi_kami/hub_joglo_35.jpg', '2019-09-24 04:10:12'),
+(2, 1, 0, 'balalaaaaaaaaaaaaaaaaaaaaa', '', '2019-09-25 06:30:05'),
+(3, 2, 0, 'asdasdsaad', '', '2019-09-25 06:30:23'),
+(4, 16, 1, 'halo juga', '', '2019-09-25 07:38:14'),
+(5, 16, 0, 'iyaa broo', '', '2019-09-25 06:47:45'),
+(6, 1, 0, 'yuhuuuuuu', '', '2019-09-25 06:50:41'),
+(7, 16, 1, 'hahahhaaaa', '', '2019-09-25 07:38:41'),
+(8, 2, 0, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum', '', '2019-09-25 07:48:33'),
+(9, 2, 1, 'iyaa brooo', '', '2019-09-25 07:46:03'),
+(10, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum', '', '2019-09-25 07:48:02'),
+(11, 16, 1, '<p xss=removed><strong xss=removed>Lorem Ipsum</strong><span xss=removed> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</span></p>', '', '2019-09-25 08:38:57'),
+(14, 16, 0, '<p>mantap brooo</p>', '', '2019-09-25 09:04:48');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `kabupaten`
 --
 
-CREATE TABLE `kabupaten` (
+CREATE TABLE IF NOT EXISTS `kabupaten` (
   `id_kabupaten` int(10) NOT NULL,
   `id_provinsi` int(5) NOT NULL,
   `nm_kabupaten` varchar(50) NOT NULL,
   `bujur` varchar(20) NOT NULL,
   `lintang` varchar(20) NOT NULL,
   `kml` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9473 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `kabupaten`
@@ -655,13 +730,13 @@ INSERT INTO `kabupaten` (`id_kabupaten`, `id_provinsi`, `nm_kabupaten`, `bujur`,
 -- Struktur dari tabel `level_user`
 --
 
-CREATE TABLE `level_user` (
+CREATE TABLE IF NOT EXISTS `level_user` (
   `id_level` int(11) NOT NULL,
   `nama_level` varchar(50) NOT NULL,
   `publish` tinyint(1) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `update_date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `level_user`
@@ -679,12 +754,22 @@ INSERT INTO `level_user` (`id_level`, `nama_level`, `publish`, `create_date`, `u
 -- Struktur dari tabel `materi`
 --
 
-CREATE TABLE `materi` (
+CREATE TABLE IF NOT EXISTS `materi` (
   `id_materi` int(11) NOT NULL,
   `judul` varchar(100) NOT NULL,
   `file` varchar(200) NOT NULL,
-  `keterangan` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `keterangan` text NOT NULL,
+  `jumlah_download` int(11) NOT NULL,
+  `upload_by` int(11) NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `materi`
+--
+
+INSERT INTO `materi` (`id_materi`, `judul`, `file`, `keterangan`, `jumlah_download`, `upload_by`, `create_at`) VALUES
+(1, 'Bahasa Persatuan', '16686-859-2093-1-sm-1-.pdf', 'tes 123 dicoba', 1, 8, '2019-09-26 07:18:54');
 
 -- --------------------------------------------------------
 
@@ -692,7 +777,7 @@ CREATE TABLE `materi` (
 -- Struktur dari tabel `migrations`
 --
 
-CREATE TABLE `migrations` (
+CREATE TABLE IF NOT EXISTS `migrations` (
   `version` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -709,20 +794,23 @@ INSERT INTO `migrations` (`version`) VALUES
 -- Struktur dari tabel `modul`
 --
 
-CREATE TABLE `modul` (
+CREATE TABLE IF NOT EXISTS `modul` (
   `id_modul` int(11) NOT NULL,
   `judul` varchar(100) NOT NULL,
   `file` varchar(200) NOT NULL,
-  `keterangan` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `keterangan` text NOT NULL,
+  `upload_by` int(11) NOT NULL,
+  `jumlah_download` int(11) NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `modul`
 --
 
-INSERT INTO `modul` (`id_modul`, `judul`, `file`, `keterangan`) VALUES
-(1, 'Modul A', '', ''),
-(2, 'Modul B', '', '');
+INSERT INTO `modul` (`id_modul`, `judul`, `file`, `keterangan`, `upload_by`, `jumlah_download`, `create_at`) VALUES
+(1, 'Modul A', 'b2414-doc-11-.pdf', '', 0, 19, '2019-09-26 07:05:58'),
+(2, 'Modul B', '', '', 0, 0, '2019-09-26 02:50:23');
 
 -- --------------------------------------------------------
 
@@ -730,7 +818,7 @@ INSERT INTO `modul` (`id_modul`, `judul`, `file`, `keterangan`) VALUES
 -- Struktur dari tabel `m_soal`
 --
 
-CREATE TABLE `m_soal` (
+CREATE TABLE IF NOT EXISTS `m_soal` (
   `id` int(6) NOT NULL,
   `id_guru` int(6) NOT NULL,
   `id_mapel` int(6) NOT NULL,
@@ -747,7 +835,7 @@ CREATE TABLE `m_soal` (
   `tgl_input` datetime NOT NULL,
   `jml_benar` int(6) NOT NULL,
   `jml_salah` int(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `m_soal`
@@ -779,7 +867,7 @@ INSERT INTO `m_soal` (`id`, `id_guru`, `id_mapel`, `bobot`, `file`, `tipe_file`,
 -- Struktur dari tabel `pegawai`
 --
 
-CREATE TABLE `pegawai` (
+CREATE TABLE IF NOT EXISTS `pegawai` (
   `id_pegawai` int(11) NOT NULL,
   `user_id` int(10) NOT NULL,
   `wilayah` int(10) DEFAULT NULL,
@@ -787,7 +875,7 @@ CREATE TABLE `pegawai` (
   `alamat` text NOT NULL,
   `email` varchar(50) NOT NULL,
   `phone` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `pegawai`
@@ -808,12 +896,12 @@ INSERT INTO `pegawai` (`id_pegawai`, `user_id`, `wilayah`, `nama_pegawai`, `alam
 -- Struktur dari tabel `profil_dir`
 --
 
-CREATE TABLE `profil_dir` (
+CREATE TABLE IF NOT EXISTS `profil_dir` (
   `id_profil` int(11) NOT NULL,
   `visi_misi` longtext NOT NULL,
   `tupoksi` longtext NOT NULL,
   `struktur_organisasi` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `profil_dir`
@@ -828,14 +916,14 @@ INSERT INTO `profil_dir` (`id_profil`, `visi_misi`, `tupoksi`, `struktur_organis
 -- Struktur dari tabel `provinsi`
 --
 
-CREATE TABLE `provinsi` (
+CREATE TABLE IF NOT EXISTS `provinsi` (
   `id_provinsi` int(5) NOT NULL,
   `nm_provinsi` varchar(20) NOT NULL,
   `regional` text NOT NULL,
   `bujur` varchar(20) NOT NULL,
   `lintang` varchar(20) NOT NULL,
   `kml` varchar(300) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `provinsi`
@@ -883,12 +971,12 @@ INSERT INTO `provinsi` (`id_provinsi`, `nm_provinsi`, `regional`, `bujur`, `lint
 -- Struktur dari tabel `regulasi`
 --
 
-CREATE TABLE `regulasi` (
+CREATE TABLE IF NOT EXISTS `regulasi` (
   `id_reg` int(11) NOT NULL,
   `judul` varchar(100) NOT NULL,
   `file` varchar(200) NOT NULL,
   `keterangan` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `regulasi`
@@ -903,7 +991,7 @@ INSERT INTO `regulasi` (`id_reg`, `judul`, `file`, `keterangan`) VALUES
 -- Struktur dari tabel `rekap_kabkota`
 --
 
-CREATE TABLE `rekap_kabkota` (
+CREATE TABLE IF NOT EXISTS `rekap_kabkota` (
   `id_kabupaten` int(4) NOT NULL,
   `belum` enum('X','V') DEFAULT NULL,
   `sedang` enum('X','V') DEFAULT NULL,
@@ -919,7 +1007,7 @@ CREATE TABLE `rekap_kabkota` (
 -- Struktur dari tabel `rekap_provinsi`
 --
 
-CREATE TABLE `rekap_provinsi` (
+CREATE TABLE IF NOT EXISTS `rekap_provinsi` (
   `id_provinsi` int(2) NOT NULL,
   `belum` enum('X','V') DEFAULT NULL,
   `menganggarkan` enum('X','V') DEFAULT NULL,
@@ -936,11 +1024,11 @@ CREATE TABLE `rekap_provinsi` (
 -- Struktur dari tabel `tr_guru_mapel`
 --
 
-CREATE TABLE `tr_guru_mapel` (
+CREATE TABLE IF NOT EXISTS `tr_guru_mapel` (
   `id` int(6) NOT NULL,
   `id_guru` int(6) NOT NULL,
   `id_mapel` int(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tr_guru_mapel`
@@ -972,7 +1060,7 @@ INSERT INTO `tr_guru_mapel` (`id`, `id_guru`, `id_mapel`) VALUES
 -- Struktur dari tabel `tr_guru_tes`
 --
 
-CREATE TABLE `tr_guru_tes` (
+CREATE TABLE IF NOT EXISTS `tr_guru_tes` (
   `id` int(6) NOT NULL,
   `id_guru` int(6) NOT NULL,
   `id_mapel` int(6) NOT NULL,
@@ -984,7 +1072,7 @@ CREATE TABLE `tr_guru_tes` (
   `tgl_mulai` datetime NOT NULL,
   `terlambat` datetime NOT NULL,
   `token` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tr_guru_tes`
@@ -1002,7 +1090,7 @@ INSERT INTO `tr_guru_tes` (`id`, `id_guru`, `id_mapel`, `nama_ujian`, `jumlah_so
 -- Struktur dari tabel `tr_ikut_ujian`
 --
 
-CREATE TABLE `tr_ikut_ujian` (
+CREATE TABLE IF NOT EXISTS `tr_ikut_ujian` (
   `id` int(6) NOT NULL,
   `id_tes` int(6) NOT NULL,
   `id_user` int(6) NOT NULL,
@@ -1014,7 +1102,7 @@ CREATE TABLE `tr_ikut_ujian` (
   `tgl_mulai` datetime NOT NULL,
   `tgl_selesai` datetime NOT NULL,
   `status` enum('Y','N') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tr_ikut_ujian`
@@ -1030,13 +1118,13 @@ INSERT INTO `tr_ikut_ujian` (`id`, `id_tes`, `id_user`, `list_soal`, `list_jawab
 -- Struktur dari tabel `ujian_modul`
 --
 
-CREATE TABLE `ujian_modul` (
+CREATE TABLE IF NOT EXISTS `ujian_modul` (
   `id_ujianmodul` int(11) NOT NULL,
   `id_ujian` int(11) NOT NULL,
   `id_modul` int(11) NOT NULL,
   `jml_soal` varchar(50) NOT NULL,
   `urutan` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `ujian_modul`
@@ -1053,30 +1141,30 @@ INSERT INTO `ujian_modul` (`id_ujianmodul`, `id_ujian`, `id_modul`, `jml_soal`, 
 -- Struktur dari tabel `user`
 --
 
-CREATE TABLE `user` (
-  `id` int(9) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(9) unsigned NOT NULL,
   `username` varchar(16) DEFAULT NULL,
   `pass` varchar(64) DEFAULT NULL,
-  `total_login` int(9) UNSIGNED NOT NULL DEFAULT '0',
+  `total_login` int(9) unsigned NOT NULL DEFAULT '0',
   `last_login` datetime DEFAULT NULL,
   `last_activity` datetime DEFAULT NULL,
-  `login_attempts` int(9) UNSIGNED DEFAULT '0',
+  `login_attempts` int(9) unsigned DEFAULT '0',
   `last_login_attempt` datetime DEFAULT NULL,
   `remember_time` datetime DEFAULT NULL,
   `remember_exp` text,
   `ip_address` text,
-  `is_active` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_active` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `verification_token` varchar(128) DEFAULT NULL,
   `recovery_token` varchar(128) DEFAULT NULL,
   `unlock_token` varchar(128) DEFAULT NULL,
-  `created_by` int(9) UNSIGNED NOT NULL DEFAULT '0',
+  `created_by` int(9) unsigned NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_by` int(9) UNSIGNED DEFAULT NULL,
+  `updated_by` int(9) unsigned DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `deleted_by` int(9) UNSIGNED DEFAULT NULL,
+  `deleted_by` int(9) unsigned DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
-  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `user`
@@ -1097,7 +1185,7 @@ INSERT INTO `user` (`id`, `username`, `pass`, `total_login`, `last_login`, `last
 -- Struktur dari tabel `user_profile`
 --
 
-CREATE TABLE `user_profile` (
+CREATE TABLE IF NOT EXISTS `user_profile` (
   `id` int(9) NOT NULL,
   `user_id` int(9) NOT NULL,
   `fullname` text,
@@ -1108,7 +1196,7 @@ CREATE TABLE `user_profile` (
   `birth_date` date DEFAULT NULL,
   `address` text,
   `photo` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `user_profile`
@@ -1123,8 +1211,8 @@ INSERT INTO `user_profile` (`id`, `user_id`, `fullname`, `nin`, `bdt_id`, `pkh_i
 -- Struktur dari tabel `user_role`
 --
 
-CREATE TABLE `user_role` (
-  `id` int(11) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `user_role` (
+  `id` int(11) unsigned NOT NULL,
   `name` varchar(100) NOT NULL,
   `level` int(11) NOT NULL,
   `kon_id` int(11) NOT NULL,
@@ -1138,7 +1226,7 @@ CREATE TABLE `user_role` (
   `deleted_by` int(9) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `user_role`
@@ -1160,9 +1248,9 @@ INSERT INTO `user_role` (`id`, `name`, `level`, `kon_id`, `definition`, `descrip
 -- Struktur dari tabel `user_to_role`
 --
 
-CREATE TABLE `user_to_role` (
-  `user_id` int(9) UNSIGNED NOT NULL DEFAULT '0',
-  `role_id` int(9) UNSIGNED NOT NULL DEFAULT '0'
+CREATE TABLE IF NOT EXISTS `user_to_role` (
+  `user_id` int(9) unsigned NOT NULL DEFAULT '0',
+  `role_id` int(9) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1171,12 +1259,12 @@ CREATE TABLE `user_to_role` (
 
 INSERT INTO `user_to_role` (`user_id`, `role_id`) VALUES
 (1, 1),
+(7, 2),
 (2, 3),
-(3, 6),
 (4, 3),
+(3, 6),
 (5, 6),
-(6, 7),
-(7, 2);
+(6, 7);
 
 --
 -- Indexes for dumped tables
@@ -1188,8 +1276,8 @@ INSERT INTO `user_to_role` (`user_id`, `role_id`) VALUES
 ALTER TABLE `activity_logs`
   ADD PRIMARY KEY (`activity_id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `company_id` (`company_id`);
-ALTER TABLE `activity_logs` ADD FULLTEXT KEY `activity_type` (`activity_type`);
+  ADD KEY `company_id` (`company_id`),
+  ADD FULLTEXT KEY `activity_type` (`activity_type`);
 
 --
 -- Indexes for table `agenda`
@@ -1198,10 +1286,28 @@ ALTER TABLE `agenda`
   ADD PRIMARY KEY (`id_agenda`);
 
 --
+-- Indexes for table `diskusi`
+--
+ALTER TABLE `diskusi`
+  ADD PRIMARY KEY (`id_diskusi`);
+
+--
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id_faq`);
+
+--
 -- Indexes for table `galeri`
 --
 ALTER TABLE `galeri`
   ADD PRIMARY KEY (`id_galeri`);
+
+--
+-- Indexes for table `hubungi_kami`
+--
+ALTER TABLE `hubungi_kami`
+  ADD PRIMARY KEY (`id_hub`);
 
 --
 -- Indexes for table `kabupaten`
@@ -1345,97 +1451,112 @@ ALTER TABLE `user_to_role`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `activity_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `activity_id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `agenda`
 --
 ALTER TABLE `agenda`
   MODIFY `id_agenda` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `diskusi`
+--
+ALTER TABLE `diskusi`
+  MODIFY `id_diskusi` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `id_faq` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `galeri`
 --
 ALTER TABLE `galeri`
-  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `hubungi_kami`
+--
+ALTER TABLE `hubungi_kami`
+  MODIFY `id_hub` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `kabupaten`
 --
 ALTER TABLE `kabupaten`
-  MODIFY `id_kabupaten` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9473;
+  MODIFY `id_kabupaten` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9473;
 --
 -- AUTO_INCREMENT for table `level_user`
 --
 ALTER TABLE `level_user`
-  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `materi`
 --
 ALTER TABLE `materi`
-  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `modul`
 --
 ALTER TABLE `modul`
-  MODIFY `id_modul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_modul` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `m_soal`
 --
 ALTER TABLE `m_soal`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `profil_dir`
 --
 ALTER TABLE `profil_dir`
-  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `provinsi`
 --
 ALTER TABLE `provinsi`
-  MODIFY `id_provinsi` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id_provinsi` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=96;
 --
 -- AUTO_INCREMENT for table `regulasi`
 --
 ALTER TABLE `regulasi`
-  MODIFY `id_reg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_reg` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tr_guru_mapel`
 --
 ALTER TABLE `tr_guru_mapel`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `tr_guru_tes`
 --
 ALTER TABLE `tr_guru_tes`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tr_ikut_ujian`
 --
 ALTER TABLE `tr_ikut_ujian`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `ujian_modul`
 --
 ALTER TABLE `ujian_modul`
-  MODIFY `id_ujianmodul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_ujianmodul` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `user_profile`
 --
 ALTER TABLE `user_profile`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

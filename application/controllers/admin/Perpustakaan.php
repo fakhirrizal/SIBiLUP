@@ -64,15 +64,13 @@ class Perpustakaan extends CI_Controller {
 		$this->config->set_item('grocery_crud_file_upload_allow_file_types','pdf');
 		$crud->set_field_upload('file','assets/images/article');
 
-		//$crud->unset_read();
+		$crud->unset_read();
 		$crud->unset_texteditor('keterangan');
 		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
 			$crud->unset_delete();
 			$crud->unset_edit();
 			$crud->unset_add();
-		} else {
-			$crud->unset_read();
-		}
+		} 
 		//$crud->unset_delete();
 		//$crud->unset_back_to_list();
 
@@ -89,24 +87,33 @@ class Perpustakaan extends CI_Controller {
 		$crud->set_theme('flexigrid');
 		$crud->set_table('modul');
 
-		$crud->display_as('file','File (.pdf)');
+		$crud->display_as('file','File (.pdf)')->display_as('upload_by','Di Tambah Oleh');
 
-		//$crud->unset_columns('tupoksi','struktur_organisasi');
-
-		//$crud->change_field_type('tupoksi' , 'invisible');
-		//$crud->change_field_type('file' , 'invisible');
 		$this->config->set_item('grocery_crud_file_upload_allow_file_types','pdf');
 		$crud->set_field_upload('file','assets/images/article');
 
-	//	$crud->unset_read();
+		$crud->add_action('Download File', 'https://image.flaticon.com/icons/svg/126/126476.svg', 'admin/Perpustakaan/download_modul');	
+
+		$crud->unset_read();
 		$crud->unset_texteditor('keterangan');
 		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
 			$crud->unset_delete();
 			$crud->unset_edit();
 			$crud->unset_add();
+			$crud->unset_columns('create_at','file','jumlah_download');
 		} else {
-			$crud->unset_read();
+//			$crud->unset_read();
+			$crud->unset_columns('create_at','file');
 		}
+
+		if ($this->uri->segment(4) == 'add' OR $this->uri->segment(4) == 'edit') {
+			$crud->change_field_type('upload_by' , 'invisible');
+		} else {
+			$crud->set_relation('upload_by','pegawai','nama_pegawai');
+		}
+
+		$crud->change_field_type('create_at' , 'invisible');
+		$crud->callback_before_insert(array($this,'uploaded'));
 		//$crud->unset_delete();
 		//$crud->unset_back_to_list();
 
@@ -116,6 +123,22 @@ class Perpustakaan extends CI_Controller {
 		$this->output($output);
 	}
 
+	public function download_modul($id){   
+		$data = $this->db->query("SELECT * FROM modul WHERE id_modul='$id'")->row(); 
+		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
+        	$uplod ['jumlah_download'] = $data->jumlah_download+1;
+        	$main = $this->Crud_model->update('modul',$uplod,array("id_modul"=>$id));
+        }
+	 	$file = realpath ( "assets/images/article" ) . "\\" . $data->file;
+	    // check file exists    
+	    if (file_exists ( $file )) {
+		     // get file content
+		    $datas = file_get_contents ( $file );
+		     //force download
+		    force_download ( $data->file, $datas );
+		}
+    }
+
 	public function materi(){
 		$crud = new grocery_CRUD();
 
@@ -123,24 +146,32 @@ class Perpustakaan extends CI_Controller {
 		$crud->set_theme('flexigrid');
 		$crud->set_table('materi');
 
-		$crud->display_as('file','File (.pdf)');
+		$crud->display_as('file','File (.pdf)')->display_as('upload_by','Di Tambah Oleh');
 
-		//$crud->unset_columns('tupoksi','struktur_organisasi');
-
-		//$crud->change_field_type('tupoksi' , 'invisible');
-		//$crud->change_field_type('file' , 'invisible');
 		$this->config->set_item('grocery_crud_file_upload_allow_file_types','pdf');
 		$crud->set_field_upload('file','assets/images/article');
 
-		//$crud->unset_read();
+		$crud->unset_read();
 		$crud->unset_texteditor('keterangan');
 		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
 			$crud->unset_delete();
 			$crud->unset_edit();
 			$crud->unset_add();
+			$crud->unset_columns('create_at','file','jumlah_download');
 		} else {
-			$crud->unset_read();
+//			$crud->unset_read();
+			$crud->unset_columns('create_at','file');
 		}
+		if ($this->uri->segment(4) == 'add' OR $this->uri->segment(4) == 'edit') {
+			$crud->change_field_type('upload_by' , 'invisible');
+		} else {
+			$crud->set_relation('upload_by','pegawai','nama_pegawai');
+		}
+
+		$crud->add_action('Download File', 'https://image.flaticon.com/icons/svg/126/126476.svg', 'admin/Perpustakaan/download_materi');	
+
+		$crud->change_field_type('create_at' , 'invisible');
+		$crud->callback_before_insert(array($this,'uploaded'));
 		//$crud->unset_delete();
 		//$crud->unset_back_to_list();
 
@@ -149,6 +180,22 @@ class Perpustakaan extends CI_Controller {
         $output->breadcrumb = "Perpustakaan,Materi";
 		$this->output($output);
 	}
+
+	public function download_materi($id){   
+		$data = $this->db->query("SELECT * FROM materi WHERE id_materi='$id'")->row(); 
+		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
+        	$uplod ['jumlah_download'] = $data->jumlah_download+1;
+        	$main = $this->Crud_model->update('materi',$uplod,array("id_materi"=>$id));
+        }
+	 	$file = realpath ( "assets/images/article" ) . "\\" . $data->file;
+	    // check file exists    
+	    if (file_exists ( $file )) {
+		     // get file content
+		    $datas = file_get_contents ( $file );
+		     //force download
+		    force_download ( $data->file, $datas );
+		}
+    }
 
 	public function photo(){
 		$crud = new grocery_CRUD();
@@ -167,7 +214,7 @@ class Perpustakaan extends CI_Controller {
 		$this->config->set_item('grocery_crud_file_upload_allow_file_types','jpg|jpeg|png');
 		$crud->set_field_upload('file','assets/images');
 
-		//$crud->unset_read();
+		$crud->unset_read();
 		$crud->unset_texteditor('keterangan');
 		//$crud->unset_delete();
 		//$crud->unset_back_to_list();
@@ -175,9 +222,7 @@ class Perpustakaan extends CI_Controller {
 			$crud->unset_delete();
 			$crud->unset_edit();
 			$crud->unset_add();
-		} else {
-			$crud->unset_read();
-		}
+		} 
 
 		$crud->callback_before_insert(array($this,'foto'));
 
@@ -209,9 +254,8 @@ class Perpustakaan extends CI_Controller {
 			$crud->unset_delete();
 			$crud->unset_edit();
 			$crud->unset_add();
-		} else {
-			$crud->unset_read();
 		}
+		$crud->unset_read();
 		//$crud->unset_delete();
 		//$crud->unset_back_to_list();
 
@@ -241,9 +285,8 @@ class Perpustakaan extends CI_Controller {
 			$crud->unset_delete();
 			$crud->unset_edit();
 			$crud->unset_add();
-		} else {
-			$crud->unset_read();
 		}
+		$crud->unset_read();
 		//$crud->unset_back_to_list();
 
 	//	$crud->callback_before_insert(array($this,'vidios'));
@@ -258,6 +301,13 @@ class Perpustakaan extends CI_Controller {
 	public function get_init_date($post_array){
   		
   		$post_array['update_at'] = date('Y-m-d H:i:s');
+
+  		return $post_array;
+	}
+
+	public function uploaded($post_array){
+  		
+  		$post_array['upload_by'] = $this->session->userdata('admin_konid');
 
   		return $post_array;
 	}
