@@ -102,10 +102,9 @@ foreach($css_files as $file): ?>
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box">
-                                            <div class="u-img"><img src="<?= base_url() ?>assets/images/users/1.jpg" alt="user"></div>
+                                            <div class="u-img"><img src="<?= base_url() ?>assets/images/user.png" alt="user"></div>
                                             <div class="u-text">
-                                                <h4>Administrator</h4>
-                                                <p class="text-muted">admin@pu.go.id</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">Lihat Profil</a></div>
+                                                <h4><?= $this->session->userdata('admin_nama') ?></h4></div>
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>

@@ -144,6 +144,7 @@ class Adm extends CI_Controller {
 			exit();
 		} else if ($uri3 == "hapus") {
 			$this->db->query("DELETE FROM tr_guru_tes WHERE id = '".$uri4."'");
+			$this->db->query("DELETE FROM ujian_modul WHERE id_ujian = '".$uri4."'");
 			$ret_arr['status'] 	= "ok";
 			$ret_arr['caption']	= "hapus sukses";
 			j($ret_arr);
@@ -181,6 +182,7 @@ class Adm extends CI_Controller {
 		            $data_ok[5] = $jenis_soal;
 		            $data_ok[6] = '
 		            	<div class="btn-group">
+                          <a href="'.base_url().'adm/m_hasil/'.$d['id'].'" class="btn btn-success btn-xs">Lihat Hasil</a>
                           <a href="'.base_url().'adm/m_modul/'.$d['id'].'" class="btn btn-primary btn-xs">Lihat Soal</a>
                           <a href="#" onclick="return m_ujian_e('.$d['id'].');" class="btn btn-info btn-xs">Ubah</a>
                           <a href="#" onclick="return m_ujian_h('.$d['id'].');" class="btn btn-danger btn-xs">Hapus</a>
@@ -426,6 +428,24 @@ class Adm extends CI_Controller {
 		//$this->load->view('adm/pilih_soal', $a);
 	}
 
+	public function m_hasil() {
+		$this->cek_aktif();
+		cek_hakakses(array("2","1"), $this->session->userdata('admin_level'));
+
+		$a['sess_level'] = $this->session->userdata('admin_level');
+		$a['sess_user'] = $this->session->userdata('admin_user');
+		$a['sess_konid'] = $this->session->userdata('admin_konid');
+		
+		$a['hasil'] = $this->db->query("SELECT * FROM tr_ikut_ujian LEFT JOIN pegawai ON id_user=id_pegawai")->result();
+		$a['load']    =  array("adm/m_hasil"); 
+		$a['title_page'] = "Soal Ujian Online";
+        $a['breadcrumb'] = "Perpustakaan,Soal Ujian Online";
+		$this->load->view('template/header');
+		$this->load->view('template/aside');
+		$this->load->view('template/footer', $a);
+		//$this->load->view('adm/pilih_soal', $a);
+	}
+
 	public function soal_edit($id) {
 		$this->cek_aktif();
 		cek_hakakses(array("2","1"), $this->session->userdata('admin_level'));
@@ -569,7 +589,7 @@ class Adm extends CI_Controller {
 		$p = json_decode(file_get_contents('php://input'));
 		$a['detil_user'] = $this->db->query("SELECT a.*,b.role_id FROM pegawai a LEFT JOIN user_to_role b ON a.user_id=b.user_id WHERE id_pegawai = '".$a['sess_konid']."'")->row();
 		$dusr = $a['detil_user'];
-		$kon_id = $dusr->role_id;
+		$kon_id = $this->session->userdata('admin_konid');
 		if ($uri3 == "simpan_satu") {
 			$p			= json_decode(file_get_contents('php://input'));
 			
