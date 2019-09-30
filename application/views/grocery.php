@@ -97,19 +97,24 @@ foreach($css_files as $file): ?>
                         <!-- ============================================================== -->
                         
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url() ?>assets/images/user.png" alt="user" class="profile-pic m-r-10" /><?= $this->session->userdata('admin_nama') ?></a>
+                            <?php if ($this->session->userdata('foto') == "") {
+                                $fotoku = "user.png";
+                            } else {
+                                $fotoku = $this->session->userdata('foto');
+                            } ?>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url()."assets/images/".$fotoku ?>" alt="user" class="profile-pic m-r-10" /><?= $this->session->userdata('admin_nama') ?></a>
                             <div class="dropdown-menu dropdown-menu-right scale-up">
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box">
-                                            <div class="u-img"><img src="<?= base_url() ?>assets/images/user.png" alt="user"></div>
+                                            <div class="u-img"><img src="<?= base_url()."assets/images/".$fotoku ?>" alt="user"></div>
                                             <div class="u-text">
                                                 <h4><?= $this->session->userdata('admin_nama') ?></h4></div>
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="ti-user"></i> Profil</a></li>
-                                    <li><a href="#"><i class="ti-settings"></i> Pengaturan Akun</a></li>
+                                    <li><a href="<?= base_url()."admin/master/profiles/edit/".$this->session->userdata('admin_konid'); ?>"><i class="ti-user"></i> Edit Profil</a></li>
+                                    <li><a href="<?= base_url()."admin/master/akun/edit/".$this->session->userdata('id'); ?>"><i class="ti-settings"></i> Edit Akun</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="<?php echo site_url('Auth/logout'); ?>"><i class="fa fa-power-off"></i> Keluar</a></li>
                                 </ul>

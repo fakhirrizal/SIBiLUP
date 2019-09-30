@@ -1,4 +1,8 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
 <style type="text/css">
 	.flexigrid div.sDiv{
 		background: #FBFBFB;
@@ -34,6 +38,10 @@
 	.flexigrid div.tDiv{
 		padding: 5px;
 	}
+
+	div.ex1 {
+	  overflow: scroll;
+	}
 </style>
 <style media="all" type="text/css">
     .alignCenter { text-align: center; }
@@ -66,6 +74,7 @@
                                 <!-- <a class="btn btn-success btn-sm tombol-kanan" href="<?=base_url('admin_side/tambah_data_kabkot');?>">Tambah Data Baru</a> -->
 							</div>
 							<br>
+							<div class="ex1">
 							<table class="table table-striped table-bordered table-hover table-checkable order-column" style="overflow-x: auto;width: 120%;" id="tbl">
                                 <thead>
                                     <tr>
@@ -113,6 +122,7 @@
                                     });
                                 });
                             </script>
+	                        </div>
 						</div>
 					</div>
 				</div>

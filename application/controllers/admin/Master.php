@@ -61,6 +61,92 @@ class Master extends CI_Controller {
 		$this->output($output);
 	}
 
+	public function akun(){
+		$crud = new grocery_CRUD();
+
+		if ($this->uri->segment(5) != $this->session->userdata('id')) {
+			redirect('admin_side/beranda', 'refresh');
+		}
+		$crud->set_language('indonesian');
+		$crud->set_theme('flexigrid');
+		$crud->set_table('user');
+
+		$crud->display_as('pass','Password');
+
+		$crud->columns('username','pass');
+
+		$crud->change_field_type('pass' , 'password');
+		$crud->change_field_type('username' , 'readonly');
+		$crud->change_field_type('total_login' , 'invisible');
+		$crud->change_field_type('last_login' , 'invisible');
+		$crud->change_field_type('last_activity' , 'invisible');
+		$crud->change_field_type('login_attempts' , 'invisible');
+		$crud->change_field_type('last_login_attempt' , 'invisible');
+		$crud->change_field_type('remember_time' , 'invisible');
+		$crud->change_field_type('remember_exp' , 'invisible');
+		$crud->change_field_type('ip_address' , 'invisible');
+		$crud->change_field_type('verification_token' , 'invisible');
+		$crud->change_field_type('recovery_token' , 'invisible');
+		$crud->change_field_type('unlock_token' , 'invisible');
+		$crud->change_field_type('created_by' , 'invisible');
+		$crud->change_field_type('created_at' , 'invisible');
+		$crud->change_field_type('updated_at' , 'invisible');
+		$crud->change_field_type('updated_by' , 'invisible');
+		$crud->change_field_type('deleted_by' , 'invisible');
+		$crud->change_field_type('deleted_at' , 'invisible');
+		$crud->change_field_type('deleted' , 'invisible');
+		$crud->change_field_type('is_active' , 'invisible');
+
+		$crud->unset_read();
+		$crud->unset_add();
+		$crud->unset_delete();
+		$crud->unset_back_to_list();
+
+		//enkripsi password md5 (silahkan rubah di function pass_md5)
+		//$crud->callback_before_update(array($this,'pass_md5'));
+
+		$output = $crud->render();
+		$output->title_page = "Uban Akun";
+        $output->breadcrumb = "Profile,Ubah Akun";
+		$this->output($output);
+	}
+
+	public function profiles(){
+		$crud = new grocery_CRUD();
+
+		if ($this->uri->segment(5) != $this->session->userdata('admin_konid')) {
+			redirect('admin_side/beranda', 'refresh');
+		}
+		$crud->set_language('indonesian');
+		$crud->set_theme('flexigrid');
+		$crud->set_table('pegawai');
+
+	//	$crud->display_as('pass','Password');
+
+		//$crud->columns('username','pass');
+		$crud->change_field_type('user_id' , 'invisible');
+		$crud->change_field_type('wilayah' , 'invisible');
+		$this->config->set_item('grocery_crud_file_upload_allow_file_types','png');
+		$crud->set_field_upload('foto','assets/images');
+		$crud->unset_texteditor('alamat');
+
+		$crud->unset_read();
+		$crud->unset_add();
+		$crud->unset_delete();
+		$crud->unset_back_to_list();
+
+		$output = $crud->render();
+		$output->title_page = "Uban Prodile";
+        $output->breadcrumb = "Profile,Ubah Profile";
+		$this->output($output);
+	}
+
+	function pass_md5($post_array) {
+		$post_array['pass'] = md5($post_array['pass']);
+
+		return $post_array;
+	}
+
 	public function faq_input(){
 		$crud = new grocery_CRUD();
 

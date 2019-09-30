@@ -41,7 +41,7 @@ class Auth extends CI_Controller {
 					);
 					$this->Main_model->updateData('user',$data_log,array('id'=>$value->id));
 					$this->Main_model->log_activity($value->id,'Login to system','Login via web browser',$this->input->post('location'));
-					$role = $this->Main_model->getSelectedData('user_to_role a', 'b.*,a.user_id,c.id_pegawai,c.nama_pegawai', array('a.user_id'=>$value->id,'b.deleted'=>'0'), "",'','','',array(
+					$role = $this->Main_model->getSelectedData('user_to_role a', 'b.*,a.user_id,c.id_pegawai,c.nama_pegawai,c.foto', array('a.user_id'=>$value->id,'b.deleted'=>'0'), "",'','','',array(
 						array(
 							'table' => 'user_role b',
 							'on' => 'a.role_id=b.id',
@@ -68,6 +68,7 @@ class Auth extends CI_Controller {
 		                    $sess_data['admin_level'] = $value2->level;
 		                    $sess_data['admin_konid'] = $value2->id_pegawai;
 		                    $sess_data['admin_nama'] = $value2->nama_pegawai;
+		                    $sess_data['foto'] = $value2->foto;
 							$sess_data['admin_valid'] = true;
 							$this->session->set_userdata($sess_data);
 							redirect($value2->route);
