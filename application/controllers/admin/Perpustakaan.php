@@ -71,6 +71,9 @@ class Perpustakaan extends CI_Controller {
 			$crud->unset_edit();
 			$crud->unset_add();
 		} 
+
+		$crud->change_field_type('upload_by' , 'invisible');
+		$crud->callback_before_insert(array($this,'uploaded'));
 		//$crud->unset_delete();
 		//$crud->unset_back_to_list();
 
@@ -108,6 +111,7 @@ class Perpustakaan extends CI_Controller {
 
 		if ($this->uri->segment(4) == 'add' OR $this->uri->segment(4) == 'edit') {
 			$crud->change_field_type('upload_by' , 'invisible');
+			$crud->change_field_type('jumlah_download' , 'invisible');
 		} else {
 			$crud->set_relation('upload_by','pegawai','nama_pegawai');
 		}
@@ -164,6 +168,7 @@ class Perpustakaan extends CI_Controller {
 		}
 		if ($this->uri->segment(4) == 'add' OR $this->uri->segment(4) == 'edit') {
 			$crud->change_field_type('upload_by' , 'invisible');
+			$crud->change_field_type('jumlah_download' , 'invisible');
 		} else {
 			$crud->set_relation('upload_by','pegawai','nama_pegawai');
 		}
@@ -307,7 +312,7 @@ class Perpustakaan extends CI_Controller {
 
 	public function uploaded($post_array){
   		
-  		$post_array['upload_by'] = $this->session->userdata('admin_konid');
+  		$post_array['upload_by'] = $this->session->userdata('id');
 
   		return $post_array;
 	}
