@@ -17,3 +17,5 @@ Tanggal 18 September 2019
 Tanggal 24 September 2019
     - Buat tabel rekap_provinsi
     - Buat tabel rekap_kabkota
+Tanggal 01 Oktober 2019
+    - ALTER TABLE `pegawai` ADD `foto` TEXT NULL AFTER `phone`;

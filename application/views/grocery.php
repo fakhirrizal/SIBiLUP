@@ -113,8 +113,8 @@ foreach($css_files as $file): ?>
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="<?= base_url()."admin/master/profiles/edit/".$this->session->userdata('admin_konid'); ?>"><i class="ti-user"></i> Edit Profil</a></li>
-                                    <li><a href="<?= base_url()."admin/master/akun/edit/".$this->session->userdata('id'); ?>"><i class="ti-settings"></i> Edit Akun</a></li>
+                                    <li><a href="<?= base_url()."admin/master/profiles/edit/".$this->session->userdata('admin_konid'); ?>"><i class="ti-user"></i> Pengaturan Profil</a></li>
+                                    <li><a href="<?= base_url()."admin/master/akun/edit/".$this->session->userdata('id'); ?>"><i class="ti-settings"></i> Pengaturan Akun</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="<?php echo site_url('Auth/logout'); ?>"><i class="fa fa-power-off"></i> Keluar</a></li>
                                 </ul>

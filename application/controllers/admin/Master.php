@@ -106,8 +106,8 @@ class Master extends CI_Controller {
 		//$crud->callback_before_update(array($this,'pass_md5'));
 
 		$output = $crud->render();
-		$output->title_page = "Uban Akun";
-        $output->breadcrumb = "Profile,Ubah Akun";
+		$output->title_page = "Pengaturan Akun";
+        $output->breadcrumb = "Pengaturan,Ubah Akun";
 		$this->output($output);
 	}
 
@@ -136,8 +136,8 @@ class Master extends CI_Controller {
 		$crud->unset_back_to_list();
 
 		$output = $crud->render();
-		$output->title_page = "Uban Prodile";
-        $output->breadcrumb = "Profile,Ubah Profile";
+		$output->title_page = "Pengaturan Profil";
+        $output->breadcrumb = "Pengaturan,Ubah Profil";
 		$this->output($output);
 	}
 
