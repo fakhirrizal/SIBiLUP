@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 26 Sep 2019 pada 09.26
+-- Generation Time: 02 Okt 2019 pada 09.56
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -23,31 +23,47 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rekap_provinsi`
+-- Struktur dari tabel `materi_substantif_pkp`
 --
 
-CREATE TABLE `rekap_provinsi` (
-  `id_provinsi` int(2) NOT NULL,
-  `belum` enum('X','V') DEFAULT NULL,
-  `menganggarkan` enum('X','V') DEFAULT NULL,
-  `sedang` enum('X','V') DEFAULT NULL,
-  `review` enum('X','V') DEFAULT NULL,
-  `sudah` enum('X','V') DEFAULT NULL,
-  `bentuk_kegiatan` text,
-  `anggaran` text
+CREATE TABLE `materi_substantif_pkp` (
+  `id_materi_substantif_pkp` int(10) NOT NULL,
+  `materi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `materi_substantif_pkp`
+--
+
+INSERT INTO `materi_substantif_pkp` (`id_materi_substantif_pkp`, `materi`) VALUES
+(1, 'Pendataan'),
+(2, 'Pokja PKP'),
+(3, 'RP3KP'),
+(4, 'SPM'),
+(5, 'PSU'),
+(6, 'Kumuh'),
+(7, 'Perizinan'),
+(8, 'Pertanahan');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `rekap_provinsi`
+-- Indexes for table `materi_substantif_pkp`
 --
-ALTER TABLE `rekap_provinsi`
-  ADD PRIMARY KEY (`id_provinsi`),
-  ADD KEY `id_provinsi` (`id_provinsi`);
+ALTER TABLE `materi_substantif_pkp`
+  ADD PRIMARY KEY (`id_materi_substantif_pkp`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `materi_substantif_pkp`
+--
+ALTER TABLE `materi_substantif_pkp`
+  MODIFY `id_materi_substantif_pkp` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

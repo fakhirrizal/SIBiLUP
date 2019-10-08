@@ -15,7 +15,11 @@ Tanggal 15 September 2019
 Tanggal 18 September 2019
     - ALTER TABLE `pegawai` ADD `user_id` INT(10) NOT NULL AFTER `id_pegawai`, ADD `wilayah` INT(10) NULL AFTER `user_id`, ADD INDEX `user_id` (`user_id`), ADD INDEX `wilayah` (`wilayah`);
 Tanggal 24 September 2019
-    - Buat tabel rekap_provinsi
-    - Buat tabel rekap_kabkota
+    - Buat tabel rekap_rp3kp_provinsi
+    - Buat tabel rekap_rp3kp_kabkota
 Tanggal 01 Oktober 2019
     - ALTER TABLE `pegawai` ADD `foto` TEXT NULL AFTER `phone`;
+    - Menambah tabel materi_substantif_pkp
+    - ALTER TABLE `materi` ADD `kategori` ENUM('Materi Substantif PKP','Materi Sosialisasi','Materi Bimtek','Materi Rakor') NOT NULL AFTER `judul`, ADD `sub_kategori` INT(10) NULL AFTER `kategori`, ADD INDEX `sub_kategori` (`sub_kategori`);
+Tanggal 07 Oktober 2019
+    - Buat tabel rekap_pokja_pkp_provinsi

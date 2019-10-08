@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 26 Sep 2019 pada 09.26
+-- Generation Time: 07 Okt 2019 pada 17.14
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -23,17 +23,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rekap_kabkota`
+-- Struktur dari tabel `rekap_pokja_pkp_provinsi`
 --
 
-CREATE TABLE `rekap_kabkota` (
-  `id_kabupaten` int(4) NOT NULL,
-  `belum` enum('X','V') DEFAULT NULL,
-  `sedang` enum('X','V') DEFAULT NULL,
-  `review` enum('X','V') DEFAULT NULL,
-  `sudah` enum('X','V') DEFAULT NULL,
-  `bentuk_kegiatan` text,
-  `anggaran` text
+CREATE TABLE `rekap_pokja_pkp_provinsi` (
+  `id_provinsi` int(10) NOT NULL,
+  `penggabungan` enum('Belum','Proses','Sudah') DEFAULT NULL COMMENT 'Penggabungan Berbagai Pokja (AMPL, Sanitasi, PKP, dsb)',
+  `program` enum('Tidak','Ya') DEFAULT NULL COMMENT 'Punya Program Kerja 5 Tahun',
+  `ketua` text COMMENT 'Ketua Pokja',
+  `perayaan` enum('Tidak','Ada') DEFAULT NULL COMMENT 'Perayaan Hapernas/ Hari Habitat/ dsb',
+  `apbd` enum('Tidak','Ada') DEFAULT NULL COMMENT 'Dukungan APBD untuk Pokja PKP'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -41,11 +40,11 @@ CREATE TABLE `rekap_kabkota` (
 --
 
 --
--- Indexes for table `rekap_kabkota`
+-- Indexes for table `rekap_pokja_pkp_provinsi`
 --
-ALTER TABLE `rekap_kabkota`
-  ADD PRIMARY KEY (`id_kabupaten`),
-  ADD KEY `id_provinsi` (`id_kabupaten`);
+ALTER TABLE `rekap_pokja_pkp_provinsi`
+  ADD PRIMARY KEY (`id_provinsi`),
+  ADD KEY `id_provinsi` (`id_provinsi`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

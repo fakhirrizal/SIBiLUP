@@ -38,6 +38,7 @@
 	.flexigrid div.tDiv{
 		padding: 5px;
 	}
+
 	div.ex1 {
 	  overflow: scroll;
 	}
@@ -68,30 +69,27 @@
 					<div class="portlet light ">
 						<div class="portlet-body">
 							<div class="table-toolbar">
-								<!-- <button id="sample_editable_1_new" onclick="window.location.href='<?=base_url('admin_side/tambah_data_kabkota');?>'" class="btn sbold grey"><i class="fa fa-plus"></i> Tambah Data Baru
+								<!-- <button id="sample_editable_1_new" onclick="window.location.href='<?=base_url('admin_side/tambah_data_provinsi');?>'" class="btn sbold grey"><i class="fa fa-plus"></i> Tambah Data Baru
                                 </button> -->
                                 <!-- <a class="btn btn-success btn-sm tombol-kanan" href="<?=base_url('admin_side/tambah_data_kabkot');?>">Tambah Data Baru</a> -->
 							</div>
 							<br>
-							<div class="ex1">
-							<table class="table table-striped table-bordered table-hover table-checkable order-column" style="overflow-x: auto;width: 120%;" id="tbl">
+							<!-- <div class="ex1"> -->
+							<div style="overflow-x: auto;">
+							<table class="table table-striped table-bordered" id="tbl">
                                 <thead>
                                     <tr>
-                                        <th style="vertical-align : middle;text-align:center;" width="4%" rowspan='3'> # </th>
-										<th style="vertical-align : middle;text-align:center;" rowspan='3'> Nama Kabupaten/ Kota </th>
-										<th style="vertical-align : middle;text-align:center;" colspan='4'> Status Penyusunan </th>
-                                        <th style="vertical-align : middle;text-align:center;" rowspan='3'> Bentuk Kegiatan </th>
-                                        <th style="vertical-align : middle;text-align:center;" rowspan='3'> Alokasi Anggaran Kegiatan </th>
-                                        <th style="vertical-align : middle;text-align:center;" width="7%" rowspan='3'> Aksi </th>
+                                        <th style="vertical-align : middle;text-align:center;" width="4%" rowspan='2'> # </th>
+										<th style="vertical-align : middle;text-align:center;" rowspan='2'> Provinsi </th>
+										<th style="vertical-align : middle;text-align:center;" colspan='5'> Pokja PKP Provinsi </th>
+                                        <th style="vertical-align : middle;text-align:center;" width="7%" rowspan='2'> Aksi </th>
                                     </tr>
                                     <tr>
-										<th style="vertical-align : middle;text-align:center;" rowspan='2'> Belum (Belum Menganggarkan / Menganggarkan TA 2019 / Menyusun Profil PKP) </th>
-										<th style="vertical-align : middle;text-align:center;" rowspan='2'> Sedang (Lelang / Menyusun Buku Data dan Analisis atau Buku Rencana) </th>
-                                        <th style="vertical-align : middle;text-align:center;" colspan='2'> Sudah </th>
-                                    </tr>
-                                    <tr>
-                                        <th style="vertical-align : middle;text-align:center;"> Review/ Konsultasi Publik/ Prolegda </th>
-                                        <th style="vertical-align : middle;text-align:center;"> Sudah Legalisasi menjadi Perda </th>
+										<th style="vertical-align : middle;text-align:center;"> Penggabungan Berbagai Pokja </th>
+										<th style="vertical-align : middle;text-align:center;" > Punya Program Kerja 5 Tahun </th>
+										<th style="vertical-align : middle;text-align:center;" > Ketua Pokja </th>
+                                        <th style="vertical-align : middle;text-align:center;" > Perayaan Hapernas/ Hari Habitat/ dsb </th>
+                                        <th style="vertical-align : middle;text-align:center;" > Dukungan APBD </th>
                                     </tr>
                                 </thead>
                             </table>
@@ -101,17 +99,16 @@
                                         "order": [[ 0, "asc" ]],
                                         "bProcessing": true,
                                         "ajax" : {
-                                            url:"<?= site_url('admin/Map/json_rekap_kabupaten'); ?>"
+                                            url:"<?= site_url('admin/Map/json_rekap_pokja_pkp_provinsi'); ?>"
                                         },
                                         "aoColumns": [
                                                     { mData: 'number', sClass: "alignCenter" },
-                                                    { mData: 'nm_kabupaten', sClass: "alignCenter" },
-                                                    { mData: 'belum', sClass: "alignCenter" },
-                                                    { mData: 'sedang', sClass: "alignCenter" },
-                                                    { mData: 'review', sClass: "alignCenter" },
-                                                    { mData: 'sudah', sClass: "alignCenter" },
-                                                    { mData: 'bentuk_kegiatan', sClass: "alignCenter" },
-                                                    { mData: 'anggaran', sClass: "alignCenter" },
+                                                    { mData: 'nm_provinsi', sClass: "alignCenter" },
+                                                    { mData: 'penggabungan', sClass: "alignCenter" },
+                                                    { mData: 'program', sClass: "alignCenter" },
+                                                    { mData: 'ketua', sClass: "alignCenter" },
+                                                    { mData: 'perayaan', sClass: "alignCenter" },
+                                                    { mData: 'apbd', sClass: "alignCenter" },
 													{ mData: 'action', sClass: "alignCenter" }
                                                 ]
                                     });

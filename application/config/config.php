@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 
 //$root = "http://localhost/sibilup/";
-$config['base_url'] = 'http://localhost/sibilup/';
+$config['base_url'] = 'http://localhost:8080/sibilup/';
 $pc_root = explode("/", $config['base_url']);
 $uri_js = count($pc_root) - 2;
 

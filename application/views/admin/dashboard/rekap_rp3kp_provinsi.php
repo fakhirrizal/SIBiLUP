@@ -74,8 +74,9 @@
                                 <!-- <a class="btn btn-success btn-sm tombol-kanan" href="<?=base_url('admin_side/tambah_data_kabkot');?>">Tambah Data Baru</a> -->
 							</div>
 							<br>
-							<div class="ex1">
-							<table class="table table-striped table-bordered table-hover table-checkable order-column" style="overflow-x: auto;width: 120%;" id="tbl">
+							<!-- <div class="ex1"> -->
+							<div style="overflow-x: auto;">
+							<table class="table table-striped table-bordered" id="tbl">
                                 <thead>
                                     <tr>
                                         <th style="vertical-align : middle;text-align:center;" width="4%" rowspan='3'> # </th>
@@ -104,7 +105,7 @@
                                         "order": [[ 0, "asc" ]],
                                         "bProcessing": true,
                                         "ajax" : {
-                                            url:"<?= site_url('admin/Map/json_rekap_provinsi'); ?>"
+                                            url:"<?= site_url('admin/Map/json_rekap_rp3kp_provinsi'); ?>"
                                         },
                                         "aoColumns": [
                                                     { mData: 'number', sClass: "alignCenter" },

@@ -19,28 +19,29 @@ class Dashboard extends CI_Controller {
 
         $this->load->view('template/footer', $data);
     }
-    public function rekap_provinsi()
+    /* RP3KP */
+    public function rekap_rp3kp_provinsi()
 	{
-        $data['title_page'] = "Rekap Provinsi";
-        $data['breadcrumb'] = "Dashboard,Rekap Provinsi";
-        $data['load']       =  array("admin/dashboard/rekap_provinsi"); 
+        $data['title_page'] = "Rekap RP3KP Provinsi";
+        $data['breadcrumb'] = "Dashboard,Rekap RP3KP Provinsi";
+        $data['load']       =  array("admin/dashboard/rekap_rp3kp_provinsi"); 
 
         $this->load->view('template/footer', $data);
     }
-    public function ubah_data_rekap_provinsi()
+    public function ubah_data_rekap_rp3kp_provinsi()
 	{
         $data['title_page'] = "Ubah Data Provinsi";
-        $data['breadcrumb'] = "Dashboard,Rekap Provinsi,Ubah Data";
-		$data['load']       =  array("admin/dashboard/ubah_data_rekap_provinsi");
+        $data['breadcrumb'] = "Dashboard,Rekap RP3KP Provinsi,Ubah Data";
+		$data['load']       =  array("admin/dashboard/ubah_data_rekap_rp3kp_provinsi");
 		$data['data_utama'] = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi,a.regional', array('md5(a.id_provinsi)'=>$this->uri->segment(3)),'','','','',array(
-            'table' => 'rekap_provinsi b',
+            'table' => 'rekap_rp3kp_provinsi b',
 			'on' => 'a.id_provinsi=b.id_provinsi',
 			'pos' => 'LEFT'
         ))->row();
 
         $this->load->view('template/footer', $data);
     }
-    public function perbarui_data_rekap_provinsi(){
+    public function perbarui_data_rekap_rp3kp_provinsi(){
         $this->db->trans_start();
         $rencana_anggaran = preg_replace("/[^0-9]/", "", $this->input->post('rencana_anggaran'));
         $belum = 'X';
@@ -77,39 +78,40 @@ class Dashboard extends CI_Controller {
             'anggaran' => $rencana_anggaran
         );
         // print_r($data_1);
-        $check = $this->Main_model->getSelectedData('rekap_provinsi a', 'a.*', array('a.id_provinsi'=>$this->input->post('id_provinsi')))->result();
+        $check = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.id_provinsi'=>$this->input->post('id_provinsi')))->result();
 		if($check==NULL){
-            $this->Main_model->insertData('rekap_provinsi',$data_1);
+            $this->Main_model->insertData('rekap_rp3kp_provinsi',$data_1);
 		}else{
-            $this->Main_model->updateData('rekap_provinsi',$data_1,array('id_provinsi'=>$this->input->post('id_provinsi')));
+            $this->Main_model->updateData('rekap_rp3kp_provinsi',$data_1,array('id_provinsi'=>$this->input->post('id_provinsi')));
         }
         $this->Main_model->log_activity($this->session->userdata('id'),'Updating data',"Memperbarui data rekap provinsi",$this->session->userdata('location'));
         $this->db->trans_complete();
         if($this->db->trans_status() === false){
             $this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>data gagal diubah.<br /></div>' );
-            echo "<script>window.location='".base_url()."admin_side/ubah_data_rekap_provinsi/".md5($this->input->post('id_provinsi'))."'</script>";
+            echo "<script>window.location='".base_url()."admin_side/ubah_data_rekap_rp3kp_provinsi/".md5($this->input->post('id_provinsi'))."'</script>";
         }
         else{
             $this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil diubah.<br /></div>' );
-            echo "<script>window.location='".base_url()."admin_side/rekap_provinsi/'</script>";
+            echo "<script>window.location='".base_url()."admin_side/rekap_rp3kp_provinsi/'</script>";
         }
 	}
-    public function rekap_kabkota()
+    public function rekap_rp3kp_kabkota()
 	{
-        $data['title_page'] = "Rekap Kabupaten/ Kota";
-        $data['breadcrumb'] = "Dashboard,Rekap Kabupaten/ Kota";
-        $data['load']       =  array("admin/dashboard/rekap_kabkota"); 
+        $data['title_page'] = "Rekap RP3KP Kabupaten/ Kota";
+        $data['breadcrumb'] = "Dashboard,Rekap RP3KP Kabupaten/ Kota";
+        $data['load']       =  array("admin/dashboard/rekap_rp3kp_kabkota");
+        $data['data_provinsi'] = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
 
         $this->load->view('template/footer', $data);
     }
-    public function ubah_data_rekap_kabkota()
+    public function ubah_data_rekap_rp3kp_kabkota()
 	{
-        $data['title_page'] = "Ubah Data Provinsi";
-        $data['breadcrumb'] = "Dashboard,Rekap Provinsi,Ubah Data";
-		$data['load']       =  array("admin/dashboard/ubah_data_rekap_kabkota");
+        $data['title_page'] = "Ubah Data Kabupaten/ Kota";
+        $data['breadcrumb'] = "Dashboard,Rekap RP3KP Provinsi,Ubah Data";
+		$data['load']       =  array("admin/dashboard/ubah_data_rekap_rp3kp_kabkota");
 		$data['data_utama'] = $this->Main_model->getSelectedData('kabupaten a', 'b.*,a.id_kabupaten AS id,a.nm_kabupaten,aa.nm_provinsi', array('md5(a.id_kabupaten)'=>$this->uri->segment(3)),'','','','',array(
             array(
-                'table' => 'rekap_kabkota b',
+                'table' => 'rekap_rp3kp_kabkota b',
 				'on' => 'a.id_kabupaten=b.id_kabupaten',
 				'pos' => 'LEFT'
             ),
@@ -122,7 +124,7 @@ class Dashboard extends CI_Controller {
 
         $this->load->view('template/footer', $data);
     }
-    public function perbarui_data_rekap_kabkota(){
+    public function perbarui_data_rekap_rp3kp_kabkota(){
         $this->db->trans_start();
         $rencana_anggaran = preg_replace("/[^0-9]/", "", $this->input->post('rencana_anggaran'));
         $belum = 'X';
@@ -154,21 +156,71 @@ class Dashboard extends CI_Controller {
             'anggaran' => $rencana_anggaran
         );
         // print_r($data_1);
-        $check = $this->Main_model->getSelectedData('rekap_kabkota a', 'a.*', array('a.id_kabupaten'=>$this->input->post('id_kabupaten')))->result();
+        $check = $this->Main_model->getSelectedData('rekap_rp3kp_kabkota a', 'a.*', array('a.id_kabupaten'=>$this->input->post('id_kabupaten')))->result();
 		if($check==NULL){
-            $this->Main_model->insertData('rekap_kabkota',$data_1);
+            $this->Main_model->insertData('rekap_rp3kp_kabkota',$data_1);
 		}else{
-            $this->Main_model->updateData('rekap_kabkota',$data_1,array('id_kabupaten'=>$this->input->post('id_kabupaten')));
+            $this->Main_model->updateData('rekap_rp3kp_kabkota',$data_1,array('id_kabupaten'=>$this->input->post('id_kabupaten')));
         }
         $this->Main_model->log_activity($this->session->userdata('id'),'Updating data',"Memperbarui data rekap kabupaten/ kota",$this->session->userdata('location'));
         $this->db->trans_complete();
         if($this->db->trans_status() === false){
             $this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>data gagal diubah.<br /></div>' );
-            echo "<script>window.location='".base_url()."admin_side/ubah_data_rekap_kabkota/".md5($this->input->post('id_kabupaten'))."'</script>";
+            echo "<script>window.location='".base_url()."admin_side/ubah_data_rekap_rp3kp_kabkota/".md5($this->input->post('id_kabupaten'))."'</script>";
         }
         else{
             $this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil diubah.<br /></div>' );
-            echo "<script>window.location='".base_url()."admin_side/rekap_kabkota/'</script>";
+            echo "<script>window.location='".base_url()."admin_side/rekap_rp3kp_kabkota/'</script>";
+        }
+    }
+    /* Pokja PKP */
+    public function rekap_pokja_pkp_provinsi()
+	{
+        $data['title_page'] = "Rekap Pokja PKP Provinsi";
+        $data['breadcrumb'] = "Dashboard,Rekap Pokja PKP Provinsi";
+        $data['load']       =  array("admin/dashboard/rekap_pokja_pkp_provinsi"); 
+
+        $this->load->view('template/footer', $data);
+    }
+    public function ubah_data_rekap_pokja_pkp_provinsi()
+	{
+        $data['title_page'] = "Ubah Data Provinsi";
+        $data['breadcrumb'] = "Dashboard,Rekap Pokja PKP Provinsi,Ubah Data";
+		$data['load']       =  array("admin/dashboard/ubah_data_rekap_pokja_pkp_provinsi");
+		$data['data_utama'] = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi', array('md5(a.id_provinsi)'=>$this->uri->segment(3)),'','','','',array(
+            'table' => 'rekap_pokja_pkp_provinsi b',
+			'on' => 'a.id_provinsi=b.id_provinsi',
+			'pos' => 'LEFT'
+        ))->row();
+
+        $this->load->view('template/footer', $data);
+    }
+    public function perbarui_data_rekap_pokja_pkp_provinsi(){
+        $this->db->trans_start();
+        $data_1 = array(
+            'id_provinsi' => $this->input->post('id_provinsi'),
+            'penggabungan' => $this->input->post('penggabungan'),
+            'program' => $this->input->post('program'),
+            'ketua' => $this->input->post('ketua'),
+            'perayaan' => $this->input->post('perayaan'),
+            'apbd' => $this->input->post('apbd')
+        );
+        // print_r($data_1);
+        $check = $this->Main_model->getSelectedData('rekap_pokja_pkp_provinsi a', 'a.*', array('a.id_provinsi'=>$this->input->post('id_provinsi')))->result();
+		if($check==NULL){
+            $this->Main_model->insertData('rekap_pokja_pkp_provinsi',$data_1);
+		}else{
+            $this->Main_model->updateData('rekap_pokja_pkp_provinsi',$data_1,array('id_provinsi'=>$this->input->post('id_provinsi')));
+        }
+        $this->Main_model->log_activity($this->session->userdata('id'),'Updating data',"Memperbarui data rekap provinsi",$this->session->userdata('location'));
+        $this->db->trans_complete();
+        if($this->db->trans_status() === false){
+            $this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>data gagal diubah.<br /></div>' );
+            echo "<script>window.location='".base_url()."admin_side/ubah_data_rekap_pokja_pkp_provinsi/".md5($this->input->post('id_provinsi'))."'</script>";
+        }
+        else{
+            $this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil diubah.<br /></div>' );
+            echo "<script>window.location='".base_url()."admin_side/rekap_pokja_pkp_provinsi/'</script>";
         }
 	}
 }

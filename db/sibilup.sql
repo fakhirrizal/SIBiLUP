@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 26 Sep 2019 pada 11.25
--- Versi Server: 5.6.26
--- PHP Version: 5.6.12
+-- Host: localhost:3306
+-- Waktu pembuatan: 01 Okt 2019 pada 18.49
+-- Versi server: 10.3.18-MariaDB-cll-lve
+-- Versi PHP: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sibilup`
+-- Database: `aplikasi_sibilup`
 --
 
 -- --------------------------------------------------------
@@ -26,60 +28,32 @@ SET time_zone = "+00:00";
 -- Struktur dari tabel `activity_logs`
 --
 
-CREATE TABLE IF NOT EXISTS `activity_logs` (
-  `activity_id` int(11) unsigned NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
-  `company_id` int(11) unsigned NOT NULL,
+CREATE TABLE `activity_logs` (
+  `activity_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `company_id` int(11) UNSIGNED NOT NULL,
   `activity_type` varchar(64) NOT NULL,
-  `activity_data` text,
+  `activity_data` text DEFAULT NULL,
   `activity_time` datetime NOT NULL,
   `activity_ip_address` varchar(15) DEFAULT NULL,
   `activity_device` varchar(32) DEFAULT NULL,
   `activity_os` varchar(16) DEFAULT NULL,
   `activity_browser` varchar(16) DEFAULT NULL,
-  `activity_location` text
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+  `activity_location` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `activity_logs`
 --
 
 INSERT INTO `activity_logs` (`activity_id`, `user_id`, `company_id`, `activity_type`, `activity_data`, `activity_time`, `activity_ip_address`, `activity_device`, `activity_os`, `activity_browser`, `activity_location`) VALUES
-(1, 1, 0, 'Login to system', 'Login via web browser', '2019-09-08 12:46:51', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(2, 1, 0, 'Login to system', 'Login via web browser', '2019-09-09 08:27:49', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(3, 1, 0, 'Login to system', 'Login via web browser', '2019-09-09 15:02:33', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(4, 1, 0, 'Login to system', 'Login via web browser', '2019-09-10 15:51:10', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(5, 1, 0, 'Login to system', 'Login via web browser', '2019-09-12 09:04:33', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(6, 1, 0, 'Login to system', 'Login via web browser', '2019-09-12 09:34:49', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(7, 1, 0, 'Login to system', 'Login via web browser', '2019-09-16 14:17:29', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(8, 1, 0, 'Login to system', 'Login via web browser', '2019-09-16 14:36:00', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(9, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 10:17:21', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(10, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 10:19:28', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(11, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 17:28:15', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(12, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 17:45:35', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(13, 1, 0, 'Adding data', 'Add admin data', '2019-09-18 16:49:12', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(14, 1, 0, 'Adding data', 'Add admin data', '2019-09-18 17:01:17', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(15, 1, 0, 'Deleting data', 'Delete administrator data', '2019-09-18 20:09:06', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(16, 1, 0, 'Deleting data', 'Delete administrator data', '2019-09-18 20:12:59', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(17, 1, 0, 'Login to system', 'Login via web browser', '2019-09-18 22:18:19', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(18, 1, 0, 'Login to system', 'Login via web browser', '2019-09-19 09:39:34', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(19, 1, 0, 'Adding data', 'Add admin data', '2019-09-19 21:59:14', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(20, 1, 0, 'Adding data', 'Add admin data', '2019-09-19 22:27:17', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(21, 1, 0, 'Adding data', 'Add admin data', '2019-09-19 22:32:14', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(22, 1, 0, 'Updating data', 'Update admin data', '2019-09-19 22:50:45', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(23, 1, 0, 'Login to system', 'Login via web browser', '2019-09-22 20:46:09', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(24, 1, 0, 'Login to system', 'Login via web browser', '2019-09-22 20:47:42', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(25, 1, 0, 'Login to system', 'Login via web browser', '2019-09-23 01:01:55', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(26, 1, 0, 'Login to system', 'Login via web browser', '2019-09-23 11:26:50', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(27, 1, 0, 'Login to system', 'Login via web browser', '2019-09-23 15:44:10', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(28, 1, 0, 'Login to system', 'Login via web browser', '2019-09-23 23:24:56', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(29, 1, 0, 'Login to system', 'Login via web browser', '2019-09-24 08:59:07', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(30, 1, 0, 'Login to system', 'Login via web browser', '2019-09-24 15:55:43', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.9859062,110.414304'),
-(31, 1, 0, 'Updating data', 'Update province data ()', '2019-09-24 15:59:03', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.9859062,110.414304'),
-(32, 1, 0, 'Updating data', 'Memperbarui data rekap provinsi', '2019-09-24 15:59:48', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.9859062,110.414304'),
-(33, 1, 0, 'Adding data', 'Add admin data', '2019-09-26 15:54:47', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(34, 8, 0, 'Login to system', 'Login via web browser', '2019-09-26 15:54:55', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(35, 8, 0, 'Login to system', 'Login via web browser', '2019-09-26 15:56:07', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL);
+(1, 1, 0, 'Login to system', 'Login via web browser', '2019-09-30 08:25:25', '103.211.50.6', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
+(2, 1, 0, 'Login to system', 'Login via web browser', '2019-09-30 09:59:25', '103.31.157.222', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
+(3, 1, 0, 'Login to system', 'Login via web browser', '2019-09-30 10:08:57', '103.31.157.222', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
+(4, 1, 0, 'Updating data', 'Update admin data', '2019-09-30 10:16:10', '103.211.50.6', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
+(5, 2, 0, 'Login to system', 'Login via web browser', '2019-09-30 10:17:49', '103.211.50.6', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
+(6, 1, 0, 'Login to system', 'Login via web browser', '2019-09-30 11:39:13', '103.211.50.7', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
+(7, 1, 0, 'Login to system', 'Login via web browser', '2019-10-01 14:26:25', '103.211.50.6', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL);
 
 -- --------------------------------------------------------
 
@@ -87,7 +61,7 @@ INSERT INTO `activity_logs` (`activity_id`, `user_id`, `company_id`, `activity_t
 -- Struktur dari tabel `agenda`
 --
 
-CREATE TABLE IF NOT EXISTS `agenda` (
+CREATE TABLE `agenda` (
   `id_agenda` int(11) NOT NULL,
   `judul` varchar(200) NOT NULL,
   `deskripsi` mediumtext NOT NULL,
@@ -102,20 +76,20 @@ CREATE TABLE IF NOT EXISTS `agenda` (
 -- Struktur dari tabel `diskusi`
 --
 
-CREATE TABLE IF NOT EXISTS `diskusi` (
+CREATE TABLE `diskusi` (
   `id_diskusi` int(11) NOT NULL,
   `id_pgw` int(11) NOT NULL,
   `isi` mediumtext NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `diskusi`
 --
 
 INSERT INTO `diskusi` (`id_diskusi`, `id_pgw`, `isi`, `create_at`) VALUES
-(1, 8, '<p>cek cek 123</p>', '2019-09-25 09:15:50'),
-(2, 16, '<p xss=removed><strong>Lorem Ipsum<span xss=removed> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</span></strong></p>', '2019-09-25 09:17:34');
+(1, 1, '<p>coba pesan</p>', '2019-09-30 03:15:44'),
+(2, 2, '<p>iya coba pesat</p>', '2019-09-30 03:18:02');
 
 -- --------------------------------------------------------
 
@@ -123,20 +97,12 @@ INSERT INTO `diskusi` (`id_diskusi`, `id_pgw`, `isi`, `create_at`) VALUES
 -- Struktur dari tabel `faq`
 --
 
-CREATE TABLE IF NOT EXISTS `faq` (
+CREATE TABLE `faq` (
   `id_faq` int(11) NOT NULL,
   `pertanyaan` text NOT NULL,
   `jawaban` text NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `faq`
---
-
-INSERT INTO `faq` (`id_faq`, `pertanyaan`, `jawaban`, `create_at`) VALUES
-(1, '<p>\n	APA ITU PUPR ?</p>\n', '<p>\n	<b style="font-family: sans-serif; font-size: 14px;">Kementerian Pekerjaan Umum dan Perumahan Rakyat Republik Indonesia</b><span style="font-family: sans-serif; font-size: 14px;">&nbsp;(disingkat&nbsp;</span><b style="font-family: sans-serif; font-size: 14px;">Kemen PUPR RI</b><span style="font-family: sans-serif; font-size: 14px;">) adalah&nbsp;</span><a href="https://id.wikipedia.org/wiki/Kementerian_Indonesia" style="text-decoration-line: none; color: rgb(11, 0, 128); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Kementerian Indonesia">kementerian</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;dalam&nbsp;</span><a href="https://id.wikipedia.org/wiki/Pemerintah_Indonesia" style="text-decoration-line: none; color: rgb(11, 0, 128); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Pemerintah Indonesia">Pemerintah</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;</span><a href="https://id.wikipedia.org/wiki/Indonesia" style="text-decoration-line: none; color: rgb(11, 0, 128); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Indonesia">Indonesia</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;yang membidangi urusan&nbsp;</span><a class="new" href="https://id.wikipedia.org/w/index.php?title=Pekerjaan_umum&amp;action=edit&amp;redlink=1" style="text-decoration-line: none; color: rgb(165, 88, 88); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Pekerjaan umum (halaman belum tersedia)">pekerjaan umum</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;dan&nbsp;</span><a class="new" href="https://id.wikipedia.org/w/index.php?title=Perumahan_rakyat&amp;action=edit&amp;redlink=1" style="text-decoration-line: none; color: rgb(165, 88, 88); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Perumahan rakyat (halaman belum tersedia)">perumahan rakyat</a><span style="font-family: sans-serif; font-size: 14px;">. Dahulu Kementerian Pekerjaan Umum dan Perumahan Rakyat bernama &quot;Departemen Permukiman dan Pengembangan Wilayah&quot; (1999-2000) dan &quot;Departemen Permukiman dan Prasarana Wilayah&quot; (2000-2004). Kementerian Pekerjaan Umum dan Perumahan Rakyat berada di bawah dan bertanggung jawab kepada Presiden.&nbsp;</span></p>\n', '2019-09-25 09:43:27'),
-(2, '<h2 style="margin: 0px 0px 10px; padding: 0px; font-weight: 400; line-height: 24px; font-family: DauphinPlain; font-size: 24px; color: rgb(0, 0, 0);">\n	What is Lorem Ipsum?</h2>\n', '<p>\n	<strong style="margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;">Lorem Ipsum</strong><span style="color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;">&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</span></p>\n', '2019-09-25 09:44:22');
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -144,20 +110,13 @@ INSERT INTO `faq` (`id_faq`, `pertanyaan`, `jawaban`, `create_at`) VALUES
 -- Struktur dari tabel `galeri`
 --
 
-CREATE TABLE IF NOT EXISTS `galeri` (
+CREATE TABLE `galeri` (
   `id_galeri` int(11) NOT NULL,
   `judul` varchar(100) NOT NULL,
   `file` varchar(200) NOT NULL,
   `keterangan` text NOT NULL,
   `type` tinyint(2) NOT NULL COMMENT '1 = Foto, 2 = Vidio'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `galeri`
---
-
-INSERT INTO `galeri` (`id_galeri`, `judul`, `file`, `keterangan`, `type`) VALUES
-(1, 'tes', '36006-1.jpg', 'tes', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -165,32 +124,14 @@ INSERT INTO `galeri` (`id_galeri`, `judul`, `file`, `keterangan`, `type`) VALUES
 -- Struktur dari tabel `hubungi_kami`
 --
 
-CREATE TABLE IF NOT EXISTS `hubungi_kami` (
+CREATE TABLE `hubungi_kami` (
   `id_hub` int(11) NOT NULL,
   `id_pgw` int(11) NOT NULL,
   `penjawab` int(11) NOT NULL,
   `isi` mediumtext NOT NULL,
   `file` varchar(100) NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `hubungi_kami`
---
-
-INSERT INTO `hubungi_kami` (`id_hub`, `id_pgw`, `penjawab`, `isi`, `file`, `create_at`) VALUES
-(1, 16, 0, 'hello word', 'upload/hubungi_kami/hub_joglo_35.jpg', '2019-09-24 04:10:12'),
-(2, 1, 0, 'balalaaaaaaaaaaaaaaaaaaaaa', '', '2019-09-25 06:30:05'),
-(3, 2, 0, 'asdasdsaad', '', '2019-09-25 06:30:23'),
-(4, 16, 1, 'halo juga', '', '2019-09-25 07:38:14'),
-(5, 16, 0, 'iyaa broo', '', '2019-09-25 06:47:45'),
-(6, 1, 0, 'yuhuuuuuu', '', '2019-09-25 06:50:41'),
-(7, 16, 1, 'hahahhaaaa', '', '2019-09-25 07:38:41'),
-(8, 2, 0, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum', '', '2019-09-25 07:48:33'),
-(9, 2, 1, 'iyaa brooo', '', '2019-09-25 07:46:03'),
-(10, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum', '', '2019-09-25 07:48:02'),
-(11, 16, 1, '<p xss=removed><strong xss=removed>Lorem Ipsum</strong><span xss=removed> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</span></p>', '', '2019-09-25 08:38:57'),
-(14, 16, 0, '<p>mantap brooo</p>', '', '2019-09-25 09:04:48');
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -198,14 +139,14 @@ INSERT INTO `hubungi_kami` (`id_hub`, `id_pgw`, `penjawab`, `isi`, `file`, `crea
 -- Struktur dari tabel `kabupaten`
 --
 
-CREATE TABLE IF NOT EXISTS `kabupaten` (
+CREATE TABLE `kabupaten` (
   `id_kabupaten` int(10) NOT NULL,
   `id_provinsi` int(5) NOT NULL,
   `nm_kabupaten` varchar(50) NOT NULL,
   `bujur` varchar(20) NOT NULL,
   `lintang` varchar(20) NOT NULL,
   `kml` varchar(100) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=9473 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `kabupaten`
@@ -733,13 +674,13 @@ INSERT INTO `kabupaten` (`id_kabupaten`, `id_provinsi`, `nm_kabupaten`, `bujur`,
 -- Struktur dari tabel `level_user`
 --
 
-CREATE TABLE IF NOT EXISTS `level_user` (
+CREATE TABLE `level_user` (
   `id_level` int(11) NOT NULL,
   `nama_level` varchar(50) NOT NULL,
   `publish` tinyint(1) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `update_date` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `level_user`
@@ -757,22 +698,15 @@ INSERT INTO `level_user` (`id_level`, `nama_level`, `publish`, `create_date`, `u
 -- Struktur dari tabel `materi`
 --
 
-CREATE TABLE IF NOT EXISTS `materi` (
+CREATE TABLE `materi` (
   `id_materi` int(11) NOT NULL,
   `judul` varchar(100) NOT NULL,
   `file` varchar(200) NOT NULL,
   `keterangan` text NOT NULL,
   `jumlah_download` int(11) NOT NULL,
   `upload_by` int(11) NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `materi`
---
-
-INSERT INTO `materi` (`id_materi`, `judul`, `file`, `keterangan`, `jumlah_download`, `upload_by`, `create_at`) VALUES
-(1, 'Bahasa Persatuan', '16686-859-2093-1-sm-1-.pdf', 'tes 123 dicoba', 1, 8, '2019-09-26 07:18:54');
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -780,7 +714,7 @@ INSERT INTO `materi` (`id_materi`, `judul`, `file`, `keterangan`, `jumlah_downlo
 -- Struktur dari tabel `migrations`
 --
 
-CREATE TABLE IF NOT EXISTS `migrations` (
+CREATE TABLE `migrations` (
   `version` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -797,23 +731,15 @@ INSERT INTO `migrations` (`version`) VALUES
 -- Struktur dari tabel `modul`
 --
 
-CREATE TABLE IF NOT EXISTS `modul` (
+CREATE TABLE `modul` (
   `id_modul` int(11) NOT NULL,
   `judul` varchar(100) NOT NULL,
   `file` varchar(200) NOT NULL,
   `keterangan` text NOT NULL,
   `upload_by` int(11) NOT NULL,
   `jumlah_download` int(11) NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `modul`
---
-
-INSERT INTO `modul` (`id_modul`, `judul`, `file`, `keterangan`, `upload_by`, `jumlah_download`, `create_at`) VALUES
-(1, 'Modul A', 'b2414-doc-11-.pdf', '', 0, 19, '2019-09-26 07:05:58'),
-(2, 'Modul B', '', '', 0, 0, '2019-09-26 02:50:23');
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -821,7 +747,7 @@ INSERT INTO `modul` (`id_modul`, `judul`, `file`, `keterangan`, `upload_by`, `ju
 -- Struktur dari tabel `m_soal`
 --
 
-CREATE TABLE IF NOT EXISTS `m_soal` (
+CREATE TABLE `m_soal` (
   `id` int(6) NOT NULL,
   `id_guru` int(6) NOT NULL,
   `id_mapel` int(6) NOT NULL,
@@ -838,31 +764,7 @@ CREATE TABLE IF NOT EXISTS `m_soal` (
   `tgl_input` datetime NOT NULL,
   `jml_benar` int(6) NOT NULL,
   `jml_salah` int(6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `m_soal`
---
-
-INSERT INTO `m_soal` (`id`, `id_guru`, `id_mapel`, `bobot`, `file`, `tipe_file`, `soal`, `opsi_a`, `opsi_b`, `opsi_c`, `opsi_d`, `opsi_e`, `jawaban`, `tgl_input`, `jml_benar`, `jml_salah`) VALUES
-(34, 3, 1, 1, '', '', '<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Teks Fabel I</th>\r\n			<th scope="col">Teks Fabel II</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>Dengan bangganya lucky berlari-lari kecil sambil menyeret-nyeret balok kayu yang dikalungkan majikannya, untuk&nbsp;menarik perhatian orang lain. Tetapi tak ada satu pun orang yang senang melihat anjing itu. Balok itu sebenarnya dikalungkan majikannya agar orang mengetahui kehadiran lucky, dan bisa menghindarinya. Seekor anjing lain yang melihatnya kemudian berkata &quot;Kamu seharusnya lebih bijaksana dan berdiam diri di rumah agar orang tidak melihat balok yang dikalungkan di lehermu. Apakah kamu senang bahwa semua orang tahu betapa nakal dan jahatnya kamu?&quot;</td>\r\n			<td>Di sebuah hutan, musim kemarau, burung-burung dan hewan-hewan lain sangat sulit untuk mendapatkan air.&nbsp;Namun ada seekor burung perkutut yang menemukan kendi tua yang berisi sedikit air. Kendi tersebut memiliki bentuk yang tinggi dan juga sempit, sehingga burung tersebut tidak bisa menjangkau air di dalam kendi tersebut. Burung perkutut tersebut tetap mencoba untuk meminum air yang ada di dalam kendi, tetapi tetap saja tidak bisa. Burung itu hampir putus asa hingga munculah sebuah ide.. Burung tersebut kemudian mengambil kerikilkerikil yang ada di samping kendi dan menjatuhkannya ke dalam kendi satu persatu. Ide yang cemerlang itu membuat air lama kelamaan naik sehingga burung perkutut bisa meminum air tersebut</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Perbedaan pola pengembangan kedua kutipan fabel tersebut diawali dengan ....</p>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Fabel I</th>\r\n			<th scope="col">Fabel II</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>menampilkan lokasi cerita</td>\r\n			<td>memberikan garis besar cerita</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Fabel I</th>\r\n			<th scope="col">Fabel II</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>memberikan garis besar cerita</td>\r\n			<td>memulai dengan aksi</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Fabel I</th>\r\n			<th scope="col">Fabel II</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>memunculkan masalah</td>\r\n			<td>mengisyaratkan bahaya</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Fabel I</th>\r\n			<th scope="col">Fabel II</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>memulai dengan aksi</td>\r\n			<td>menampilkan lokasi cerita</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####', 'D', '2017-01-25 10:13:02', 2, 6),
-(35, 3, 1, 1, '', '', '<p>&ldquo;Nada, minggu depan kita harus pindah ke Jogjakarta. Ayah dipindahtugaskan di sana.&rdquo; Bagaikan petir di siang bolong menyambar Nada yang seketika itu langsung diam mematung. &ldquo;Kenapa mendadak, Bunda? Nada senang tinggal di sini. Apa Nada tidak bisa tetap tinggal di sini? Sekolah Nada gimana?&rdquo; &ldquo;Tidak bisa, sayang. Kamu mau tinggal sama siapa di sini? Masalah sekolah, semua sudah diurus Ayah. Kamu hanya tinggal mengemasi barang-barangmu.&rdquo; Nada terdiam. Tak mungkin mampu ia membantah. Minggu depan ia harus meninggalkan tempat ini. Tepat di hari ulang tahun Dio yang ke-18. Terasa berat untuknya meninggalkan tempat ini. Terlalu banyak kenangan yang terukir. Semakin terasa berat ketika harus meninggalkan Dio.</p>\r\n\r\n<p>Akibat konflik yang terjadi pada kutipan cerpen tersebut adalah...</p>\r\n', '#####<p>Nada diam mematung selama satu minggu</p>\n', '#####<p>Nada harus segera mengemasi barang-barang miliknya</p>\r\n', '#####<p>Meskipun merasa berat, minggu depan Nada harus ikut pindah ke Yogyakarta.</p>\r\n', '#####<p>Ayah dan ibu Nada harus mencari tempat tinggal dan sekolah baru untuk Nada</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 1, 7),
-(36, 3, 1, 1, '', '', '<p>&ldquo;Nada, minggu depan kita harus pindah ke Jogjakarta. Ayah dipindahtugaskan di sana.&rdquo; Bagaikan petir di siang bolong menyambar Nada yang seketika itu langsung diam mematung. &ldquo;Kenapa mendadak, Bunda? Nada senang tinggal di sini. Apa Nada tidak bisa tetap tinggal di sini? Sekolah Nada gimana?&rdquo; &ldquo;Tidak bisa, sayang. Kamu mau tinggal sama siapa di sini? Masalah sekolah, semua sudah diurus Ayah. Kamu hanya tinggal mengemasi barang-barangmu.&rdquo; Nada terdiam. Tak mungkin mampu ia membantah. Minggu depan ia harus meninggalkan tempat ini. Tepat di hari ulang tahun Dio yang ke-18. Terasa berat untuknya meninggalkan tempat ini. Terlalu banyak kenangan yang terukir. Semakin terasa berat ketika harus meninggalkan Dio.</p>\n\n<p>Penyebab terjadinya konflik pada kutipan cerpen tersebut adalah ...</p>\n', '#####<p>Perasaan berat hati Nada harus meninggalkan Dio.</p>\r\n', '#####<p>Nada merasa bingung dengan masalah sekolahnya.</p>\r\n', '#####<p>Kepindahan tempat tugas ayah Nada yang mendadak</p>\r\n', '#####<p>Nada merasa berat meninggalkan tempat tinggal yang sekarang.</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 1, 7),
-(37, 3, 1, 1, '', '', '<p>&ldquo;Nada, minggu depan kita harus pindah ke Jogjakarta. Ayah dipindahtugaskan di sana.&rdquo; Bagaikan petir di siang bolong menyambar Nada yang seketika itu langsung diam mematung. &ldquo;Kenapa mendadak, Bunda? Nada senang tinggal di sini. Apa Nada tidak bisa tetap tinggal di sini? Sekolah Nada gimana?&rdquo; &ldquo;Tidak bisa, sayang. Kamu mau tinggal sama siapa di sini? Masalah sekolah, semua sudah diurus Ayah. Kamu hanya tinggal mengemasi barang-barangmu.&rdquo; Nada terdiam. Tak mungkin mampu ia membantah. Minggu depan ia harus meninggalkan tempat ini. Tepat di hari ulang tahun Dio yang ke-18. Terasa berat untuknya meninggalkan tempat ini. Terlalu banyak kenangan yang terukir. Semakin terasa berat ketika harus meninggalkan Dio.</p>\r\n\r\n<p>Amanat yang terdapat pada kutipan cerpen tersebut adalah ...</p>\r\n', '#####<p>Sebagai anak harus patuh pada kedua orang tua.</p>\r\n', '#####<p>Lakukan perintah orang tua meskipun dengan terpaksa!</p>\r\n', '#####<p>Ikhlaskan diri kita dalam mengerjakan sesuatu pekerjaan!</p>\r\n', '#####<p>Setiap keputusan agar dibicarakan terlebih dahulu dengan keluarga!</p>\r\n', '#####', 'A', '2017-01-25 10:13:02', 0, 6),
-(38, 3, 1, 1, '', '', '<p>&ldquo;Nada, minggu depan kita harus pindah ke Jogjakarta. Ayah dipindahtugaskan di sana.&rdquo; Bagaikan petir di siang bolong menyambar Nada yang seketika itu langsung diam mematung. &ldquo;Kenapa mendadak, Bunda? Nada senang tinggal di sini. Apa Nada tidak bisa tetap tinggal di sini? Sekolah Nada gimana?&rdquo; &ldquo;Tidak bisa, sayang. Kamu mau tinggal sama siapa di sini? Masalah sekolah, semua sudah diurus Ayah. Kamu hanya tinggal mengemasi barang-barangmu.&rdquo; Nada terdiam. Tak mungkin mampu ia membantah. Minggu depan ia harus meninggalkan tempat ini. Tepat di hari ulang tahun Dio yang ke-18. Terasa berat untuknya meninggalkan tempat ini. Terlalu banyak kenangan yang terukir. Semakin terasa berat ketika harus meninggalkan Dio.</p>\r\n\r\n<p>Makna simbol <strong><em>petir di siang bolong</em></strong> pada kutipan cerpen tersebut adalah....</p>\r\n', '#####<p>merasa sedih</p>\r\n', '#####<p>merasa bingung</p>\r\n', '#####<p>sangat terkejut</p>\r\n', '#####<p>merasa heran</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 0, 4),
-(39, 3, 1, 1, '', '', '<p>Langit menjadi kelabu. Awan hitam mulai tak mampu lagi membendung butiran air. Matahari pergi. Sinarnya pun tak berbekas. Di samping rumah Nada, nampak Dio masih asyik bermain dengan merpatinya. Nada tersenyum menatapnya dari balik jendela kamarnya. Ya, tetangganya itu memang sangat menyukai merpati. Bahkan di samping rumahnya ada sebuah kandang merpati yang cukup luas miliknya sendiri. Ia biasa menyebutnya istana Merpati Dara Dori. Begitu banyak jenis merpati yang ia piara. Semuanya sepasang. Ada merpati lokal, merpati kipas, merpati gondok, merpati Lahore, dan masih banyak lagi. Namun, di antara semua merpatinya, merpati lokal berwarna seputih saljulah yang paling ia sukai. Dara dan Dori.</p>\r\n\r\n<p>Latar suasana yang terdapat pada kutipan cerpen tersebut adalah .&hellip;</p>\r\n', '#####<p>mendung</p>\r\n', '#####<p>hujan</p>\r\n', '#####<p>dingin</p>\r\n', '#####<p>sunyi</p>\r\n', '#####', 'B', '2017-01-25 10:13:02', 1, 5),
-(40, 3, 1, 1, '', '', '<p>Langit menjadi kelabu. Awan hitam mulai tak mampu lagi membendung butiran air. Matahari pergi. Sinarnya pun tak berbekas. Di samping rumah Nada, nampak Dio masih asyik bermain dengan merpatinya. Nada tersenyum menatapnya dari balik jendela kamarnya. Ya, tetangganya itu memang sangat menyukai merpati. Bahkan di samping rumahnya ada sebuah kandang merpati yang cukup luas miliknya sendiri. Ia biasa menyebutnya istana Merpati Dara Dori. Begitu banyak jenis merpati yang ia piara. Semuanya sepasang. Ada merpati lokal, merpati kipas, merpati gondok, merpati Lahore, dan masih banyak lagi. Namun, di antara semua merpatinya, merpati lokal berwarna seputih saljulah yang paling ia sukai. Dara dan Dori.</p>\r\n\r\n<p>Kutipan cerpen tersebut merupakan bagian alur ...</p>\r\n', '#####<p>pengenalan</p>\r\n', '#####<p>komplikasi</p>\r\n', '#####<p>klimaks</p>\r\n', '#####<p>penyelesaian</p>\r\n', '#####', 'A', '2017-01-25 10:13:02', 0, 4),
-(41, 3, 1, 1, '', '', '<p>Langit menjadi kelabu. Awan hitam mulai tak mampu lagi membendung butiran air. Matahari pergi. Sinarnya pun tak berbekas. Di samping rumah Nada, nampak Dio masih asyik bermain dengan merpatinya. Nada tersenyum menatapnya dari balik jendela kamarnya. Ya, tetangganya itu memang sangat menyukai merpati. Bahkan di samping rumahnya ada sebuah kandang merpati yang cukup luas miliknya sendiri. Ia biasa menyebutnya istana Merpati Dara Dori. Begitu banyak jenis merpati yang ia piara. Semuanya sepasang. Ada merpati lokal, merpati kipas, merpati gondok, merpati Lahore, dan masih banyak lagi. Namun, di antara semua merpatinya, merpati lokal berwarna seputih saljulah yang paling ia sukai. Dara dan Dori.</p>\r\n\r\n<p>Pernyataan yang sesuai dengan isi cerpen tersebut adalah &hellip;</p>\r\n', '#####<p>Merpati yang paling Dio Gemari adalah merpati Lahore</p>\r\n', '#####<p>Dio seorang yang menggemari berbagai jenis burung merpati.</p>\r\n', '#####<p>Kandang burung yang ada sengaja dibuat untuk Dara dan Dori.</p>\r\n', '#####<p>Nada tidak senang kalau Dio memelihara banyak burung merpati.</p>\r\n', '#####', 'B', '2017-01-25 10:13:02', 3, 4),
-(42, 3, 1, 1, '', '', '<p>Langit menjadi kelabu. Awan hitam mulai tak mampu lagi membendung butiran air. Matahari pergi. Sinarnya pun tak berbekas. Di samping rumah Nada, nampak Dio masih asyik bermain dengan merpatinya. Nada tersenyum menatapnya dari balik jendela kamarnya. Ya, tetangganya itu memang sangat menyukai merpati. Bahkan di samping rumahnya ada sebuah kandang merpati yang cukup luas miliknya sendiri. Ia biasa menyebutnya istana Merpati Dara Dori. Begitu banyak jenis merpati yang ia piara. Semuanya sepasang. Ada merpati lokal, merpati kipas, merpati gondok, merpati Lahore, dan masih banyak lagi. Namun, di antara semua merpatinya, merpati lokal berwarna seputih saljulah yang paling ia sukai. Dara dan Dori.</p>\r\n\r\n<p>Makna kata &ldquo;membendung&rdquo; pada kutipan cerpen tersebut ialah &hellip;.</p>\r\n', '#####<p>menahan</p>\r\n', '#####<p>menampung</p>\r\n', '#####<p>membentengi</p>\r\n', '#####<p>mengumpulkan</p>\r\n', '#####', 'A', '2017-01-25 10:13:02', 1, 4),
-(43, 3, 1, 1, '', '', '<p>1) Penerbit Wayang menerbitkan buku terbaru yang berjudul Sudah Saatnya Menjadi Penulis Hebat. 2) Buku ini ditulis oleh Bendi Derajat. 3) Judulnya menarik, isinya lengkap, bahasanya ringan dan mudah dipahami serta bermanfaat bagi pembaca. 4) Hanya saja buku tersebut menggunakan banyak istilah akademik yang sulit dipahami pembaca awam.</p>\r\n\r\n<p>Kelemahan karya sastra yang terdapat pada ulasan buku tersebut ditandai nomor...</p>\r\n\r\n<p>&nbsp;</p>\r\n', '#####<p>1</p>\r\n', '#####<p>2</p>\r\n', '#####<p>3</p>\r\n', '#####<p>4</p>\r\n', '#####', 'D', '2017-01-25 10:13:02', 0, 5),
-(44, 3, 1, 1, '', '', '<p><em>Kutipan teks I </em></p>\r\n\r\n<p><strong>Gamelan Jawa </strong></p>\r\n\r\n<p>Yogyakarta adalah tempat yang paling tepat untuk menikmati gamelan. Di kota ini Anda dapat menikmati gamelan versi aslinya. Gamelan yang berkembang di Yogyakarta adalah Gamelan Jawa yaitu musik yang biasanya menonjolkan metalofon, gambang, gendang, dan gong. Musik yang tercipta pada Gamelan Jawa berasal dari paduan bunyi gong, kenong, dan alat musik Jawa lainnya. Gamelan Jawa berbeda dengan Gamelan Bali ataupun Gamelan Sunda. Gamelan Jawa memiliki nada yang lebih lembut dan slow, berbeda dengan Gamelan Bali yang rancak dan Gamelan Sunda yang sangat mendayu-dayu dan didominasi suara seruling. Perbedaan itu wajar, karena Jawa memiliki pandangan hidup tersendiri yang diungkapkan dalam irama musik gamelannya. Adanya perbedaan gamelan Jawa, Bali, ataupun Sunda mengindikasikan bahwa masing-masing daerah memiliki pandangan hidup dan budaya sehingga berpengaruh pada gamelannya.</p>\r\n\r\n<p><em>Kutipan teks II </em></p>\r\n\r\n<p><strong>KEKERINGAN </strong></p>\r\n\r\n<p>Kekeringan adalah keadaan kekurangan air yang sangat ekstrim dalam waktu lama. Kekeringan timbul tanpa dapat diprediksi secara tepat. Di Indonesia, hujan turun secara tidak merata meskipun pada umumnya hujan terjadi di seluruh wilayah negeri. Selain itu, hujan tidak terjadi dalam waktu yang bersamaan. Di wilayah barat, hujan sudah turun, tetapi di wilayah timur belum turun hujan. Kekeringan biasanya muncul bila suatu wilayah secara terus-menerus mengalami curah hujan di bawah rata-rata. Musim kemarau yang panjang akan menjadi bencana alam apabila menyebabkan suatu wilayah kehilangan sumber pendapatan akibat gangguan pada pertanian dan ekosistem yang ditimbulkannya.</p>\r\n\r\n<p>Perbedaan penggunaan bahasa pada kedua kutipan teks tersebut adalah....</p>\r\n\r\n<p>&nbsp;</p>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Teks 1</th>\r\n			<th scope="col">Teks 2</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>bahasanya mudah dipahami</td>\r\n			<td>banyak menggunakan istilah ilmiah</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Teks 1</th>\r\n			<th scope="col">Teks 2</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>banyak menggunakan bahasa daerah</td>\r\n			<td>bahasanya mudah dipahami</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Teks 1</th>\r\n			<th scope="col">Teks 2</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>menggunakan istilah-istilah khusus</td>\r\n			<td>banyak menggunakan istilah ilmiah</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Teks 1</th>\r\n			<th scope="col">Teks 2</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>banyak menggunakan istilah khusus</td>\r\n			<td>menggunakan istilah-istilah umum</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####', 'D', '2017-01-25 10:13:02', 0, 7),
-(45, 3, 1, 1, '', '', '<p>Sejak zaman dahulu, nenek moyang kita sudah mengenal tanaman lidah buaya serta manfaatnya. Manfaat tumbuhan yang bernama latin Aloe Vera ini tidak hanya sebagai penyubur rambut, tetapi juga bermanfaat bagi kesehatan. Tumbuhan tanpa buah ini mempunyai ciri-ciri, seperti daun berbentuk panjang, tebal, dan berwarna hijau. Daunnya mengandung serat bening sebagai daging. Meskipun sejak dahulu dikenal memiliki banyak khasiat, belum banyak yang mengetahui bahwa tanaman ini bisa menjadi komoditas yang menguntungkan. Komoditas yang berbahan lidah buaya, di antaranya obat untuk mempercepat proses penyembuhan penyakit, jus lidah buaya atau gel sebagai obat pencahar yang baik dan sangat membantu jika mengalami sembelit, ramuan penyubur rambut, juga sebagai minuman yang menyehatkan.</p>\r\n\r\n<p>Ringkasan paragraf tersebut adalah....</p>\r\n', '#####<p>Lidah buaya bermanfaat sebagai penyubur rambut juga untuk kesehatan.</p>\r\n', '#####<p>Lidah buaya sangat bermanfaat untuk mengobati berbagai macam penyakit.</p>\r\n', '#####<p>Lidah buaya selain bermanfaat juga menjadi komoditas yang menguntungkan</p>\r\n', '#####<p>Lidah buaya memiliki ciri-ciri tertentu dan nilai komoditas yang menguntungkan</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 1, 5),
-(46, 3, 1, 1, '', '', '<p>Perlunya Resapan Air untuk Mencegah Banjir</p>\r\n\r\n<p>Banjir sudah menjadi agenda tahunan bagi masyarakat Indonesia. Tidak heran bila pemerintah berjuang keras dan mengeluarkan biaya yang sangat besar untuk menyelesaikan masalah ini. Membangun saluran air yang bagus merupakan salah satu cara pemerintah menanggulangi banjir. Namun, itu semua tidak akan berhasil apabila tidak diimbangi dengan pembangunan daerah resapan air. Jadi, resapan air ini merupakan syarat mutlak untuk menanggulangi banjir.</p>\r\n\r\n<p>Pendapat yang mendukung kutipan isi teks tersebut adalah ...</p>\r\n', '#####<p>Solusi tersebut hanya akan menghamburkan uang negara.</p>\r\n', '#####<p>Solusi seperti itu sudah tepat sehingga harus segera direalisasikan.</p>\r\n', '#####<p>Solusi yang dipilih pemerintah tidak akan mampu menanggulangi banjir</p>\r\n', '#####<p>Solusi tersebut masuk akal, tetapi sulit membangun resapan air di perkotaan.</p>\r\n', '#####<p>opsi E.13</p>\r\n', 'B', '2017-01-25 10:13:02', 0, 6),
-(47, 3, 1, 1, '', '', '<p>Ternyata jeruk nipis bermanfaat dalam mengobati batuk. Buah ini memiliki kandungan berupa minyak asiri dan zat yang dapat bermanfaat mengendalikan otot-otot pernapasan sehingga mampu meredakan batuk. Adapun cara penggunaannya yaitu dengan cara meminum air perasan dari jeruk nipis yang dapat dicampur dengan madu, kecap atau gula sehingga rasa asamnya berkurang. (http://informasiana.com)</p>\r\n\r\n<p>Isi yang tersirat pada bagian teks tersebut adalah ....</p>\r\n', '#####<p>Jeruk nipis dapat dicampur dengan zat lainnya</p>\r\n', '#####<p>Jeruk nipis dapat ditanam di pekarangan rumah</p>\r\n', '#####<p>Jeruk nipis memiliki khasiat untuk menjaga kesehatan</p>\r\n', '#####<p>Jeruk nipis lebih berkhasiat dibandingkan jeruk lainnya</p>\r\n', '#####<p>opsi E.14</p>\r\n', 'C', '2017-01-25 10:13:02', 2, 4),
-(48, 3, 1, 1, '', '', '<p>Ternyata jeruk nipis bermanfaat dalam mengobati batuk. Buah ini memiliki kandungan berupa minyak asiri dan zat yang dapat bermanfaat mengendalikan otot-otot pernapasan sehingga mampu meredakan batuk. Adapun cara penggunaannya yaitu dengan cara meminum air perasan dari jeruk nipis yang dapat dicampur dengan madu, kecap atau gula sehingga rasa asamnya berkurang. (http://informasiana.com)</p>\r\n\r\n<p>Ide pokok teks tersebut adalah ....</p>\r\n', '#####<p>manfaat jeruk nipis</p>\r\n', '#####<p>kandungan jeruk nipis</p>\r\n', '#####<p>campuran jeruk nipis</p>\r\n', '', '', 'A', '2017-01-25 10:13:02', 0, 4),
-(49, 3, 1, 1, '', '', '<p>Kelestarian Lingkungan Hidup</p>\r\n\r\n<p>Lingkungan adalah sesuatu yang ada di sekitar manusia yang dapat memengaruhi kehidupan manusia. Lingkungan hidup adalah kesatuan ruang dengan benda dan kesatuan makhluk hidup termasuk manusia terlibat di dalamnya. Manusia harus menyadari bahwa lingkungan merupakan sarana pengembangan hidup yang harus dijaga kelestariannya.</p>\r\n\r\n<p>Dalam lingkungan hidup terdapat ekosistem, yaitu tatanan unsur lingkungan hidup yang merupakan kesatuan utuh menyeluruh dan saling memengaruhi dalam membentuk keseimbangan, stabilitas, dan produktivitas lingkungan hidup. Lingkungan hidup dapat dibedakan menjadi tiga, yaitu unsur hayati (biotik), unsur sosial budaya, dan unsur fisik (abiotik). Unsur hayati (biotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk hidup, seperti manusia, hewan, tumbuhan dan jasad renik. Unsur sosial budaya, yaitu lingkungan sosial dan budaya yang dibuat oleh manusia berupa sistem nilai, gagasan, dan keyakinan dalam perilaku sebagai makhluk&nbsp;sosial. Unsur fisik (abiotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk tak hidup, seperti tanah, air, iklim, udara dan lain sebagainya. Keberadaan unsur ini sangat besar bagi kelangsungan hidup segenap kehidupan di bumi.</p>\r\n\r\n<p>Simpulan isi teks tersebut adalah ...</p>\r\n', '#####<p>Manusia harus menjaga kelestarian lingkungan hidup.</p>\r\n', '#####<p>Manusia dapat memanfaatkan seluruh isi lingkungan hidup</p>\r\n', '#####<p>Seluruh unsur lingkungan hidup saling mempengaruhi demi kehidupan manusia.</p>\r\n', '#####<p>Unsur biotik, sosial budaya, dan abiotik harus dimanfaatkan manusia secara seimbang.</p>\r\n', '#####<p>opsi E.16</p>\r\n', 'A', '2017-01-25 10:13:02', 3, 5),
-(50, 3, 2, 1, '', '', '<p>Kelestarian Lingkungan Hidup</p>\r\n\r\n<p>Lingkungan adalah sesuatu yang ada di sekitar manusia yang dapat memengaruhi kehidupan manusia. Lingkungan hidup adalah kesatuan ruang dengan benda dan kesatuan makhluk hidup termasuk manusia terlibat di dalamnya. Manusia harus menyadari bahwa lingkungan merupakan sarana pengembangan hidup yang harus dijaga kelestariannya.</p>\r\n\r\n<p>Dalam lingkungan hidup terdapat ekosistem, yaitu tatanan unsur lingkungan hidup yang merupakan kesatuan utuh menyeluruh dan saling memengaruhi dalam membentuk keseimbangan, stabilitas, dan produktivitas lingkungan hidup. Lingkungan hidup dapat dibedakan menjadi tiga, yaitu unsur hayati (biotik), unsur sosial budaya, dan unsur fisik (abiotik). Unsur hayati (biotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk hidup, seperti manusia, hewan, tumbuhan dan jasad renik. Unsur sosial budaya, yaitu lingkungan sosial dan budaya yang dibuat oleh manusia berupa sistem nilai, gagasan, dan keyakinan dalam perilaku sebagai makhluk&nbsp;sosial. Unsur fisik (abiotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk tak hidup, seperti tanah, air, iklim, udara dan lain sebagainya. Keberadaan unsur ini sangat besar bagi kelangsungan hidup segenap kehidupan di bumi.</p>\r\n\r\n<p>Informasi yang sesuai dengan isi teks tersebut adalah &hellip;.</p>\r\n\r\n<p>&nbsp;</p>\r\n', '#####<p>Tanpa adanya unsur lingkungan hidup, manusia tidak hidup di bumi ini.</p>\r\n', '#####<p>Unsur abiotik tidak terlalu berpengaruh terhadap kelangsungan hidup manusia</p>\r\n', '#####<p>Unsur sosial budaya diciptakan oleh manusia untuk kelestarian kehidupan di bumi.</p>\r\n', '#####<p>Lingkungan hidup yang meliputi unsur biotik, sosial budaya, dan abiotik harus dijaga kelestariannya.</p>\r\n', '#####<p>opsi E.17</p>\r\n', 'D', '2017-01-25 10:13:02', 0, 8),
-(51, 3, 2, 1, '', '', '<p>Biografi Mario Teguh</p>\r\n\r\n<p>&quot;Salam Super&quot; itulah kata-kata pembuka yang biasa diucapkan oleh Mario Teguh ketika ia mulai membawakan acara di Metro TV yang bertajuk &#39;Mario Teguh Golden Ways&#39;. Terkenal sebagai <em>motivator </em>terbaik di Indonesia yang memiliki kepribadian yang cerdas serta mampu memotivasi banyak orang melalui rangkaian kata-kata bijaknya sehingga ia makin banyak disukai oleh orang-orang.<br />\r\n&nbsp;</p>\r\n\r\n<p>Makna kata bercetak miring pada kutipan teks tersebut adalah &hellip;</p>\r\n', '#####<p>Orang yang bertugas mengingatkan orang lain agar selalu melakukan perbuatan baik.</p>\r\n', '#####<p>Orang yang bertugas membantu seseorang dalam menyelesaikan masalah pribadinya.</p>\r\n', '#####<p>Orang yang menyebabkan timbulnya dorongan pada orang lain untuk melakukan sesuatu.</p>\r\n', '#####<p>Orang yang membangkitkan semangat seseorang agar berasil dalam menjalankan usahanya.</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 2, 7);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -870,29 +772,24 @@ INSERT INTO `m_soal` (`id`, `id_guru`, `id_mapel`, `bobot`, `file`, `tipe_file`,
 -- Struktur dari tabel `pegawai`
 --
 
-CREATE TABLE IF NOT EXISTS `pegawai` (
+CREATE TABLE `pegawai` (
   `id_pegawai` int(11) NOT NULL,
   `user_id` int(10) NOT NULL,
   `wilayah` int(10) DEFAULT NULL,
   `nama_pegawai` varchar(100) NOT NULL,
   `alamat` text NOT NULL,
   `email` varchar(50) NOT NULL,
-  `phone` varchar(15) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+  `phone` varchar(15) NOT NULL,
+  `foto` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `pegawai`
 --
 
-INSERT INTO `pegawai` (`id_pegawai`, `user_id`, `wilayah`, `nama_pegawai`, `alamat`, `email`, `phone`) VALUES
-(1, 2, 11, 'Udin Martono', 'Semarang', 'udin@gmail.com', '0891239123'),
-(2, 3, 3307, 'Kurniawan Teguh', 'Semarang', 'k.teguh@gmail.com', '085242970666'),
-(8, 1, NULL, 'Helmi', 'Tegal', 'helmi@gmail.com', '0891239123'),
-(11, 4, 33, 'Mukhammad Fakhir Rizal', 'Jln. dr. Cipto 61, Proyonanggan Tengah, Batang 51211', 'fakhir_rizal@hotmail.com', '085696303627'),
-(12, 5, 5271, 'Estio Nurcahyanto', 'Bekasi', 'estio@hotmail.com', '085696303627'),
-(13, 6, 34, 'Imam Fajrul Falah', 'Kauman', 'imam@hotmail.com', '085696303627'),
-(14, 7, NULL, 'Sharfina Aulia Puspasari', 'Pasekaran', 'fina@hotmail.com', '085696303627'),
-(15, 8, 19, 'helmi', 'tegal', 'helmi@gmail.com', '0810230123');
+INSERT INTO `pegawai` (`id_pegawai`, `user_id`, `wilayah`, `nama_pegawai`, `alamat`, `email`, `phone`, `foto`) VALUES
+(1, 1, NULL, 'Mukhammad Fakhir Rizal', 'Tegal', 'helmi@gmail.com', '0891239123', NULL),
+(2, 2, NULL, 'Elad Oktarizo', 'Jakarta Pusat', 'elad@hotmail.com', '085696303627', NULL);
 
 -- --------------------------------------------------------
 
@@ -900,19 +797,19 @@ INSERT INTO `pegawai` (`id_pegawai`, `user_id`, `wilayah`, `nama_pegawai`, `alam
 -- Struktur dari tabel `profil_dir`
 --
 
-CREATE TABLE IF NOT EXISTS `profil_dir` (
+CREATE TABLE `profil_dir` (
   `id_profil` int(11) NOT NULL,
   `visi_misi` longtext NOT NULL,
   `tupoksi` longtext NOT NULL,
   `struktur_organisasi` longtext NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `profil_dir`
 --
 
 INSERT INTO `profil_dir` (`id_profil`, `visi_misi`, `tupoksi`, `struktur_organisasi`) VALUES
-(1, '<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;">\n	<span style="box-sizing: border-box; font-weight: 700;">&quot;TERWUJUDNYA INFRASTRUKTUR PEKERJAAN UMUM DAN PERUMAHAN RAKYAT YANG HANDAL</span></p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;">\n	<span style="box-sizing: border-box; font-weight: 700;">DALAM MENDUKUNG INDONESIA YANG BERDAULAT, MANDIRI, DAN BERKEPRIBADIAN</span></p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;">\n	<span style="box-sizing: border-box; font-weight: 700;">BERLANDASKAN GOTONG ROYONG&quot;</span></p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: justify;">\n	&nbsp;</p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: justify;">\n	Misi Kementerian Pekerjaan Umum dan Perumahan Rakyat yang merupakan rumusan upaya yang akan dilaksanakan selama periode Renstra 2015 &ndash; 2019 dalam rangka mencapai visi serta mendukung upaya pencapaian target pembangunan nasional, berdasarkan mandat yang diemban oleh Kementerian Pekerjaan Umum dan Perumahan Rakyat sebagaimana yang tercantum di dalam Peraturan Pemerintah Nomor 165 Tahun 2014 tentang Penataan Tugas dan Fungsi Kabinet Kerja, amanat RPJMN tahap ketiga serta perubahan kondisi lingkungan strategis yang dinamis adalah sebagai berikut :</p>\n<ol style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;">\n	<li style="box-sizing: border-box; text-align: justify;">\n		Mempercepat pembangunan infrastruktur sumberdaya air termasuk sumber daya maritim untuk mendukung ketahanan air, kedaulatan pangan, dan kedaulatan energi, guna menggerakkan sektor-sektor strategis ekonomi domestik dalam rangka kemandirian ekonomi;</li>\n	<li style="box-sizing: border-box; text-align: justify;">\n		Mempercepat pembangunan infrastruktur jalan untuk mendukung konektivitas guna meningkatkan produktivitas, efisiensi, dan pelayanan sistem logistik nasional bagi penguatan daya saing bangsa di lingkup global yang berfokus pada keterpaduan konektivitas daratan dan maritim;</li>\n	<li style="box-sizing: border-box; text-align: justify;">\n		Mempercepat pembangunan infrastruktur permukiman dan perumahan rakyat untuk mendukung layanan infrastruktur dasar yang layak dalam rangka mewujudkan kualitas hidup manusia Indonesia sejalan dengan prinsip &lsquo;infrastruktur untuk semua&rsquo;;</li>\n	<li style="box-sizing: border-box; text-align: justify;">\n		Mempercepat pembangunan infrastruktur pekerjaan umum dan perumahan rakyat secara terpadu dari pinggiran didukung industri konstruksi yang berkualitas untuk keseimbangan pembangunan antardaerah, terutama di kawasan tertinggal, kawasan perbatasan, dan kawasan perdesaan, dalam kerangka NKRI;</li>\n	<li style="box-sizing: border-box; text-align: justify;">\n		Meningkatkan tata kelola sumber daya organisasi bidang pekerjaan umum dan perumahan rakyat yang meliputi sumber daya manusia, pengendalian dan pengawasan, kesekertariatan serta penelitian dan pengembangan untuk mendukung fungsi manajemen meliputi perencanaan yang terpadu, pengorganisasian yang efisien, pelaksanaan yang tepat, dan pengawasan yang ketat.</li>\n</ol>\n', '<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;">\n	Sesuai dengan Peraturan Presiden Nomor 15 Tahun 2015 tentang&nbsp;Kementerian Pekerjaan Umum dan Perumahan Rakyat dan Peraturan Presiden Nomor 135 Tahun 2018 tentang Perubahan atas&nbsp;Peraturan Presiden Nomor 15 Tahun 2015 tentang&nbsp;Kementerian Pekerjaan Umum dan Perumahan Rakyat.</p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;">\n	Kementerian Pekerjaan Umum dan Perumahan Rakyat mempunyai tugas menyelenggarakan urusan pemerintahan di bidang pekerjaan umum dan perumahan rakyat untuk membantu Presiden dalam menyelenggarakan pemerintahan negara.</p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;">\n	Dalam melaksanakan tugas sebagaimana dimaksud di atas, Kementerian Pekerjaan Umum dan Perumahan Rakyat menyelenggarakan&nbsp; fungsi:</p>\n<ol style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; list-style-type: lower-alpha;">\n	<li style="box-sizing: border-box;">\n		perumusan, penetapan, dan pelaksanaan kebijakan di bidang pengelolaan sumber daya air, penyelenggaraan jalan, penyediaan perumahan dan pengembangan kawasan permukiman, pembiayaan infrastruktur, penataan bangunan gedung, sistem penyediaan air minum, sistem pengelolaan air limbah dan drainase lingkungan serta persampahan, dan pembinaan jasa konstruksi;</li>\n	<li style="box-sizing: border-box;">\n		koordinasi pelaksanaan tugas, pembinaan, dan pemberian dukungan administrasi kepada seluruh unsur organisasi di lingkungan Kementerian Pekerjaan Umum dan perumahan Rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pengelolaan barang milik/kekayaan negara yang menjadi tanggung jawab Kementerian Pekerjaan Umum dan Perumahan Rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pengawasan atas pelaksanaan tugas di lingkungan Kementerian Pekerjaan Umum dan Perumahan Rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan bimbingan teknis dan supervisi atas pelaksanaan urusan Kementerian Pekerjaan Umum dan Perumahan Rakyat di daerah;</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan penyusunan kebijakan teknis dan strategi keterpaduan pengembangan infrastruktur pekerjaan umum dan perumahan rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan penelitian dan pengembangan di bidang pekerjaan umum dan perumahan rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan pengembangan sumber daya manusia di bidang pekerjaan umum dan perrrmahan rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan dukungan yang bersifat substantif kepada seluruh unsur organisasi di lingkungan Kementerian Pekerjaan Umum dan Perumahan Rakyat; dan</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan fungsi lain yang diberikan oleh Presiden.</li>\n</ol>\n', '<p>\n	<img alt="" src="/sibilup/assets/images/article/images/20190402-struktur-organisasi-kementerian-pupr.jpg" style="width: 900px; height: 675px;" /></p>\n');
+(1, '<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;\">\n	<span style=\"box-sizing: border-box; font-weight: 700;\">&quot;TERWUJUDNYA INFRASTRUKTUR PEKERJAAN UMUM DAN PERUMAHAN RAKYAT YANG HANDAL</span></p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;\">\n	<span style=\"box-sizing: border-box; font-weight: 700;\">DALAM MENDUKUNG INDONESIA YANG BERDAULAT, MANDIRI, DAN BERKEPRIBADIAN</span></p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;\">\n	<span style=\"box-sizing: border-box; font-weight: 700;\">BERLANDASKAN GOTONG ROYONG&quot;</span></p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: justify;\">\n	&nbsp;</p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: justify;\">\n	Misi Kementerian Pekerjaan Umum dan Perumahan Rakyat yang merupakan rumusan upaya yang akan dilaksanakan selama periode Renstra 2015 &ndash; 2019 dalam rangka mencapai visi serta mendukung upaya pencapaian target pembangunan nasional, berdasarkan mandat yang diemban oleh Kementerian Pekerjaan Umum dan Perumahan Rakyat sebagaimana yang tercantum di dalam Peraturan Pemerintah Nomor 165 Tahun 2014 tentang Penataan Tugas dan Fungsi Kabinet Kerja, amanat RPJMN tahap ketiga serta perubahan kondisi lingkungan strategis yang dinamis adalah sebagai berikut :</p>\n<ol style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;\">\n	<li style=\"box-sizing: border-box; text-align: justify;\">\n		Mempercepat pembangunan infrastruktur sumberdaya air termasuk sumber daya maritim untuk mendukung ketahanan air, kedaulatan pangan, dan kedaulatan energi, guna menggerakkan sektor-sektor strategis ekonomi domestik dalam rangka kemandirian ekonomi;</li>\n	<li style=\"box-sizing: border-box; text-align: justify;\">\n		Mempercepat pembangunan infrastruktur jalan untuk mendukung konektivitas guna meningkatkan produktivitas, efisiensi, dan pelayanan sistem logistik nasional bagi penguatan daya saing bangsa di lingkup global yang berfokus pada keterpaduan konektivitas daratan dan maritim;</li>\n	<li style=\"box-sizing: border-box; text-align: justify;\">\n		Mempercepat pembangunan infrastruktur permukiman dan perumahan rakyat untuk mendukung layanan infrastruktur dasar yang layak dalam rangka mewujudkan kualitas hidup manusia Indonesia sejalan dengan prinsip &lsquo;infrastruktur untuk semua&rsquo;;</li>\n	<li style=\"box-sizing: border-box; text-align: justify;\">\n		Mempercepat pembangunan infrastruktur pekerjaan umum dan perumahan rakyat secara terpadu dari pinggiran didukung industri konstruksi yang berkualitas untuk keseimbangan pembangunan antardaerah, terutama di kawasan tertinggal, kawasan perbatasan, dan kawasan perdesaan, dalam kerangka NKRI;</li>\n	<li style=\"box-sizing: border-box; text-align: justify;\">\n		Meningkatkan tata kelola sumber daya organisasi bidang pekerjaan umum dan perumahan rakyat yang meliputi sumber daya manusia, pengendalian dan pengawasan, kesekertariatan serta penelitian dan pengembangan untuk mendukung fungsi manajemen meliputi perencanaan yang terpadu, pengorganisasian yang efisien, pelaksanaan yang tepat, dan pengawasan yang ketat.</li>\n</ol>\n', '<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;\">\n	Sesuai dengan Peraturan Presiden Nomor 15 Tahun 2015 tentang&nbsp;Kementerian Pekerjaan Umum dan Perumahan Rakyat dan Peraturan Presiden Nomor 135 Tahun 2018 tentang Perubahan atas&nbsp;Peraturan Presiden Nomor 15 Tahun 2015 tentang&nbsp;Kementerian Pekerjaan Umum dan Perumahan Rakyat.</p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;\">\n	Kementerian Pekerjaan Umum dan Perumahan Rakyat mempunyai tugas menyelenggarakan urusan pemerintahan di bidang pekerjaan umum dan perumahan rakyat untuk membantu Presiden dalam menyelenggarakan pemerintahan negara.</p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;\">\n	Dalam melaksanakan tugas sebagaimana dimaksud di atas, Kementerian Pekerjaan Umum dan Perumahan Rakyat menyelenggarakan&nbsp; fungsi:</p>\n<ol style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; list-style-type: lower-alpha;\">\n	<li style=\"box-sizing: border-box;\">\n		perumusan, penetapan, dan pelaksanaan kebijakan di bidang pengelolaan sumber daya air, penyelenggaraan jalan, penyediaan perumahan dan pengembangan kawasan permukiman, pembiayaan infrastruktur, penataan bangunan gedung, sistem penyediaan air minum, sistem pengelolaan air limbah dan drainase lingkungan serta persampahan, dan pembinaan jasa konstruksi;</li>\n	<li style=\"box-sizing: border-box;\">\n		koordinasi pelaksanaan tugas, pembinaan, dan pemberian dukungan administrasi kepada seluruh unsur organisasi di lingkungan Kementerian Pekerjaan Umum dan perumahan Rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pengelolaan barang milik/kekayaan negara yang menjadi tanggung jawab Kementerian Pekerjaan Umum dan Perumahan Rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pengawasan atas pelaksanaan tugas di lingkungan Kementerian Pekerjaan Umum dan Perumahan Rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan bimbingan teknis dan supervisi atas pelaksanaan urusan Kementerian Pekerjaan Umum dan Perumahan Rakyat di daerah;</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan penyusunan kebijakan teknis dan strategi keterpaduan pengembangan infrastruktur pekerjaan umum dan perumahan rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan penelitian dan pengembangan di bidang pekerjaan umum dan perumahan rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan pengembangan sumber daya manusia di bidang pekerjaan umum dan perrrmahan rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan dukungan yang bersifat substantif kepada seluruh unsur organisasi di lingkungan Kementerian Pekerjaan Umum dan Perumahan Rakyat; dan</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan fungsi lain yang diberikan oleh Presiden.</li>\n</ol>\n', '<p>\n	<img alt=\"\" src=\"/sibilup/assets/images/article/images/20190402-struktur-organisasi-kementerian-pupr.jpg\" style=\"width: 900px; height: 675px;\" /></p>\n');
 
 -- --------------------------------------------------------
 
@@ -920,14 +817,14 @@ INSERT INTO `profil_dir` (`id_profil`, `visi_misi`, `tupoksi`, `struktur_organis
 -- Struktur dari tabel `provinsi`
 --
 
-CREATE TABLE IF NOT EXISTS `provinsi` (
+CREATE TABLE `provinsi` (
   `id_provinsi` int(5) NOT NULL,
   `nm_provinsi` varchar(20) NOT NULL,
   `regional` text NOT NULL,
   `bujur` varchar(20) NOT NULL,
   `lintang` varchar(20) NOT NULL,
   `kml` varchar(300) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `provinsi`
@@ -975,19 +872,14 @@ INSERT INTO `provinsi` (`id_provinsi`, `nm_provinsi`, `regional`, `bujur`, `lint
 -- Struktur dari tabel `regulasi`
 --
 
-CREATE TABLE IF NOT EXISTS `regulasi` (
+CREATE TABLE `regulasi` (
   `id_reg` int(11) NOT NULL,
   `judul` varchar(100) NOT NULL,
   `file` varchar(200) NOT NULL,
-  `keterangan` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `regulasi`
---
-
-INSERT INTO `regulasi` (`id_reg`, `judul`, `file`, `keterangan`) VALUES
-(1, 'tes', '6e5cd-dok-baru-2019-08-28-14.22.pdf', 'tes');
+  `keterangan` text NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `upload_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -995,14 +887,14 @@ INSERT INTO `regulasi` (`id_reg`, `judul`, `file`, `keterangan`) VALUES
 -- Struktur dari tabel `rekap_kabkota`
 --
 
-CREATE TABLE IF NOT EXISTS `rekap_kabkota` (
+CREATE TABLE `rekap_kabkota` (
   `id_kabupaten` int(4) NOT NULL,
   `belum` enum('X','V') DEFAULT NULL,
   `sedang` enum('X','V') DEFAULT NULL,
   `review` enum('X','V') DEFAULT NULL,
   `sudah` enum('X','V') DEFAULT NULL,
-  `bentuk_kegiatan` text,
-  `anggaran` text
+  `bentuk_kegiatan` text DEFAULT NULL,
+  `anggaran` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1011,15 +903,15 @@ CREATE TABLE IF NOT EXISTS `rekap_kabkota` (
 -- Struktur dari tabel `rekap_provinsi`
 --
 
-CREATE TABLE IF NOT EXISTS `rekap_provinsi` (
+CREATE TABLE `rekap_provinsi` (
   `id_provinsi` int(2) NOT NULL,
   `belum` enum('X','V') DEFAULT NULL,
   `menganggarkan` enum('X','V') DEFAULT NULL,
   `sedang` enum('X','V') DEFAULT NULL,
   `review` enum('X','V') DEFAULT NULL,
   `sudah` enum('X','V') DEFAULT NULL,
-  `bentuk_kegiatan` text,
-  `anggaran` text
+  `bentuk_kegiatan` text DEFAULT NULL,
+  `anggaran` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1028,35 +920,11 @@ CREATE TABLE IF NOT EXISTS `rekap_provinsi` (
 -- Struktur dari tabel `tr_guru_mapel`
 --
 
-CREATE TABLE IF NOT EXISTS `tr_guru_mapel` (
+CREATE TABLE `tr_guru_mapel` (
   `id` int(6) NOT NULL,
   `id_guru` int(6) NOT NULL,
   `id_mapel` int(6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tr_guru_mapel`
---
-
-INSERT INTO `tr_guru_mapel` (`id`, `id_guru`, `id_mapel`) VALUES
-(3, 6, 1),
-(4, 6, 2),
-(5, 6, 3),
-(6, 6, 4),
-(8, 7, 4),
-(9, 2, 1),
-(10, 2, 2),
-(12, 4, 1),
-(13, 4, 2),
-(14, 4, 3),
-(15, 4, 4),
-(16, 5, 1),
-(17, 5, 2),
-(18, 5, 3),
-(19, 5, 4),
-(20, 7, 1),
-(21, 7, 2),
-(22, 7, 3);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1064,7 +932,7 @@ INSERT INTO `tr_guru_mapel` (`id`, `id_guru`, `id_mapel`) VALUES
 -- Struktur dari tabel `tr_guru_tes`
 --
 
-CREATE TABLE IF NOT EXISTS `tr_guru_tes` (
+CREATE TABLE `tr_guru_tes` (
   `id` int(6) NOT NULL,
   `id_guru` int(6) NOT NULL,
   `id_mapel` int(6) NOT NULL,
@@ -1076,15 +944,7 @@ CREATE TABLE IF NOT EXISTS `tr_guru_tes` (
   `tgl_mulai` datetime NOT NULL,
   `terlambat` datetime NOT NULL,
   `token` varchar(5) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tr_guru_tes`
---
-
-INSERT INTO `tr_guru_tes` (`id`, `id_guru`, `id_mapel`, `nama_ujian`, `jumlah_soal`, `waktu`, `jenis`, `detil_jenis`, `tgl_mulai`, `terlambat`, `token`) VALUES
-(3, 0, 3, 'tes', 10, 30, 'acak', '', '2019-09-17 10:10:00', '2019-10-31 10:10:00', ''),
-(5, 3, 0, 'tes12345', 5, 30, 'acak', '', '2019-09-26 10:10:00', '2019-10-31 10:10:00', '');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1092,7 +952,7 @@ INSERT INTO `tr_guru_tes` (`id`, `id_guru`, `id_mapel`, `nama_ujian`, `jumlah_so
 -- Struktur dari tabel `tr_ikut_ujian`
 --
 
-CREATE TABLE IF NOT EXISTS `tr_ikut_ujian` (
+CREATE TABLE `tr_ikut_ujian` (
   `id` int(6) NOT NULL,
   `id_tes` int(6) NOT NULL,
   `id_user` int(6) NOT NULL,
@@ -1104,15 +964,7 @@ CREATE TABLE IF NOT EXISTS `tr_ikut_ujian` (
   `tgl_mulai` datetime NOT NULL,
   `tgl_selesai` datetime NOT NULL,
   `status` enum('Y','N') NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tr_ikut_ujian`
---
-
-INSERT INTO `tr_ikut_ujian` (`id`, `id_tes`, `id_user`, `list_soal`, `list_jawaban`, `jml_benar`, `nilai`, `nilai_bobot`, `tgl_mulai`, `tgl_selesai`, `status`) VALUES
-(3, 1, 15, '', '', 0, '0.00', '0.00', '2019-09-26 16:05:06', '2019-09-26 17:45:06', 'Y'),
-(4, 5, 15, '36,50,34,35,51', '36:A:N,50:B:N,34:A:N,35:C:N,51:C:N', 2, '40.00', '40.00', '2019-09-26 16:19:05', '2019-09-26 16:49:05', 'N');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1120,23 +972,13 @@ INSERT INTO `tr_ikut_ujian` (`id`, `id_tes`, `id_user`, `list_soal`, `list_jawab
 -- Struktur dari tabel `ujian_modul`
 --
 
-CREATE TABLE IF NOT EXISTS `ujian_modul` (
+CREATE TABLE `ujian_modul` (
   `id_ujianmodul` int(11) NOT NULL,
   `id_ujian` int(11) NOT NULL,
   `id_modul` int(11) NOT NULL,
   `jml_soal` varchar(50) NOT NULL,
-  `id_soal` varchar(100) NOT NULL,
-  `urutan` int(11) NOT NULL,
-  `keterangan` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `ujian_modul`
---
-
-INSERT INTO `ujian_modul` (`id_ujianmodul`, `id_ujian`, `id_modul`, `jml_soal`, `id_soal`, `urutan`, `keterangan`) VALUES
-(5, 5, 1, '3', '34|^|35|^|36', 0, 'hola holaa'),
-(6, 5, 2, '2', '50|^|51', 0, 'ahsdhaskdasd');
+  `urutan` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1144,44 +986,38 @@ INSERT INTO `ujian_modul` (`id_ujianmodul`, `id_ujian`, `id_modul`, `jml_soal`, 
 -- Struktur dari tabel `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(9) unsigned NOT NULL,
+CREATE TABLE `user` (
+  `id` int(9) UNSIGNED NOT NULL,
   `username` varchar(16) DEFAULT NULL,
   `pass` varchar(64) DEFAULT NULL,
-  `total_login` int(9) unsigned NOT NULL DEFAULT '0',
+  `total_login` int(9) UNSIGNED NOT NULL DEFAULT 0,
   `last_login` datetime DEFAULT NULL,
   `last_activity` datetime DEFAULT NULL,
-  `login_attempts` int(9) unsigned DEFAULT '0',
+  `login_attempts` int(9) UNSIGNED DEFAULT 0,
   `last_login_attempt` datetime DEFAULT NULL,
   `remember_time` datetime DEFAULT NULL,
-  `remember_exp` text,
-  `ip_address` text,
-  `is_active` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `remember_exp` text DEFAULT NULL,
+  `ip_address` text DEFAULT NULL,
+  `is_active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `verification_token` varchar(128) DEFAULT NULL,
   `recovery_token` varchar(128) DEFAULT NULL,
   `unlock_token` varchar(128) DEFAULT NULL,
-  `created_by` int(9) unsigned NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_by` int(9) unsigned DEFAULT NULL,
+  `created_by` int(9) UNSIGNED NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(9) UNSIGNED DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `deleted_by` int(9) unsigned DEFAULT NULL,
+  `deleted_by` int(9) UNSIGNED DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
-  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `pass`, `total_login`, `last_login`, `last_activity`, `login_attempts`, `last_login_attempt`, `remember_time`, `remember_exp`, `ip_address`, `is_active`, `verification_token`, `recovery_token`, `unlock_token`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_by`, `deleted_at`, `deleted`) VALUES
-(1, 'admin', '1', 22, '2019-09-24 15:55:43', '2019-09-24 15:55:43', 26, '2019-09-24 15:55:43', NULL, NULL, '::1', 1, NULL, NULL, NULL, 0, '2019-09-06 12:45:51', NULL, NULL, NULL, NULL, 0),
-(2, 'udin', '1', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 0, '2019-09-18 12:25:40', NULL, NULL, NULL, NULL, 0),
-(3, 'kurniawan', '1', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 0, '2019-09-18 12:26:07', NULL, NULL, NULL, NULL, 0),
-(4, 'a', '1', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-09-18 17:01:17', NULL, NULL, NULL, NULL, 0),
-(5, 'estio', 'a', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-09-19 21:59:14', NULL, NULL, NULL, NULL, 0),
-(6, 'imam', '1', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-09-19 22:27:17', NULL, NULL, NULL, NULL, 0),
-(7, 'fina', '1', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-09-19 22:32:14', NULL, NULL, NULL, NULL, 0),
-(8, 'helmi', '123456', 2, '2019-09-26 15:56:07', '2019-09-26 15:56:07', 2, '2019-09-26 15:56:07', NULL, NULL, '::1', 1, NULL, NULL, NULL, 1, '2019-09-26 15:54:47', NULL, NULL, NULL, NULL, 0);
+(1, 'admin', '1', 27, '2019-10-01 14:26:25', '2019-10-01 14:26:25', 31, '2019-10-01 14:26:25', NULL, NULL, '103.211.50.6', 1, NULL, NULL, NULL, 0, '2019-09-06 12:45:51', NULL, NULL, NULL, NULL, 0),
+(2, 'admin_pusat', '123456', 1, '2019-09-30 10:17:49', '2019-09-30 10:17:49', 2, '2019-09-30 10:17:49', NULL, NULL, '103.211.50.6', 1, NULL, NULL, NULL, 1, '2019-09-19 22:32:14', 1, '2019-09-30 10:16:10', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1189,18 +1025,18 @@ INSERT INTO `user` (`id`, `username`, `pass`, `total_login`, `last_login`, `last
 -- Struktur dari tabel `user_profile`
 --
 
-CREATE TABLE IF NOT EXISTS `user_profile` (
+CREATE TABLE `user_profile` (
   `id` int(9) NOT NULL,
   `user_id` int(9) NOT NULL,
-  `fullname` text,
-  `nin` text COMMENT 'National Identity Number',
-  `bdt_id` text,
+  `fullname` text DEFAULT NULL,
+  `nin` text DEFAULT NULL COMMENT 'National Identity Number',
+  `bdt_id` text DEFAULT NULL,
   `pkh_id` varchar(30) DEFAULT NULL,
   `kks_id` varchar(30) DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
-  `address` text,
-  `photo` text
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `address` text DEFAULT NULL,
+  `photo` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `user_profile`
@@ -1215,8 +1051,8 @@ INSERT INTO `user_profile` (`id`, `user_id`, `fullname`, `nin`, `bdt_id`, `pkh_i
 -- Struktur dari tabel `user_role`
 --
 
-CREATE TABLE IF NOT EXISTS `user_role` (
-  `id` int(11) unsigned NOT NULL,
+CREATE TABLE `user_role` (
+  `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL,
   `level` int(11) NOT NULL,
   `kon_id` int(11) NOT NULL,
@@ -1224,27 +1060,27 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   `description` varchar(255) DEFAULT NULL,
   `route` varchar(32) DEFAULT NULL,
   `created_by` int(9) NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime DEFAULT current_timestamp(),
   `updated_by` int(9) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_by` int(9) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `user_role`
 --
 
 INSERT INTO `user_role` (`id`, `name`, `level`, `kon_id`, `definition`, `description`, `route`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_by`, `deleted_at`, `deleted`) VALUES
-(1, 'Super Admin', 1, 0, 'Super Administrator', NULL, 'admin_side/beranda', 0, '2018-10-27 17:52:08', NULL, NULL, NULL, NULL, 0),
-(2, 'Admin Pusat', 2, 0, 'Admin Pusat', NULL, 'admin_side/beranda', 0, '2017-03-06 01:19:26', 2, '2018-10-27 18:55:37', NULL, NULL, 0),
-(3, 'Admin Provinsi', 3, 8, 'Admin Provinsi', 'Kepala Bidang', 'admin_side/beranda', 0, '2017-03-06 01:19:26', NULL, NULL, NULL, NULL, 0),
-(4, 'Admin Kabupaten/ Kota', 3, 6, 'Admin Kabupaten/ Kota', 'Kepala Bidang', 'admin_side/beranda', 0, '2018-09-02 14:20:07', NULL, NULL, NULL, NULL, 0),
-(5, 'Admin Provinsi', 3, 0, 'Admin Provinsi', 'Kepala Bagian', 'admin_side/beranda', 0, '2019-09-19 21:21:10', NULL, NULL, NULL, NULL, 0),
-(6, 'Admin Kabupaten/ Kota', 3, 0, 'Admin Kabupaten/ Kota', 'Kepala Bagian', 'admin_side/beranda', 0, '2019-09-19 21:21:59', NULL, NULL, NULL, NULL, 0),
-(7, 'Admin Provinsi', 3, 0, 'Admin Provinsi', 'Staff', 'admin_side/beranda', 0, '2019-09-19 21:21:59', NULL, NULL, NULL, NULL, 0),
-(8, 'Admin Kabupaten/ Kota', 3, 0, 'Admin Kabupaten/ Kota', 'Staff', 'admin_side/beranda', 0, '2019-09-19 21:22:51', NULL, NULL, NULL, NULL, 0);
+(1, 'Super Admin', 1, 0, 'Super Administrator', NULL, 'admin_side/rekap_provinsi', 0, '2018-10-27 17:52:08', NULL, NULL, NULL, NULL, 0),
+(2, 'Admin Pusat', 2, 0, 'Admin Pusat', NULL, 'admin_side/rekap_provinsi', 0, '2017-03-06 01:19:26', 2, '2018-10-27 18:55:37', NULL, NULL, 0),
+(3, 'Admin Provinsi', 3, 8, 'Admin Provinsi', 'Kepala Bidang', 'admin_side/rekap_provinsi', 0, '2017-03-06 01:19:26', NULL, NULL, NULL, NULL, 0),
+(4, 'Admin Kabupaten/ Kota', 4, 6, 'Admin Kabupaten/ Kota', 'Kepala Bidang', 'admin_side/rekap_provinsi', 0, '2018-09-02 14:20:07', NULL, NULL, NULL, NULL, 0),
+(5, 'Admin Provinsi', 0, 0, 'Admin Provinsi', 'Kepala Bagian', 'admin_side/rekap_provinsi', 0, '2019-09-19 21:21:10', NULL, NULL, NULL, NULL, 0),
+(6, 'Admin Kabupaten/ Kota', 0, 0, 'Admin Kabupaten/ Kota', 'Kepala Bagian', 'admin_side/rekap_provinsi', 0, '2019-09-19 21:21:59', NULL, NULL, NULL, NULL, 0),
+(7, 'Admin Provinsi', 0, 0, 'Admin Provinsi', 'Staff', 'admin_side/rekap_provinsi', 0, '2019-09-19 21:21:59', NULL, NULL, NULL, NULL, 0),
+(8, 'Admin Kabupaten/ Kota', 0, 0, 'Admin Kabupaten/ Kota', 'Staff', 'admin_side/rekap_provinsi', 0, '2019-09-19 21:22:51', NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1252,9 +1088,9 @@ INSERT INTO `user_role` (`id`, `name`, `level`, `kon_id`, `definition`, `descrip
 -- Struktur dari tabel `user_to_role`
 --
 
-CREATE TABLE IF NOT EXISTS `user_to_role` (
-  `user_id` int(9) unsigned NOT NULL DEFAULT '0',
-  `role_id` int(9) unsigned NOT NULL DEFAULT '0'
+CREATE TABLE `user_to_role` (
+  `user_id` int(9) UNSIGNED NOT NULL DEFAULT 0,
+  `role_id` int(9) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1263,83 +1099,77 @@ CREATE TABLE IF NOT EXISTS `user_to_role` (
 
 INSERT INTO `user_to_role` (`user_id`, `role_id`) VALUES
 (1, 1),
-(7, 2),
-(2, 3),
-(4, 3),
-(8, 3),
-(3, 6),
-(5, 6),
-(6, 7);
+(2, 2);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `activity_logs`
+-- Indeks untuk tabel `activity_logs`
 --
 ALTER TABLE `activity_logs`
   ADD PRIMARY KEY (`activity_id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `company_id` (`company_id`),
-  ADD FULLTEXT KEY `activity_type` (`activity_type`);
+  ADD KEY `company_id` (`company_id`);
+ALTER TABLE `activity_logs` ADD FULLTEXT KEY `activity_type` (`activity_type`);
 
 --
--- Indexes for table `agenda`
+-- Indeks untuk tabel `agenda`
 --
 ALTER TABLE `agenda`
   ADD PRIMARY KEY (`id_agenda`);
 
 --
--- Indexes for table `diskusi`
+-- Indeks untuk tabel `diskusi`
 --
 ALTER TABLE `diskusi`
   ADD PRIMARY KEY (`id_diskusi`);
 
 --
--- Indexes for table `faq`
+-- Indeks untuk tabel `faq`
 --
 ALTER TABLE `faq`
   ADD PRIMARY KEY (`id_faq`);
 
 --
--- Indexes for table `galeri`
+-- Indeks untuk tabel `galeri`
 --
 ALTER TABLE `galeri`
   ADD PRIMARY KEY (`id_galeri`);
 
 --
--- Indexes for table `hubungi_kami`
+-- Indeks untuk tabel `hubungi_kami`
 --
 ALTER TABLE `hubungi_kami`
   ADD PRIMARY KEY (`id_hub`);
 
 --
--- Indexes for table `kabupaten`
+-- Indeks untuk tabel `kabupaten`
 --
 ALTER TABLE `kabupaten`
   ADD PRIMARY KEY (`id_kabupaten`);
 
 --
--- Indexes for table `level_user`
+-- Indeks untuk tabel `level_user`
 --
 ALTER TABLE `level_user`
   ADD PRIMARY KEY (`id_level`);
 
 --
--- Indexes for table `materi`
+-- Indeks untuk tabel `materi`
 --
 ALTER TABLE `materi`
   ADD PRIMARY KEY (`id_materi`);
 
 --
--- Indexes for table `modul`
+-- Indeks untuk tabel `modul`
 --
 ALTER TABLE `modul`
   ADD PRIMARY KEY (`id_modul`);
 
 --
--- Indexes for table `m_soal`
+-- Indeks untuk tabel `m_soal`
 --
 ALTER TABLE `m_soal`
   ADD PRIMARY KEY (`id`),
@@ -1347,7 +1177,7 @@ ALTER TABLE `m_soal`
   ADD KEY `id_mapel` (`id_mapel`);
 
 --
--- Indexes for table `pegawai`
+-- Indeks untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`id_pegawai`),
@@ -1355,39 +1185,39 @@ ALTER TABLE `pegawai`
   ADD KEY `wilayah` (`wilayah`);
 
 --
--- Indexes for table `profil_dir`
+-- Indeks untuk tabel `profil_dir`
 --
 ALTER TABLE `profil_dir`
   ADD PRIMARY KEY (`id_profil`);
 
 --
--- Indexes for table `provinsi`
+-- Indeks untuk tabel `provinsi`
 --
 ALTER TABLE `provinsi`
   ADD PRIMARY KEY (`id_provinsi`);
 
 --
--- Indexes for table `regulasi`
+-- Indeks untuk tabel `regulasi`
 --
 ALTER TABLE `regulasi`
   ADD PRIMARY KEY (`id_reg`);
 
 --
--- Indexes for table `rekap_kabkota`
+-- Indeks untuk tabel `rekap_kabkota`
 --
 ALTER TABLE `rekap_kabkota`
   ADD PRIMARY KEY (`id_kabupaten`),
   ADD KEY `id_provinsi` (`id_kabupaten`);
 
 --
--- Indexes for table `rekap_provinsi`
+-- Indeks untuk tabel `rekap_provinsi`
 --
 ALTER TABLE `rekap_provinsi`
   ADD PRIMARY KEY (`id_provinsi`),
   ADD KEY `id_provinsi` (`id_provinsi`);
 
 --
--- Indexes for table `tr_guru_mapel`
+-- Indeks untuk tabel `tr_guru_mapel`
 --
 ALTER TABLE `tr_guru_mapel`
   ADD PRIMARY KEY (`id`),
@@ -1395,7 +1225,7 @@ ALTER TABLE `tr_guru_mapel`
   ADD KEY `id_mapel` (`id_mapel`);
 
 --
--- Indexes for table `tr_guru_tes`
+-- Indeks untuk tabel `tr_guru_tes`
 --
 ALTER TABLE `tr_guru_tes`
   ADD PRIMARY KEY (`id`),
@@ -1403,7 +1233,7 @@ ALTER TABLE `tr_guru_tes`
   ADD KEY `id_mapel` (`id_mapel`);
 
 --
--- Indexes for table `tr_ikut_ujian`
+-- Indeks untuk tabel `tr_ikut_ujian`
 --
 ALTER TABLE `tr_ikut_ujian`
   ADD PRIMARY KEY (`id`),
@@ -1411,13 +1241,13 @@ ALTER TABLE `tr_ikut_ujian`
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indexes for table `ujian_modul`
+-- Indeks untuk tabel `ujian_modul`
 --
 ALTER TABLE `ujian_modul`
   ADD PRIMARY KEY (`id_ujianmodul`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
@@ -1425,7 +1255,7 @@ ALTER TABLE `user`
   ADD KEY `is_active_index` (`is_active`);
 
 --
--- Indexes for table `user_profile`
+-- Indeks untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
   ADD PRIMARY KEY (`id`),
@@ -1434,14 +1264,14 @@ ALTER TABLE `user_profile`
   ADD KEY `id_kks` (`kks_id`);
 
 --
--- Indexes for table `user_role`
+-- Indeks untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`),
   ADD KEY `name_index` (`name`);
 
 --
--- Indexes for table `user_to_role`
+-- Indeks untuk tabel `user_to_role`
 --
 ALTER TABLE `user_to_role`
   ADD PRIMARY KEY (`user_id`,`role_id`),
@@ -1449,119 +1279,142 @@ ALTER TABLE `user_to_role`
   ADD KEY `user_id` (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `activity_logs`
+-- AUTO_INCREMENT untuk tabel `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `activity_id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+  MODIFY `activity_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
--- AUTO_INCREMENT for table `agenda`
+-- AUTO_INCREMENT untuk tabel `agenda`
 --
 ALTER TABLE `agenda`
   MODIFY `id_agenda` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `diskusi`
+-- AUTO_INCREMENT untuk tabel `diskusi`
 --
 ALTER TABLE `diskusi`
-  MODIFY `id_diskusi` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_diskusi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
--- AUTO_INCREMENT for table `faq`
+-- AUTO_INCREMENT untuk tabel `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `id_faq` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_faq` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `galeri`
+-- AUTO_INCREMENT untuk tabel `galeri`
 --
 ALTER TABLE `galeri`
-  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `hubungi_kami`
+-- AUTO_INCREMENT untuk tabel `hubungi_kami`
 --
 ALTER TABLE `hubungi_kami`
-  MODIFY `id_hub` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id_hub` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `kabupaten`
+-- AUTO_INCREMENT untuk tabel `kabupaten`
 --
 ALTER TABLE `kabupaten`
-  MODIFY `id_kabupaten` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9473;
+  MODIFY `id_kabupaten` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9473;
+
 --
--- AUTO_INCREMENT for table `level_user`
+-- AUTO_INCREMENT untuk tabel `level_user`
 --
 ALTER TABLE `level_user`
-  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
--- AUTO_INCREMENT for table `materi`
+-- AUTO_INCREMENT untuk tabel `materi`
 --
 ALTER TABLE `materi`
-  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `modul`
+-- AUTO_INCREMENT untuk tabel `modul`
 --
 ALTER TABLE `modul`
-  MODIFY `id_modul` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_modul` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `m_soal`
+-- AUTO_INCREMENT untuk tabel `m_soal`
 --
 ALTER TABLE `m_soal`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `pegawai`
+-- AUTO_INCREMENT untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
--- AUTO_INCREMENT for table `profil_dir`
+-- AUTO_INCREMENT untuk tabel `profil_dir`
 --
 ALTER TABLE `profil_dir`
-  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `provinsi`
+-- AUTO_INCREMENT untuk tabel `provinsi`
 --
 ALTER TABLE `provinsi`
-  MODIFY `id_provinsi` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=96;
+  MODIFY `id_provinsi` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+
 --
--- AUTO_INCREMENT for table `regulasi`
+-- AUTO_INCREMENT untuk tabel `regulasi`
 --
 ALTER TABLE `regulasi`
-  MODIFY `id_reg` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_reg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `tr_guru_mapel`
+-- AUTO_INCREMENT untuk tabel `tr_guru_mapel`
 --
 ALTER TABLE `tr_guru_mapel`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `tr_guru_tes`
+-- AUTO_INCREMENT untuk tabel `tr_guru_tes`
 --
 ALTER TABLE `tr_guru_tes`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `tr_ikut_ujian`
+-- AUTO_INCREMENT untuk tabel `tr_ikut_ujian`
 --
 ALTER TABLE `tr_ikut_ujian`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `ujian_modul`
+-- AUTO_INCREMENT untuk tabel `ujian_modul`
 --
 ALTER TABLE `ujian_modul`
-  MODIFY `id_ujianmodul` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id_ujianmodul` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
--- AUTO_INCREMENT for table `user_profile`
+-- AUTO_INCREMENT untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `user_role`
+-- AUTO_INCREMENT untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

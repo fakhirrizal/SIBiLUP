@@ -114,12 +114,15 @@ $route['admin_side/ubah_data_kelurahan/(:any)'] = 'admin/Map/edit_village/$1';
 $route['admin_side/perbarui_data_kelurahan'] = 'admin/Map/update_village_data';
 $route['admin_side/hapus_data_kelurahan/(:any)'] = 'admin/Map/delete_village/$1';
 
-$route['admin_side/rekap_provinsi'] = 'admin/Dashboard/rekap_provinsi';
-$route['admin_side/ubah_data_rekap_provinsi/(:any)'] = 'admin/Dashboard/ubah_data_rekap_provinsi/$1';
-$route['admin_side/perbarui_data_rekap_provinsi'] = 'admin/Dashboard/perbarui_data_rekap_provinsi';
-$route['admin_side/rekap_kabkota'] = 'admin/Dashboard/rekap_kabkota';
-$route['admin_side/ubah_data_rekap_kabkota/(:any)'] = 'admin/Dashboard/ubah_data_rekap_kabkota/$1';
-$route['admin_side/perbarui_data_rekap_kabkota'] = 'admin/Dashboard/perbarui_data_rekap_kabkota';
+$route['admin_side/rekap_rp3kp_provinsi'] = 'admin/Dashboard/rekap_rp3kp_provinsi';
+$route['admin_side/ubah_data_rekap_rp3kp_provinsi/(:any)'] = 'admin/Dashboard/ubah_data_rekap_rp3kp_provinsi/$1';
+$route['admin_side/perbarui_data_rekap_rp3kp_provinsi'] = 'admin/Dashboard/perbarui_data_rekap_rp3kp_provinsi';
+$route['admin_side/rekap_rp3kp_kabkota'] = 'admin/Dashboard/rekap_rp3kp_kabkota';
+$route['admin_side/ubah_data_rekap_rp3kp_kabkota/(:any)'] = 'admin/Dashboard/ubah_data_rekap_rp3kp_kabkota/$1';
+$route['admin_side/perbarui_data_rekap_rp3kp_kabkota'] = 'admin/Dashboard/perbarui_data_rekap_rp3kp_kabkota';
+$route['admin_side/rekap_pokja_pkp_provinsi'] = 'admin/Dashboard/rekap_pokja_pkp_provinsi';
+$route['admin_side/ubah_data_rekap_pokja_pkp_provinsi/(:any)'] = 'admin/Dashboard/ubah_data_rekap_pokja_pkp_provinsi/$1';
+$route['admin_side/perbarui_data_rekap_pokja_pkp_provinsi'] = 'admin/Dashboard/perbarui_data_rekap_pokja_pkp_provinsi';
 
 /* REST API */
 $route['api'] = 'Rest_server/documentation';

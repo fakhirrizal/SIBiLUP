@@ -146,8 +146,25 @@
 				z-index: -1;
 			}
 		</style> -->
+		<style>
+			.page-bg {
+				background-image: url("https://pbs.twimg.com/profile_images/461342847065542657/dfNOu95E_400x400.jpeg");
+				-webkit-filter: blur(99px);
+				-moz-filter: blur(99px);
+				-o-filter: blur(99px);
+				-ms-filter: blur(99px);
+				filter: blur(99px);
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				z-index: -1;
+			}    	
+		</style>
 	</head>
 	<body onload="getLocation()">
+		<div class="page-bg"></div>
 		<div class="signin-form">
 			<?= $this->session->flashdata('error') ?>
 			<form role="form" action="<?= site_url('login_process'); ?>" method='post'>

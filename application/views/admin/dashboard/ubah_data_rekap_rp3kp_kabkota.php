@@ -22,7 +22,7 @@
 				<div class="card-block">
 					<div class="portlet light ">
 						<div class="portlet-body">
-                            <form role="form" class="form-horizontal" action="<?=base_url('admin_side/perbarui_data_rekap_kabkota');?>" method="post"  enctype='multipart/form-data'>
+                            <form role="form" class="form-horizontal" action="<?=base_url('admin_side/perbarui_data_rekap_rp3kp_kabkota');?>" method="post"  enctype='multipart/form-data'>
                                 <input type="hidden" name="id_kabupaten" value="<?= $data_utama->id; ?>">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-danger">
