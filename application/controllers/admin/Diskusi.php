@@ -11,8 +11,9 @@ class Diskusi extends CI_Controller {
         if ($this->session->userdata('admin_valid') == false && $this->session->userdata('admin_id') == "") {
 			redirect('auth/login');
 		} 
+        $this->load->model('Chat_model','chat_model');
 	}
-    public function index()
+    public function index_lama()
 	{
 		$data['title_page'] = "Diskusi";
         $data['breadcrumb'] = "";
@@ -54,5 +55,38 @@ class Diskusi extends CI_Controller {
 
         $this->form_validation->set_rules($config);
 
+    }
+
+    function index(){
+        $data['title_page'] = "Diskusi";
+        $data['breadcrumb'] = "";
+        $data['load']    =  array("admin/diskusi/chat"); 
+        $this->load->view('template/layout', $data);
+        //$this->load->view('admin/diskusi/chat');
+    }
+
+    function get_product(){
+        $data = $this->chat_model->get_product()->result();
+        echo json_encode($data);
+    }
+
+    function create(){
+        $product_name = $this->input->post('product_name',TRUE);
+        $this->chat_model->insert_product($product_name);
+
+        require_once(APPPATH.'views/vendor/autoload.php');
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher\Pusher(
+            'ed2ddab9241609822f8f', //ganti dengan App_key pusher Anda
+            'd710f280666ad24261e0', //ganti dengan App_secret pusher Anda
+            '875598', //ganti dengan App_key pusher Anda
+            $options
+        );
+
+        $data['message'] = 'success';
+        $pusher->trigger('my-channel', 'my-event', $data);
     }
 }
