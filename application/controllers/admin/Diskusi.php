@@ -13,7 +13,7 @@ class Diskusi extends CI_Controller {
 		} 
         $this->load->model('Chat_model','chat_model');
 	}
-    public function index_lama()
+    public function index()
 	{
 		$data['title_page'] = "Diskusi";
         $data['breadcrumb'] = "";
@@ -27,6 +27,9 @@ class Diskusi extends CI_Controller {
         $pt['join']['key']    = "id_pegawai";
         $pt['column']     = "diskusi.*,nama_pegawai";
         $data['ulasan'] = $this->Crud_model->get_data($pt);
+
+        $upd['status'] = '1';
+        $this->Crud_model->update("diskusi",$upd,array("status"=>"0"));
 
         $post = $this->input->post();
         $this->_rules();
@@ -57,7 +60,7 @@ class Diskusi extends CI_Controller {
 
     }
 
-    function index(){
+    /*function index(){
         $data['title_page'] = "Diskusi";
         $data['breadcrumb'] = "";
         $data['load']    =  array("admin/diskusi/chat"); 
@@ -88,5 +91,5 @@ class Diskusi extends CI_Controller {
 
         $data['message'] = 'success';
         $pusher->trigger('my-channel', 'my-event', $data);
-    }
+    }*/
 }
