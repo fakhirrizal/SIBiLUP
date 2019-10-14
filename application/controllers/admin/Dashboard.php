@@ -43,10 +43,11 @@ class Dashboard extends CI_Controller {
     }
     public function perbarui_data_rekap_rp3kp_provinsi(){
         $this->db->trans_start();
-        $rencana_anggaran = preg_replace("/[^0-9]/", "", $this->input->post('rencana_anggaran'));
+        // $rencana_anggaran = preg_replace("/[^0-9]/", "", $this->input->post('rencana_anggaran'));
         $belum = 'X';
         $menganggarkan = 'X';
         $sedang = 'X';
+        $belum_legal = 'X';
         $review = 'X';
         $sudah = 'X';
         if($this->input->post('group1')=='belum'){
@@ -58,10 +59,16 @@ class Dashboard extends CI_Controller {
         elseif($this->input->post('group1')=='sedang'){
             $sedang = 'V';
         }
-        elseif($this->input->post('group1')=='review'){
+        else{
+            echo'';
+        }
+        if($this->input->post('group2')=='belum_legal'){
+            $belum_legal = 'V';
+        }
+        elseif($this->input->post('group2')=='review'){
             $review = 'V';
         }
-        elseif($this->input->post('group1')=='sudah'){
+        elseif($this->input->post('group2')=='sudah'){
             $sudah = 'V';
         }
         else{
@@ -72,10 +79,11 @@ class Dashboard extends CI_Controller {
             'belum' => $belum,
             'menganggarkan' => $menganggarkan,
             'sedang' => $sedang,
+            'belum_legal' => $belum_legal,
             'review' => $review,
             'sudah' => $sudah,
-            'bentuk_kegiatan' => $this->input->post('bentuk_kegiatan'),
-            'anggaran' => $rencana_anggaran
+            // 'bentuk_kegiatan' => $this->input->post('bentuk_kegiatan'),
+            // 'anggaran' => $rencana_anggaran
         );
         // print_r($data_1);
         $check = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.id_provinsi'=>$this->input->post('id_provinsi')))->result();
@@ -131,16 +139,41 @@ class Dashboard extends CI_Controller {
         $sedang = 'X';
         $review = 'X';
         $sudah = 'X';
+        $belum_legal = 'X';
+        // if($this->input->post('group1')=='belum'){
+        //     $belum = 'V';
+        // }
+        // elseif($this->input->post('group1')=='sedang'){
+        //     $sedang = 'V';
+        // }
+        // elseif($this->input->post('group1')=='review'){
+        //     $review = 'V';
+        // }
+        // elseif($this->input->post('group1')=='sudah'){
+        //     $sudah = 'V';
+        // }
+        // else{
+        //     echo'';
+        // }
         if($this->input->post('group1')=='belum'){
             $belum = 'V';
+        }
+        elseif($this->input->post('group1')=='menganggarkan'){
+            $menganggarkan = 'V';
         }
         elseif($this->input->post('group1')=='sedang'){
             $sedang = 'V';
         }
-        elseif($this->input->post('group1')=='review'){
+        else{
+            echo'';
+        }
+        if($this->input->post('group2')=='belum_legal'){
+            $belum_legal = 'V';
+        }
+        elseif($this->input->post('group2')=='review'){
             $review = 'V';
         }
-        elseif($this->input->post('group1')=='sudah'){
+        elseif($this->input->post('group2')=='sudah'){
             $sudah = 'V';
         }
         else{
@@ -150,6 +183,7 @@ class Dashboard extends CI_Controller {
             'id_kabupaten' => $this->input->post('id_kabupaten'),
             'belum' => $belum,
             'sedang' => $sedang,
+            'belum_legal' => $belum_legal,
             'review' => $review,
             'sudah' => $sudah,
             'bentuk_kegiatan' => $this->input->post('bentuk_kegiatan'),
@@ -222,5 +256,59 @@ class Dashboard extends CI_Controller {
             $this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil diubah.<br /></div>' );
             echo "<script>window.location='".base_url()."admin_side/rekap_pokja_pkp_provinsi/'</script>";
         }
-	}
+    }
+    public function rekap_pokja_pkp_kabkota()
+	{
+        $data['title_page'] = "Rekap Pokja PKP Kabupaten/ Kota";
+        $data['breadcrumb'] = "Dashboard,Rekap Pokja PKP Kabupaten/ Kota";
+        $data['load']       =  array("admin/dashboard/rekap_pokja_pkp_kabkota"); 
+
+        $data['data_hitung1'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE (c.status="Sudah" OR c.sk="V") AND b.id_provinsi=a.id_provinsi) AS jml')->result();
+        $data['data_hitung2'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.penggabungan="Sudah" AND b.id_provinsi=a.id_provinsi) AS jml')->result();
+        $data['data_hitung3'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.forum="Ya" AND b.id_provinsi=a.id_provinsi) AS jml')->result();
+        $data['data_hitung4'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.apbd="Ya" AND b.id_provinsi=a.id_provinsi) AS jml')->result();
+        $this->load->view('template/footer', $data);
+    }
+    public function ubah_data_rekap_pokja_pkp_kabkota()
+	{
+        $data['title_page'] = "Ubah Data Kabupaten/ Kota";
+        $data['breadcrumb'] = "Dashboard,Rekap Pokja PKP Kabupaten/ Kota,Ubah Data";
+		$data['load']       =  array("admin/dashboard/ubah_data_rekap_pokja_pkp_kabkota");
+		$data['data_utama'] = $this->Main_model->getSelectedData('kabupaten a', 'b.*,a.id_kabupaten AS id,a.nm_kabupaten', array('md5(a.id_kabupaten)'=>$this->uri->segment(3)),'','','','',array(
+            'table' => 'rekap_pokja_pkp_kabkota b',
+			'on' => 'a.id_kabupaten=b.id_kabupaten',
+			'pos' => 'LEFT'
+        ))->row();
+
+        $this->load->view('template/footer', $data);
+    }
+    public function perbarui_data_rekap_pokja_pkp_kabkota(){
+        $this->db->trans_start();
+        $data_1 = array(
+            'id_kabupaten' => $this->input->post('id_kabupaten'),
+            'status' => $this->input->post('status'),
+            'sk' => $this->input->post('sk'),
+            'penggabungan' => $this->input->post('penggabungan'),
+            'program' => $this->input->post('program'),
+            'forum' => $this->input->post('forum'),
+            'apbd' => $this->input->post('apbd')
+        );
+        // print_r($data_1);
+        $check = $this->Main_model->getSelectedData('rekap_pokja_pkp_kabkota a', 'a.*', array('a.id_kabupaten'=>$this->input->post('id_kabupaten')))->result();
+		if($check==NULL){
+            $this->Main_model->insertData('rekap_pokja_pkp_kabkota',$data_1);
+		}else{
+            $this->Main_model->updateData('rekap_pokja_pkp_kabkota',$data_1,array('id_kabupaten'=>$this->input->post('id_kabupaten')));
+        }
+        $this->Main_model->log_activity($this->session->userdata('id'),'Updating data',"Memperbarui data rekap kabupaten",$this->session->userdata('location'));
+        $this->db->trans_complete();
+        if($this->db->trans_status() === false){
+            $this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>data gagal diubah.<br /></div>' );
+            echo "<script>window.location='".base_url()."admin_side/ubah_data_rekap_pokja_pkp_kabkota/".md5($this->input->post('id_kabupaten'))."'</script>";
+        }
+        else{
+            $this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil diubah.<br /></div>' );
+            echo "<script>window.location='".base_url()."admin_side/rekap_pokja_pkp_kabkota/'</script>";
+        }
+    }
 }

@@ -75,10 +75,10 @@
 							</div>
 							<br>
 							<!-- <div class="ex1"> -->
-							<div style="overflow-x: auto;">
+							<!-- <div style="overflow-x: auto;"> -->
 							<table class="table table-striped table-bordered" id="tbl">
                                 <thead>
-                                    <tr>
+                                    <!-- <tr>
                                         <th style="vertical-align : middle;text-align:center;" width="4%" rowspan='3'> # </th>
 										<th style="vertical-align : middle;text-align:center;" rowspan='3'> Nama Provinsi </th>
 										<th style="vertical-align : middle;text-align:center;" colspan='5'> Status Penyusunan </th>
@@ -96,6 +96,13 @@
                                     <tr>
                                         <th style="vertical-align : middle;text-align:center;"> Review/ Konsultasi Publik/ Prolegda </th>
                                         <th style="vertical-align : middle;text-align:center;"> Sudah Legalisasi menjadi Perda </th>
+                                    </tr> -->
+									<tr>
+                                        <th style="vertical-align : middle;text-align:center;" width="4%" > # </th>
+										<th style="vertical-align : middle;text-align:center;" > Nama Provinsi </th>
+										<th style="vertical-align : middle;text-align:center;" > Status Penyusunan </th>
+                                        <th style="vertical-align : middle;text-align:center;" > Status Legalisasi </th>
+                                        <th style="vertical-align : middle;text-align:center;" > Aksi </th>
                                     </tr>
                                 </thead>
                             </table>
@@ -110,20 +117,41 @@
                                         "aoColumns": [
                                                     { mData: 'number', sClass: "alignCenter" },
                                                     { mData: 'nm_provinsi', sClass: "alignCenter" },
-                                                    { mData: 'belum', sClass: "alignCenter" },
-                                                    { mData: 'menganggarkan', sClass: "alignCenter" },
-                                                    { mData: 'sedang', sClass: "alignCenter" },
-                                                    { mData: 'review', sClass: "alignCenter" },
-                                                    { mData: 'sudah', sClass: "alignCenter" },
-                                                    { mData: 'bentuk_kegiatan', sClass: "alignCenter" },
-                                                    { mData: 'anggaran', sClass: "alignCenter" },
-                                                    { mData: 'regional', sClass: "alignCenter" },
+                                                    { mData: 'status', sClass: "alignCenter" },
+                                                    { mData: 'legalisasi', sClass: "alignCenter" },
 													{ mData: 'action', sClass: "alignCenter" }
                                                 ]
                                     });
                                 });
                             </script>
-	                        </div>
+							<br>
+							<table>
+								<tr><h3>Status Penyusunan</h3>
+								</tr>
+								<tr>
+									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="3%"/>&nbsp;&nbsp;<b>Belum (Belum Menganggarkan)</b></td>
+								</tr>
+								<tr>
+									<td><img src="<?= site_url(); ?>assets/images/question.png" width="3%"/>&nbsp;&nbsp;<b>Menganggarkan TA 2019 (Menyusun Profil PKP)</b></td>
+								</tr>
+								<tr>
+									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="3%"/>&nbsp;&nbsp;<b>Sedang (Lelang/ Menyusun Buku Data dan Analisis atau Buku Rencana)</b></td>
+								</tr>
+							</table>
+							<table>
+								<tr><h3>Status Legalisasi</h3>
+								</tr>
+								<tr>
+									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="3%"/>&nbsp;&nbsp;<b>Belum</b></td>
+								</tr>
+								<tr>
+									<td><img src="<?= site_url(); ?>assets/images/question.png" width="3%"/>&nbsp;&nbsp;<b>Review/ Konsultasi Publik/ Prolegda</b></td>
+								</tr>
+								<tr>
+									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="3%"/>&nbsp;&nbsp;<b>Sudah Legalisasi menjadi Perda</b></td>
+								</tr>
+							</table>
+	                        <!-- </div> -->
 						</div>
 					</div>
 				</div>

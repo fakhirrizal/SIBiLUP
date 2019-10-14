@@ -11,6 +11,7 @@
                         <li><a href="<?= base_url()."admin_side/rekap_rp3kp_provinsi" ?>">Rekap RP3KP Provinsi</a></li>
                         <li><a href="<?= base_url()."admin_side/rekap_rp3kp_kabkota" ?>">Rekap RP3KP<br>Kabupaten/ Kota</a></li>
                         <li><a href="<?= base_url()."admin_side/rekap_pokja_pkp_provinsi" ?>">Rekap Pokja PKP Provinsi</a></li>
+                        <li><a href="<?= base_url()."admin_side/rekap_pokja_pkp_kabkota" ?>">Rekap Pokja PKP<br>Kabupaten/ Kota</a></li>
                     </ul>
                 </li>
                 <?php if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
@@ -26,7 +27,7 @@
                     </ul>
                 </li>
                 <?php } ?>
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profil Direktorat </span></a>
+                <!-- <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profil Direktorat </span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="<?= base_url()."admin_side/visimisi" ?>">Visi & Misi</a></li>
                         <li><a href="<?= base_url()."admin_side/tupoksi" ?>">Tugas Pokok dan Fungsi</a></li>
@@ -41,21 +42,25 @@
                         <li><a href="<?= base_url()."admin/ujian_ol/soal" ?>">Soal Ujian</a></li>
                         <li><a href="<?= base_url()."admin/Perpustakaan/photo" ?>">Galeri Foto</a></li>
                         <li><a href="<?= base_url()."admin/Perpustakaan/vidio" ?>">Galeri Video</a></li>
-                        <!-- <?php if ($this->session->userdata('admin_level') >= "3") { ?>
+                        <?php if ($this->session->userdata('admin_level') >= "3") { ?>
                             <li><a href="<?= base_url()."adm/ikuti_ujian" ?>">Ujian Online</a></li>
                         <?php } else { ?>
                             <li><a href="<?= base_url()."adm/m_ujian" ?>">Ujian Online</a></li>
-                        <?php } ?> -->
+                        <?php } ?>
                     </ul>
                 </li>
                 <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/Perpustakaan/agenda" ?>" aria-expanded="false"><i class="mdi mdi-bulletin-board"></i><span class="hide-menu">Agenda</span></a>
+                </li> -->
+                <li> <a class="waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-cloud-upload"></i><span class="hide-menu">Unggah Dokumen</span></a>
                 </li>
                 <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/diskusi" ?>" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Diskusi</span></a>
                 </li>
-                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/hubungi_kami" ?>" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Hubungi Kami</span></a>
+                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/hubungi_kami" ?>" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Ruang Konsultasi</span></a>
                 </li>
-                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin_side/faq" ?>" aria-expanded="false"><i class="mdi mdi-file-document-box"></i><span class="hide-menu">FAQ</span></a>
+                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin_side/aspirasi" ?>" aria-expanded="false"><i class="mdi mdi-account-card-details"></i><span class="hide-menu">Hubungi Kami</span></a>
                 </li>
+                <!-- <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin_side/faq" ?>" aria-expanded="false"><i class="mdi mdi-file-document-box"></i><span class="hide-menu">FAQ</span></a>
+                </li> -->
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

@@ -23,3 +23,11 @@ Tanggal 01 Oktober 2019
     - ALTER TABLE `materi` ADD `kategori` ENUM('Materi Substantif PKP','Materi Sosialisasi','Materi Bimtek','Materi Rakor') NOT NULL AFTER `judul`, ADD `sub_kategori` INT(10) NULL AFTER `kategori`, ADD INDEX `sub_kategori` (`sub_kategori`);
 Tanggal 07 Oktober 2019
     - Buat tabel rekap_pokja_pkp_provinsi
+    - Buat tabel rekap_pokja_pkp_kabkota
+Tanggal 10 Oktober 2019
+    - ALTER TABLE `rekap_rp3kp_provinsi` ADD `belum_legal` ENUM('X','V') NULL AFTER `sedang`;
+    - ALTER TABLE `rekap_rp3kp_kabkota` ADD `belum_legal` ENUM('X','V') NULL AFTER `sedang`;
+    - ALTER TABLE `hubungi_kami` ADD `status` ENUM('0','1') NOT NULL AFTER `create_at`;
+    - ALTER TABLE `diskusi` ADD `status` ENUM('0','1') NOT NULL AFTER `create_at`;
+Tanggal 13 Oktober 2019
+    - Buat tabel aspirasi

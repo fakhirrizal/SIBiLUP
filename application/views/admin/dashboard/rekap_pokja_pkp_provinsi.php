@@ -80,16 +80,16 @@
                                 <thead>
                                     <tr>
                                         <th style="vertical-align : middle;text-align:center;" width="4%" rowspan='2'> # </th>
-										<th style="vertical-align : middle;text-align:center;" rowspan='2'> Provinsi </th>
+										<th style="vertical-align : middle;text-align:center;" width="15%" rowspan='2'> Provinsi </th>
 										<th style="vertical-align : middle;text-align:center;" colspan='5'> Pokja PKP Provinsi </th>
-                                        <th style="vertical-align : middle;text-align:center;" width="7%" rowspan='2'> Aksi </th>
+                                        <th style="vertical-align : middle;text-align:center;" width="4%" rowspan='2'> Aksi </th>
                                     </tr>
                                     <tr>
-										<th style="vertical-align : middle;text-align:center;"> Penggabungan Berbagai Pokja </th>
-										<th style="vertical-align : middle;text-align:center;" > Punya Program Kerja 5 Tahun </th>
-										<th style="vertical-align : middle;text-align:center;" > Ketua Pokja </th>
-                                        <th style="vertical-align : middle;text-align:center;" > Perayaan Hapernas/ Hari Habitat/ dsb </th>
-                                        <th style="vertical-align : middle;text-align:center;" > Dukungan APBD </th>
+										<th style="vertical-align : middle;text-align:center;" width="13%"> Penggabungan Berbagai Pokja </th>
+										<th style="vertical-align : middle;text-align:center;" width="13%"> Punya Program Kerja 5 Tahun </th>
+										<th style="vertical-align : middle;text-align:center;" width="13%"> Ketua Pokja </th>
+                                        <th style="vertical-align : middle;text-align:center;" width="13%"> Perayaan Hapernas/ Hari Habitat/ dsb </th>
+                                        <th style="vertical-align : middle;text-align:center;" width="12%"> Dukungan APBD </th>
                                     </tr>
                                 </thead>
                             </table>
@@ -113,7 +113,20 @@
                                                 ]
                                     });
                                 });
-                            </script>
+                            </script><hr>
+                            <!-- <table>
+								<tr><h3> Penggabungan Berbagai Pokja </h3>
+								</tr>
+								<tr>
+									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="3%"/>&nbsp;&nbsp;<b>Belum</b></td>
+								</tr>
+								<tr>
+									<td><img src="<?= site_url(); ?>assets/images/question.png" width="3%"/>&nbsp;&nbsp;<b>Proses</b></td>
+								</tr>
+								<tr>
+									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="3%"/>&nbsp;&nbsp;<b>Sudah</b></td>
+								</tr>
+							</table> -->
 	                        </div>
 						</div>
 					</div>

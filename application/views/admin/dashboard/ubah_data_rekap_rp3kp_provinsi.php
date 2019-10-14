@@ -42,16 +42,23 @@
                                         <label for="radio_2">Menganggarkan TA 2019 (Menyusun Profil PKP)</label><br>
                                         <input name="group1" type="radio" id="radio_3" value="sedang" <?php if($data_utama->sedang=='V'){echo'checked';}else{echo'';} ?>>
                                         <label for="radio_3">Sedang (Lelang / Menyusun Buku Data dan Analisis atau Buku Rencana)</label><br>
-                                        <input name="group1" type="radio" id="radio_4" value="review" <?php if($data_utama->review=='V'){echo'checked';}else{echo'';} ?>>
-                                        <label for="radio_4">Review / Konsultasi Publik / Prolegda</label><br>
-                                        <input name="group1" type="radio" id="radio_5" value="sudah" <?php if($data_utama->sudah=='V'){echo'checked';}else{echo'';} ?>>
-                                        <label for="radio_5">Sudah Legalisasi menjadi Perda</label>
+                                    </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input has-danger">
+                                    <label class="col-md-12 control-label" for="form_control_1">Status Legalisasi <font color='red'>*</font></label>
+                                    <div class="col-md-12">
+                                        <input name="group2" type="radio" id="radio_4" value="belum_legal" <?php if($data_utama->belum_legal=='V'){echo'checked';}else{echo'';} ?>>
+                                        <label for="radio_4">Belum</label><br>
+                                        <input name="group2" type="radio" id="radio_5" value="review" <?php if($data_utama->review=='V'){echo'checked';}else{echo'';} ?>>
+                                        <label for="radio_5">Review/ Konsultasi Publik/ Prolegda</label><br>
+                                        <input name="group2" type="radio" id="radio_6" value="sudah" <?php if($data_utama->sudah=='V'){echo'checked';}else{echo'';} ?>>
+                                        <label for="radio_6">Sudah Legalisasi menjadi Perda</label>
                                     </div>
                                     </div>
                                     <!-- <div class="demo-radio-button">
                                         
                                     </div> -->
-                                    <div class="form-group form-md-line-input has-danger">
+                                    <!-- <div class="form-group form-md-line-input has-danger">
                                         <label class="col-md-2 control-label" for="form_control_1">Bentuk Kegiatan <font color='red'>*</font></label>
                                         <div class="col-md-12">
                                             <div class="input-icon">
@@ -66,7 +73,7 @@
                                                 <input type="text" class="form-control" name='rencana_anggaran' value="Rp. <?php echo number_format($data_utama->anggaran,0,",","."); ?>" id='rupiah'>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <br>
                                 <div class="form-group form-md-line-input has-danger">

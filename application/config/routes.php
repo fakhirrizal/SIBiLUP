@@ -123,6 +123,15 @@ $route['admin_side/perbarui_data_rekap_rp3kp_kabkota'] = 'admin/Dashboard/perbar
 $route['admin_side/rekap_pokja_pkp_provinsi'] = 'admin/Dashboard/rekap_pokja_pkp_provinsi';
 $route['admin_side/ubah_data_rekap_pokja_pkp_provinsi/(:any)'] = 'admin/Dashboard/ubah_data_rekap_pokja_pkp_provinsi/$1';
 $route['admin_side/perbarui_data_rekap_pokja_pkp_provinsi'] = 'admin/Dashboard/perbarui_data_rekap_pokja_pkp_provinsi';
+$route['admin_side/rekap_pokja_pkp_kabkota'] = 'admin/Dashboard/rekap_pokja_pkp_kabkota';
+$route['admin_side/ubah_data_rekap_pokja_pkp_kabkota/(:any)'] = 'admin/Dashboard/ubah_data_rekap_pokja_pkp_kabkota/$1';
+$route['admin_side/perbarui_data_rekap_pokja_pkp_kabkota'] = 'admin/Dashboard/perbarui_data_rekap_pokja_pkp_kabkota';
+
+$route['admin_side/aspirasi'] = 'admin/Report/aspirasi';
+$route['admin_side/hapus_aspirasi/(:any)'] = 'admin/Report/hapus_aspirasi/$1';
+
+/* User */
+$route['simpan_aspirasi'] = 'user/App/simpan_aspirasi';
 
 /* REST API */
 $route['api'] = 'Rest_server/documentation';
