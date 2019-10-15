@@ -135,6 +135,45 @@ class Perpustakaan extends CI_Controller {
 		$this->output($output);
 	}
 
+	public function dokumen(){
+		$crud = new grocery_CRUD();
+
+		$crud->set_language('indonesian');
+		$crud->set_theme('flexigrid');
+		$crud->set_table('dokumen');
+		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {
+			$crud->where('upload_by',$this->session->userdata('admin_konid'));
+		} else {
+			$crud->unset_add();
+		}
+
+		$crud->display_as('file','File (pdf|xlsx|xlx|doc|docx)')->display_as('upload_by','Di Tambah Oleh');
+
+		$this->config->set_item('grocery_crud_file_upload_allow_file_types','pdf|xms|xlsx|doc|docx');
+		$crud->set_field_upload('file','assets/images/article');	
+
+		$crud->unset_read();
+		$crud->unset_texteditor('keterangan');
+		
+
+		$crud->unset_columns('create_at');
+		if ($this->uri->segment(4) == 'add' OR $this->uri->segment(4) == 'edit') {
+			$crud->change_field_type('upload_by' , 'invisible');
+		} else {
+			$crud->set_relation('upload_by','pegawai','nama_pegawai');
+		}
+
+		$crud->change_field_type('create_at' , 'invisible');
+		$crud->callback_before_insert(array($this,'uploaded'));
+		//$crud->unset_delete();
+		//$crud->unset_back_to_list();
+
+		$output = $crud->render();
+		$output->title_page = "Modul";
+        $output->breadcrumb = "Perpustakaan,Dokumen";
+		$this->output($output);
+	}
+
 	public function download_modul($id){   
 		$data = $this->db->query("SELECT * FROM modul WHERE id_modul='$id'")->row(); 
 		if ($this->session->userdata('admin_level') != '1' AND $this->session->userdata('admin_level') != '2') {

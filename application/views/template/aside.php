@@ -51,7 +51,7 @@
                 </li>
                 <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/Perpustakaan/agenda" ?>" aria-expanded="false"><i class="mdi mdi-bulletin-board"></i><span class="hide-menu">Agenda</span></a>
                 </li> -->
-                <li> <a class="waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-cloud-upload"></i><span class="hide-menu">Unggah Dokumen</span></a>
+                <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/perpustakaan/dokumen" ?>" aria-expanded="false"><i class="mdi mdi-cloud-upload"></i><span class="hide-menu">Unggah Dokumen</span></a>
                 </li>
                 <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/diskusi" ?>" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Diskusi</span></a>
                 </li>
