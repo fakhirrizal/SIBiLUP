@@ -114,7 +114,7 @@
                                     });
                                 });
                             </script><hr>
-                            <!-- <table>
+                            <table>
 								<tr><h3> Penggabungan Berbagai Pokja </h3>
 								</tr>
 								<tr>
@@ -126,7 +126,7 @@
 								<tr>
 									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="3%"/>&nbsp;&nbsp;<b>Sudah</b></td>
 								</tr>
-							</table> -->
+							</table>
 	                        </div>
 						</div>
 					</div>

@@ -75,33 +75,20 @@
 							</div>
 							<br>
 							<!-- <div class="ex1"> -->
-							<!-- <div style="overflow-x: auto;"> -->
+							<div style="overflow-x: auto;">
 							<table class="table table-striped table-bordered" id="tbl">
                                 <thead>
-                                    <!-- <tr>
-                                        <th style="vertical-align : middle;text-align:center;" width="4%" rowspan='3'> # </th>
-										<th style="vertical-align : middle;text-align:center;" rowspan='3'> Nama Provinsi </th>
-										<th style="vertical-align : middle;text-align:center;" colspan='5'> Status Penyusunan </th>
-                                        <th style="vertical-align : middle;text-align:center;" rowspan='3'> Bentuk Kegiatan </th>
-                                        <th style="vertical-align : middle;text-align:center;" rowspan='3'> Alokasi Anggaran Kegiatan </th>
-                                        <th style="vertical-align : middle;text-align:center;" rowspan='3'> Regional </th>
-                                        <th style="vertical-align : middle;text-align:center;" width="7%" rowspan='3'> Aksi </th>
+                                    <tr>
+                                        <th style="vertical-align : middle;text-align:center;" width="4%" rowspan='2'> # </th>
+										<th style="vertical-align : middle;text-align:center;" width="15%" rowspan='2'> Provinsi </th>
+										<th style="vertical-align : middle;text-align:center;" colspan='5'> Pokja PKP Provinsi </th>
                                     </tr>
                                     <tr>
-										<th style="vertical-align : middle;text-align:center;" rowspan='2'> Belum (Belum Menganggarkan) </th>
-										<th style="vertical-align : middle;text-align:center;" rowspan='2'> Menganggarkan TA 2019 (Menyusun Profil PKP) </th>
-										<th style="vertical-align : middle;text-align:center;" rowspan='2'> Sedang (Lelang/ Menyusun Buku Data dan Analisis atau Buku Rencana) </th>
-                                        <th style="vertical-align : middle;text-align:center;" colspan='2'> Sudah </th>
-                                    </tr>
-                                    <tr>
-                                        <th style="vertical-align : middle;text-align:center;"> Review/ Konsultasi Publik/ Prolegda </th>
-                                        <th style="vertical-align : middle;text-align:center;"> Sudah Legalisasi menjadi Perda </th>
-                                    </tr> -->
-									<tr>
-                                        <th style="vertical-align : middle;text-align:center;" width="4%" > # </th>
-										<th style="vertical-align : middle;text-align:center;" > Nama Provinsi </th>
-										<th style="vertical-align : middle;text-align:center;" > Status Penyusunan </th>
-                                        <th style="vertical-align : middle;text-align:center;" > Status Legalisasi </th>
+										<th style="vertical-align : middle;text-align:center;" width="13%"> Penggabungan Berbagai Pokja </th>
+										<th style="vertical-align : middle;text-align:center;" width="13%"> Punya Program Kerja 5 Tahun </th>
+										<th style="vertical-align : middle;text-align:center;" width="13%"> Ketua Pokja </th>
+                                        <th style="vertical-align : middle;text-align:center;" width="13%"> Perayaan Hapernas/ Hari Habitat/ dsb </th>
+                                        <th style="vertical-align : middle;text-align:center;" width="12%"> Dukungan APBD </th>
                                     </tr>
                                 </thead>
                             </table>
@@ -111,20 +98,24 @@
                                         "order": [[ 0, "asc" ]],
                                         "bProcessing": true,
                                         "ajax" : {
-                                            url:"<?= site_url('admin/Map/json_rekap_rp3kp_provinsi2'); ?>"
+                                            url:"<?= site_url('admin/Map/json_rekap_pokja_pkp_provinsi2'); ?>"
                                         },
                                         "aoColumns": [
                                                     { mData: 'number', sClass: "alignCenter" },
                                                     { mData: 'nm_provinsi', sClass: "alignCenter" },
-                                                    { mData: 'status', sClass: "alignCenter" },
-                                                    { mData: 'legalisasi', sClass: "alignCenter" }
+                                                    { mData: 'penggabungan', sClass: "alignCenter" },
+                                                    { mData: 'program', sClass: "alignCenter" },
+                                                    { mData: 'ketua', sClass: "alignCenter" },
+                                                    { mData: 'perayaan', sClass: "alignCenter" },
+                                                    { mData: 'apbd', sClass: "alignCenter" }
                                                 ]
                                     });
                                 });
                             </script>
-							<br>
+	                        </div>
+                            <br>
 							<table>
-								<tr><h3>Status Penyusunan</h3>
+								<tr><h3>Status Pokja</h3>
 								</tr>
 								<tr>
 									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="3%"/>&nbsp;&nbsp;<b>Belum (Belum Menganggarkan)</b></td>
@@ -149,7 +140,6 @@
 									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="4%"/>&nbsp;&nbsp;<b>Sudah Legalisasi menjadi Perda</b></td>
 								</tr>
 							</table>
-	                        <!-- </div> -->
 						</div>
 					</div>
 				</div>

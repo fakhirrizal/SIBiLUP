@@ -169,7 +169,7 @@ class Perpustakaan extends CI_Controller {
 		//$crud->unset_back_to_list();
 
 		$output = $crud->render();
-		$output->title_page = "Modul";
+		$output->title_page = "Dokumen";
         $output->breadcrumb = "Perpustakaan,Dokumen";
 		$this->output($output);
 	}
