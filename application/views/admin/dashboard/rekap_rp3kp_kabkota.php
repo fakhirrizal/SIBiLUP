@@ -118,11 +118,11 @@
 									<?php
 									foreach ($data_provinsi as $key => $value) {
 										echo'{"nm_provinsi": "'.$value->nm_provinsi.'",';
-										$get_sudah = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.review='V' OR a.sudah='V') AND b.id_provinsi='".$value->id_provinsi."'")->result();
+										$get_sudah = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.review='V' OR a.sudah='V') AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
 										echo'"sudah": '.count($get_sudah).',';
-										$get_sedang = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.menganggarkan='V' OR a.sedang='V') AND b.id_provinsi='".$value->id_provinsi."'")->result();
+										$get_sedang = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.menganggarkan='V' OR a.sedang='V') AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
 										echo'"sedang": '.count($get_sedang).',';
-										$get_belum = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.belum='V' AND b.id_provinsi='".$value->id_provinsi."'")->result();
+										$get_belum = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.belum='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
 										echo'"belum": '.count($get_belum).'},';
 									}
 									?>];
@@ -165,6 +165,24 @@
 
 							<div id="chartdiv"></div>
 							<br>
+							<div class="sDiv quickSearchBox" id="quickSearchBox">
+								<div class="sDiv2">
+									<form action="<?=base_url('admin_side/rekap_rp3kp_provinsi');?>" method="post">
+									Filter Pencarian&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<select name="search_field" id="search_field" style="background: white;color: black;padding: 5px;" required>
+										<option value="">-- Pilih Provinsi --</option>
+										<option value="semua">Semua Provinsi</option>
+											<?php
+											foreach ($data_provinsi as $key => $dp) {
+												echo'<option value="'.$dp->id_provinsi.'">'.$dp->nm_provinsi.'</option>';
+											}
+											?>
+										</select>
+									<!-- <input type="button" style="width: 50px;" value="Cari" class="crud_search" id="crud_search"> -->
+									<button type='submit' class="crud_search">Proses</button>
+									</form>
+								</div>
+							</div><hr><br>
 							<!-- <div class="ex1"> -->
 							<!-- <table class="table table-striped table-bordered table-hover table-checkable order-column" style="overflow-x: auto;width: 120%;" id="tbl"> -->
 							<table class="table table-striped table-bordered table-hover table-checkable order-column" id="tbl">
@@ -202,7 +220,8 @@
                                         "order": [[ 0, "asc" ]],
                                         "bProcessing": true,
                                         "ajax" : {
-                                            url:"<?= site_url('admin/Map/json_rekap_rp3kp_kabupaten'); ?>"
+                                            url:"<?= site_url('admin/Map/json_rekap_rp3kp_kabupaten'); ?>",
+											data: {modul:"<?= $get_where; ?>"}
                                         },
                                         "aoColumns": [
                                                     { mData: 'number', sClass: "alignCenter" },
@@ -233,13 +252,13 @@
 								<tr><h3>Status Legalisasi</h3>
 								</tr>
 								<tr>
-									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="3%"/>&nbsp;&nbsp;<b>Belum</b></td>
+									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="4%"/>&nbsp;&nbsp;<b>Belum</b></td>
 								</tr>
 								<tr>
-									<td><img src="<?= site_url(); ?>assets/images/question.png" width="3%"/>&nbsp;&nbsp;<b>Review/ Konsultasi Publik/ Prolegda</b></td>
+									<td><img src="<?= site_url(); ?>assets/images/question.png" width="4%"/>&nbsp;&nbsp;<b>Review/ Konsultasi Publik/ Prolegda</b></td>
 								</tr>
 								<tr>
-									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="3%"/>&nbsp;&nbsp;<b>Sudah Legalisasi menjadi Perda</b></td>
+									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="4%"/>&nbsp;&nbsp;<b>Sudah Legalisasi menjadi Perda</b></td>
 								</tr>
 							</table>
 						</div>

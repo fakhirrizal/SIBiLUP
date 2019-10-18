@@ -74,6 +74,82 @@
                                 <!-- <a class="btn btn-success btn-sm tombol-kanan" href="<?=base_url('admin_side/tambah_data_kabkot');?>">Tambah Data Baru</a> -->
 							</div>
 							<br>
+							<style>
+							#chartdiv {
+							width: 100%;
+							height: 500px;
+							}
+
+							</style>
+
+							<!-- Resources -->
+							<script src="https://www.amcharts.com/lib/4/core.js"></script>
+							<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+							<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+							<!-- Chart code -->
+							<script>
+							am4core.ready(function() {
+
+							// Themes begin
+							am4core.useTheme(am4themes_animated);
+							// Themes end
+
+							var chart = am4core.create("chartdiv", am4charts.PieChart3D);
+							chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+							chart.data = [
+							{
+								prov: "Belum",
+								jml: <?php
+								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.belum'=>'V','a.tahun'=>date('Y')))->result();
+								// if(count($getdata)==NULL){
+								// 	echo'0';
+								// }else{
+									echo count($getdata);
+								// }
+								?>
+							},
+							{
+								prov: "Menganggarkan TA <?= date('Y'); ?>",
+								jml: <?php
+								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.menganggarkan'=>'V','a.tahun'=>date('Y')))->result();
+								echo count($getdata);
+								?>
+							},
+							{
+								prov: "Sedang",
+								jml: <?php
+								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.sedang'=>'V','a.tahun'=>date('Y')))->result();
+								echo count($getdata);
+								?>
+							},
+							{
+								prov: "Sudah",
+								jml: <?php
+								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.sudah'=>'V','a.tahun'=>date('Y')))->result();
+								echo count($getdata);
+								?>
+							}
+							];
+
+							chart.innerRadius = am4core.percent(40);
+							chart.depth = 120;
+
+							chart.legend = new am4charts.Legend();
+
+							var series = chart.series.push(new am4charts.PieSeries3D());
+							series.dataFields.value = "jml";
+							series.dataFields.depthValue = "jml";
+							series.dataFields.category = "prov";
+							series.slices.template.cornerRadius = 5;
+							series.colors.step = 3;
+
+							}); // end am4core.ready()
+							</script>
+
+							<!-- HTML -->
+							<div id="chartdiv"></div><br>
 							<!-- <div class="ex1"> -->
 							<!-- <div style="overflow-x: auto;"> -->
 							<table class="table table-striped table-bordered" id="tbl">
@@ -142,13 +218,13 @@
 								<tr><h3>Status Legalisasi</h3>
 								</tr>
 								<tr>
-									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="3%"/>&nbsp;&nbsp;<b>Belum</b></td>
+									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="4%"/>&nbsp;&nbsp;<b>Belum</b></td>
 								</tr>
 								<tr>
-									<td><img src="<?= site_url(); ?>assets/images/question.png" width="3%"/>&nbsp;&nbsp;<b>Review/ Konsultasi Publik/ Prolegda</b></td>
+									<td><img src="<?= site_url(); ?>assets/images/question.png" width="4%"/>&nbsp;&nbsp;<b>Review/ Konsultasi Publik/ Prolegda</b></td>
 								</tr>
 								<tr>
-									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="3%"/>&nbsp;&nbsp;<b>Sudah Legalisasi menjadi Perda</b></td>
+									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="4%"/>&nbsp;&nbsp;<b>Sudah Legalisasi menjadi Perda</b></td>
 								</tr>
 							</table>
 	                        <!-- </div> -->

@@ -113,21 +113,21 @@
                                                 ]
                                     });
                                 });
-                            </script><hr>
-                            <table>
+                            </script>
+	                        </div><br>
+							<table>
 								<tr><h3> Penggabungan Berbagai Pokja </h3>
 								</tr>
 								<tr>
-									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="3%"/>&nbsp;&nbsp;<b>Belum</b></td>
+									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="5%"/>&nbsp;&nbsp;<b>Belum</b></td>
 								</tr>
 								<tr>
-									<td><img src="<?= site_url(); ?>assets/images/question.png" width="3%"/>&nbsp;&nbsp;<b>Proses</b></td>
+									<td><img src="<?= site_url(); ?>assets/images/question.png" width="5%"/>&nbsp;&nbsp;<b>Proses</b></td>
 								</tr>
 								<tr>
-									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="3%"/>&nbsp;&nbsp;<b>Sudah</b></td>
+									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="5%"/>&nbsp;&nbsp;<b>Sudah</b></td>
 								</tr>
 							</table>
-	                        </div>
 						</div>
 					</div>
 				</div>

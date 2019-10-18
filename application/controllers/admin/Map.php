@@ -51,7 +51,7 @@ class Map extends CI_Controller {
 		echo json_encode($results);
 	}
 	public function json_rekap_rp3kp_provinsi(){
-		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi,a.regional', '', '', '', '', '', array(
+		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi,a.regional', array('b.tahun'=>date('Y')), '', '', '', '', array(
 			'table' => 'rekap_rp3kp_provinsi b',
 			'on' => 'a.id_provinsi=b.id_provinsi',
 			'pos' => 'LEFT'
@@ -139,7 +139,7 @@ class Map extends CI_Controller {
 		// print_r($get_data);
 	}
 	public function json_rekap_rp3kp_provinsi2(){
-		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi,a.regional', '', '', '', '', '', array(
+		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi,a.regional', array('b.tahun'=>date('Y')), '', '', '', '', array(
 			'table' => 'rekap_rp3kp_provinsi b',
 			'on' => 'a.id_provinsi=b.id_provinsi',
 			'pos' => 'LEFT'
@@ -184,7 +184,7 @@ class Map extends CI_Controller {
 		// print_r($get_data);
 	}
 	public function json_rekap_pokja_pkp_provinsi(){
-		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi', '', '', '', '', '', array(
+		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi', array('b.tahun'=>date('Y')), '', '', '', '', array(
 			'table' => 'rekap_pokja_pkp_provinsi b',
 			'on' => 'a.id_provinsi=b.id_provinsi',
 			'pos' => 'LEFT'
@@ -257,7 +257,7 @@ class Map extends CI_Controller {
 		// print_r($get_data);
 	}
 	public function json_rekap_pokja_pkp_provinsi2(){
-		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi', '', '', '', '', '', array(
+		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi', array('b.tahun'=>date('Y')), '', '', '', '', array(
 			'table' => 'rekap_pokja_pkp_provinsi b',
 			'on' => 'a.id_provinsi=b.id_provinsi',
 			'pos' => 'LEFT'
@@ -493,76 +493,103 @@ class Map extends CI_Controller {
 		echo json_encode($results);
 	}
 	public function json_rekap_rp3kp_kabupaten(){
-		$get_data = $this->Main_model->getSelectedData('kabupaten a', 'b.*,a.id_kabupaten AS id,a.nm_kabupaten', '', '', '', '', '', array(
-			array(
-                'table' => 'rekap_rp3kp_kabkota b',
-				'on' => 'a.id_kabupaten=b.id_kabupaten',
-				'pos' => 'LEFT'
-            ),
-            array(
-                'table' => 'provinsi aa',
-                'on' => 'a.id_provinsi=aa.id_provinsi',
-                'pos' => 'LEFT'
-            )
-		))->result();
+		if($this->input->post('modul')=='semua'){
+			$get_data = $this->Main_model->getSelectedData('kabupaten a', 'b.*,a.id_kabupaten AS id,a.nm_kabupaten', '', '', '', '', '', array(
+				array(
+					'table' => 'rekap_rp3kp_kabkota b',
+					'on' => 'a.id_kabupaten=b.id_kabupaten',
+					'pos' => 'LEFT'
+				),
+				array(
+					'table' => 'provinsi aa',
+					'on' => 'a.id_provinsi=aa.id_provinsi',
+					'pos' => 'LEFT'
+				)
+			))->result();
+		}
+		else{
+			$get_data = $this->Main_model->getSelectedData('kabupaten a', 'b.*,a.id_kabupaten AS id,a.nm_kabupaten', array('a.id_provinsi'=>$this->input->post('modul')), '', '', '', '', array(
+				array(
+					'table' => 'rekap_rp3kp_kabkota b',
+					'on' => 'a.id_kabupaten=b.id_kabupaten',
+					'pos' => 'LEFT'
+				),
+				array(
+					'table' => 'provinsi aa',
+					'on' => 'a.id_provinsi=aa.id_provinsi',
+					'pos' => 'LEFT'
+				)
+			))->result();
+		}
 		$data_tampil = array();
 		$no = 1;
 		foreach ($get_data as $key => $value) {
-			$isi['number'] = $no++.'.';
-			$isi['nm_kabupaten'] = $value->nm_kabupaten;
-			// if($value->belum==NULL){
-			// 	$isi['belum'] = 'X';
-			// }else{
-			// 	$isi['belum'] = $value->belum;
-			// }
-			// if($value->menganggarkan==NULL){
-			// 	$isi['menganggarkan'] = 'X';
-			// }else{
-			// 	$isi['menganggarkan'] = $value->menganggarkan;
-			// }
-			// if($value->sedang==NULL){
-			// 	$isi['sedang'] = 'X';
-			// }else{
-			// 	$isi['sedang'] = $value->sedang;
-			// }
-			// if($value->review==NULL){
-			// 	$isi['review'] = 'X';
-			// }else{
-			// 	$isi['review'] = $value->review;
-			// }
-			// if($value->sudah==NULL){
-			// 	$isi['sudah'] = 'X';
-			// }else{
-			// 	$isi['sudah'] = $value->sudah;
-			// }
-            // $isi['bentuk_kegiatan'] = $value->bentuk_kegiatan;
-			// $isi['anggaran'] = 'Rp '.number_format($value->anggaran,2);
-			if($value->belum==NULL AND $value->menganggarkan==NULL AND $value->sedang==NULL){
-				$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
-			}elseif($value->belum=='V'){
-				$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
-			}elseif($value->menganggarkan=='V'){
-				$isi['status'] = '<img src="'.site_url().'assets/images/question.png" width="10%"/>';
-			}elseif($value->sedang=='V'){
-				$isi['status'] = '<img src="'.site_url().'assets/images/checkmark.png" width="10%"/>';
+			if($value->tahun=='' OR $value->tahun==date('Y')){
+				$isi['number'] = $no++.'.';
+				$isi['nm_kabupaten'] = $value->nm_kabupaten;
+				// if($value->belum==NULL){
+				// 	$isi['belum'] = 'X';
+				// }else{
+				// 	$isi['belum'] = $value->belum;
+				// }
+				// if($value->menganggarkan==NULL){
+				// 	$isi['menganggarkan'] = 'X';
+				// }else{
+				// 	$isi['menganggarkan'] = $value->menganggarkan;
+				// }
+				// if($value->sedang==NULL){
+				// 	$isi['sedang'] = 'X';
+				// }else{
+				// 	$isi['sedang'] = $value->sedang;
+				// }
+				// if($value->review==NULL){
+				// 	$isi['review'] = 'X';
+				// }else{
+				// 	$isi['review'] = $value->review;
+				// }
+				// if($value->sudah==NULL){
+				// 	$isi['sudah'] = 'X';
+				// }else{
+				// 	$isi['sudah'] = $value->sudah;
+				// }
+				// $isi['bentuk_kegiatan'] = $value->bentuk_kegiatan;
+				// $isi['anggaran'] = 'Rp '.number_format($value->anggaran,2);
+				if($value->belum==NULL AND $value->menganggarkan==NULL AND $value->sedang==NULL){
+					$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}elseif($value->belum=='V'){
+					$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}elseif($value->menganggarkan=='V'){
+					$isi['status'] = '<img src="'.site_url().'assets/images/question.png" width="10%"/>';
+				}elseif($value->sedang=='V'){
+					$isi['status'] = '<img src="'.site_url().'assets/images/checkmark.png" width="10%"/>';
+				}else{
+					$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}
+				if($value->belum_legal==NULL AND $value->review==NULL AND $value->sudah==NULL){
+					$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}elseif($value->belum_legal=='V'){
+					$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}elseif($value->review=='V'){
+					$isi['legalisasi'] = '<img src="'.site_url().'assets/images/question.png" width="10%"/>';
+				}elseif($value->sudah=='V'){
+					$isi['legalisasi'] = '<img src="'.site_url().'assets/images/checkmark.png" width="10%"/>';
+				}else{
+					$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}
+				$isi['action'] =	'
+										<a href="'.base_url('admin_side/ubah_data_rekap_rp3kp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									';
+				$data_tampil[] = $isi;
 			}else{
+				$isi['number'] = $no++.'.';
+				$isi['nm_kabupaten'] = $value->nm_kabupaten;
 				$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				$isi['action'] =	'
+										<a href="'.base_url('admin_side/ubah_data_rekap_rp3kp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									';
+				$data_tampil[] = $isi;
 			}
-			if($value->belum_legal==NULL AND $value->review==NULL AND $value->sudah==NULL){
-				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
-			}elseif($value->belum_legal=='V'){
-				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
-			}elseif($value->review=='V'){
-				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/question.png" width="10%"/>';
-			}elseif($value->sudah=='V'){
-				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/checkmark.png" width="10%"/>';
-			}else{
-				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
-			}
-			$isi['action'] =	'
-									<a href="'.base_url('admin_side/ubah_data_rekap_rp3kp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
-								';
-			$data_tampil[] = $isi;
 		}
 		$results = array(
 			"sEcho" => 1,
@@ -588,61 +615,72 @@ class Map extends CI_Controller {
 		$data_tampil = array();
 		$no = 1;
 		foreach ($get_data as $key => $value) {
-			$isi['number'] = $no++.'.';
-			$isi['nm_kabupaten'] = $value->nm_kabupaten;
-			// if($value->belum==NULL){
-			// 	$isi['belum'] = 'X';
-			// }else{
-			// 	$isi['belum'] = $value->belum;
-			// }
-			// if($value->menganggarkan==NULL){
-			// 	$isi['menganggarkan'] = 'X';
-			// }else{
-			// 	$isi['menganggarkan'] = $value->menganggarkan;
-			// }
-			// if($value->sedang==NULL){
-			// 	$isi['sedang'] = 'X';
-			// }else{
-			// 	$isi['sedang'] = $value->sedang;
-			// }
-			// if($value->review==NULL){
-			// 	$isi['review'] = 'X';
-			// }else{
-			// 	$isi['review'] = $value->review;
-			// }
-			// if($value->sudah==NULL){
-			// 	$isi['sudah'] = 'X';
-			// }else{
-			// 	$isi['sudah'] = $value->sudah;
-			// }
-            // $isi['bentuk_kegiatan'] = $value->bentuk_kegiatan;
-			// $isi['anggaran'] = 'Rp '.number_format($value->anggaran,2);
-			if($value->belum==NULL AND $value->menganggarkan==NULL AND $value->sedang==NULL){
-				$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
-			}elseif($value->belum=='V'){
-				$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
-			}elseif($value->menganggarkan=='V'){
-				$isi['status'] = '<img src="'.site_url().'assets/images/question.png" width="10%"/>';
-			}elseif($value->sedang=='V'){
-				$isi['status'] = '<img src="'.site_url().'assets/images/checkmark.png" width="10%"/>';
+			if($value->tahun=='' OR $value->tahun==date('Y')){
+				$isi['number'] = $no++.'.';
+				$isi['nm_kabupaten'] = $value->nm_kabupaten;
+				// if($value->belum==NULL){
+				// 	$isi['belum'] = 'X';
+				// }else{
+				// 	$isi['belum'] = $value->belum;
+				// }
+				// if($value->menganggarkan==NULL){
+				// 	$isi['menganggarkan'] = 'X';
+				// }else{
+				// 	$isi['menganggarkan'] = $value->menganggarkan;
+				// }
+				// if($value->sedang==NULL){
+				// 	$isi['sedang'] = 'X';
+				// }else{
+				// 	$isi['sedang'] = $value->sedang;
+				// }
+				// if($value->review==NULL){
+				// 	$isi['review'] = 'X';
+				// }else{
+				// 	$isi['review'] = $value->review;
+				// }
+				// if($value->sudah==NULL){
+				// 	$isi['sudah'] = 'X';
+				// }else{
+				// 	$isi['sudah'] = $value->sudah;
+				// }
+				// $isi['bentuk_kegiatan'] = $value->bentuk_kegiatan;
+				// $isi['anggaran'] = 'Rp '.number_format($value->anggaran,2);
+				if($value->belum==NULL AND $value->menganggarkan==NULL AND $value->sedang==NULL){
+					$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}elseif($value->belum=='V'){
+					$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}elseif($value->menganggarkan=='V'){
+					$isi['status'] = '<img src="'.site_url().'assets/images/question.png" width="10%"/>';
+				}elseif($value->sedang=='V'){
+					$isi['status'] = '<img src="'.site_url().'assets/images/checkmark.png" width="10%"/>';
+				}else{
+					$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}
+				if($value->belum_legal==NULL AND $value->review==NULL AND $value->sudah==NULL){
+					$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}elseif($value->belum_legal=='V'){
+					$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}elseif($value->review=='V'){
+					$isi['legalisasi'] = '<img src="'.site_url().'assets/images/question.png" width="10%"/>';
+				}elseif($value->sudah=='V'){
+					$isi['legalisasi'] = '<img src="'.site_url().'assets/images/checkmark.png" width="10%"/>';
+				}else{
+					$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				}
+				$isi['action'] =	'
+										<a href="'.base_url('admin_side/ubah_data_rekap_rp3kp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									';
+				$data_tampil[] = $isi;
 			}else{
+				$isi['number'] = $no++.'.';
+				$isi['nm_kabupaten'] = $value->nm_kabupaten;
 				$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
+				$isi['action'] =	'
+										<a href="'.base_url('admin_side/ubah_data_rekap_rp3kp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									';
+				$data_tampil[] = $isi;
 			}
-			if($value->belum_legal==NULL AND $value->review==NULL AND $value->sudah==NULL){
-				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
-			}elseif($value->belum_legal=='V'){
-				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
-			}elseif($value->review=='V'){
-				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/question.png" width="10%"/>';
-			}elseif($value->sudah=='V'){
-				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/checkmark.png" width="10%"/>';
-			}else{
-				$isi['legalisasi'] = '<img src="'.site_url().'assets/images/remove.png" width="10%"/>';
-			}
-			$isi['action'] =	'
-									<a href="'.base_url('admin_side/ubah_data_rekap_rp3kp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
-								';
-			$data_tampil[] = $isi;
 		}
 		$results = array(
 			"sEcho" => 1,
@@ -661,47 +699,65 @@ class Map extends CI_Controller {
 		$data_tampil = array();
 		$no = 1;
 		foreach ($get_data as $key => $value) {
-			$isi['number'] = $no++.'.';
-			$isi['nm_kabupaten'] = $value->nm_kabupaten;
-			$isi['belum'] = '';
-			$isi['proses'] = '';
-			$isi['selesai'] = '';
-			if($value->status==NULL OR $value->status=='Belum'){
-				$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="45%"/>';
-			}elseif($value->status=='Proses'){
-				$isi['status'] = '<img src="'.site_url().'assets/images/question.png" width="45%"/>';
+			if($value->tahun=='' OR $value->tahun==date('Y')){
+				$isi['number'] = $no++.'.';
+				$isi['nm_kabupaten'] = $value->nm_kabupaten;
+				$isi['belum'] = '';
+				$isi['proses'] = '';
+				$isi['selesai'] = '';
+				if($value->status==NULL OR $value->status=='Belum'){
+					$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
+				}elseif($value->status=='Proses'){
+					$isi['status'] = '<img src="'.site_url().'assets/images/question.png" width="35%"/>';
+				}else{
+					$isi['status'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
+				}
+				if($value->sk=='V'){
+					$isi['sk'] = '<img src="'.site_url().'assets/images/checkmark.png" width="40%"/>';
+				}else{
+					$isi['sk'] = '';
+				}
+				if($value->penggabungan==NULL OR $value->penggabungan=='Belum'){
+					$isi['penggabungan'] = '<img src="'.site_url().'assets/images/remove.png" width="25%"/>';
+				}else{
+					$isi['penggabungan'] = '<img src="'.site_url().'assets/images/checkmark.png" width="25%"/>';
+				}
+				if($value->program==NULL OR $value->program=="Tidak"){
+					$isi['program'] = '<img src="'.site_url().'assets/images/remove.png" width="30%"/>';
+				}else{
+					$isi['program'] = '<img src="'.site_url().'assets/images/checkmark.png" width="30%"/>';
+				}
+				if($value->forum==NULL OR $value->forum=='Tidak'){
+					$isi['forum'] = '<img src="'.site_url().'assets/images/remove.png" width="25%"/>';
+				}else{
+					$isi['forum'] = '<img src="'.site_url().'assets/images/checkmark.png" width="25%"/>';
+				}
+				if($value->apbd==NULL OR $value->apbd=='Tidak'){
+					$isi['apbd'] = '<img src="'.site_url().'assets/images/remove.png" width="30%"/>';
+				}else{
+					$isi['apbd'] = '<img src="'.site_url().'assets/images/checkmark.png" width="30%"/>';
+				}
+				$isi['action'] =	'
+										<a href="'.base_url('admin_side/ubah_data_rekap_pokja_pkp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									';
+				$data_tampil[] = $isi;
 			}else{
-				$isi['status'] = '<img src="'.site_url().'assets/images/checkmark.png" width="45%"/>';
-			}
-			if($value->sk=='V'){
-				$isi['sk'] = '<img src="'.site_url().'assets/images/checkmark.png" width="50%"/>';
-			}else{
+				$isi['number'] = $no++.'.';
+				$isi['nm_kabupaten'] = $value->nm_kabupaten;
+				$isi['belum'] = '';
+				$isi['proses'] = '';
+				$isi['selesai'] = '';
+				$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
 				$isi['sk'] = '';
-			}
-			if($value->penggabungan==NULL OR $value->penggabungan=='Belum'){
 				$isi['penggabungan'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
-			}else{
-				$isi['penggabungan'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
-			}
-			if($value->program==NULL OR $value->program=="Tidak"){
-				$isi['program'] = '<img src="'.site_url().'assets/images/remove.png" width="40%"/>';
-			}else{
-				$isi['program'] = '<img src="'.site_url().'assets/images/checkmark.png" width="40%"/>';
-			}
-			if($value->forum==NULL OR $value->forum=='Tidak'){
+				$isi['program'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
 				$isi['forum'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
-			}else{
-				$isi['forum'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
-			}
-			if($value->apbd==NULL OR $value->apbd=='Tidak'){
 				$isi['apbd'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
-			}else{
-				$isi['apbd'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
+				$isi['action'] =	'
+										<a href="'.base_url('admin_side/ubah_data_rekap_pokja_pkp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									';
+				$data_tampil[] = $isi;
 			}
-			$isi['action'] =	'
-									<a href="'.base_url('admin_side/ubah_data_rekap_pokja_pkp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
-								';
-			$data_tampil[] = $isi;
 		}
 		$results = array(
 			"sEcho" => 1,
@@ -720,47 +776,65 @@ class Map extends CI_Controller {
 		$data_tampil = array();
 		$no = 1;
 		foreach ($get_data as $key => $value) {
-			$isi['number'] = $no++.'.';
-			$isi['nm_kabupaten'] = $value->nm_kabupaten;
-			$isi['belum'] = '';
-			$isi['proses'] = '';
-			$isi['selesai'] = '';
-			if($value->status==NULL OR $value->status=='Belum'){
+			if($value->tahun=='' OR $value->tahun==date('Y')){
+				$isi['number'] = $no++.'.';
+				$isi['nm_kabupaten'] = $value->nm_kabupaten;
+				$isi['belum'] = '';
+				$isi['proses'] = '';
+				$isi['selesai'] = '';
+				if($value->status==NULL OR $value->status=='Belum'){
+					$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
+				}elseif($value->status=='Proses'){
+					$isi['status'] = '<img src="'.site_url().'assets/images/question.png" width="35%"/>';
+				}else{
+					$isi['status'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
+				}
+				if($value->sk=='V'){
+					$isi['sk'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
+				}else{
+					$isi['sk'] = '';
+				}
+				if($value->penggabungan==NULL OR $value->penggabungan=='Belum'){
+					$isi['penggabungan'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
+				}else{
+					$isi['penggabungan'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
+				}
+				if($value->program==NULL OR $value->program=="Tidak"){
+					$isi['program'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
+				}else{
+					$isi['program'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
+				}
+				if($value->forum==NULL OR $value->forum=='Tidak'){
+					$isi['forum'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
+				}else{
+					$isi['forum'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
+				}
+				if($value->apbd==NULL OR $value->apbd=='Tidak'){
+					$isi['apbd'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
+				}else{
+					$isi['apbd'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
+				}
+				$isi['action'] =	'
+										<a href="'.base_url('admin_side/ubah_data_rekap_pokja_pkp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									';
+				$data_tampil[] = $isi;
+			}else{
+				$isi['number'] = $no++.'.';
+				$isi['nm_kabupaten'] = $value->nm_kabupaten;
+				$isi['belum'] = '';
+				$isi['proses'] = '';
+				$isi['selesai'] = '';
 				$isi['status'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
-			}elseif($value->status=='Proses'){
-				$isi['status'] = '<img src="'.site_url().'assets/images/question.png" width="35%"/>';
-			}else{
-				$isi['status'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
-			}
-			if($value->sk=='V'){
-				$isi['sk'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
-			}else{
 				$isi['sk'] = '';
-			}
-			if($value->penggabungan==NULL OR $value->penggabungan=='Belum'){
 				$isi['penggabungan'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
-			}else{
-				$isi['penggabungan'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
-			}
-			if($value->program==NULL OR $value->program=="Tidak"){
 				$isi['program'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
-			}else{
-				$isi['program'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
-			}
-			if($value->forum==NULL OR $value->forum=='Tidak'){
 				$isi['forum'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
-			}else{
-				$isi['forum'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
-			}
-			if($value->apbd==NULL OR $value->apbd=='Tidak'){
 				$isi['apbd'] = '<img src="'.site_url().'assets/images/remove.png" width="35%"/>';
-			}else{
-				$isi['apbd'] = '<img src="'.site_url().'assets/images/checkmark.png" width="35%"/>';
+				$isi['action'] =	'
+										<a href="'.base_url('admin_side/ubah_data_rekap_pokja_pkp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
+									';
+				$data_tampil[] = $isi;
 			}
-			$isi['action'] =	'
-									<a href="'.base_url('admin_side/ubah_data_rekap_pokja_pkp_kabkota/'.md5($value->id)).'" class="link m-r-10 " title="Ubah Data"><i class="mdi mdi-checkbox-multiple-marked-outline"></i></a>
-								';
-			$data_tampil[] = $isi;
 		}
 		$results = array(
 			"sEcho" => 1,
