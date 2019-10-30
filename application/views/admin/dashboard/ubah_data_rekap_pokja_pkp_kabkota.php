@@ -78,7 +78,7 @@
                                         <div class="col-md-12">
                                             <input name="forum" type="radio" id="radio_6" value="Tidak" <?php if($data_utama->forum=='Tidak'){echo'checked';}else{echo'';} ?>>
                                             <label for="radio_6">Tidak</label><br>
-                                            <input name="forum" type="radio" id="radio_7" value="Ada" <?php if($data_utama->forum=='Ada'){echo'checked';}else{echo'';} ?>>
+                                            <input name="forum" type="radio" id="radio_7" value="Ya" <?php if($data_utama->forum=='Ya'){echo'checked';}else{echo'';} ?>>
                                             <label for="radio_7">Ada</label>
                                         </div>
                                     </div>
@@ -87,7 +87,7 @@
                                         <div class="col-md-12">
                                             <input name="apbd" type="radio" id="radio_8" value="Tidak" <?php if($data_utama->apbd=='Tidak'){echo'checked';}else{echo'';} ?>>
                                             <label for="radio_8">Tidak</label><br>
-                                            <input name="apbd" type="radio" id="radio_9" value="Ada" <?php if($data_utama->apbd=='Ada'){echo'checked';}else{echo'';} ?>>
+                                            <input name="apbd" type="radio" id="radio_9" value="Ya" <?php if($data_utama->apbd=='Ya'){echo'checked';}else{echo'';} ?>>
                                             <label for="radio_9">Ada</label>
                                         </div>
                                     </div>

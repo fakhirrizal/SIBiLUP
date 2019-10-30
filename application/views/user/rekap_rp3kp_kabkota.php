@@ -43,20 +43,20 @@
 	}
 </style>
 <style media="all" type="text/css">
-    .alignCenter { text-align: center; }
+    .alignCenter { vertical-align : middle;text-align: center; }
 </style>
-<!-- <ul class="page-breadcrumb breadcrumb">
+<br>
+<ul class="page-breadcrumb breadcrumb">
 	<li>
 		<h3>Catatan</h3>
 	</li>
 	<li>
-		
+		Data yang disajikan adalah data pada tahun berjalan (<?= date('Y'); ?>)
 	</li>
 	<li>
 		
 	</li>
 </ul>
-<br> -->
 <?= $this->session->flashdata('sukses') ?>
 <?= $this->session->flashdata('gagal') ?>
 <br>
@@ -75,11 +75,11 @@
 							<style>
 								#chartdiv {
 									width: 100%;
-									height: 500px;
+									height: 750px;
 								}
 							</style>
 
-							<script src="https://www.amcharts.com/lib/4/core.js"></script>
+							<script src="https://www.amcharts.com/lib/4/core.js"></script>	
 							<script src="https://www.amcharts.com/lib/4/charts.js"></script>
 							<script src="https://www.amcharts.com/lib/4/themes/kelly.js"></script>
 							<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
@@ -91,6 +91,10 @@
 									am4core.useTheme(am4themes_animated);
 
 									var chart = am4core.create("chartdiv", am4charts.XYChart3D);
+									var title = chart.titles.create();
+									title.text = "Rekap Status RP3KP Kabupaten/ Kota";
+									title.fontSize = 25;
+									title.marginBottom = 30;
 
 									// chart.data = [{
 									// 	"nm_provinsi": "USA",
@@ -118,11 +122,13 @@
 									<?php
 									foreach ($data_provinsi as $key => $value) {
 										echo'{"nm_provinsi": "'.$value->nm_provinsi.'",';
-										$get_sudah = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.review='V' OR a.sudah='V') AND b.id_provinsi='".$value->id_provinsi."'")->result();
+										$get_sudah = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.review='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
 										echo'"sudah": '.count($get_sudah).',';
-										$get_sedang = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.menganggarkan='V' OR a.sedang='V') AND b.id_provinsi='".$value->id_provinsi."'")->result();
+										$get_sedang = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.sedang='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
 										echo'"sedang": '.count($get_sedang).',';
-										$get_belum = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.belum='V' AND b.id_provinsi='".$value->id_provinsi."'")->result();
+										$get_menganggarkan = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.menganggarkan='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
+										echo'"menganggarkan": '.count($get_menganggarkan).',';
+										$get_belum = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.belum='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
 										echo'"belum": '.count($get_belum).'},';
 									}
 									?>];
@@ -130,7 +136,8 @@
 									var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
 									categoryAxis.dataFields.category = "nm_provinsi";
 									categoryAxis.renderer.grid.template.location = 0;
-									categoryAxis.renderer.minGridDistance = 300;
+									categoryAxis.renderer.minGridDistance = 30;
+									categoryAxis.renderer.labels.template.rotation = 270;
 
 									var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 									valueAxis.title.text = "Jumlah Kabupaten/ Kota";
@@ -142,7 +149,7 @@
 									var series = chart.series.push(new am4charts.ColumnSeries3D());
 									series.dataFields.valueY = "sudah";
 									series.dataFields.categoryX = "nm_provinsi";
-									series.name = "Year 2017";
+									series.name = "Sudah";
 									series.clustered = false;
 									series.columns.template.tooltipText = "di {categoryX} yang sudah menyusun RP3KP: [bold]{valueY}[/] Kabupaten/ Kota";
 									series.columns.template.fillOpacity = 0.9;
@@ -150,16 +157,30 @@
 									var series2 = chart.series.push(new am4charts.ColumnSeries3D());
 									series2.dataFields.valueY = "sedang";
 									series2.dataFields.categoryX = "nm_provinsi";
-									series2.name = "Year 2018";
+									series2.name = "Sedang";
 									series2.clustered = false;
 									series2.columns.template.tooltipText = "di {categoryX} yang sedang menyusun RP3KP: [bold]{valueY}[/] Kabupaten/ Kota";
 
 									var series3 = chart.series.push(new am4charts.ColumnSeries3D());
-									series3.dataFields.valueY = "belum";
+									series3.dataFields.valueY = "menganggarkan";
 									series3.dataFields.categoryX = "nm_provinsi";
-									series3.name = "Year 2019";
+									series3.name = "Menganggarkan TA <?= date('Y'); ?>";
 									series3.clustered = false;
-									series3.columns.template.tooltipText = "di {categoryX} yang belum menyusun RP3KP: [bold]{valueY}[/] Kabupaten/ Kota";
+									series3.columns.template.tooltipText = "di {categoryX} yang masih Menganggarkan RP3KP TA 2019: [bold]{valueY}[/] Kabupaten/ Kota";
+
+									var series4 = chart.series.push(new am4charts.ColumnSeries3D());
+									series4.dataFields.valueY = "belum";
+									series4.dataFields.categoryX = "nm_provinsi";
+									series4.name = "Belum";
+									series4.clustered = false;
+									series4.columns.template.tooltipText = "di {categoryX} yang belum menyusun RP3KP: [bold]{valueY}[/] Kabupaten/ Kota";
+								
+									chart.exporting.menu = new am4core.ExportMenu();
+									chart.exporting.menu.align = "left";
+									chart.exporting.menu.verticalAlign = "top";
+
+									chart.legend = new am4charts.Legend();
+									
 								});
 							</script>
 
@@ -189,7 +210,8 @@
                                     </tr> -->
 									<tr>
                                         <th style="vertical-align : middle;text-align:center;" width="4%" > # </th>
-										<th style="vertical-align : middle;text-align:center;" width="40%"> Nama Kabupaten/ Kota </th>
+										<th style="vertical-align : middle;text-align:center;" width="15%"> Provinsi </th>
+										<th style="vertical-align : middle;text-align:center;" width="25%"> Kabupaten/ Kota </th>
 										<th style="vertical-align : middle;text-align:center;" width="20%"> Status Penyusunan </th>
                                         <th style="vertical-align : middle;text-align:center;" width="20%"> Status Legalisasi </th>
                                     </tr>
@@ -205,6 +227,7 @@
                                         },
                                         "aoColumns": [
                                                     { mData: 'number', sClass: "alignCenter" },
+                                                    { mData: 'prov', sClass: "alignCenter" },
                                                     { mData: 'nm_kabupaten', sClass: "alignCenter" },
                                                     { mData: 'status', sClass: "alignCenter" },
                                                     { mData: 'legalisasi', sClass: "alignCenter" }

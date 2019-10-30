@@ -55,14 +55,14 @@
 	}
 </style>
 <style media="all" type="text/css">
-    .alignCenter { text-align: center; }
+    .alignCenter { vertical-align : middle;text-align: center; }
 </style>
 <ul class="page-breadcrumb breadcrumb">
 	<li>
 		<h3>Catatan</h3>
 	</li>
 	<li>
-		
+		Data yang disajikan adalah data pada tahun berjalan (<?= date('Y'); ?>)
 	</li>
 	<li>
 		
@@ -86,232 +86,201 @@
 							</div>
 							<br>
 							<!-- <div class="ex1"> -->
-                            <!-- Styles -->
+                            <!-- Grafik disini -->
                             <style>
-                            #chartdiv1 {
-                            width: 100%;
-                            height: 1550px;
-                            }
-                            #chartdiv2 {
-                            width: 100%;
-                            height: 1550px;
-                            }
-                            #chartdiv3 {
-                            width: 100%;
-                            height: 1550px;
-                            }
-                            #chartdiv4 {
-                            width: 100%;
-                            height: 1550px;
-                            }
-                            </style>
+								#chartdiv1 {
+									width: 100%;
+									height: 750px;
+								}
+							</style>
 
-                            <!-- Resources -->
-                            <script src="https://www.amcharts.com/lib/4/core.js"></script>
-                            <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-                            <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+							<script src="https://www.amcharts.com/lib/4/core.js"></script>
+							<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+							<script src="https://www.amcharts.com/lib/4/themes/kelly.js"></script>
+							<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
-                            <!-- Chart code -->
-                            <script>
-                                am4core.ready(function() {
-                                
+							<script>
+								am4core.ready(function() {
 
-                                // Themes begin
-                                am4core.useTheme(am4themes_animated);
-                                // Themes end
+									am4core.useTheme(am4themes_kelly);
+									am4core.useTheme(am4themes_animated);
 
-                                var chart = am4core.create("chartdiv1", am4charts.PieChart3D);
-                                chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-                                var title = chart.titles.create();
-                                title.text = "Jumlah Pokja PKP Kab/Kota yang sudah terbentuk dan di-SK-kan atau sedang proses SK";
-                                title.fontSize = 25;
-                                title.marginBottom = 30;
+									var chart = am4core.create("chartdiv1", am4charts.XYChart3D);
+									var title = chart.titles.create();
+									title.text = "Rekap Pokja PKP Kab/Kota yang sudah terbentuk dan di-SK-kan atau sedang proses SK";
+									title.fontSize = 25;
+									title.marginBottom = 30;
 
-                                chart.data = [
-                                <?php
-                                foreach ($data_hitung1 as $key => $value) {
-                                    echo'{
-                                    country: "'.$value->nm_provinsi.'",
-                                    litres: '.$value->jml.'},
-                                    ';
-                                }
-                                ?>
-                                ];
+									chart.data = [
+									<?php
+									foreach ($data_provinsi as $key => $value) {
+										echo'{"nm_provinsi": "'.$value->nm_provinsi.'",';
+										$get_sudah = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.status='Selesai' OR a.sk='V') AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
+										echo'"sudah": '.count($get_sudah).',';
+										$get_sedang = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.status='Proses' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
+										echo'"sedang": '.count($get_sedang).',';
+										$get_belum = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.status='Belum' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
+										echo'"belum": '.count($get_belum).'},';
+									}
+									?>];
 
-                                chart.innerRadius = am4core.percent(40);
-                                chart.depth = 120;
+									var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+									categoryAxis.dataFields.category = "nm_provinsi";
+									categoryAxis.renderer.grid.template.location = 0;
+									categoryAxis.renderer.minGridDistance = 30;
+									categoryAxis.renderer.labels.template.rotation = 270;
 
-                                chart.legend = new am4charts.Legend();
+									var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+									valueAxis.title.text = "Jumlah Kabupaten/ Kota";
+									valueAxis.renderer.labels.template.adapter.add("text", function(text) {
+										// return text + "%";
+										return text;
+									});
 
-                                var series = chart.series.push(new am4charts.PieSeries3D());
-                                series.dataFields.value = "litres";
-                                series.dataFields.depthValue = "litres";
-                                series.dataFields.category = "country";
-                                series.slices.template.cornerRadius = 1;
-                                series.colors.step = 3;
+									var series = chart.series.push(new am4charts.ColumnSeries3D());
+									series.dataFields.valueY = "sudah";
+									series.dataFields.categoryX = "nm_provinsi";
+									series.name = "Selesai";
+									series.clustered = false;
+									series.columns.template.tooltipText = "di {categoryX} yang sudah selesai membentuk Pokja PKP: [bold]{valueY}[/] Kabupaten/ Kota";
+									series.columns.template.fillOpacity = 0.9;
 
-                                }); // end am4core.ready()
-                            </script>
+									var series2 = chart.series.push(new am4charts.ColumnSeries3D());
+									series2.dataFields.valueY = "sedang";
+									series2.dataFields.categoryX = "nm_provinsi";
+									series2.name = "Proses";
+									series2.clustered = false;
+									series2.columns.template.tooltipText = "di {categoryX} yang sedang proses pembentukan Pokja PKP: [bold]{valueY}[/] Kabupaten/ Kota";
 
-                            <script>
-                                am4core.ready(function() {
-                                
+									var series3 = chart.series.push(new am4charts.ColumnSeries3D());
+									series3.dataFields.valueY = "belum";
+									series3.dataFields.categoryX = "nm_provinsi";
+									series3.name = "Belum";
+									series3.clustered = false;
+									series3.columns.template.tooltipText = "di {categoryX} yang belum membentuk Pokja PKP: [bold]{valueY}[/] Kabupaten/ Kota";
+								
+									chart.exporting.menu = new am4core.ExportMenu();
+									chart.exporting.menu.align = "left";
+									chart.exporting.menu.verticalAlign = "top";
 
-                                // Themes begin
-                                am4core.useTheme(am4themes_animated);
-                                // Themes end
+									chart.legend = new am4charts.Legend();
+									
+								});
+							</script>
+                            
+                            <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+							<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+							<script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+							<?php
+							if($get_where=='' OR $get_where=='semua'){
+								echo'';
+							}else{
+								echo'
+								<div class="row">
+									<div class="col-md-12">
+										<div class="chartdiv2"></div>
+									</div>
+								</div>
+								';
+							}
+							?>
+							<script type="text/javascript">
+							$('.chartdiv2').highcharts({
+							chart: {
+							type: 'pie',
+							marginTop: 80
+							},
+							credits: {
+							enabled: false
+							}, 
+							tooltip: {
+							pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%)</b>'
+							},
+							title: {
+							text: 'Rekap Status Pembentukan'
+							},
+							subtitle: {
+							text: 'Provinsi <?php
+								$get_prov = $this->db->query("SELECT a.* FROM provinsi a WHERE a.id_provinsi='".$get_where."'")->row();
+								echo $get_prov->nm_provinsi;
+								?>'
+							},
+							xAxis: {
+							categories: ['JUMLAH'],
+							labels: {
+							style: {
+								fontSize: '10px',
+								fontFamily: 'Verdana, sans-serif'
+							}
+							}
+							},
+							legend: {
+							enabled: true
+							},
+							plotOptions: {
+							pie: {
+								allowPointSelect: true,
+								cursor: 'pointer',
+								dataLabels: {
+								enabled: false
+								},
+								showInLegend: true
+							}
+							},
+							series: [{
+							'name':'Jumlah Kabupaten/ Kota',
+							'data':[
+								['Belum',<?php
+								$get_belum = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_kabkota a RIGHT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.status='Belum' AND b.id_provinsi='".$get_where."' AND a.tahun='".date('Y')."'")->result();
+								echo count($get_belum);
+								?>],
+								['Proses',<?php
+								$get_menganggarkan = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_kabkota a RIGHT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.status='Proses' AND b.id_provinsi='".$get_where."' AND a.tahun='".date('Y')."'")->result();
+								echo count($get_menganggarkan);
+								?>],
+								['Selesai',<?php
+								$get_sedang = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_kabkota a RIGHT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.status='Selesai' OR a.sk='V') AND b.id_provinsi='".$get_where."' AND a.tahun='".date('Y')."'")->result();
+								echo count($get_sedang);
+								?>]
+							]
+							}]
+							});
+							</script>
 
-                                var chart = am4core.create("chartdiv2", am4charts.PieChart3D);
-                                chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-                                var title = chart.titles.create();
-                                title.text = "Jumlah Pokja PKP Kab/Kota yang sudah menggabungkan berbagai Pokja di daerah";
-                                title.fontSize = 25;
-                                title.marginBottom = 30;
-
-                                chart.data = [
-                                <?php
-                                foreach ($data_hitung2 as $key => $value) {
-                                    echo'{
-                                    country: "'.$value->nm_provinsi.'",
-                                    litres: '.$value->jml.'},
-                                    ';
-                                }
-                                ?>
-                                ];
-
-                                chart.innerRadius = am4core.percent(40);
-                                chart.depth = 120;
-
-                                chart.legend = new am4charts.Legend();
-
-                                var series = chart.series.push(new am4charts.PieSeries3D());
-                                series.dataFields.value = "litres";
-                                series.dataFields.depthValue = "litres";
-                                series.dataFields.category = "country";
-                                series.slices.template.cornerRadius = 1;
-                                series.colors.step = 3;
-
-                                }); // end am4core.ready()
-                            </script>
-
-                            <script>
-                                am4core.ready(function() {
-                                
-
-                                // Themes begin
-                                am4core.useTheme(am4themes_animated);
-                                // Themes end
-
-                                var chart = am4core.create("chartdiv3", am4charts.PieChart3D);
-                                chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-                                var title = chart.titles.create();
-                                title.text = "Jumlah Pokja PKP Kab/Kota yang sudah membentuk Forum PKP";
-                                title.fontSize = 25;
-                                title.marginBottom = 30;
-
-                                chart.data = [
-                                <?php
-                                foreach ($data_hitung3 as $key => $value) {
-                                    echo'{
-                                    country: "'.$value->nm_provinsi.'",
-                                    litres: '.$value->jml.'},
-                                    ';
-                                }
-                                ?>
-                                ];
-
-                                chart.innerRadius = am4core.percent(40);
-                                chart.depth = 120;
-
-                                chart.legend = new am4charts.Legend();
-
-                                var series = chart.series.push(new am4charts.PieSeries3D());
-                                series.dataFields.value = "litres";
-                                series.dataFields.depthValue = "litres";
-                                series.dataFields.category = "country";
-                                series.slices.template.cornerRadius = 1;
-                                series.colors.step = 3;
-
-                                }); // end am4core.ready()
-                            </script>
-
-                            <script>
-                                am4core.ready(function() {
-                                
-
-                                // Themes begin
-                                am4core.useTheme(am4themes_animated);
-                                // Themes end
-
-                                var chart = am4core.create("chartdiv4", am4charts.PieChart3D);
-                                chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-                                var title = chart.titles.create();
-                                title.text = "Jumlah Pokja PKP Kab/Kota yang mengalokasikan dana APBD";
-                                title.fontSize = 25;
-                                title.marginBottom = 30;
-
-                                chart.data = [
-                                <?php
-                                foreach ($data_hitung4 as $key => $value) {
-                                    echo'{
-                                    country: "'.$value->nm_provinsi.'",
-                                    litres: '.$value->jml.'},
-                                    ';
-                                }
-                                ?>
-                                ];
-
-                                chart.innerRadius = am4core.percent(40);
-                                chart.depth = 120;
-
-                                chart.legend = new am4charts.Legend();
-
-                                var series = chart.series.push(new am4charts.PieSeries3D());
-                                series.dataFields.value = "litres";
-                                series.dataFields.depthValue = "litres";
-                                series.dataFields.category = "country";
-                                series.slices.template.cornerRadius = 1;
-                                series.colors.step = 3;
-
-                                }); // end am4core.ready()
-                            </script>
-
-                            <!-- HTML -->
-                            <div class="tabbable-line">
-                                <ul class="nav nav-tabs ">
-                                    <li>
-                                        <a href="#tab_15_1" data-toggle="tab"> Grafik 1 &nbsp;&nbsp;&nbsp;&nbsp;</a>
-                                    </li>
-                                    <li>
-                                        <a href="#tab_15_2" data-toggle="tab"> Grafik 2 &nbsp;&nbsp;&nbsp;&nbsp;</a>
-                                    </li>
-                                    <li>
-                                        <a href="#tab_15_3" data-toggle="tab"> Grafik 3 &nbsp;&nbsp;&nbsp;&nbsp;</a>
-                                    </li>
-                                    <li>
-                                        <a href="#tab_15_4" data-toggle="tab"> Grafik 4 </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane" id="tab_15_1">
-                                        <br>
-                                        <div id="chartdiv1"></div><br>
-                                    </div>
-                                    <div class="tab-pane" id="tab_15_2">
-                                        <br>
-                                        <div id="chartdiv2"></div><br>
-                                    </div>
-                                    <div class="tab-pane" id="tab_15_3">
-                                        <br>
-                                        <div id="chartdiv3"></div><br>
-                                    </div>
-                                    <div class="tab-pane" id="tab_15_4">
-                                        <br>
-                                        <div id="chartdiv4"></div><br>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
+							<?php
+							if($get_where=='' OR $get_where=='semua'){
+								echo'<div id="chartdiv1"></div>';
+							}else{
+								echo'';
+							}
+							?>
+							
+							<br>
+							<div class="sDiv quickSearchBox" id="quickSearchBox">
+								<div class="sDiv2">
+									<form action="<?=base_url('admin_side/rekap_pokja_pkp_kabkota');?>" method="post">
+									Filter Pencarian&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<select name="search_field" id="search_field" style="background: white;color: black;padding: 5px;" required>
+										<option value="">-- Pilih Provinsi --</option>
+										<option value="semua">Semua Provinsi</option>
+											<?php
+											foreach ($data_provinsi as $key => $dp) {
+												echo'<option value="'.$dp->id_provinsi.'">'.$dp->nm_provinsi.'</option>';
+											}
+											?>
+                                    </select>
+                                    <!-- <select name="search_category" id="search_field" style="background: white;color: black;padding: 5px;" required>
+										<option value="">-- Pilih Grafik --</option>
+										<option value="status">Status pembentukan Pokja PKP</option>
+										<option value="penggabungan">Penggabungan berbagai Pokja PKP di daerah</option>
+										<option value="forum">Pembentukan forum PKP</option>
+										<option value="apbd">Pengalokasian dana APBD</option>
+									</select> -->
+									<!-- <input type="button" style="width: 50px;" value="Cari" class="crud_search" id="crud_search"> -->
+									<button type='submit' class="crud_search">Proses</button>
+									</form>
+								</div>
+							</div><hr><br>
 							<div style="overflow-x: auto;">
 							<table class="table table-striped table-bordered" id="tbl">
                                 <thead>
@@ -333,6 +302,7 @@
                                     </tr> -->
                                     <tr>
                                         <th style="vertical-align : middle;text-align:center;" width="4%" > # </th>
+										<th style="vertical-align : middle;text-align:center;" > Provinsi </th>
 										<th style="vertical-align : middle;text-align:center;" > Kabupaten/ Kota </th>
 										<th style="vertical-align : middle;text-align:center;" width="14%"> Status Pokja </th>
 										<th style="vertical-align : middle;text-align:center;" width="14%"> SK </th>
@@ -340,7 +310,9 @@
 										<th style="vertical-align : middle;text-align:center;" width="14%"> Punya Program Kerja Pokja PKP </th>
 										<th style="vertical-align : middle;text-align:center;" width="14%"> Membentuk & Mengaktifkan Forum PKP </th>
 										<th style="vertical-align : middle;text-align:center;" width="14%"> Dukungan APBD </th>
+										<?php // if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
                                         <th style="vertical-align : middle;text-align:center;" width="7%" > Aksi </th>
+										<?php // }else{echo'';} ?>
                                     </tr>
                                 </thead>
                             </table>
@@ -350,7 +322,9 @@
                                         "order": [[ 0, "asc" ]],
                                         "bProcessing": true,
                                         "ajax" : {
-                                            url:"<?= site_url('admin/Map/json_rekap_pokja_pkp_kabupaten'); ?>"
+                                            type:"POST",
+                                            url:"<?= site_url('admin/Map/json_rekap_pokja_pkp_kabupaten'); ?>",
+                                            data: {modul:"<?= $get_where; ?>"}
                                         },
                                         "dom": 'lBfrtip',
                                         "buttons": [
@@ -368,6 +342,7 @@
                                         ],
                                         "aoColumns": [
                                                     { mData: 'number', sClass: "alignCenter" },
+                                                    { mData: 'prov', sClass: "alignCenter" },
                                                     { mData: 'nm_kabupaten', sClass: "alignCenter" },
                                                     // { mData: 'belum', sClass: "alignCenter" },
                                                     // { mData: 'proses', sClass: "alignCenter" },
@@ -378,7 +353,9 @@
                                                     { mData: 'program', sClass: "alignCenter" },
                                                     { mData: 'forum', sClass: "alignCenter" },
                                                     { mData: 'apbd', sClass: "alignCenter" },
+										            <?php // if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
 													{ mData: 'action', sClass: "alignCenter" }
+										            <?php // }else{echo'';} ?>
                                                 ]
                                     });
                                 });

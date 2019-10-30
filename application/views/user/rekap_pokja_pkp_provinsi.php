@@ -44,20 +44,20 @@
 	}
 </style>
 <style media="all" type="text/css">
-    .alignCenter { text-align: center; }
+    .alignCenter { vertical-align : middle;text-align: center; }
 </style>
-<!-- <ul class="page-breadcrumb breadcrumb">
+<br>
+<ul class="page-breadcrumb breadcrumb">
 	<li>
 		<h3>Catatan</h3>
 	</li>
 	<li>
-		
+		Data yang disajikan adalah data pada tahun berjalan (<?= date('Y'); ?>)
 	</li>
 	<li>
 		
 	</li>
 </ul>
-<br> -->
 <?= $this->session->flashdata('sukses') ?>
 <?= $this->session->flashdata('gagal') ?>
 <br>
@@ -75,6 +75,294 @@
 							</div>
 							<br>
 							<!-- <div class="ex1"> -->
+							<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+							<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+							<script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+							<?php
+							if($get_where==''){
+								echo'';
+							}elseif($get_where=='1'){
+								echo'
+								<div class="row">
+									<div class="col-md-12">
+										<div class="chartdiv1"></div>
+									</div>
+								</div>
+								';
+							}
+							elseif($get_where=='2'){
+								echo'
+								<div class="row">
+									<div class="col-md-12">
+										<div class="chartdiv2"></div>
+									</div>
+								</div>
+								';
+							}
+							elseif($get_where=='3'){
+								echo'
+								<div class="row">
+									<div class="col-md-12">
+										<div class="chartdiv3"></div>
+									</div>
+								</div>
+								';
+							}
+							elseif($get_where=='4'){
+								echo'
+								<div class="row">
+									<div class="col-md-12">
+										<div class="chartdiv4"></div>
+									</div>
+								</div>
+								';
+							}else{echo'';}
+							?>
+
+							<script type="text/javascript">
+							$('.chartdiv1').highcharts({
+								chart: {
+								type: 'pie',
+								marginTop: 80
+								},
+								credits: {
+								enabled: false
+								}, 
+								tooltip: {
+								pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%)</b>'
+								},
+								title: {
+								text: 'Rekap Data Pokja PKP Tahun <?= date('Y'); ?>'
+								},
+								subtitle: {
+								text: 'Penggabungan Berbagai Pokja'
+								},
+								xAxis: {
+								categories: ['JUMLAH'],
+								labels: {
+								style: {
+									fontSize: '10px',
+									fontFamily: 'Verdana, sans-serif'
+								}
+								}
+								},
+								legend: {
+								enabled: true
+								},
+								plotOptions: {
+								pie: {
+									allowPointSelect: true,
+									cursor: 'pointer',
+									dataLabels: {
+									enabled: false
+									},
+									showInLegend: true
+								}
+								},
+								series: [{
+								'name':'Jumlah Provinsi',
+								'data':[
+									['Belum',<?php
+									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.penggabungan='Belum' OR a.penggabungan IS NULL) AND a.tahun='".date('Y')."'")->result();
+									echo count($get_belum);
+									?>],
+									['Proses',<?php
+									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.penggabungan='Proses' AND a.tahun='".date('Y')."'")->result();
+									echo count($get_proses);
+									?>],
+									['Sudah',<?php
+									$get_sudah = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.penggabungan='Sudah' AND a.tahun='".date('Y')."'")->result();
+									echo count($get_sudah);
+									?>]
+								]
+								}]
+							});
+							</script>
+
+							<script type="text/javascript">
+							$('.chartdiv2').highcharts({
+								chart: {
+								type: 'pie',
+								marginTop: 80
+								},
+								credits: {
+								enabled: false
+								}, 
+								tooltip: {
+								pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%)</b>'
+								},
+								title: {
+								text: 'Rekap Data Pokja PKP Tahun <?= date('Y'); ?>'
+								},
+								subtitle: {
+								text: 'Punya Program Kerja 5 Tahun'
+								},
+								xAxis: {
+								categories: ['JUMLAH'],
+								labels: {
+								style: {
+									fontSize: '10px',
+									fontFamily: 'Verdana, sans-serif'
+								}
+								}
+								},
+								legend: {
+								enabled: true
+								},
+								plotOptions: {
+								pie: {
+									allowPointSelect: true,
+									cursor: 'pointer',
+									dataLabels: {
+									enabled: false
+									},
+									showInLegend: true
+								}
+								},
+								series: [{
+								'name':'Jumlah Provinsi',
+								'data':[
+									['Tidak',<?php
+									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.program='Tidak' OR a.program IS NULL) AND a.tahun='".date('Y')."'")->result();
+									echo count($get_belum);
+									?>],
+									['Ya',<?php
+									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.program='Ya' AND a.tahun='".date('Y')."'")->result();
+									echo count($get_proses);
+									?>]
+								]
+								}]
+							});
+							</script>
+
+							<script type="text/javascript">
+							$('.chartdiv3').highcharts({
+								chart: {
+								type: 'pie',
+								marginTop: 80
+								},
+								credits: {
+								enabled: false
+								}, 
+								tooltip: {
+								pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%)</b>'
+								},
+								title: {
+								text: 'Rekap Data Pokja PKP Tahun <?= date('Y'); ?>'
+								},
+								subtitle: {
+								text: 'Perayaan Hapernas/ Hari Habitat/ dsb'
+								},
+								xAxis: {
+								categories: ['JUMLAH'],
+								labels: {
+								style: {
+									fontSize: '10px',
+									fontFamily: 'Verdana, sans-serif'
+								}
+								}
+								},
+								legend: {
+								enabled: true
+								},
+								plotOptions: {
+								pie: {
+									allowPointSelect: true,
+									cursor: 'pointer',
+									dataLabels: {
+									enabled: false
+									},
+									showInLegend: true
+								}
+								},
+								series: [{
+								'name':'Jumlah Provinsi',
+								'data':[
+									['Tidak',<?php
+									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.perayaan='Tidak' OR a.perayaan IS NULL) AND a.tahun='".date('Y')."'")->result();
+									echo count($get_belum);
+									?>],
+									['Ada',<?php
+									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.perayaan='Ada' AND a.tahun='".date('Y')."'")->result();
+									echo count($get_proses);
+									?>]
+								]
+								}]
+							});
+							</script>
+
+							<script type="text/javascript">
+							$('.chartdiv4').highcharts({
+								chart: {
+								type: 'pie',
+								marginTop: 80
+								},
+								credits: {
+								enabled: false
+								}, 
+								tooltip: {
+								pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%)</b>'
+								},
+								title: {
+								text: 'Rekap Data Pokja PKP Tahun <?= date('Y'); ?>'
+								},
+								subtitle: {
+								text: 'Dukungan APBD'
+								},
+								xAxis: {
+								categories: ['JUMLAH'],
+								labels: {
+								style: {
+									fontSize: '10px',
+									fontFamily: 'Verdana, sans-serif'
+								}
+								}
+								},
+								legend: {
+								enabled: true
+								},
+								plotOptions: {
+								pie: {
+									allowPointSelect: true,
+									cursor: 'pointer',
+									dataLabels: {
+									enabled: false
+									},
+									showInLegend: true
+								}
+								},
+								series: [{
+								'name':'Jumlah Provinsi',
+								'data':[
+									['Tidak',<?php
+									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.apbd='Tidak' OR a.apbd IS NULL) AND a.tahun='".date('Y')."'")->result();
+									echo count($get_belum);
+									?>],
+									['Ada',<?php
+									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.apbd='Ada' AND a.tahun='".date('Y')."'")->result();
+									echo count($get_proses);
+									?>]
+								]
+								}]
+							});
+							</script>
+							<br>
+							<div class="sDiv quickSearchBox" id="quickSearchBox">
+								<div class="sDiv2">
+									<form action="<?=base_url('user/App/rekap_pokja_pkp_provinsi');?>" method="post">
+									Filter Tampilan Grafik&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<select name="jenis" id="search_field" style="background: white;color: black;padding: 5px;" required>
+										<option value="">-- Pilih Jenis --</option>
+										<option value="1">Penggabungan Berbagai Pokja</option>	
+										<option value="2">Punya Program Kerja 5 Tahun</option>
+										<option value="3">Perayaan Hapernas/ Hari Habitat/ dsb</option>
+										<option value="4">Dukungan APBD</option>
+									</select>&nbsp;&nbsp;
+									<!-- <input type="button" style="width: 50px;" value="Cari" class="crud_search" id="crud_search"> -->
+									<button type='submit' class="crud_search">Proses</button>
+									</form>
+								</div>
+							</div><hr><br>
 							<div style="overflow-x: auto;">
 							<table class="table table-striped table-bordered" id="tbl">
                                 <thead>

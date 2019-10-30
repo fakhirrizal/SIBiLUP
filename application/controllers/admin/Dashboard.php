@@ -142,6 +142,7 @@ class Dashboard extends CI_Controller {
         $this->db->trans_start();
         $rencana_anggaran = preg_replace("/[^0-9]/", "", $this->input->post('rencana_anggaran'));
         $belum = 'X';
+        $menganggarkan = 'X';
         $sedang = 'X';
         $review = 'X';
         $sudah = 'X';
@@ -188,6 +189,7 @@ class Dashboard extends CI_Controller {
         $data_1 = array(
             'id_kabupaten' => $this->input->post('id_kabupaten'),
             'belum' => $belum,
+            'menganggarkan' => $menganggarkan,
             'sedang' => $sedang,
             'belum_legal' => $belum_legal,
             'review' => $review,
@@ -220,6 +222,13 @@ class Dashboard extends CI_Controller {
         $data['title_page'] = "Rekap Pokja PKP Provinsi";
         $data['breadcrumb'] = "Dashboard,Rekap Pokja PKP Provinsi";
         $data['load']       =  array("admin/dashboard/rekap_pokja_pkp_provinsi"); 
+
+        $data['get_where'] = '';
+        if($this->input->post('jenis')!=NULL){
+            $data['get_where'] = $this->input->post('jenis');
+        }else{
+            echo'';
+        }
 
         $this->load->view('template/footer', $data);
     }
@@ -269,9 +278,15 @@ class Dashboard extends CI_Controller {
 	{
         $data['title_page'] = "Rekap Pokja PKP Kabupaten/ Kota";
         $data['breadcrumb'] = "Dashboard,Rekap Pokja PKP Kabupaten/ Kota";
-        $data['load']       =  array("admin/dashboard/rekap_pokja_pkp_kabkota"); 
+        $data['load']       =  array("admin/dashboard/rekap_pokja_pkp_kabkota");
+        if($this->input->post('search_field')==NULL){
+            $data['get_where'] = 'semua';
+        }else{
+            $data['get_where'] = $this->input->post('search_field');
+        }
+        $data['data_provinsi'] = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
 
-        $data['data_hitung1'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE (c.status="Sudah" OR c.sk="V") AND b.id_provinsi=a.id_provinsi AND c.tahun='.date('Y').') AS jml')->result();
+        $data['data_hitung1'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE (c.status="Selesai" OR c.sk="V") AND b.id_provinsi=a.id_provinsi AND c.tahun='.date('Y').') AS jml')->result();
         $data['data_hitung2'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.penggabungan="Sudah" AND b.id_provinsi=a.id_provinsi AND c.tahun='.date('Y').') AS jml')->result();
         $data['data_hitung3'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.forum="Ya" AND b.id_provinsi=a.id_provinsi AND c.tahun='.date('Y').') AS jml')->result();
         $data['data_hitung4'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.apbd="Ya" AND b.id_provinsi=a.id_provinsi AND c.tahun='.date('Y').') AS jml')->result();
@@ -300,7 +315,7 @@ class Dashboard extends CI_Controller {
             'program' => $this->input->post('program'),
             'forum' => $this->input->post('forum'),
             'apbd' => $this->input->post('apbd'),
-            'date' => date('Y')
+            'tahun' => date('Y')
         );
         // print_r($data_1);
         $check = $this->Main_model->getSelectedData('rekap_pokja_pkp_kabkota a', 'a.*', array('a.id_kabupaten'=>$this->input->post('id_kabupaten'),'a.tahun'=>date('Y')))->result();

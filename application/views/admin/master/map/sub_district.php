@@ -1,6 +1,6 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style media="all" type="text/css">
-    .alignCenter { text-align: center; }
+    .alignCenter { vertical-align : middle;text-align: center; }
 </style>
 <ul class="page-breadcrumb breadcrumb">
 	<li>

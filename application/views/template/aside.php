@@ -4,14 +4,16 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <!-- <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin_side/beranda" ?>" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">Beranda</span></a>
-                </li> -->
+                <li> <a class="waves-effect waves-dark" href="http://blog-sibilup.aplikasiku.online/" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">Home</span></a>
+                </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-buffer"></i><span class="hide-menu">Dashboard </span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="<?= base_url()."admin_side/rekap_rp3kp_provinsi" ?>">Rekap RP3KP Provinsi</a></li>
-                        <li><a href="<?= base_url()."admin_side/rekap_rp3kp_kabkota" ?>">Rekap RP3KP<br>Kabupaten/ Kota</a></li>
-                        <li><a href="<?= base_url()."admin_side/rekap_pokja_pkp_provinsi" ?>">Rekap Pokja PKP Provinsi</a></li>
-                        <li><a href="<?= base_url()."admin_side/rekap_pokja_pkp_kabkota" ?>">Rekap Pokja PKP<br>Kabupaten/ Kota</a></li>
+                        <li><a href="<?= base_url()."admin_side/rekap_rp3kp_provinsi" ?>">Penyusunan<br>RP3KP Provinsi</a></li>
+                        <li><a href="<?= base_url()."admin_side/rekap_rp3kp_kabkota" ?>">Penyusunan RP3KP<br>Kabupaten/ Kota</a></li>
+                        <li><a href="<?= base_url()."admin_side/rekap_pokja_pkp_provinsi" ?>">Pembentukan<br>Pokja PKP Provinsi</a></li>
+                        <li><a href="<?= base_url()."admin_side/rekap_pokja_pkp_kabkota" ?>">Pembentukan Pokja PKP<br>Kabupaten/ Kota</a></li>
+                        <li><a href="#">Capaian SPM Perumahan</a></li>
+                        <li><a href="#">Implementasi PUG</a></li>
                     </ul>
                 </li>
                 <?php if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
@@ -57,8 +59,10 @@
                 </li>
                 <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin/hubungi_kami" ?>" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Ruang Konsultasi</span></a>
                 </li>
+                <?php if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
                 <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin_side/aspirasi" ?>" aria-expanded="false"><i class="mdi mdi-account-card-details"></i><span class="hide-menu">Hubungi Kami</span></a>
                 </li>
+                <?php }else{echo'';}?>
                 <!-- <li> <a class="waves-effect waves-dark" href="<?= base_url()."admin_side/faq" ?>" aria-expanded="false"><i class="mdi mdi-file-document-box"></i><span class="hide-menu">FAQ</span></a>
                 </li> -->
             </ul>

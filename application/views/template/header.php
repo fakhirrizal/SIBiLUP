@@ -57,7 +57,7 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="#">
                         
                             <img style="width: 240px;" src="<?= base_url() ?>assets/images/Kementerian-PUPR.png" />
                         </a> 
@@ -89,6 +89,7 @@
                         <!-- ============================================================== -->
                         <!-- Profile -->
                         <!-- ============================================================== -->
+                        <?php if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
                         <li class="nav-item dropdown">
                             <?php $hub = $this->db->query("SELECT COUNT(*) AS jml FROM hubungi_kami WHERE status='0'")->row(); 
                                   $disk = $this->db->query("SELECT COUNT(*) AS jml FROM diskusi WHERE status='0'")->row();  ?>
@@ -98,23 +99,25 @@
                             <div class="dropdown-menu dropdown-menu-right mailbox scale-up">
                                 <ul>
                                     <li>
-                                        <div class="drop-title">Notifications</div>
+                                        <div class="drop-title">Notifikasi</div>
                                     </li>
                                     <li>
                                         <div class="message-center">
                                             <?php if ($hub->jml != 0) { ?>
                                             <a href="<?= base_url().'admin/hubungi_kami' ?>">
-                                                <div class="btn btn-primary btn-circle"><i class="ti-user"></i></div>
+                                                <div class="btn btn-primary btn-circle"><i class="ti-email"></i></div>
                                                 <div class="mail-contnet">
-                                                    <h5>Hubungi Kami</h5> <span class="mail-desc">Ada <?= $hub->jml ?> pesan baru di menu hubungi kami</span> </div>
+                                                    <!-- <h5>Hubungi Kami</h5> <span class="mail-desc">Ada <?= $hub->jml ?> pesan baru di menu hubungi kami</span> </div> -->
+                                                    <h5>Ruang Konsultasi</h5> <span class="mail-desc">Ada pesan baru di menu ruang konsultasi</span> </div>
                                             </a>
                                             <?php } ?>
                                             <?php $hub = $this->db->query("SELECT COUNT(*) AS jml FROM hubungi_kami WHERE status='0'")->row(); 
                                             if ($disk->jml != 0) { ?>
                                             <a href="<?= base_url().'admin/diskusi' ?>">
-                                                <div class="btn btn-primary btn-circle"><i class="ti-user"></i></div>
+                                                <div class="btn btn-primary btn-circle"><i class="ti-email"></i></div>
                                                 <div class="mail-contnet">
-                                                    <h5>Diskusi</h5> <span class="mail-desc">Ada <?= $disk->jml ?> pesan baru di menu Diskusi</span> </div>
+                                                    <!-- <h5>Diskusi</h5> <span class="mail-desc">Ada <?= $disk->jml ?> pesan baru di menu Diskusi</span> </div> -->
+                                                    <h5>Diskusi</h5> <span class="mail-desc">Ada pesan baru di menu Diskusi</span> </div>
                                             </a>
                                             <?php } ?>
                                         </div>
@@ -122,6 +125,7 @@
                                 </ul>
                             </div>
                         </li>
+                        <?php }else{echo'';}?>
                         <li class="nav-item dropdown">
                             <?php if ($this->session->userdata('foto') == "") {
                                 $fotoku = "user.png";

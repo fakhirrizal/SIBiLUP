@@ -55,7 +55,7 @@ foreach($css_files as $file): ?>
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="#">
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             
@@ -95,7 +95,43 @@ foreach($css_files as $file): ?>
                         <!-- ============================================================== -->
                         <!-- Profile -->
                         <!-- ============================================================== -->
-                        
+                        <?php if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
+                        <li class="nav-item dropdown">
+                            <?php $hub = $this->db->query("SELECT COUNT(*) AS jml FROM hubungi_kami WHERE status='0'")->row(); 
+                                  $disk = $this->db->query("SELECT COUNT(*) AS jml FROM diskusi WHERE status='0'")->row();  ?>
+                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message"></i>
+                                <div class="<?php if ($hub->jml != 0 OR $disk->jml != 0) { echo "notify"; } ?>"> <span class="heartbit"></span> <span class="point"></span> </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox scale-up">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">Notifikasi</div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center">
+                                            <?php if ($hub->jml != 0) { ?>
+                                            <a href="<?= base_url().'admin/hubungi_kami' ?>">
+                                                <div class="btn btn-primary btn-circle"><i class="ti-email"></i></div>
+                                                <div class="mail-contnet">
+                                                    <!-- <h5>Hubungi Kami</h5> <span class="mail-desc">Ada <?= $hub->jml ?> pesan baru di menu hubungi kami</span> </div> -->
+                                                    <h5>Ruang Konsultasi</h5> <span class="mail-desc">Ada pesan baru di menu ruang konsultasi</span> </div>
+                                            </a>
+                                            <?php } ?>
+                                            <?php $hub = $this->db->query("SELECT COUNT(*) AS jml FROM hubungi_kami WHERE status='0'")->row(); 
+                                            if ($disk->jml != 0) { ?>
+                                            <a href="<?= base_url().'admin/diskusi' ?>">
+                                                <div class="btn btn-primary btn-circle"><i class="ti-email"></i></div>
+                                                <div class="mail-contnet">
+                                                    <!-- <h5>Diskusi</h5> <span class="mail-desc">Ada <?= $disk->jml ?> pesan baru di menu Diskusi</span> </div> -->
+                                                    <h5>Diskusi</h5> <span class="mail-desc">Ada pesan baru di menu Diskusi</span> </div>
+                                            </a>
+                                            <?php } ?>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <?php }else{echo'';}?>
                         <li class="nav-item dropdown">
                             <?php if ($this->session->userdata('foto') == "") {
                                 $fotoku = "user.png";

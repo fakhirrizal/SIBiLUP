@@ -1,5 +1,5 @@
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
@@ -43,14 +43,14 @@
 	}
 </style>
 <style media="all" type="text/css">
-    .alignCenter { text-align: center; }
+    .alignCenter { vertical-align : middle;text-align: center; }
 </style>
 <ul class="page-breadcrumb breadcrumb">
 	<li>
 		<h3>Catatan</h3>
 	</li>
 	<li>
-		
+		Data yang disajikan adalah data pada tahun berjalan (<?= date('Y'); ?>)
 	</li>
 	<li>
 		
@@ -61,6 +61,7 @@
 <?= $this->session->flashdata('gagal') ?>
 <br>
 <div class="page-content-inner">
+
 	<div class="row">
 		<div class="col-lg-12 col-md-12">
 			<div class="card">
@@ -73,9 +74,9 @@
                                 <!-- <a class="btn btn-success btn-sm tombol-kanan" href="<?=base_url('admin_side/tambah_data_kabkot');?>">Tambah Data Baru</a> -->
 							</div>
 							<style>
-								#chartdiv {
+								#chartdiv1 {
 									width: 100%;
-									height: 500px;
+									height: 750px;
 								}
 							</style>
 
@@ -90,7 +91,11 @@
 									am4core.useTheme(am4themes_kelly);
 									am4core.useTheme(am4themes_animated);
 
-									var chart = am4core.create("chartdiv", am4charts.XYChart3D);
+									var chart = am4core.create("chartdiv1", am4charts.XYChart3D);
+									var title = chart.titles.create();
+									title.text = "Rekap Status RP3KP Kabupaten/ Kota";
+									title.fontSize = 25;
+									title.marginBottom = 30;
 
 									// chart.data = [{
 									// 	"nm_provinsi": "USA",
@@ -118,10 +123,12 @@
 									<?php
 									foreach ($data_provinsi as $key => $value) {
 										echo'{"nm_provinsi": "'.$value->nm_provinsi.'",';
-										$get_sudah = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.review='V' OR a.sudah='V') AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
+										$get_sudah = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.review='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
 										echo'"sudah": '.count($get_sudah).',';
-										$get_sedang = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.menganggarkan='V' OR a.sedang='V') AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
+										$get_sedang = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.sedang='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
 										echo'"sedang": '.count($get_sedang).',';
+										$get_menganggarkan = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.menganggarkan='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
+										echo'"menganggarkan": '.count($get_menganggarkan).',';
 										$get_belum = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.belum='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
 										echo'"belum": '.count($get_belum).'},';
 									}
@@ -130,7 +137,8 @@
 									var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
 									categoryAxis.dataFields.category = "nm_provinsi";
 									categoryAxis.renderer.grid.template.location = 0;
-									categoryAxis.renderer.minGridDistance = 300;
+									categoryAxis.renderer.minGridDistance = 30;
+									categoryAxis.renderer.labels.template.rotation = 270;
 
 									var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 									valueAxis.title.text = "Jumlah Kabupaten/ Kota";
@@ -142,7 +150,7 @@
 									var series = chart.series.push(new am4charts.ColumnSeries3D());
 									series.dataFields.valueY = "sudah";
 									series.dataFields.categoryX = "nm_provinsi";
-									series.name = "Year 2017";
+									series.name = "Sudah";
 									series.clustered = false;
 									series.columns.template.tooltipText = "di {categoryX} yang sudah menyusun RP3KP: [bold]{valueY}[/] Kabupaten/ Kota";
 									series.columns.template.fillOpacity = 0.9;
@@ -150,24 +158,189 @@
 									var series2 = chart.series.push(new am4charts.ColumnSeries3D());
 									series2.dataFields.valueY = "sedang";
 									series2.dataFields.categoryX = "nm_provinsi";
-									series2.name = "Year 2018";
+									series2.name = "Sedang";
 									series2.clustered = false;
 									series2.columns.template.tooltipText = "di {categoryX} yang sedang menyusun RP3KP: [bold]{valueY}[/] Kabupaten/ Kota";
 
 									var series3 = chart.series.push(new am4charts.ColumnSeries3D());
-									series3.dataFields.valueY = "belum";
+									series3.dataFields.valueY = "menganggarkan";
 									series3.dataFields.categoryX = "nm_provinsi";
-									series3.name = "Year 2019";
+									series3.name = "Menganggarkan TA <?= date('Y'); ?>";
 									series3.clustered = false;
-									series3.columns.template.tooltipText = "di {categoryX} yang belum menyusun RP3KP: [bold]{valueY}[/] Kabupaten/ Kota";
+									series3.columns.template.tooltipText = "di {categoryX} yang masih Menganggarkan RP3KP TA 2019: [bold]{valueY}[/] Kabupaten/ Kota";
+
+									var series4 = chart.series.push(new am4charts.ColumnSeries3D());
+									series4.dataFields.valueY = "belum";
+									series4.dataFields.categoryX = "nm_provinsi";
+									series4.name = "Belum";
+									series4.clustered = false;
+									series4.columns.template.tooltipText = "di {categoryX} yang belum menyusun RP3KP: [bold]{valueY}[/] Kabupaten/ Kota";
+								
+									chart.exporting.menu = new am4core.ExportMenu();
+									chart.exporting.menu.align = "left";
+									chart.exporting.menu.verticalAlign = "top";
+
+									chart.legend = new am4charts.Legend();
+									
 								});
 							</script>
+							<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+							<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+							<script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+							<?php
+							if($get_where=='' OR $get_where=='semua'){
+								echo'';
+							}else{
+								echo'
+								<div class="row">
+									<div class="col-md-6">
+										<div class="chartdiv2"></div>
+									</div>
+									<div class="col-md-6">
+										<div class="chartdiv3"></div>
+									</div>
+								</div>
+								';
+							}
+							?>
+							<script type="text/javascript">
+							$('.chartdiv2').highcharts({
+							chart: {
+							type: 'pie',
+							marginTop: 80
+							},
+							credits: {
+							enabled: false
+							}, 
+							tooltip: {
+							pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%)</b>'
+							},
+							title: {
+							text: 'Rekap Status Penyusunan'
+							},
+							subtitle: {
+							text: 'Provinsi <?php
+								$get_prov = $this->db->query("SELECT a.* FROM provinsi a WHERE a.id_provinsi='".$get_where."'")->row();
+								echo $get_prov->nm_provinsi;
+								?>'
+							},
+							xAxis: {
+							categories: ['JUMLAH'],
+							labels: {
+							style: {
+								fontSize: '10px',
+								fontFamily: 'Verdana, sans-serif'
+							}
+							}
+							},
+							legend: {
+							enabled: true
+							},
+							plotOptions: {
+							pie: {
+								allowPointSelect: true,
+								cursor: 'pointer',
+								dataLabels: {
+								enabled: false
+								},
+								showInLegend: true
+							}
+							},
+							series: [{
+							'name':'Jumlah Kabupaten/ Kota',
+							'data':[
+								['Belum',<?php
+								$get_belum = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a RIGHT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.belum='V' OR a.belum IS NULL) AND b.id_provinsi='".$get_where."' AND a.tahun='".date('Y')."'")->result();
+								echo count($get_belum);
+								?>],
+								['Menganggarkan',<?php
+								$get_menganggarkan = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a RIGHT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.menganggarkan='V' AND b.id_provinsi='".$get_where."' AND a.tahun='".date('Y')."'")->result();
+								echo count($get_menganggarkan);
+								?>],
+								['Sedang',<?php
+								$get_sedang = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a RIGHT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.sedang='V' AND b.id_provinsi='".$get_where."' AND a.tahun='".date('Y')."'")->result();
+								echo count($get_sedang);
+								?>]
+							]
+							}]
+							});
+							</script>
 
-							<div id="chartdiv"></div>
+							<script type="text/javascript">
+							$('.chartdiv3').highcharts({
+							chart: {
+							type: 'pie',
+							marginTop: 80
+							},
+							credits: {
+							enabled: false
+							}, 
+							tooltip: {
+							pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%</b>)'
+							},
+							title: {
+							text: 'Rekap Status Legalisasi'
+							},
+							subtitle: {
+							text: 'Provinsi <?php
+								$get_prov = $this->db->query("SELECT a.* FROM provinsi a WHERE a.id_provinsi='".$get_where."'")->row();
+								echo $get_prov->nm_provinsi;
+								?>'
+							},
+							xAxis: {
+							categories: ['JUMLAH'],
+							labels: {
+							style: {
+								fontSize: '10px',
+								fontFamily: 'Verdana, sans-serif'
+							}
+							}
+							},
+							legend: {
+							enabled: true
+							},
+							plotOptions: {
+							pie: {
+								allowPointSelect: true,
+								cursor: 'pointer',
+								dataLabels: {
+								enabled: false
+								},
+								showInLegend: true
+							}
+							},
+							series: [{
+							'name':'Jumlah Kabupaten/ Kota',
+							'data':[
+								['Belum',<?php
+								$get_belum_legal = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE (a.belum_legal='V' OR a.belum_legal IS NULL) AND b.id_provinsi='".$get_where."' AND a.tahun='".date('Y')."'")->result();
+								echo count($get_belum_legal);
+								?>],
+								['Review',<?php
+								$get_review = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.review='V' AND b.id_provinsi='".$get_where."' AND a.tahun='".date('Y')."'")->result();
+								echo count($get_review);
+								?>],
+								['Sudah',<?php
+								$get_review = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.sudah='V' AND b.id_provinsi='".$get_where."' AND a.tahun='".date('Y')."'")->result();
+								echo count($get_review);
+								?>]
+							]
+							}]
+							});
+							</script>
+
+							<?php
+							if($get_where=='' OR $get_where=='semua'){
+								echo'<div id="chartdiv1"></div>';
+							}else{
+								echo'';
+							}
+							?>
+							
 							<br>
 							<div class="sDiv quickSearchBox" id="quickSearchBox">
 								<div class="sDiv2">
-									<form action="<?=base_url('admin_side/rekap_rp3kp_provinsi');?>" method="post">
+									<form action="<?=base_url('admin_side/rekap_rp3kp_kabkota');?>" method="post">
 									Filter Pencarian&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<select name="search_field" id="search_field" style="background: white;color: black;padding: 5px;" required>
 										<option value="">-- Pilih Provinsi --</option>
@@ -207,10 +380,13 @@
                                     </tr> -->
 									<tr>
                                         <th style="vertical-align : middle;text-align:center;" width="4%" > # </th>
-										<th style="vertical-align : middle;text-align:center;" width="40%"> Nama Kabupaten/ Kota </th>
+										<th style="vertical-align : middle;text-align:center;" width="20%"> Provinsi </th>
+										<th style="vertical-align : middle;text-align:center;" width="20%"> Kabupaten/ Kota </th>
 										<th style="vertical-align : middle;text-align:center;" width="20%"> Status Penyusunan </th>
                                         <th style="vertical-align : middle;text-align:center;" width="20%"> Status Legalisasi </th>
-                                        <th style="vertical-align : middle;text-align:center;" width="10%"> Aksi </th>
+										<?php // if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
+										<th style="vertical-align : middle;text-align:center;" width="10%"> Aksi </th>
+										<?php // }else{echo'';} ?>
                                     </tr>
                                 </thead>
                             </table>
@@ -220,15 +396,19 @@
                                         "order": [[ 0, "asc" ]],
                                         "bProcessing": true,
                                         "ajax" : {
+											type:"POST",
                                             url:"<?= site_url('admin/Map/json_rekap_rp3kp_kabupaten'); ?>",
 											data: {modul:"<?= $get_where; ?>"}
                                         },
                                         "aoColumns": [
                                                     { mData: 'number', sClass: "alignCenter" },
+                                                    { mData: 'prov', sClass: "alignCenter" },
                                                     { mData: 'nm_kabupaten', sClass: "alignCenter" },
                                                     { mData: 'status', sClass: "alignCenter" },
                                                     { mData: 'legalisasi', sClass: "alignCenter" },
+													<?php // if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
 													{ mData: 'action', sClass: "alignCenter" }
+													<?php // }else{echo'';} ?>
                                                 ]
                                     });
                                 });

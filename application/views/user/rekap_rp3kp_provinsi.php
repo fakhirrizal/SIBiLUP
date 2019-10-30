@@ -44,20 +44,20 @@
 	}
 </style>
 <style media="all" type="text/css">
-    .alignCenter { text-align: center; }
+    .alignCenter { vertical-align : middle;text-align: center; }
 </style>
-<!-- <ul class="page-breadcrumb breadcrumb">
+<br>
+<ul class="page-breadcrumb breadcrumb">
 	<li>
 		<h3>Catatan</h3>
 	</li>
 	<li>
-		
+		Data yang disajikan adalah data pada tahun berjalan (<?= date('Y'); ?>)
 	</li>
 	<li>
 		
 	</li>
 </ul>
-<br> -->
 <?= $this->session->flashdata('sukses') ?>
 <?= $this->session->flashdata('gagal') ?>
 <br>

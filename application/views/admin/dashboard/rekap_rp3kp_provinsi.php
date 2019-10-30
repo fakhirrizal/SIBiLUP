@@ -44,14 +44,14 @@
 	}
 </style>
 <style media="all" type="text/css">
-    .alignCenter { text-align: center; }
+    .alignCenter { vertical-align : middle;text-align: center; }
 </style>
 <ul class="page-breadcrumb breadcrumb">
 	<li>
 		<h3>Catatan</h3>
 	</li>
 	<li>
-		
+		Data yang disajikan adalah data pada tahun berjalan (<?= date('Y'); ?>)
 	</li>
 	<li>
 		
@@ -145,6 +145,10 @@
 							series.slices.template.cornerRadius = 5;
 							series.colors.step = 3;
 
+							chart.exporting.menu = new am4core.ExportMenu();
+							chart.exporting.menu.align = "left";
+							chart.exporting.menu.verticalAlign = "top";
+
 							}); // end am4core.ready()
 							</script>
 
@@ -177,8 +181,10 @@
                                         <th style="vertical-align : middle;text-align:center;" width="4%" > # </th>
 										<th style="vertical-align : middle;text-align:center;" > Nama Provinsi </th>
 										<th style="vertical-align : middle;text-align:center;" > Status Penyusunan </th>
-                                        <th style="vertical-align : middle;text-align:center;" > Status Legalisasi </th>
-                                        <th style="vertical-align : middle;text-align:center;" > Aksi </th>
+										<th style="vertical-align : middle;text-align:center;" > Status Legalisasi </th>
+										<?php // if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
+										<th style="vertical-align : middle;text-align:center;" > Aksi </th>
+										<?php // }else{echo'';} ?>
                                     </tr>
                                 </thead>
                             </table>
@@ -195,7 +201,9 @@
                                                     { mData: 'nm_provinsi', sClass: "alignCenter" },
                                                     { mData: 'status', sClass: "alignCenter" },
                                                     { mData: 'legalisasi', sClass: "alignCenter" },
+													<?php // if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
 													{ mData: 'action', sClass: "alignCenter" }
+													<?php // }else{echo'';} ?>
                                                 ]
                                     });
                                 });

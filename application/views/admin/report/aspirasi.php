@@ -40,7 +40,7 @@
 	}
 </style>
 <style media="all" type="text/css">
-    .alignCenter { text-align: center; }
+    .alignCenter { vertical-align : middle;text-align: center; }
 </style>
 <ul class="page-breadcrumb breadcrumb">
 	<li>
