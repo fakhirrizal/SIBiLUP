@@ -221,21 +221,22 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
 
-    <?php if ($this->uri->segment(2) != "diskusi") { ?>
+    <?php if ($this->uri->segment(2) != "diskusi" AND $this->uri->segment(2) != "hubungi_kami") { ?>
         <script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
+        <script src="<?= base_url() ?>assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!--stickey kit -->
+    <script src="<?= base_url() ?>assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+   
     <?php } ?>   <!-- Bootstrap tether Core JavaScript -->
 
     <script src="<?= base_url() ?>assets/plugins/bootstrap/js/tether.min.js"></script>
     <script src="<?php echo base_url(); ?>___/plugin/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?= base_url() ?>assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="<?= base_url() ?>js/jquery.slimscroll.js"></script>
     <!--Wave Effects -->
     <script src="<?= base_url() ?>js/waves.js"></script>
     <!--Menu sidebar -->
     <script src="<?= base_url() ?>js/sidebarmenu.js"></script>
-    <!--stickey kit -->
-    <script src="<?= base_url() ?>assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
     <script src="<?= base_url() ?>js/custom.min.js"></script>
     <!-- ============================================================== -->

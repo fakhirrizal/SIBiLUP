@@ -36,6 +36,9 @@ class Diskusi extends CI_Controller {
         if($this->form_validation->run() === TRUE){
             $datauploads['id_pgw'] = $this->session->userdata('admin_konid');
             $datauploads['isi'] = $post['pesan'];
+            if ($this->input->post('reply')) {
+                $datauploads['reply'] = $post['reply'];
+            }
             $this->Crud_model->input('diskusi',$datauploads);
             redirect('admin/diskusi', 'refresh');
         } else {

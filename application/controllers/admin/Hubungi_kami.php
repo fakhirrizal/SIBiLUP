@@ -23,7 +23,7 @@ class Hubungi_kami extends CI_Controller {
         $pt['join']['ref']		= "id_pgw";
         $pt['join']['key']		= "id_pegawai";
        // $pt['condition']['id_pgw'] = $this->session->userdata('admin_konid');
-        $pt['column']			= "hubungi_kami.*,nama_pegawai";
+        $pt['column']			= "hubungi_kami.*,nama_pegawai,id_pegawai";
         //$data['ulasan'] = $this->Crud_model->get_data($pt);
 
         $pt['groupby']			= "id_pgw";
@@ -46,7 +46,14 @@ class Hubungi_kami extends CI_Controller {
             } else {
                 $datauploads['id_pgw'] = $this->session->userdata('admin_konid');
             }
-            $datauploads['isi'] = $post['pesan'];
+
+            if ($this->input->post('reply')) {
+                $psn = explode("*/", $post['pesan']);
+                $datauploads['isi'] = $psn[1];
+                $datauploads['reply'] = $post['reply'];
+            } else {
+                $datauploads['isi'] = $post['pesan'];
+            }
             $this->Crud_model->input('hubungi_kami',$datauploads);
 
             //$data['kepada'] = $post['kepada'];

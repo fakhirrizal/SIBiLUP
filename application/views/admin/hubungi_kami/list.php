@@ -34,6 +34,14 @@ body {font-family: "Lato", sans-serif;}
   font-size: 17px;
 }
 
+.abc {
+  background-color: lightgrey;
+  width: 450px;
+  border: 2px solid black;
+  padding: 5px;
+  margin: 2px;
+}
+
 /* Change background color of buttons on hover */
 .tab button:hover {
   background-color: #ddd;
@@ -62,9 +70,9 @@ div.ex1 {
                     <input class="form-control" id="myInput" type="text" placeholder="Cari Pegawai.."> <br><br>
                     <div class="tab" id="myTable">
                         <div class="ex1">
-                            <button class="tablinks" onclick="openCity(event, 'pesan_baru')" <?php if ($kepada == "0") { ?> id="defaultOpen" <?php } ?> >Tulis Pesan</button>
+                            <button class="tablinks" onclick="openCity(event, 'pesan_baru')" <?php if ($kepada == "0" AND (!$this->input->get('idhub'))) { ?> id="defaultOpen" <?php } ?> >Tulis Pesan</button>
                             <?php foreach ($datpgw as $dp) { ?>
-                              <button class="tablinks" <?php if ($kepada == $dp['id_pgw']) { ?> id="defaultOpen" <?php } ?> onclick="openCity(event, <?= $dp['id_pgw'] ?>)"><?= $dp['nama_pegawai'] ?></button>
+                              <button class="tablinks" <?php if ($kepada == $dp['id_pgw'] OR $dp['id_pgw'] == $this->input->get('id_peg')) { ?> id="defaultOpen" <?php } ?> onclick="openCity(event, <?= $dp['id_pgw'] ?>)"><?= $dp['nama_pegawai'] ?></button>
                             <?php } ?>
                         </div>
                     </div>
@@ -108,8 +116,16 @@ div.ex1 {
                           $pt['join']['ref']    = "id_pgw";
                           $pt['join']['key']    = "id_pegawai";
                           $pt['condition']['id_pgw'] = $dp['id_pgw'];
-                          $pt['column']     = "hubungi_kami.*,nama_pegawai";
-                          $ulasan = $this->Crud_model->get_data($pt); ?>
+                          $pt['column']     = "hubungi_kami.*,nama_pegawai,id_pegawai";
+                          $ulasan = $this->Crud_model->get_data($pt); 
+                          if ($this->input->get('idhub')) {
+                            $hubs = $this->input->get('idhub');
+                            $rply = $this->db->query("SELECT a.*,b.nama_pegawai,b.id_pegawai FROM hubungi_kami a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_hub='$hubs'")->row_array();
+                            $replyne = "\* Balasan Untuk Pesan : ".$rply['isi']." */";
+                          } else {
+                            $replyne = "";
+                          }
+                          ?>
                         <div id="<?= $dp['id_pgw'] ?>" class="tabcontent">
                             <div class="card-block">
                                 <div class="profiletimeline">
@@ -120,8 +136,11 @@ div.ex1 {
                                               <div class="form-group">
                                                 <div class="col-md-9">
                                                   <label for="exampleInputPassword1">Balas</label><br>
-                                                  <textarea class="form-control editor" name="pesan" style="width: 500px; height: 80px"></textarea>
+                                                  <textarea class="form-control editor" name="pesan" style="width: 500px; height: 80px"><?= $replyne ?></textarea>
                                                   <input type="hidden" name="kepada" value="<?= $dp['id_pgw'] ?>">
+                                                  <?php if ($this->input->get('idhub')) { ?>
+                                                  <input type="hidden" name="reply" value="<?= $this->input->get('idhub') ?>">
+                                                  <?php } ?>
                                                 </div>
                                                 <div class="col-md-3">
                                                   <input type="submit" class="btn btn-warning" value="Balas">
@@ -133,17 +152,57 @@ div.ex1 {
                                               <?php if ($ul['penjawab'] == '0') { ?>
                                                 <div class="sl-right" align="left">
                                                     <div><a href="#" class="link col-md-9"><?= $ul['nama_pegawai'] ?></a><br> <span class="sl-date col-md-9"><?= fdate($ul['create_at'], "HHDDMMYYYY"); ?></span>
+                                                      <?php if ($ul['reply'] != '0') {
+                                                      $reply = $ul['reply']; 
+                                                        $rep = $this->db->query("SELECT a.*,b.nama_pegawai FROM hubungi_kami a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_hub = '$reply'")->row_array(); ?>
+                                                        <div class="abc"><div><b><h5><?= $rep['nama_pegawai'] ?></h5></b> <span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span><p> <?= $rep['isi'] ?> </p></div></div>
+                                                      <?php } ?>
                                                         <p class="m-t-10 col-md-10" style="text-align: justify;"> <?= $ul['isi'] ?> </p>
+                                                        
+                                                        <form action="" method="get">
+                                                          <input type="hidden" name="idhub" value="<?= $ul['id_hub'] ?>">
+                                                          <input type="hidden" name="id_peg" value="<?= $ul['id_pegawai'] ?>">
+                                                        <button type="submit" class="btn btn-info">Balas</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                               <?php } else { ?>
                                                 <div class="sl-right" align="right">
                                                     <div><a href="#" class="link col-md-9">Admin</a><br> <span class="sl-date col-md-9"><?= fdate($ul['create_at'], "HHDDMMYYYY"); ?></span>
                                                         <p class="col-md-2"></p>
+                                                        <?php if ($ul['reply'] != '0') {
+                                                        $reply = $ul['reply']; 
+                                                          $rep = $this->db->query("SELECT a.*,b.nama_pegawai FROM hubungi_kami a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_hub = '$reply'")->row_array(); ?>
+                                                          <div class="abc"><div><b><h5><?= $rep['nama_pegawai'] ?></h5></b> <span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span><p> <?= $rep['isi'] ?> </p></div></div>
+                                                        <?php } ?>
                                                         <p class="m-t-10 col-md-10" > <?= $ul['isi'] ?> </p>
                                                     </div>
                                                 </div>
-                                            <?php } } ?>
+                                            <?php } ?>
+                                                <div class="modal fade" id="myModal<?= $ul['id_hub'] ?>" role="dialog">
+                                                    <div class="modal-dialog">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                          <h4 class="modal-title"><?= $ul['nama_pegawai'] ?></h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                         <form method="post" action="" enctype="multipart/form-data">
+                                                          <div class="form-group">
+                                                            <label for="exampleInputPassword1">Pesan</label><br>
+                                                            <textarea class="form-control editor" name="pesan" style="width: 220px; height: 250px"></textarea>
+                                                            <input type="hidden" name="reply" value="<?= $ul['id_hub'] ?>">
+                                                          </div>
+                                                          <input type="submit" class="btn btn-warning" value="KIRIM">
+                                                        </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>

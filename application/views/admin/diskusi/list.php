@@ -7,7 +7,16 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/tinymce/tinymce.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <style>
+.abc {
+  background-color: lightgrey;
+  width: 450px;
+  border: 2px solid black;
+  padding: 5px;
+  margin: 2px;
+}
+
 * {box-sizing: border-box}
 body {font-family: "Lato", sans-serif;}
 
@@ -91,9 +100,39 @@ div.ex1 {
                                             <?php foreach ($ulasan as $ul) { ?>
                                                 <div class="sl-right">
                                                     <div><b><h3><?= $ul['nama_pegawai'] ?></h3></b> <span class="sl-date"><?= fdate($ul['create_at'], "HHDDMMYYYY"); ?></span>
+                                                      <?php if ($ul['reply'] != '0') {
+                                                      $reply = $ul['reply']; 
+                                                        $rep = $this->db->query("SELECT a.*,b.nama_pegawai FROM diskusi a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_diskusi = '$reply'")->row_array(); ?>
+                                                        <div class="abc"><div><b><h5><?= $rep['nama_pegawai'] ?></h5></b> <span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span><p> <?= $rep['isi'] ?> </p></div></div>
+                                                      <?php } ?>
                                                         <p> <?= $ul['isi'] ?> </p>
+                                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?= $ul['id_diskusi'] ?>">Balas</button>
                                                     </div>
                                                 </div>
+
+                                                  <div class="modal fade" id="myModal<?= $ul['id_diskusi'] ?>" role="dialog">
+                                                    <div class="modal-dialog">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                          <h4 class="modal-title"><?= $ul['nama_pegawai'] ?></h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                         <form method="post" action="" enctype="multipart/form-data">
+                                                          <div class="form-group">
+                                                            <label for="exampleInputPassword1">Pesan</label><br>
+                                                            <textarea class="form-control editor" name="pesan" style="width: 220px; height: 250px"></textarea>
+                                                            <input type="hidden" name="reply" value="<?= $ul['id_diskusi'] ?>">
+                                                          </div>
+                                                          <input type="submit" class="btn btn-warning" value="KIRIM">
+                                                        </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
                                             <?php } ?>
                                         </div>
                                     </div>
@@ -133,7 +172,7 @@ $('#kepada').select2();
     selector:'.editor',
     theme: 'modern',
     height : 200,
-    width: 620,
+    width: 450,
     resize: false,
     plugins: "link"
   }); 
