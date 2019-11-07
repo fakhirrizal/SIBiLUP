@@ -143,6 +143,7 @@ div.ex1 {
                                                   <?php } ?>
                                                 </div>
                                                 <div class="col-md-3">
+                                                  <br>
                                                   <input type="submit" class="btn btn-warning" value="Balas">
                                                 </div>
                                               </div>
