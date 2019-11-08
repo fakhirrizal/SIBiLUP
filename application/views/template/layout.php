@@ -94,9 +94,9 @@
                         <!-- ============================================================== -->
                         <?php if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
                         <li class="nav-item dropdown">
-                            <?php $hub = $this->db->query("SELECT COUNT(*) AS jml FROM hubungi_kami WHERE status='0'")->row(); 
-                                  $disk = $this->db->query("SELECT COUNT(*) AS jml FROM diskusi WHERE status='0'")->row();  ?>
-                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message"></i>
+                            <?php $hub = $this->db->query("SELECT COUNT(*) AS jml FROM hubungi_kami WHERE status='1'")->row(); 
+                                  $disk = $this->db->query("SELECT COUNT(*) AS jml FROM diskusi WHERE status='1'")->row();  ?>
+                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message"><?= ($hub->jml+$disk->jml) ?></i>
                                 <div class="<?php if ($hub->jml != 0 OR $disk->jml != 0) { echo "notify"; } ?>"> <span class="heartbit"></span> <span class="point"></span> </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mailbox scale-up">
@@ -111,7 +111,7 @@
                                                 <div class="btn btn-primary btn-circle"><i class="ti-email"></i></div>
                                                 <div class="mail-contnet">
                                                     <!-- <h5>Hubungi Kami</h5> <span class="mail-desc">Ada <?= $hub->jml ?> pesan baru di menu hubungi kami</span> </div> -->
-                                                    <h5>Ruang Konsultasi</h5> <span class="mail-desc">Ada pesan baru di menu ruang konsultasi</span> </div>
+                                                    <h5>Ruang Konsultasi (<?= $hub->jml ?> pesan)</h5> <span class="mail-desc">Ada pesan baru di menu ruang konsultasi</span> </div>
                                             </a>
                                             <?php } ?>
                                             <?php $hub = $this->db->query("SELECT COUNT(*) AS jml FROM hubungi_kami WHERE status='0'")->row(); 
@@ -120,7 +120,7 @@
                                                 <div class="btn btn-primary btn-circle"><i class="ti-email"></i></div>
                                                 <div class="mail-contnet">
                                                     <!-- <h5>Diskusi</h5> <span class="mail-desc">Ada <?= $disk->jml ?> pesan baru di menu Diskusi</span> </div> -->
-                                                    <h5>Diskusi</h5> <span class="mail-desc">Ada pesan baru di menu Diskusi</span> </div>
+                                                    <h5>Diskusi (<?= $disk->jml ?> pesan)</h5> <span class="mail-desc">Ada pesan baru di menu Diskusi</span> </div>
                                             </a>
                                             <?php } ?>
                                         </div>
