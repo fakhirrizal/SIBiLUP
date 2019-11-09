@@ -97,8 +97,8 @@ foreach($css_files as $file): ?>
                         <!-- ============================================================== -->
                         <?php if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { ?>
                         <li class="nav-item dropdown">
-                            <?php $hub = $this->db->query("SELECT COUNT(*) AS jml FROM hubungi_kami WHERE status='1'")->row(); 
-                                  $disk = $this->db->query("SELECT COUNT(*) AS jml FROM diskusi WHERE status='1'")->row();  ?>
+                            <?php $hub = $this->db->query("SELECT COUNT(*) AS jml FROM hubungi_kami WHERE status='0'")->row(); 
+                                  $disk = $this->db->query("SELECT COUNT(*) AS jml FROM diskusi WHERE status='0'")->row();  ?>
                             <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message"><?= ($hub->jml+$disk->jml) ?></i>
                                 <div class="<?php if ($hub->jml != 0 OR $disk->jml != 0) { echo "notify"; } ?>"> <span class="heartbit"></span> <span class="point"></span> </div>
                             </a>

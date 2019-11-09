@@ -29,8 +29,10 @@ class Hubungi_kami extends CI_Controller {
         $pt['groupby']			= "id_pgw";
         $data['datpgw'] = $this->Crud_model->get_data($pt);
 
-        $upd['status'] = '0';
-        $this->Crud_model->update("hubungi_kami",$upd,array("status"=>"1"));
+        if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { 
+            $upd['status'] = '1';
+            $this->Crud_model->update("hubungi_kami",$upd,array("status"=>"0"));
+        }
 
         $pt1['table']			= "pegawai";
         $pt1['type']		    = "multiple";

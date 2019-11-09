@@ -28,8 +28,10 @@ class Diskusi extends CI_Controller {
         $pt['column']     = "diskusi.*,nama_pegawai";
         $data['ulasan'] = $this->Crud_model->get_data($pt);
 
-        $upd['status'] = '0';
-        $this->Crud_model->update("diskusi",$upd,array("status"=>"1"));
+        if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { 
+            $upd['status'] = '1';
+            $this->Crud_model->update("diskusi",$upd,array("status"=>"0"));
+        }
 
         $post = $this->input->post();
         $this->_rules();
