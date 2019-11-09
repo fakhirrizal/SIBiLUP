@@ -96,7 +96,7 @@
                         <li class="nav-item dropdown">
                             <?php $hub = $this->db->query("SELECT COUNT(*) AS jml FROM hubungi_kami WHERE status='0'")->row(); 
                                   $disk = $this->db->query("SELECT COUNT(*) AS jml FROM diskusi WHERE status='0'")->row();  ?>
-                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message"><?= ($hub->jml+$disk->jml) ?></i>
+                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message"><?php if(($hub->jml+$disk->jml)==0)echo'';else{echo ($hub->jml+$disk->jml);} ?></i>
                                 <div class="<?php if ($hub->jml != 0 OR $disk->jml != 0) { echo "notify"; } ?>"> <span class="heartbit"></span> <span class="point"></span> </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mailbox scale-up">
