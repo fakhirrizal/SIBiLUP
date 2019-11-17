@@ -135,7 +135,7 @@ div.ex1 {
                                             <form method="post" action="" enctype="multipart/form-data">
                                               <div class="form-group">
                                                 <div class="col-md-9">
-                                                  <label for="exampleInputPassword1">Balas</label><br>
+                                                  <!-- <label for="exampleInputPassword1">Balas</label><br> -->
                                                   <textarea class="form-control editor" name="pesan" style="width: 500px; height: 80px"><?= $replyne ?></textarea>
                                                   <input type="hidden" name="kepada" value="<?= $dp['id_pgw'] ?>">
                                                   <?php if ($this->input->get('idhub')) { ?>
@@ -144,7 +144,7 @@ div.ex1 {
                                                 </div>
                                                 <div class="col-md-3">
                                                   <br>
-                                                  <input type="submit" class="btn btn-warning" value="Balas">
+                                                  <input type="submit" class="btn btn-warning" value="KIRIM">
                                                 </div>
                                               </div>
                                             </form>
@@ -152,31 +152,44 @@ div.ex1 {
                                             <?php foreach ($ulasan as $ul) { ?>
                                               <?php if ($ul['penjawab'] == '0') { ?>
                                                 <div class="sl-right" align="left">
-                                                    <div><a href="#" class="link col-md-9"><?= $ul['nama_pegawai'] ?></a><br> <span class="sl-date col-md-9"><?= fdate($ul['create_at'], "HHDDMMYYYY"); ?></span>
+                                                    <div class="chat-content pl-3 d-inline-block">
+                                                      <hr><h5 class="text-muted"><?= $ul['nama_pegawai'] ?></h5>
+                                                      <div class="chat-time d-inline-block text-right text-muted"><?= fdate($ul['create_at'], "HHDDMMYYYY"); ?></div>
                                                       <?php if ($ul['reply'] != '0') {
-                                                      $reply = $ul['reply']; 
+                                                        $reply = $ul['reply']; 
                                                         $rep = $this->db->query("SELECT a.*,b.nama_pegawai FROM hubungi_kami a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_hub = '$reply'")->row_array(); ?>
-                                                        <div class="abc"><div><b><h5><?= $rep['nama_pegawai'] ?></h5></b> <span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span><p> <?= $rep['isi'] ?> </p></div></div>
+                                                        <div class="abc">
+                                                          <div class="chat-content pl-3 d-inline-block">
+                                                            <b><h5 class="text-muted"><?= $rep['nama_pegawai'] ?></h5></b>
+                                                            <div class="chat-time d-inline-block text-right text-muted"><span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span></div>
+                                                            <p> <?= $rep['isi'] ?> </p>
+                                                          </div>
+                                                        </div>
                                                       <?php } ?>
+                                                      <br><div class="p-2 rounded bg-light-success d-inline-block mb-2 text-dark">
                                                         <p class="m-t-10 col-md-10" style="text-align: justify;"> <?= $ul['isi'] ?> </p>
+                                                      </div>
                                                         
                                                         <form action="" method="get">
                                                           <input type="hidden" name="idhub" value="<?= $ul['id_hub'] ?>">
                                                           <input type="hidden" name="id_peg" value="<?= $ul['id_pegawai'] ?>">
-                                                        <button type="submit" class="btn btn-info">Balas</button>
+                                                        <button type="submit" class="btn btn-info">BALAS</button>
                                                         </form>
                                                     </div>
                                                 </div>
+
                                               <?php } else { ?>
-                                                <div class="sl-right" align="right">
-                                                    <div><a href="#" class="link col-md-9">Admin</a><br> <span class="sl-date col-md-9"><?= fdate($ul['create_at'], "HHDDMMYYYY"); ?></span>
+                                                <div class="sl-right" align="right" style="margin-right: 10px;">
+                                                    <div class="chat-content pl-3 d-inline-block text-right">
+                                                      <hr><h5 class="text-muted">Admin</h5>
+                                                      <div class="chat-time d-inline-block text-right text-muted"><?= fdate($ul['create_at'], "HHDDMMYYYY"); ?></div>
                                                         <p class="col-md-2"></p>
                                                         <?php if ($ul['reply'] != '0') {
                                                         $reply = $ul['reply']; 
                                                           $rep = $this->db->query("SELECT a.*,b.nama_pegawai FROM hubungi_kami a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_hub = '$reply'")->row_array(); ?>
                                                           <div class="abc"><div><b><h5><?= $rep['nama_pegawai'] ?></h5></b> <span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span><p> <?= $rep['isi'] ?> </p></div></div>
                                                         <?php } ?>
-                                                        <p class="m-t-10 col-md-10" > <?= $ul['isi'] ?> </p>
+                                                        <div class="p-2 rounded bg-light-info d-inline-block mb-2 text-dark"><p class="m-t-10 col-md-10" > <?= $ul['isi'] ?> </p></div>
                                                     </div>
                                                 </div>
                                             <?php } ?>
@@ -216,7 +229,6 @@ div.ex1 {
         </div>
     </div>
 </div>
-
 <script>
 function openCity(evt, cityName) {
   var i, tabcontent, tablinks;

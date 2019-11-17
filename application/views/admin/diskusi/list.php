@@ -102,10 +102,10 @@ div.ex1 {
                                                       <?php if ($ul['reply'] != '0') {
                                                       $reply = $ul['reply']; 
                                                         $rep = $this->db->query("SELECT a.*,b.nama_pegawai FROM diskusi a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_diskusi = '$reply'")->row_array(); ?>
-                                                        <div class="abc"><div><b><h5><?= $rep['nama_pegawai'] ?></h5></b> <span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span><p> <?= $rep['isi'] ?> </p></div></div>
+                                                        <div class="abc"><div><b><h5><?= $rep['nama_pegawai'] ?></h5></b> <div class="chat-time d-inline-block text-right text-muted"><span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span></div><p> <?= $rep['isi'] ?> </p></div></div>
                                                       <?php } ?>
-                                                        <p> <?= $ul['isi'] ?> </p>
-                                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?= $ul['id_diskusi'] ?>">Balas</button>
+                                                        <br><div class="p-2 rounded bg-light-info d-inline-block mb-2 text-dark"><p> <?= $ul['isi'] ?> </p></div>
+                                                          <br><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?= $ul['id_diskusi'] ?>">Balas</button>
                                                     </div>
                                                 </div>
 

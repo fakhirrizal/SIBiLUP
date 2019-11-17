@@ -137,7 +137,7 @@ div.ex1 {
                                                         <form action="" method="get">
                                                           <input type="hidden" name="idhub" value="<?= $ul['id_hub'] ?>">
                                                           <input type="hidden" name="id_peg" value="<?= $ul['id_pegawai'] ?>">
-                                                          <button type="submit" class="btn btn-info">Balas</button>
+                                                          <button type="submit" class="btn btn-info">BALAS</button>
                                                         </form>
                                                     </div>
                                                 </div>
