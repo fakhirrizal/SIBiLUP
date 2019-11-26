@@ -169,8 +169,10 @@
 							</script>
                             
                             <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-							<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
-							<script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+							<script src="https://code.highcharts.com/highcharts.js"></script>
+							<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+							<script src="https://code.highcharts.com/modules/exporting.js"></script>
+							<script src="https://code.highcharts.com/modules/export-data.js"></script>
 							<?php
 							if($get_where=='' OR $get_where=='semua'){
 								echo'';
@@ -187,8 +189,12 @@
 							<script type="text/javascript">
 							$('.chartdiv2').highcharts({
 							chart: {
-							type: 'pie',
-							marginTop: 80
+								type: 'pie',
+								options3d: {
+								enabled: true,
+								alpha: 45,
+								beta: 0
+								}
 							},
 							credits: {
 							enabled: false
@@ -218,14 +224,16 @@
 							enabled: true
 							},
 							plotOptions: {
-							pie: {
+								pie: {
 								allowPointSelect: true,
 								cursor: 'pointer',
+								depth: 35,
+								showInLegend: true,
 								dataLabels: {
-								enabled: false
-								},
-								showInLegend: true
-							}
+									enabled: true,
+									format: '{point.name}'
+								}
+								}
 							},
 							series: [{
 							'name':'Jumlah Kabupaten/ Kota',
