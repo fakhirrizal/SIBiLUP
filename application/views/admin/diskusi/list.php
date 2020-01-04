@@ -56,9 +56,62 @@ body {font-family: "Lato", sans-serif;}
 
 div.ex1 {
   height: 600px;
-  overflow: scroll;
+  overflow: auto;
 }
 
+.card-block ::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+
+
+
+
+.profiletimeline {
+  margin-left: 0px;
+}
+#mceu_12 {
+  width: 100% !important;
+}
+.sl-right {
+  margin-right: 5px;
+}
+.manas {
+  -webkit-border-radius: 10px;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius: 10px;
+  -moz-border-radius-top-left: 0;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+}
+.manas p {
+  margin-bottom: 0px;
+}
+
+#pesan .profiletimeline
+{
+  background: linear-gradient(135deg, #70809000 21px, #fbfbfb 22px, #fbfbfb 24px, transparent 24px, transparent 67px, #fbfbfb 67px, #fbfbfb 69px, transparent 69px), linear-gradient(225deg, #70809000 21px, #fbfbfb 22px, #fbfbfb 24px, transparent 24px, transparent 67px, #fbfbfb 67px, #fbfbfb 69px, transparent 69px)0 64px;
+    background-color: #70809000;
+    background-size: 64px 128px;
+    padding: 0px 0px 0px 10px;
+}
+
+#pesan .p-2 {
+  padding: 0.2rem .5rem!important;
+}
+#pesan .card-block {
+  height: 602px;
+  padding-left: 0px;
+}
+#pesan div.ex1
+{
+  height: 544px;
+}
+
+#pesan h3{
+  text-decoration: underline;
+}
 </style>
 <div class="row">
     
@@ -104,7 +157,7 @@ div.ex1 {
                                                         $rep = $this->db->query("SELECT a.*,b.nama_pegawai FROM diskusi a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_diskusi = '$reply'")->row_array(); ?>
                                                         <div class="abc"><div><b><h5><?= $rep['nama_pegawai'] ?></h5></b> <div class="chat-time d-inline-block text-right text-muted"><span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span></div><p> <?= $rep['isi'] ?> </p></div></div>
                                                       <?php } ?>
-                                                        <br><div class="p-2 rounded bg-light-info d-inline-block mb-2 text-dark"><p> <?= $ul['isi'] ?> </p></div>
+                                                        <br><div class="p-2 manas rounded bg-light-info d-inline-block mb-2 text-dark"><p> <?= $ul['isi'] ?> </p></div>
                                                           <br><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?= $ul['id_diskusi'] ?>">Balas</button>
                                                     </div>
                                                 </div>

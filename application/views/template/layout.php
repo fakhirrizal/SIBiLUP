@@ -31,7 +31,42 @@
 <![endif]-->
 </head>
 
-<body class="fix-header fix-sidebar card-no-border">
+<style type="text/css">
+    .dads {
+        padding-right: 0px !important;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1; 
+    }
+     
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background-color: #F90; 
+      background-image: -webkit-linear-gradient(45deg,
+                                                rgba(255, 255, 255, .2) 25%,
+                            transparent 25%,
+                            transparent 50%,
+                            rgba(255, 255, 255, .2) 50%,
+                            rgba(255, 255, 255, .2) 75%,
+                            transparent 75%,
+                            transparent)
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+    }
+</style>
+
+<body class="fix-header fix-sidebar card-no-border dads" style="padding-right: 0px !important;">
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->

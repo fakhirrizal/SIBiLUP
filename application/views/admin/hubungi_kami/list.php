@@ -34,12 +34,19 @@ body {font-family: "Lato", sans-serif;}
   font-size: 17px;
 }
 
-.abc {
+/*.abc {
   background-color: lightgrey;
   width: 450px;
   border: 2px solid black;
   padding: 5px;
   margin: 2px;
+}*/
+.abc {
+    background-color: #f1f1f1;
+    width: 450px;
+    border: 2px solid #e2e2e2;
+    padding: 5px;
+    margin: 2px;
 }
 
 /* Change background color of buttons on hover */
@@ -56,7 +63,58 @@ body {font-family: "Lato", sans-serif;}
 
 div.ex1 {
   height: 600px;
-  overflow: scroll;
+  overflow: auto;
+}
+
+.tabcontent .profiletimeline {
+  margin-left: 0px;
+}
+
+.card-block ::-webkit-scrollbar {
+  width: 10px;
+}
+
+.manas {
+  -webkit-border-radius: 10px;
+  -webkit-border-top-right-radius: 0;
+  -moz-border-radius: 10px;
+  -moz-border-radius-top-right: 0;
+  border-radius: 10px;
+  border-top-right-radius: 0;
+}
+.manas2 {
+  -webkit-border-radius: 10px;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius: 10px;
+  -moz-border-radius-top-left: 0;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+}
+.manas p {
+  margin-bottom: 0px;
+}
+.manas2 p {
+  margin-bottom: 0px;
+}
+
+.tabcontent .profiletimeline
+{
+  background: linear-gradient(135deg, #70809000 21px, #fbfbfb 22px, #fbfbfb 24px, transparent 24px, transparent 67px, #fbfbfb 67px, #fbfbfb 69px, transparent 69px), linear-gradient(225deg, #70809000 21px, #fbfbfb 22px, #fbfbfb 24px, transparent 24px, transparent 67px, #fbfbfb 67px, #fbfbfb 69px, transparent 69px)0 64px;
+    background-color: #70809000;
+    background-size: 64px 128px;
+    padding: 0px 0px 0px 10px;
+}
+
+.tabcontent .p-2 {
+  padding: 0.2rem .5rem!important;
+}
+
+.m-t-10.col-md-10 {
+  margin-top: unset;
+}
+
+.mce-tinymce.mce-container.mce-panel{
+  width: 100% !important;
 }
 
 </style>
@@ -77,7 +135,7 @@ div.ex1 {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
+                  <div class="col-md-9">
             <!-- Tab panes -->
                     <div class="tab-content">
                         <div id="pesan_baru" class="tabcontent">
@@ -134,7 +192,8 @@ div.ex1 {
                                         <div class="ex1">
                                             <form method="post" action="" enctype="multipart/form-data">
                                               <div class="form-group">
-                                                <div class="col-md-9">
+                                                <!-- <div class="col-md-9"> -->
+                                                  <div class="col-md-12">
                                                   <!-- <label for="exampleInputPassword1">Balas</label><br> -->
                                                   <textarea class="form-control editor" name="pesan" style="width: 500px; height: 80px"><?= $replyne ?></textarea>
                                                   <input type="hidden" name="kepada" value="<?= $dp['id_pgw'] ?>">
@@ -166,7 +225,7 @@ div.ex1 {
                                                           </div>
                                                         </div>
                                                       <?php } ?>
-                                                      <br><div class="p-2 rounded bg-light-success d-inline-block mb-2 text-dark">
+                                                      <br><div class="p-2 manas2 rounded bg-light-success d-inline-block mb-2 text-dark">
                                                         <p class="m-t-10 col-md-10" style="text-align: justify;"> <?= $ul['isi'] ?> </p>
                                                       </div>
                                                         
@@ -189,7 +248,7 @@ div.ex1 {
                                                           $rep = $this->db->query("SELECT a.*,b.nama_pegawai FROM hubungi_kami a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_hub = '$reply'")->row_array(); ?>
                                                           <div class="abc"><div><b><h5><?= $rep['nama_pegawai'] ?></h5></b> <span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span><p> <?= $rep['isi'] ?> </p></div></div>
                                                         <?php } ?>
-                                                        <div class="p-2 rounded bg-light-info d-inline-block mb-2 text-dark"><p class="m-t-10 col-md-10" > <?= $ul['isi'] ?> </p></div>
+                                                        <div class="p-2 manas rounded bg-light-info d-inline-block mb-2 text-dark"><p class="m-t-10 col-md-10" > <?= $ul['isi'] ?> </p></div>
                                                     </div>
                                                 </div>
                                             <?php } ?>
