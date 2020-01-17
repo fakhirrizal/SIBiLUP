@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 26 Nov 2019 pada 13.00
--- Versi Server: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Host: localhost:3306
+-- Waktu pembuatan: 17 Jan 2020 pada 14.25
+-- Versi server: 10.3.21-MariaDB-cll-lve
+-- Versi PHP: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sibilup`
+-- Database: `aplikasi_sibilup`
 --
 
 -- --------------------------------------------------------
@@ -31,13 +33,13 @@ CREATE TABLE `activity_logs` (
   `user_id` int(11) UNSIGNED NOT NULL,
   `company_id` int(11) UNSIGNED NOT NULL,
   `activity_type` varchar(64) NOT NULL,
-  `activity_data` text,
+  `activity_data` text DEFAULT NULL,
   `activity_time` datetime NOT NULL,
   `activity_ip_address` varchar(15) DEFAULT NULL,
   `activity_device` varchar(32) DEFAULT NULL,
   `activity_os` varchar(16) DEFAULT NULL,
   `activity_browser` varchar(16) DEFAULT NULL,
-  `activity_location` text
+  `activity_location` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -45,120 +47,10 @@ CREATE TABLE `activity_logs` (
 --
 
 INSERT INTO `activity_logs` (`activity_id`, `user_id`, `company_id`, `activity_type`, `activity_data`, `activity_time`, `activity_ip_address`, `activity_device`, `activity_os`, `activity_browser`, `activity_location`) VALUES
-(1, 1, 0, 'Login to system', 'Login via web browser', '2019-09-08 12:46:51', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(2, 1, 0, 'Login to system', 'Login via web browser', '2019-09-09 08:27:49', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(3, 1, 0, 'Login to system', 'Login via web browser', '2019-09-09 15:02:33', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(4, 1, 0, 'Login to system', 'Login via web browser', '2019-09-10 15:51:10', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(5, 1, 0, 'Login to system', 'Login via web browser', '2019-09-12 09:04:33', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(6, 1, 0, 'Login to system', 'Login via web browser', '2019-09-12 09:34:49', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(7, 1, 0, 'Login to system', 'Login via web browser', '2019-09-16 14:17:29', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(8, 1, 0, 'Login to system', 'Login via web browser', '2019-09-16 14:36:00', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(9, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 10:17:21', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(10, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 10:19:28', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(11, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 17:28:15', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(12, 1, 0, 'Login to system', 'Login via web browser', '2019-09-17 17:45:35', '::1', 'PC', 'Windows 10', 'Chrome 76.0.3809', NULL),
-(13, 1, 0, 'Adding data', 'Add admin data', '2019-09-18 16:49:12', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(14, 1, 0, 'Adding data', 'Add admin data', '2019-09-18 17:01:17', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(15, 1, 0, 'Deleting data', 'Delete administrator data', '2019-09-18 20:09:06', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(16, 1, 0, 'Deleting data', 'Delete administrator data', '2019-09-18 20:12:59', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(17, 1, 0, 'Login to system', 'Login via web browser', '2019-09-18 22:18:19', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(18, 1, 0, 'Login to system', 'Login via web browser', '2019-09-19 09:39:34', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.43799039999999'),
-(19, 1, 0, 'Adding data', 'Add admin data', '2019-09-19 21:59:14', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(20, 1, 0, 'Adding data', 'Add admin data', '2019-09-19 22:27:17', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(21, 1, 0, 'Adding data', 'Add admin data', '2019-09-19 22:32:14', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(22, 1, 0, 'Updating data', 'Update admin data', '2019-09-19 22:50:45', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(23, 1, 0, 'Login to system', 'Login via web browser', '2019-09-22 20:46:09', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(24, 1, 0, 'Login to system', 'Login via web browser', '2019-09-22 20:47:42', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(25, 1, 0, 'Login to system', 'Login via web browser', '2019-09-23 01:01:55', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(26, 1, 0, 'Login to system', 'Login via web browser', '2019-09-23 11:26:50', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(27, 1, 0, 'Login to system', 'Login via web browser', '2019-09-23 15:44:10', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(28, 1, 0, 'Login to system', 'Login via web browser', '2019-09-23 23:24:56', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(29, 1, 0, 'Login to system', 'Login via web browser', '2019-09-24 08:59:07', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(30, 1, 0, 'Login to system', 'Login via web browser', '2019-09-24 15:55:43', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.9859062,110.414304'),
-(31, 1, 0, 'Updating data', 'Update province data ()', '2019-09-24 15:59:03', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.9859062,110.414304'),
-(32, 1, 0, 'Updating data', 'Memperbarui data rekap provinsi', '2019-09-24 15:59:48', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.9859062,110.414304'),
-(33, 1, 0, 'Login to system', 'Login via web browser', '2019-09-26 14:54:14', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(34, 2, 0, 'Login to system', 'Login via web browser', '2019-09-26 15:24:34', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(35, 1, 0, 'Login to system', 'Login via web browser', '2019-09-26 22:51:18', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(36, 1, 0, 'Login to system', 'Login via web browser', '2019-09-26 23:06:59', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(37, 2, 0, 'Login to system', 'Login via web browser', '2019-09-26 23:15:02', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(38, 1, 0, 'Login to system', 'Login via web browser', '2019-09-30 10:00:17', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.228107,106.80605039999999'),
-(39, 1, 0, 'Login to system', 'Login via web browser', '2019-09-30 10:11:27', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.228107,106.80605039999999'),
-(40, 1, 0, 'Login to system', 'Login via web browser', '2019-10-01 14:36:26', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(41, 1, 0, 'Login to system', 'Login via web browser', '2019-10-01 14:38:06', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(42, 1, 0, 'Login to system', 'Login via web browser', '2019-10-01 17:22:52', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.7486733,111.0379232'),
-(43, 1, 0, 'Login to system', 'Login via web browser', '2019-10-04 10:45:20', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(44, 1, 0, 'Login to system', 'Login via web browser', '2019-10-04 18:06:58', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(45, 1, 0, 'Login to system', 'Login via web browser', '2019-10-04 18:17:27', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(46, 1, 0, 'Login to system', 'Login via web browser', '2019-10-04 20:42:28', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(47, 1, 0, 'Login to system', 'Login via web browser', '2019-10-07 21:57:40', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(48, 1, 0, 'Updating data', 'Memperbarui data rekap provinsi', '2019-10-07 22:47:57', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(49, 1, 0, 'Updating data', 'Memperbarui data rekap provinsi', '2019-10-07 22:50:00', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(50, 1, 0, 'Login to system', 'Login via web browser', '2019-10-08 21:48:10', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(51, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten/ kota', '2019-10-08 22:42:39', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(52, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten', '2019-10-08 23:43:27', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(53, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten', '2019-10-08 23:44:23', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(54, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten', '2019-10-09 00:51:15', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(55, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten', '2019-10-09 00:51:39', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(56, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten', '2019-10-09 00:52:03', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(57, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten', '2019-10-09 00:57:37', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(58, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten', '2019-10-09 00:57:51', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(59, 1, 0, 'Login to system', 'Login via web browser', '2019-10-10 11:24:50', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.228107,106.80605039999999'),
-(60, 1, 0, 'Updating data', 'Memperbarui data rekap provinsi', '2019-10-10 12:06:04', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.228107,106.80605039999999'),
-(61, 1, 0, 'Updating data', 'Memperbarui data rekap provinsi', '2019-10-10 12:06:23', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.228107,106.80605039999999'),
-(62, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten/ kota', '2019-10-10 12:19:14', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.228107,106.80605039999999'),
-(63, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten/ kota', '2019-10-10 12:20:08', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.228107,106.80605039999999'),
-(64, 1, 0, 'Login to system', 'Login via web browser', '2019-10-10 23:15:17', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.2265675,106.8532496'),
-(65, 1, 0, 'Login to system', 'Login via web browser', '2019-10-11 15:35:12', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.228107,106.80605039999999'),
-(66, 1, 0, 'Login to system', 'Login via web browser', '2019-10-13 23:24:42', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(67, 1, 0, 'Login to system', 'Login via web browser', '2019-10-14 07:55:05', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.4142336'),
-(68, 1, 0, 'Deleting data', 'Menghapus data aspirasi', '2019-10-14 08:09:55', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.006617599999999,110.4142336'),
-(69, 1, 0, 'Login to system', 'Login via web browser', '2019-10-15 03:34:20', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(70, 1, 0, 'Login to system', 'Login via web browser', '2019-10-15 08:42:19', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(71, 2, 0, 'Login to system', 'Login via web browser', '2019-10-16 10:17:54', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.2251008,106.87692799999999'),
-(72, 5, 0, 'Login to system', 'Login via web browser', '2019-10-16 10:20:24', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.2251008,106.87692799999999'),
-(73, 1, 0, 'Login to system', 'Login via web browser', '2019-10-16 10:20:50', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.2251008,106.87692799999999'),
-(74, 5, 0, 'Login to system', 'Login via web browser', '2019-10-16 10:22:28', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.2251008,106.87692799999999'),
-(75, 1, 0, 'Login to system', 'Login via web browser', '2019-10-17 22:57:11', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-8.723582799999999,115.17704700000002'),
-(76, 1, 0, 'Login to system', 'Login via web browser', '2019-10-19 18:41:16', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-6.2087634,106.84559899999999'),
-(77, 5, 0, 'Login to system', 'Login via web browser', '2019-10-19 19:17:44', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(78, 1, 0, 'Login to system', 'Login via web browser', '2019-10-19 19:18:13', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(79, 5, 0, 'Login to system', 'Login via web browser', '2019-10-19 19:30:22', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(80, 1, 0, 'Login to system', 'Login via web browser', '2019-10-19 19:30:50', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(81, 5, 0, 'Login to system', 'Login via web browser', '2019-10-19 19:42:39', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(82, 1, 0, 'Login to system', 'Login via web browser', '2019-10-19 19:54:07', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(83, 5, 0, 'Login to system', 'Login via web browser', '2019-10-19 19:59:36', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(84, 1, 0, 'Login to system', 'Login via web browser', '2019-10-19 19:59:54', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(85, 5, 0, 'Login to system', 'Login via web browser', '2019-10-19 20:02:11', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(86, 1, 0, 'Login to system', 'Login via web browser', '2019-10-19 20:02:30', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(87, 1, 0, 'Login to system', 'Login via web browser', '2019-10-19 20:09:05', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(88, 1, 0, 'Login to system', 'Login via web browser', '2019-10-20 09:20:46', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(89, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten/ kota', '2019-10-20 09:40:17', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(90, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten/ kota', '2019-10-20 09:40:32', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(91, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten/ kota', '2019-10-20 09:42:13', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(92, 1, 0, 'Login to system', 'Login via web browser', '2019-10-20 10:26:26', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(93, 1, 0, 'Login to system', 'Login via web browser', '2019-10-20 12:41:17', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(94, 5, 0, 'Login to system', 'Login via web browser', '2019-10-20 12:42:41', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(95, 1, 0, 'Login to system', 'Login via web browser', '2019-10-20 20:35:31', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(96, 1, 0, 'Login to system', 'Login via web browser', '2019-10-21 18:49:45', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(97, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten', '2019-10-21 18:51:32', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(98, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten', '2019-10-21 19:15:00', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(99, 1, 0, 'Updating data', 'Memperbarui data rekap kabupaten', '2019-10-21 19:19:09', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(100, 1, 0, 'Updating data', 'Memperbarui data rekap provinsi', '2019-10-21 19:19:57', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.150975,110.14025939999999'),
-(101, 1, 0, 'Login to system', 'Login via web browser', '2019-10-22 06:52:42', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.004979199999999,110.43799039999999'),
-(102, 1, 0, 'Login to system', 'Login via web browser', '2019-10-23 10:52:29', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', NULL),
-(103, 5, 0, 'Login to system', 'Login via web browser', '2019-10-23 11:52:32', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.8039292,110.4143039'),
-(104, 5, 0, 'Updating data', 'Memperbarui data rekap kabupaten/ kota', '2019-10-23 13:12:14', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.8039292,110.4143039'),
-(105, 5, 0, 'Updating data', 'Memperbarui data rekap kabupaten', '2019-10-23 13:12:33', '::1', 'PC', 'Windows 10', 'Chrome 77.0.3865', '-7.8039292,110.4143039'),
-(106, 1, 0, 'Login to system', 'Login via web browser', '2019-10-30 12:08:50', '::1', 'PC', 'Windows 10', 'Chrome 78.0.3904', '-7.150975,110.14025939999999'),
-(107, 1, 0, 'Login to system', 'Login via web browser', '2019-11-01 18:06:28', '::1', 'PC', 'Windows 10', 'Chrome 78.0.3904', '-7.150975,110.14025939999999'),
-(108, 1, 0, 'Login to system', 'Login via web browser', '2019-11-08 20:42:52', '::1', 'PC', 'Windows 10', 'Chrome 78.0.3904', NULL),
-(109, 5, 0, 'Login to system', 'Login via web browser', '2019-11-08 20:43:47', '::1', 'PC', 'Windows 10', 'Chrome 78.0.3904', NULL),
-(110, 1, 0, 'Login to system', 'Login via web browser', '2019-11-08 20:44:12', '::1', 'PC', 'Windows 10', 'Chrome 78.0.3904', '-6.9859062,110.414304'),
-(111, 1, 0, 'Login to system', 'Login via web browser', '2019-11-09 22:48:21', '::1', 'PC', 'Windows 10', 'Chrome 78.0.3904', '-6.9859062,110.414304'),
-(112, 5, 0, 'Login to system', 'Login via web browser', '2019-11-09 22:49:29', '::1', 'PC', 'Windows 10', 'Chrome 78.0.3904', '-6.9859062,110.414304'),
-(113, 1, 0, 'Login to system', 'Login via web browser', '2019-11-17 22:21:37', '::1', 'PC', 'Windows 10', 'Chrome 78.0.3904', '-7.004979199999999,110.43799039999999'),
-(114, 1, 0, 'Login to system', 'Login via web browser', '2019-11-22 09:57:25', '::1', 'PC', 'Windows 10', 'Chrome 78.0.3904', '-7.0087079999999995,110.39024409999999');
+(1, 1, 0, 'Login to system', 'Login via web browser', '2019-11-21 23:38:54', '182.253.62.123', 'PC', 'Windows 10', 'Chrome 78.0.3904', NULL),
+(2, 2, 0, 'Login to system', 'Login via web browser', '2019-11-29 14:27:07', '103.211.50.6', 'PC', 'Windows 10', 'Chrome 78.0.3904', NULL),
+(3, 2, 0, 'Login to system', 'Login via web browser', '2019-12-02 08:09:17', '103.211.50.6', 'PC', 'Windows 10', 'Chrome 78.0.3904', NULL),
+(4, 1, 0, 'Login to system', 'Login via web browser', '2020-01-02 14:30:10', '115.178.254.50', 'PC', 'Windows 10', 'Chrome 79.0.3945', NULL);
 
 -- --------------------------------------------------------
 
@@ -183,12 +75,20 @@ CREATE TABLE `agenda` (
 
 CREATE TABLE `aspirasi` (
   `id_aspirasi` int(10) NOT NULL,
-  `nama` text,
-  `email` text,
-  `nohp` text,
-  `pesan` text,
+  `nama` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
+  `nohp` text DEFAULT NULL,
+  `pesan` text DEFAULT NULL,
   `waktu` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `aspirasi`
+--
+
+INSERT INTO `aspirasi` (`id_aspirasi`, `nama`, `email`, `nohp`, `pesan`, `waktu`) VALUES
+(1, 'rizal', 'rizal@gmail.com', '12345678', 'kapan kita berjumpa lagi', '2019-10-23 19:49:26'),
+(2, 'andi', '', '', 'bagus aplikasinya terimakasih', '2019-10-23 19:49:35');
 
 -- --------------------------------------------------------
 
@@ -200,9 +100,9 @@ CREATE TABLE `diskusi` (
   `id_diskusi` int(11) NOT NULL,
   `id_pgw` int(11) NOT NULL,
   `isi` mediumtext NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `status` enum('0','1') NOT NULL,
-  `reply` int(11) NOT NULL
+  `reply` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -210,38 +110,34 @@ CREATE TABLE `diskusi` (
 --
 
 INSERT INTO `diskusi` (`id_diskusi`, `id_pgw`, `isi`, `create_at`, `status`, `reply`) VALUES
-(8, 27, '<p>tes</p>', '2019-11-09 15:50:58', '1', 0),
-(9, 27, '<p>test :D</p>', '2019-11-09 15:50:58', '1', 0),
-(10, 28, '<p>Test</p>', '2019-11-09 15:50:58', '1', 0),
-(11, 28, '<p>Cek. Coba</p>', '2019-11-09 15:50:58', '1', 0),
-(12, 2, '<p>mari kita mulai diskusi malam ini</p>', '2019-11-09 15:50:58', '1', 0),
-(13, 24, '<p>kegiatan saat ini sampai jam berapa</p>\r\n<p> </p>', '2019-11-09 15:50:58', '1', 0),
-(14, 27, '<p>terimakasih</p>', '2019-11-09 15:50:58', '1', 0),
-(15, 27, '<p>saya mau tanya</p>', '2019-11-09 15:50:58', '1', 0),
-(16, 24, '<p>tess</p>', '2019-11-09 15:50:58', '1', 0),
-(17, 28, '<p>P</p>', '2019-11-09 15:50:58', '1', 0),
-(18, 27, '<p>iya mas</p>', '2019-11-09 15:50:58', '1', 0),
-(19, 23, '<p>Bekerja keras, bergerak cepat, bertindak tepat, selamat dunia akhirat</p>', '2019-11-09 15:50:58', '1', 0),
-(20, 27, '<p>kenapa</p>', '2019-11-09 15:50:58', '1', 0),
-(21, 27, '<p>sampai pulang mas mbantul</p>', '2019-11-09 15:50:58', '1', 0),
-(22, 2, '<p>Apa pendapat anda tentang SIBiLUP ini ?</p>\r\n<p> </p>', '2019-11-09 15:50:58', '1', 0),
-(23, 27, '<p>Mau tanya, jika sudah masuk page admin, ingin kembali ke tampilan sibilup umum, ada icon khusus untuk diklik?</p>', '2019-11-09 15:50:58', '1', 0),
-(24, 23, '<p>Sepertinya perlu sistem reply ???? </p>', '2019-11-09 15:50:58', '1', 0),
-(25, 27, '<p>nganu mas..kok saya sebagai admin kabupaten bisa ngedit kabupaten lain ya?</p>', '2019-11-09 15:50:58', '1', 0),
-(26, 2, '<p>Untuk Provinsi DIY</p>\r\n<p>Semboyan PU plus-plus </p>', '2019-11-09 15:50:58', '1', 0),
-(27, 2, '<p>Provinsi Yogyakarta</p>\r\n<p>PU tenan </p>', '2019-11-09 15:50:58', '1', 0),
-(28, 2, '<p>Kabupaten Sleman</p>\r\n<p>Usulan bagus mas. Terima kasih masukannya</p>', '2019-11-09 15:50:58', '1', 0),
-(29, 24, '<p>Dirjen ciptakarya sudah mengembangankan SIM terkait dengan permukiman, mungkin bisa dilinkkan supaya bisa terintegrasi</p>', '2019-11-09 15:50:58', '1', 0),
-(30, 28, '<p>Perumahan</p>', '2019-11-09 15:50:58', '1', 0),
-(32, 8, '<p>tg</p>', '2019-11-09 15:50:58', '1', 29),
-(33, 8, '<p>g</p>', '2019-11-09 15:50:58', '1', 32),
-(34, 8, '<p>bales tg</p>', '2019-11-09 15:50:58', '1', 32),
-(35, 12, '<p>gf</p>', '2019-11-09 15:50:58', '1', 0),
-(36, 12, '<p>d</p>', '2019-11-09 15:50:58', '1', 0),
-(37, 12, '<p>de</p>', '2019-11-09 15:50:58', '1', 33),
-(38, 12, '<p>2</p>', '2019-11-09 15:50:58', '1', 0),
-(39, 12, '<p>2</p>', '2019-11-09 15:50:58', '1', 0),
-(40, 12, '<p>f</p>', '2019-11-17 15:22:37', '1', 0);
+(8, 27, '<p>tes</p>', '2019-11-15 03:15:28', '1', 0),
+(9, 27, '<p>test :D</p>', '2019-11-15 03:15:28', '1', 0),
+(10, 28, '<p>Test</p>', '2019-11-15 03:15:28', '1', 0),
+(11, 28, '<p>Cek. Coba</p>', '2019-11-15 03:15:28', '1', 0),
+(12, 2, '<p>mari kita mulai diskusi malam ini</p>', '2019-11-15 03:15:28', '1', 0),
+(13, 24, '<p>kegiatan saat ini sampai jam berapa</p>\r\n<p> </p>', '2019-11-15 03:15:28', '1', 0),
+(14, 27, '<p>terimakasih</p>', '2019-11-15 03:15:28', '1', 0),
+(15, 27, '<p>saya mau tanya</p>', '2019-11-15 03:15:28', '1', 0),
+(16, 24, '<p>tess</p>', '2019-11-15 03:15:28', '1', 0),
+(17, 28, '<p>P</p>', '2019-11-15 03:15:28', '1', 0),
+(18, 27, '<p>iya mas</p>', '2019-11-15 03:15:28', '1', 0),
+(19, 23, '<p>Bekerja keras, bergerak cepat, bertindak tepat, selamat dunia akhirat</p>', '2019-11-15 03:15:28', '1', 0),
+(20, 27, '<p>kenapa</p>', '2019-11-15 03:15:28', '1', 0),
+(21, 27, '<p>sampai pulang mas mbantul</p>', '2019-11-15 03:15:28', '1', 0),
+(22, 2, '<p>Apa pendapat anda tentang SIBiLUP ini ?</p>\r\n<p> </p>', '2019-11-15 03:15:28', '1', 0),
+(23, 27, '<p>Mau tanya, jika sudah masuk page admin, ingin kembali ke tampilan sibilup umum, ada icon khusus untuk diklik?</p>', '2019-11-15 03:15:28', '1', 0),
+(24, 23, '<p>Sepertinya perlu sistem reply ???? </p>', '2019-11-15 03:15:28', '1', 0),
+(25, 27, '<p>nganu mas..kok saya sebagai admin kabupaten bisa ngedit kabupaten lain ya?</p>', '2019-11-15 03:15:28', '1', 0),
+(26, 2, '<p>Untuk Provinsi DIY</p>\r\n<p>Semboyan PU plus-plus </p>', '2019-11-15 03:15:28', '1', 0),
+(27, 2, '<p>Provinsi Yogyakarta</p>\r\n<p>PU tenan </p>', '2019-11-15 03:15:28', '1', 0),
+(28, 2, '<p>Kabupaten Sleman</p>\r\n<p>Usulan bagus mas. Terima kasih masukannya</p>', '2019-11-15 03:15:28', '1', 0),
+(29, 24, '<p>Dirjen ciptakarya sudah mengembangankan SIM terkait dengan permukiman, mungkin bisa dilinkkan supaya bisa terintegrasi</p>', '2019-11-15 03:15:28', '1', 0),
+(30, 28, '<p>Perumahan</p>', '2019-11-15 03:15:28', '1', 0),
+(31, 2, '<p>cek</p>', '2019-11-15 03:15:28', '1', 0),
+(32, 1, '<p>balas tes</p>', '2019-11-15 03:15:28', '1', 8),
+(33, 2, '<p>cek lagi</p>', '2019-11-15 03:15:28', '1', 0),
+(34, 2, '<p>cek lagi dan lagi</p>', '2019-11-15 03:15:28', '1', 33),
+(35, 2, '<p>zsfh</p>', '2019-11-15 03:15:51', '1', 22);
 
 -- --------------------------------------------------------
 
@@ -263,9 +159,8 @@ CREATE TABLE `dokumen` (
 --
 
 INSERT INTO `dokumen` (`id_dokumen`, `judul`, `keterangan`, `file`, `upload_by`, `create_at`) VALUES
-(1, 'tes', 'tes', 'd84c4-url-redirect_-breaking-out-of-an-iframe.pdf', 15, 0),
-(2, 'Lani', 'g', 'bbab6-ybmplm-timeline-3-month.pdf', 1, 0),
-(3, 'ghjgh', 'fhgnfg', '6f211-setor-ke-yayasan-citron.pdf', 12, 0);
+(1, 'Dokumen SIBiLUP', 'Dokumen ini adalah dokumen contoh yang akan diupload', 'f1f2e-berita-4-bimbingan-teknis-bidang-perencanaan-perumahan-regional-sulawesi-tahun-2019.docx', 24, 0),
+(2, 'Arus utama gender', '', '45778-pug-penyediaan-perumahan.pdf', 23, 0);
 
 -- --------------------------------------------------------
 
@@ -277,17 +172,8 @@ CREATE TABLE `faq` (
   `id_faq` int(11) NOT NULL,
   `pertanyaan` text NOT NULL,
   `jawaban` text NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `faq`
---
-
-INSERT INTO `faq` (`id_faq`, `pertanyaan`, `jawaban`, `create_at`) VALUES
-(1, '<p>\n	APA ITU PUPR ?</p>\n', '<p>\n	<b style="font-family: sans-serif; font-size: 14px;">Kementerian Pekerjaan Umum dan Perumahan Rakyat Republik Indonesia</b><span style="font-family: sans-serif; font-size: 14px;">&nbsp;(disingkat&nbsp;</span><b style="font-family: sans-serif; font-size: 14px;">Kemen PUPR RI</b><span style="font-family: sans-serif; font-size: 14px;">) adalah&nbsp;</span><a href="https://id.wikipedia.org/wiki/Kementerian_Indonesia" style="text-decoration-line: none; color: rgb(11, 0, 128); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Kementerian Indonesia">kementerian</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;dalam&nbsp;</span><a href="https://id.wikipedia.org/wiki/Pemerintah_Indonesia" style="text-decoration-line: none; color: rgb(11, 0, 128); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Pemerintah Indonesia">Pemerintah</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;</span><a href="https://id.wikipedia.org/wiki/Indonesia" style="text-decoration-line: none; color: rgb(11, 0, 128); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Indonesia">Indonesia</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;yang membidangi urusan&nbsp;</span><a class="new" href="https://id.wikipedia.org/w/index.php?title=Pekerjaan_umum&amp;action=edit&amp;redlink=1" style="text-decoration-line: none; color: rgb(165, 88, 88); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Pekerjaan umum (halaman belum tersedia)">pekerjaan umum</a><span style="font-family: sans-serif; font-size: 14px;">&nbsp;dan&nbsp;</span><a class="new" href="https://id.wikipedia.org/w/index.php?title=Perumahan_rakyat&amp;action=edit&amp;redlink=1" style="text-decoration-line: none; color: rgb(165, 88, 88); background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-family: sans-serif; font-size: 14px;" title="Perumahan rakyat (halaman belum tersedia)">perumahan rakyat</a><span style="font-family: sans-serif; font-size: 14px;">. Dahulu Kementerian Pekerjaan Umum dan Perumahan Rakyat bernama &quot;Departemen Permukiman dan Pengembangan Wilayah&quot; (1999-2000) dan &quot;Departemen Permukiman dan Prasarana Wilayah&quot; (2000-2004). Kementerian Pekerjaan Umum dan Perumahan Rakyat berada di bawah dan bertanggung jawab kepada Presiden.&nbsp;</span></p>\n', '2019-09-25 09:43:27'),
-(2, '<h2 style="margin: 0px 0px 10px; padding: 0px; font-weight: 400; line-height: 24px; font-family: DauphinPlain; font-size: 24px; color: rgb(0, 0, 0);">\n	What is Lorem Ipsum?</h2>\n', '<p>\n	<strong style="margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;">Lorem Ipsum</strong><span style="color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;">&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</span></p>\n', '2019-09-25 09:44:22'),
-(3, '<p>\n	tryh</p>\n', '<p>\n	hterh</p>\n', '2019-09-26 15:56:03');
 
 -- --------------------------------------------------------
 
@@ -303,13 +189,6 @@ CREATE TABLE `galeri` (
   `type` tinyint(2) NOT NULL COMMENT '1 = Foto, 2 = Vidio'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `galeri`
---
-
-INSERT INTO `galeri` (`id_galeri`, `judul`, `file`, `keterangan`, `type`) VALUES
-(1, 'tes', '36006-1.jpg', 'tes', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -322,9 +201,9 @@ CREATE TABLE `hubungi_kami` (
   `penjawab` int(11) NOT NULL,
   `isi` mediumtext NOT NULL,
   `file` varchar(100) NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `status` enum('0','1') NOT NULL,
-  `reply` int(11) NOT NULL
+  `reply` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -332,22 +211,18 @@ CREATE TABLE `hubungi_kami` (
 --
 
 INSERT INTO `hubungi_kami` (`id_hub`, `id_pgw`, `penjawab`, `isi`, `file`, `create_at`, `status`, `reply`) VALUES
-(7, 27, 0, '<p>terimakasih</p>', '', '2019-11-09 15:48:48', '1', 0),
-(8, 27, 2, '<p>beli oleh2 dimana mas?</p>', '', '2019-11-09 15:48:48', '1', 0),
-(9, 23, 0, '<p>Mohon izin bertanya</p>', '', '2019-11-09 15:48:48', '1', 0),
-(10, 27, 0, '<p>di toko pusat oleh-oleh</p>', '', '2019-11-09 15:48:48', '1', 0),
-(11, 28, 0, '<p>Halloo..</p>', '', '2019-11-09 15:48:48', '1', 0),
-(12, 23, 2, '<p>Silakan Bp/ibu</p>', '', '2019-11-09 15:48:48', '1', 0),
-(13, 27, 2, '<p>Dimana lokasinya mas ?</p>\r\n<p>Rekomendasinya dimana, yang murah dan komplit </p>\r\n<p>hehhehehehe....</p>', '', '2019-11-09 15:48:48', '1', 0),
-(14, 25, 2, '<p>Mas, kabarnya ada tempat wisata baru yang cukup viral, namanya Heha sky view</p>\r\n<p>itu dimana posisinya ?</p>', '', '2019-11-09 15:48:48', '1', 11),
-(15, 28, 2, '<p>Halo juga</p>', '', '2019-11-09 15:48:48', '1', 0),
-(22, 1, 1, '<p>t</p>', '', '2019-11-09 15:48:48', '1', 0),
-(23, 12, 0, '<p>f</p>', '', '2019-11-09 15:48:48', '1', 0),
-(24, 12, 0, '<p>f</p>', '', '2019-11-09 15:48:48', '1', 0),
-(25, 12, 1, '<p>f</p>', '', '2019-11-17 17:22:23', '1', 0),
-(26, 12, 1, 'dsf</p>', '', '2019-11-17 17:23:57', '1', 23),
-(27, 12, 1, 'sdfsdf</p>', '', '2019-11-17 17:24:43', '1', 23),
-(28, 12, 1, '<p>gsdgs</p>', '', '2019-11-17 18:36:16', '1', 0);
+(7, 27, 0, '<p>terimakasih</p>', '', '2019-11-15 03:16:00', '1', 0),
+(8, 27, 2, '<p>beli oleh2 dimana mas?</p>', '', '2019-11-15 03:16:00', '1', 0),
+(9, 23, 0, '<p>Mohon izin bertanya</p>', '', '2019-11-15 03:16:00', '1', 0),
+(10, 27, 0, '<p>di toko pusat oleh-oleh</p>', '', '2019-11-15 03:16:00', '1', 0),
+(11, 28, 0, '<p>Halloo..</p>', '', '2019-11-15 03:16:00', '1', 0),
+(12, 23, 2, '<p>Silakan Bp/ibu</p>', '', '2019-11-15 03:16:00', '1', 0),
+(13, 27, 2, '<p>Dimana lokasinya mas ?</p>\r\n<p>Rekomendasinya dimana, yang murah dan komplit </p>\r\n<p>hehhehehehe....</p>', '', '2019-11-15 03:16:00', '1', 0),
+(14, 25, 2, '<p>Mas, kabarnya ada tempat wisata baru yang cukup viral, namanya Heha sky view</p>\r\n<p>itu dimana posisinya ?</p>', '', '2019-11-15 03:16:00', '1', 0),
+(15, 28, 2, '<p>Halo juga</p>', '', '2019-11-15 03:16:00', '1', 0),
+(16, 24, 0, 'selamat siang bapak/ibu, \r\nuntuk informasi terkait Pokja PKP bisa kami download dimana bapak/ibu?\r\nterimakasih.', '', '2019-11-15 03:16:00', '1', 0),
+(17, 24, 2, '<p>selamat siang, infomasi terkait Pokja PKP dapat di download di menu Pustaka pada website SIBiLUP</p>\r\n<p>terimakasih :)</p>', '', '2019-11-15 03:16:00', '1', 0),
+(18, 23, 2, '</p>\r\n<p> </p>\r\n<p>iya silahkan</p>', '', '2019-11-15 03:16:00', '1', 9);
 
 -- --------------------------------------------------------
 
@@ -894,7 +769,7 @@ CREATE TABLE `level_user` (
   `id_level` int(11) NOT NULL,
   `nama_level` varchar(50) NOT NULL,
   `publish` tinyint(1) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `update_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -923,43 +798,8 @@ CREATE TABLE `materi` (
   `keterangan` text NOT NULL,
   `jumlah_download` int(11) NOT NULL,
   `upload_by` int(11) NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `materi`
---
-
-INSERT INTO `materi` (`id_materi`, `judul`, `kategori`, `sub_kategori`, `file`, `keterangan`, `jumlah_download`, `upload_by`, `create_at`) VALUES
-(1, 'Bahasa Persatuan', 'Materi Substantif PKP', NULL, '16686-859-2093-1-sm-1-.pdf', 'tes 123 dicoba', 1, 8, '2019-09-26 07:18:54'),
-(2, 'KK', 'Materi Substantif PKP', NULL, '0ec77-kk.pdf', '-', 0, 8, '2019-10-01 07:46:57'),
-(3, 'Lani', 'Materi Substantif PKP', NULL, '288e8-panduan-aplikasi-keuangan-lazis-pln-lama-.pdf', '-', 0, 1, '2019-10-01 10:31:44'),
-(4, 'Tayo Biru', 'Materi Bimtek', 0, '132a3-proposal-asia-wisata-20180816.pdf', '-', 0, 8, '2019-10-04 03:46:22');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `materi_substantif_pkp`
---
-
-CREATE TABLE `materi_substantif_pkp` (
-  `id_materi_substantif_pkp` int(10) NOT NULL,
-  `materi` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `materi_substantif_pkp`
---
-
-INSERT INTO `materi_substantif_pkp` (`id_materi_substantif_pkp`, `materi`) VALUES
-(1, 'Pendataan'),
-(2, 'Pokja PKP'),
-(3, 'RP3KP'),
-(4, 'SPM'),
-(5, 'PSU'),
-(6, 'Kumuh'),
-(7, 'Perizinan'),
-(8, 'Pertanahan');
 
 -- --------------------------------------------------------
 
@@ -991,19 +831,8 @@ CREATE TABLE `modul` (
   `keterangan` text NOT NULL,
   `upload_by` int(11) NOT NULL,
   `jumlah_download` int(11) NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `modul`
---
-
-INSERT INTO `modul` (`id_modul`, `judul`, `file`, `keterangan`, `upload_by`, `jumlah_download`, `create_at`) VALUES
-(1, 'Modul A', 'b2414-doc-11-.pdf', '', 0, 19, '2019-09-26 07:05:58'),
-(2, 'Modul B', '', '', 0, 0, '2019-09-26 02:50:23'),
-(3, 'Modul C', '06536-pimnas-27.pdf', '-', 1, 0, '2019-10-01 09:06:01'),
-(4, 'Lani', 'a5155-architecting-modern-web-applications-with-asp.net-core-and-azure.pdf', '-', 1, 0, '2019-10-01 10:32:15'),
-(5, 'Tes Tes', '914bf-proposal-it-asia-wisata-2.pdf', '-', 8, 0, '2019-10-04 03:46:48');
 
 -- --------------------------------------------------------
 
@@ -1030,31 +859,6 @@ CREATE TABLE `m_soal` (
   `jml_salah` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `m_soal`
---
-
-INSERT INTO `m_soal` (`id`, `id_guru`, `id_mapel`, `bobot`, `file`, `tipe_file`, `soal`, `opsi_a`, `opsi_b`, `opsi_c`, `opsi_d`, `opsi_e`, `jawaban`, `tgl_input`, `jml_benar`, `jml_salah`) VALUES
-(34, 3, 1, 1, '', '', '<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Teks Fabel I</th>\r\n			<th scope="col">Teks Fabel II</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>Dengan bangganya lucky berlari-lari kecil sambil menyeret-nyeret balok kayu yang dikalungkan majikannya, untuk&nbsp;menarik perhatian orang lain. Tetapi tak ada satu pun orang yang senang melihat anjing itu. Balok itu sebenarnya dikalungkan majikannya agar orang mengetahui kehadiran lucky, dan bisa menghindarinya. Seekor anjing lain yang melihatnya kemudian berkata &quot;Kamu seharusnya lebih bijaksana dan berdiam diri di rumah agar orang tidak melihat balok yang dikalungkan di lehermu. Apakah kamu senang bahwa semua orang tahu betapa nakal dan jahatnya kamu?&quot;</td>\r\n			<td>Di sebuah hutan, musim kemarau, burung-burung dan hewan-hewan lain sangat sulit untuk mendapatkan air.&nbsp;Namun ada seekor burung perkutut yang menemukan kendi tua yang berisi sedikit air. Kendi tersebut memiliki bentuk yang tinggi dan juga sempit, sehingga burung tersebut tidak bisa menjangkau air di dalam kendi tersebut. Burung perkutut tersebut tetap mencoba untuk meminum air yang ada di dalam kendi, tetapi tetap saja tidak bisa. Burung itu hampir putus asa hingga munculah sebuah ide.. Burung tersebut kemudian mengambil kerikilkerikil yang ada di samping kendi dan menjatuhkannya ke dalam kendi satu persatu. Ide yang cemerlang itu membuat air lama kelamaan naik sehingga burung perkutut bisa meminum air tersebut</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Perbedaan pola pengembangan kedua kutipan fabel tersebut diawali dengan ....</p>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Fabel I</th>\r\n			<th scope="col">Fabel II</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>menampilkan lokasi cerita</td>\r\n			<td>memberikan garis besar cerita</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Fabel I</th>\r\n			<th scope="col">Fabel II</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>memberikan garis besar cerita</td>\r\n			<td>memulai dengan aksi</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Fabel I</th>\r\n			<th scope="col">Fabel II</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>memunculkan masalah</td>\r\n			<td>mengisyaratkan bahaya</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Fabel I</th>\r\n			<th scope="col">Fabel II</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>memulai dengan aksi</td>\r\n			<td>menampilkan lokasi cerita</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####', 'D', '2017-01-25 10:13:02', 2, 5),
-(35, 3, 1, 1, '', '', '<p>&ldquo;Nada, minggu depan kita harus pindah ke Jogjakarta. Ayah dipindahtugaskan di sana.&rdquo; Bagaikan petir di siang bolong menyambar Nada yang seketika itu langsung diam mematung. &ldquo;Kenapa mendadak, Bunda? Nada senang tinggal di sini. Apa Nada tidak bisa tetap tinggal di sini? Sekolah Nada gimana?&rdquo; &ldquo;Tidak bisa, sayang. Kamu mau tinggal sama siapa di sini? Masalah sekolah, semua sudah diurus Ayah. Kamu hanya tinggal mengemasi barang-barangmu.&rdquo; Nada terdiam. Tak mungkin mampu ia membantah. Minggu depan ia harus meninggalkan tempat ini. Tepat di hari ulang tahun Dio yang ke-18. Terasa berat untuknya meninggalkan tempat ini. Terlalu banyak kenangan yang terukir. Semakin terasa berat ketika harus meninggalkan Dio.</p>\r\n\r\n<p>Akibat konflik yang terjadi pada kutipan cerpen tersebut adalah...</p>\r\n', '#####<p>Nada diam mematung selama satu minggu</p>\n', '#####<p>Nada harus segera mengemasi barang-barang miliknya</p>\r\n', '#####<p>Meskipun merasa berat, minggu depan Nada harus ikut pindah ke Yogyakarta.</p>\r\n', '#####<p>Ayah dan ibu Nada harus mencari tempat tinggal dan sekolah baru untuk Nada</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 0, 7),
-(36, 3, 1, 1, '', '', '<p>&ldquo;Nada, minggu depan kita harus pindah ke Jogjakarta. Ayah dipindahtugaskan di sana.&rdquo; Bagaikan petir di siang bolong menyambar Nada yang seketika itu langsung diam mematung. &ldquo;Kenapa mendadak, Bunda? Nada senang tinggal di sini. Apa Nada tidak bisa tetap tinggal di sini? Sekolah Nada gimana?&rdquo; &ldquo;Tidak bisa, sayang. Kamu mau tinggal sama siapa di sini? Masalah sekolah, semua sudah diurus Ayah. Kamu hanya tinggal mengemasi barang-barangmu.&rdquo; Nada terdiam. Tak mungkin mampu ia membantah. Minggu depan ia harus meninggalkan tempat ini. Tepat di hari ulang tahun Dio yang ke-18. Terasa berat untuknya meninggalkan tempat ini. Terlalu banyak kenangan yang terukir. Semakin terasa berat ketika harus meninggalkan Dio.</p>\n\n<p>Penyebab terjadinya konflik pada kutipan cerpen tersebut adalah ...</p>\n', '#####<p>Perasaan berat hati Nada harus meninggalkan Dio.</p>\r\n', '#####<p>Nada merasa bingung dengan masalah sekolahnya.</p>\r\n', '#####<p>Kepindahan tempat tugas ayah Nada yang mendadak</p>\r\n', '#####<p>Nada merasa berat meninggalkan tempat tinggal yang sekarang.</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 1, 6),
-(37, 3, 1, 1, '', '', '<p>&ldquo;Nada, minggu depan kita harus pindah ke Jogjakarta. Ayah dipindahtugaskan di sana.&rdquo; Bagaikan petir di siang bolong menyambar Nada yang seketika itu langsung diam mematung. &ldquo;Kenapa mendadak, Bunda? Nada senang tinggal di sini. Apa Nada tidak bisa tetap tinggal di sini? Sekolah Nada gimana?&rdquo; &ldquo;Tidak bisa, sayang. Kamu mau tinggal sama siapa di sini? Masalah sekolah, semua sudah diurus Ayah. Kamu hanya tinggal mengemasi barang-barangmu.&rdquo; Nada terdiam. Tak mungkin mampu ia membantah. Minggu depan ia harus meninggalkan tempat ini. Tepat di hari ulang tahun Dio yang ke-18. Terasa berat untuknya meninggalkan tempat ini. Terlalu banyak kenangan yang terukir. Semakin terasa berat ketika harus meninggalkan Dio.</p>\r\n\r\n<p>Amanat yang terdapat pada kutipan cerpen tersebut adalah ...</p>\r\n', '#####<p>Sebagai anak harus patuh pada kedua orang tua.</p>\r\n', '#####<p>Lakukan perintah orang tua meskipun dengan terpaksa!</p>\r\n', '#####<p>Ikhlaskan diri kita dalam mengerjakan sesuatu pekerjaan!</p>\r\n', '#####<p>Setiap keputusan agar dibicarakan terlebih dahulu dengan keluarga!</p>\r\n', '#####', 'A', '2017-01-25 10:13:02', 0, 6),
-(38, 3, 1, 1, '', '', '<p>&ldquo;Nada, minggu depan kita harus pindah ke Jogjakarta. Ayah dipindahtugaskan di sana.&rdquo; Bagaikan petir di siang bolong menyambar Nada yang seketika itu langsung diam mematung. &ldquo;Kenapa mendadak, Bunda? Nada senang tinggal di sini. Apa Nada tidak bisa tetap tinggal di sini? Sekolah Nada gimana?&rdquo; &ldquo;Tidak bisa, sayang. Kamu mau tinggal sama siapa di sini? Masalah sekolah, semua sudah diurus Ayah. Kamu hanya tinggal mengemasi barang-barangmu.&rdquo; Nada terdiam. Tak mungkin mampu ia membantah. Minggu depan ia harus meninggalkan tempat ini. Tepat di hari ulang tahun Dio yang ke-18. Terasa berat untuknya meninggalkan tempat ini. Terlalu banyak kenangan yang terukir. Semakin terasa berat ketika harus meninggalkan Dio.</p>\r\n\r\n<p>Makna simbol <strong><em>petir di siang bolong</em></strong> pada kutipan cerpen tersebut adalah....</p>\r\n', '#####<p>merasa sedih</p>\r\n', '#####<p>merasa bingung</p>\r\n', '#####<p>sangat terkejut</p>\r\n', '#####<p>merasa heran</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 0, 4),
-(39, 3, 1, 1, '', '', '<p>Langit menjadi kelabu. Awan hitam mulai tak mampu lagi membendung butiran air. Matahari pergi. Sinarnya pun tak berbekas. Di samping rumah Nada, nampak Dio masih asyik bermain dengan merpatinya. Nada tersenyum menatapnya dari balik jendela kamarnya. Ya, tetangganya itu memang sangat menyukai merpati. Bahkan di samping rumahnya ada sebuah kandang merpati yang cukup luas miliknya sendiri. Ia biasa menyebutnya istana Merpati Dara Dori. Begitu banyak jenis merpati yang ia piara. Semuanya sepasang. Ada merpati lokal, merpati kipas, merpati gondok, merpati Lahore, dan masih banyak lagi. Namun, di antara semua merpatinya, merpati lokal berwarna seputih saljulah yang paling ia sukai. Dara dan Dori.</p>\r\n\r\n<p>Latar suasana yang terdapat pada kutipan cerpen tersebut adalah .&hellip;</p>\r\n', '#####<p>mendung</p>\r\n', '#####<p>hujan</p>\r\n', '#####<p>dingin</p>\r\n', '#####<p>sunyi</p>\r\n', '#####', 'B', '2017-01-25 10:13:02', 1, 5),
-(40, 3, 1, 1, '', '', '<p>Langit menjadi kelabu. Awan hitam mulai tak mampu lagi membendung butiran air. Matahari pergi. Sinarnya pun tak berbekas. Di samping rumah Nada, nampak Dio masih asyik bermain dengan merpatinya. Nada tersenyum menatapnya dari balik jendela kamarnya. Ya, tetangganya itu memang sangat menyukai merpati. Bahkan di samping rumahnya ada sebuah kandang merpati yang cukup luas miliknya sendiri. Ia biasa menyebutnya istana Merpati Dara Dori. Begitu banyak jenis merpati yang ia piara. Semuanya sepasang. Ada merpati lokal, merpati kipas, merpati gondok, merpati Lahore, dan masih banyak lagi. Namun, di antara semua merpatinya, merpati lokal berwarna seputih saljulah yang paling ia sukai. Dara dan Dori.</p>\r\n\r\n<p>Kutipan cerpen tersebut merupakan bagian alur ...</p>\r\n', '#####<p>pengenalan</p>\r\n', '#####<p>komplikasi</p>\r\n', '#####<p>klimaks</p>\r\n', '#####<p>penyelesaian</p>\r\n', '#####', 'A', '2017-01-25 10:13:02', 0, 4),
-(41, 3, 1, 1, '', '', '<p>Langit menjadi kelabu. Awan hitam mulai tak mampu lagi membendung butiran air. Matahari pergi. Sinarnya pun tak berbekas. Di samping rumah Nada, nampak Dio masih asyik bermain dengan merpatinya. Nada tersenyum menatapnya dari balik jendela kamarnya. Ya, tetangganya itu memang sangat menyukai merpati. Bahkan di samping rumahnya ada sebuah kandang merpati yang cukup luas miliknya sendiri. Ia biasa menyebutnya istana Merpati Dara Dori. Begitu banyak jenis merpati yang ia piara. Semuanya sepasang. Ada merpati lokal, merpati kipas, merpati gondok, merpati Lahore, dan masih banyak lagi. Namun, di antara semua merpatinya, merpati lokal berwarna seputih saljulah yang paling ia sukai. Dara dan Dori.</p>\r\n\r\n<p>Pernyataan yang sesuai dengan isi cerpen tersebut adalah &hellip;</p>\r\n', '#####<p>Merpati yang paling Dio Gemari adalah merpati Lahore</p>\r\n', '#####<p>Dio seorang yang menggemari berbagai jenis burung merpati.</p>\r\n', '#####<p>Kandang burung yang ada sengaja dibuat untuk Dara dan Dori.</p>\r\n', '#####<p>Nada tidak senang kalau Dio memelihara banyak burung merpati.</p>\r\n', '#####', 'B', '2017-01-25 10:13:02', 3, 4),
-(42, 3, 1, 1, '', '', '<p>Langit menjadi kelabu. Awan hitam mulai tak mampu lagi membendung butiran air. Matahari pergi. Sinarnya pun tak berbekas. Di samping rumah Nada, nampak Dio masih asyik bermain dengan merpatinya. Nada tersenyum menatapnya dari balik jendela kamarnya. Ya, tetangganya itu memang sangat menyukai merpati. Bahkan di samping rumahnya ada sebuah kandang merpati yang cukup luas miliknya sendiri. Ia biasa menyebutnya istana Merpati Dara Dori. Begitu banyak jenis merpati yang ia piara. Semuanya sepasang. Ada merpati lokal, merpati kipas, merpati gondok, merpati Lahore, dan masih banyak lagi. Namun, di antara semua merpatinya, merpati lokal berwarna seputih saljulah yang paling ia sukai. Dara dan Dori.</p>\r\n\r\n<p>Makna kata &ldquo;membendung&rdquo; pada kutipan cerpen tersebut ialah &hellip;.</p>\r\n', '#####<p>menahan</p>\r\n', '#####<p>menampung</p>\r\n', '#####<p>membentengi</p>\r\n', '#####<p>mengumpulkan</p>\r\n', '#####', 'A', '2017-01-25 10:13:02', 1, 4),
-(43, 3, 1, 1, '', '', '<p>1) Penerbit Wayang menerbitkan buku terbaru yang berjudul Sudah Saatnya Menjadi Penulis Hebat. 2) Buku ini ditulis oleh Bendi Derajat. 3) Judulnya menarik, isinya lengkap, bahasanya ringan dan mudah dipahami serta bermanfaat bagi pembaca. 4) Hanya saja buku tersebut menggunakan banyak istilah akademik yang sulit dipahami pembaca awam.</p>\r\n\r\n<p>Kelemahan karya sastra yang terdapat pada ulasan buku tersebut ditandai nomor...</p>\r\n\r\n<p>&nbsp;</p>\r\n', '#####<p>1</p>\r\n', '#####<p>2</p>\r\n', '#####<p>3</p>\r\n', '#####<p>4</p>\r\n', '#####', 'D', '2017-01-25 10:13:02', 0, 5),
-(44, 3, 1, 1, '', '', '<p><em>Kutipan teks I </em></p>\r\n\r\n<p><strong>Gamelan Jawa </strong></p>\r\n\r\n<p>Yogyakarta adalah tempat yang paling tepat untuk menikmati gamelan. Di kota ini Anda dapat menikmati gamelan versi aslinya. Gamelan yang berkembang di Yogyakarta adalah Gamelan Jawa yaitu musik yang biasanya menonjolkan metalofon, gambang, gendang, dan gong. Musik yang tercipta pada Gamelan Jawa berasal dari paduan bunyi gong, kenong, dan alat musik Jawa lainnya. Gamelan Jawa berbeda dengan Gamelan Bali ataupun Gamelan Sunda. Gamelan Jawa memiliki nada yang lebih lembut dan slow, berbeda dengan Gamelan Bali yang rancak dan Gamelan Sunda yang sangat mendayu-dayu dan didominasi suara seruling. Perbedaan itu wajar, karena Jawa memiliki pandangan hidup tersendiri yang diungkapkan dalam irama musik gamelannya. Adanya perbedaan gamelan Jawa, Bali, ataupun Sunda mengindikasikan bahwa masing-masing daerah memiliki pandangan hidup dan budaya sehingga berpengaruh pada gamelannya.</p>\r\n\r\n<p><em>Kutipan teks II </em></p>\r\n\r\n<p><strong>KEKERINGAN </strong></p>\r\n\r\n<p>Kekeringan adalah keadaan kekurangan air yang sangat ekstrim dalam waktu lama. Kekeringan timbul tanpa dapat diprediksi secara tepat. Di Indonesia, hujan turun secara tidak merata meskipun pada umumnya hujan terjadi di seluruh wilayah negeri. Selain itu, hujan tidak terjadi dalam waktu yang bersamaan. Di wilayah barat, hujan sudah turun, tetapi di wilayah timur belum turun hujan. Kekeringan biasanya muncul bila suatu wilayah secara terus-menerus mengalami curah hujan di bawah rata-rata. Musim kemarau yang panjang akan menjadi bencana alam apabila menyebabkan suatu wilayah kehilangan sumber pendapatan akibat gangguan pada pertanian dan ekosistem yang ditimbulkannya.</p>\r\n\r\n<p>Perbedaan penggunaan bahasa pada kedua kutipan teks tersebut adalah....</p>\r\n\r\n<p>&nbsp;</p>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Teks 1</th>\r\n			<th scope="col">Teks 2</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>bahasanya mudah dipahami</td>\r\n			<td>banyak menggunakan istilah ilmiah</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Teks 1</th>\r\n			<th scope="col">Teks 2</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>banyak menggunakan bahasa daerah</td>\r\n			<td>bahasanya mudah dipahami</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Teks 1</th>\r\n			<th scope="col">Teks 2</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>menggunakan istilah-istilah khusus</td>\r\n			<td>banyak menggunakan istilah ilmiah</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<thead>\r\n		<tr>\r\n			<th scope="col">Teks 1</th>\r\n			<th scope="col">Teks 2</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>banyak menggunakan istilah khusus</td>\r\n			<td>menggunakan istilah-istilah umum</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '#####', 'D', '2017-01-25 10:13:02', 0, 7),
-(45, 3, 1, 1, '', '', '<p>Sejak zaman dahulu, nenek moyang kita sudah mengenal tanaman lidah buaya serta manfaatnya. Manfaat tumbuhan yang bernama latin Aloe Vera ini tidak hanya sebagai penyubur rambut, tetapi juga bermanfaat bagi kesehatan. Tumbuhan tanpa buah ini mempunyai ciri-ciri, seperti daun berbentuk panjang, tebal, dan berwarna hijau. Daunnya mengandung serat bening sebagai daging. Meskipun sejak dahulu dikenal memiliki banyak khasiat, belum banyak yang mengetahui bahwa tanaman ini bisa menjadi komoditas yang menguntungkan. Komoditas yang berbahan lidah buaya, di antaranya obat untuk mempercepat proses penyembuhan penyakit, jus lidah buaya atau gel sebagai obat pencahar yang baik dan sangat membantu jika mengalami sembelit, ramuan penyubur rambut, juga sebagai minuman yang menyehatkan.</p>\r\n\r\n<p>Ringkasan paragraf tersebut adalah....</p>\r\n', '#####<p>Lidah buaya bermanfaat sebagai penyubur rambut juga untuk kesehatan.</p>\r\n', '#####<p>Lidah buaya sangat bermanfaat untuk mengobati berbagai macam penyakit.</p>\r\n', '#####<p>Lidah buaya selain bermanfaat juga menjadi komoditas yang menguntungkan</p>\r\n', '#####<p>Lidah buaya memiliki ciri-ciri tertentu dan nilai komoditas yang menguntungkan</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 1, 5),
-(46, 3, 1, 1, '', '', '<p>Perlunya Resapan Air untuk Mencegah Banjir</p>\r\n\r\n<p>Banjir sudah menjadi agenda tahunan bagi masyarakat Indonesia. Tidak heran bila pemerintah berjuang keras dan mengeluarkan biaya yang sangat besar untuk menyelesaikan masalah ini. Membangun saluran air yang bagus merupakan salah satu cara pemerintah menanggulangi banjir. Namun, itu semua tidak akan berhasil apabila tidak diimbangi dengan pembangunan daerah resapan air. Jadi, resapan air ini merupakan syarat mutlak untuk menanggulangi banjir.</p>\r\n\r\n<p>Pendapat yang mendukung kutipan isi teks tersebut adalah ...</p>\r\n', '#####<p>Solusi tersebut hanya akan menghamburkan uang negara.</p>\r\n', '#####<p>Solusi seperti itu sudah tepat sehingga harus segera direalisasikan.</p>\r\n', '#####<p>Solusi yang dipilih pemerintah tidak akan mampu menanggulangi banjir</p>\r\n', '#####<p>Solusi tersebut masuk akal, tetapi sulit membangun resapan air di perkotaan.</p>\r\n', '#####<p>opsi E.13</p>\r\n', 'B', '2017-01-25 10:13:02', 0, 6),
-(47, 3, 1, 1, '', '', '<p>Ternyata jeruk nipis bermanfaat dalam mengobati batuk. Buah ini memiliki kandungan berupa minyak asiri dan zat yang dapat bermanfaat mengendalikan otot-otot pernapasan sehingga mampu meredakan batuk. Adapun cara penggunaannya yaitu dengan cara meminum air perasan dari jeruk nipis yang dapat dicampur dengan madu, kecap atau gula sehingga rasa asamnya berkurang. (http://informasiana.com)</p>\r\n\r\n<p>Isi yang tersirat pada bagian teks tersebut adalah ....</p>\r\n', '#####<p>Jeruk nipis dapat dicampur dengan zat lainnya</p>\r\n', '#####<p>Jeruk nipis dapat ditanam di pekarangan rumah</p>\r\n', '#####<p>Jeruk nipis memiliki khasiat untuk menjaga kesehatan</p>\r\n', '#####<p>Jeruk nipis lebih berkhasiat dibandingkan jeruk lainnya</p>\r\n', '#####<p>opsi E.14</p>\r\n', 'C', '2017-01-25 10:13:02', 2, 4),
-(48, 3, 1, 1, '', '', '<p>Ternyata jeruk nipis bermanfaat dalam mengobati batuk. Buah ini memiliki kandungan berupa minyak asiri dan zat yang dapat bermanfaat mengendalikan otot-otot pernapasan sehingga mampu meredakan batuk. Adapun cara penggunaannya yaitu dengan cara meminum air perasan dari jeruk nipis yang dapat dicampur dengan madu, kecap atau gula sehingga rasa asamnya berkurang. (http://informasiana.com)</p>\r\n\r\n<p>Ide pokok teks tersebut adalah ....</p>\r\n', '#####<p>manfaat jeruk nipis</p>\r\n', '#####<p>kandungan jeruk nipis</p>\r\n', '#####<p>campuran jeruk nipis</p>\r\n', '', '', 'A', '2017-01-25 10:13:02', 0, 4),
-(49, 3, 1, 1, '', '', '<p>Kelestarian Lingkungan Hidup</p>\r\n\r\n<p>Lingkungan adalah sesuatu yang ada di sekitar manusia yang dapat memengaruhi kehidupan manusia. Lingkungan hidup adalah kesatuan ruang dengan benda dan kesatuan makhluk hidup termasuk manusia terlibat di dalamnya. Manusia harus menyadari bahwa lingkungan merupakan sarana pengembangan hidup yang harus dijaga kelestariannya.</p>\r\n\r\n<p>Dalam lingkungan hidup terdapat ekosistem, yaitu tatanan unsur lingkungan hidup yang merupakan kesatuan utuh menyeluruh dan saling memengaruhi dalam membentuk keseimbangan, stabilitas, dan produktivitas lingkungan hidup. Lingkungan hidup dapat dibedakan menjadi tiga, yaitu unsur hayati (biotik), unsur sosial budaya, dan unsur fisik (abiotik). Unsur hayati (biotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk hidup, seperti manusia, hewan, tumbuhan dan jasad renik. Unsur sosial budaya, yaitu lingkungan sosial dan budaya yang dibuat oleh manusia berupa sistem nilai, gagasan, dan keyakinan dalam perilaku sebagai makhluk&nbsp;sosial. Unsur fisik (abiotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk tak hidup, seperti tanah, air, iklim, udara dan lain sebagainya. Keberadaan unsur ini sangat besar bagi kelangsungan hidup segenap kehidupan di bumi.</p>\r\n\r\n<p>Simpulan isi teks tersebut adalah ...</p>\r\n', '#####<p>Manusia harus menjaga kelestarian lingkungan hidup.</p>\r\n', '#####<p>Manusia dapat memanfaatkan seluruh isi lingkungan hidup</p>\r\n', '#####<p>Seluruh unsur lingkungan hidup saling mempengaruhi demi kehidupan manusia.</p>\r\n', '#####<p>Unsur biotik, sosial budaya, dan abiotik harus dimanfaatkan manusia secara seimbang.</p>\r\n', '#####<p>opsi E.16</p>\r\n', 'A', '2017-01-25 10:13:02', 3, 5),
-(50, 3, 2, 1, '', '', '<p>Kelestarian Lingkungan Hidup</p>\r\n\r\n<p>Lingkungan adalah sesuatu yang ada di sekitar manusia yang dapat memengaruhi kehidupan manusia. Lingkungan hidup adalah kesatuan ruang dengan benda dan kesatuan makhluk hidup termasuk manusia terlibat di dalamnya. Manusia harus menyadari bahwa lingkungan merupakan sarana pengembangan hidup yang harus dijaga kelestariannya.</p>\r\n\r\n<p>Dalam lingkungan hidup terdapat ekosistem, yaitu tatanan unsur lingkungan hidup yang merupakan kesatuan utuh menyeluruh dan saling memengaruhi dalam membentuk keseimbangan, stabilitas, dan produktivitas lingkungan hidup. Lingkungan hidup dapat dibedakan menjadi tiga, yaitu unsur hayati (biotik), unsur sosial budaya, dan unsur fisik (abiotik). Unsur hayati (biotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk hidup, seperti manusia, hewan, tumbuhan dan jasad renik. Unsur sosial budaya, yaitu lingkungan sosial dan budaya yang dibuat oleh manusia berupa sistem nilai, gagasan, dan keyakinan dalam perilaku sebagai makhluk&nbsp;sosial. Unsur fisik (abiotik), yaitu unsur lingkungan hidup yang terdiri dari makhluk tak hidup, seperti tanah, air, iklim, udara dan lain sebagainya. Keberadaan unsur ini sangat besar bagi kelangsungan hidup segenap kehidupan di bumi.</p>\r\n\r\n<p>Informasi yang sesuai dengan isi teks tersebut adalah &hellip;.</p>\r\n\r\n<p>&nbsp;</p>\r\n', '#####<p>Tanpa adanya unsur lingkungan hidup, manusia tidak hidup di bumi ini.</p>\r\n', '#####<p>Unsur abiotik tidak terlalu berpengaruh terhadap kelangsungan hidup manusia</p>\r\n', '#####<p>Unsur sosial budaya diciptakan oleh manusia untuk kelestarian kehidupan di bumi.</p>\r\n', '#####<p>Lingkungan hidup yang meliputi unsur biotik, sosial budaya, dan abiotik harus dijaga kelestariannya.</p>\r\n', '#####<p>opsi E.17</p>\r\n', 'D', '2017-01-25 10:13:02', 0, 7),
-(51, 3, 2, 1, '', '', '<p>Biografi Mario Teguh</p>\r\n\r\n<p>&quot;Salam Super&quot; itulah kata-kata pembuka yang biasa diucapkan oleh Mario Teguh ketika ia mulai membawakan acara di Metro TV yang bertajuk &#39;Mario Teguh Golden Ways&#39;. Terkenal sebagai <em>motivator </em>terbaik di Indonesia yang memiliki kepribadian yang cerdas serta mampu memotivasi banyak orang melalui rangkaian kata-kata bijaknya sehingga ia makin banyak disukai oleh orang-orang.<br />\r\n&nbsp;</p>\r\n\r\n<p>Makna kata bercetak miring pada kutipan teks tersebut adalah &hellip;</p>\r\n', '#####<p>Orang yang bertugas mengingatkan orang lain agar selalu melakukan perbuatan baik.</p>\r\n', '#####<p>Orang yang bertugas membantu seseorang dalam menyelesaikan masalah pribadinya.</p>\r\n', '#####<p>Orang yang menyebabkan timbulnya dorongan pada orang lain untuk melakukan sesuatu.</p>\r\n', '#####<p>Orang yang membangkitkan semangat seseorang agar berasil dalam menjalankan usahanya.</p>\r\n', '#####', 'C', '2017-01-25 10:13:02', 1, 7),
-(52, 0, 1, 1, 'aa825-bsm-2-.png', '', '<p>\n	rt</p>\n', '<p>\n	ret</p>\n', '<p>\n	ret</p>\n', '<p>\n	ert</p>\n', '<p>\n	ert</p>\n', '', 'A', '0000-00-00 00:00:00', 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -1069,7 +873,7 @@ CREATE TABLE `pegawai` (
   `alamat` text NOT NULL,
   `email` varchar(50) NOT NULL,
   `phone` varchar(15) NOT NULL,
-  `foto` text
+  `foto` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1077,13 +881,22 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `user_id`, `wilayah`, `nama_pegawai`, `alamat`, `email`, `phone`, `foto`) VALUES
-(1, 2, 11, 'Udin Martono', 'Semarang', 'udin@gmail.com', '0891239123', NULL),
-(2, 3, 3307, 'Kurniawan Teguh', 'Semarang', 'k.teguh@gmail.com', '085242970666', NULL),
-(8, 1, NULL, 'Helmi', 'Tegal', 'helmi@gmail.com', '0891239123', NULL),
-(11, 4, 33, 'Mukhammad Fakhir Rizal', 'Jln. dr. Cipto 61, Proyonanggan Tengah, Batang 51211', 'fakhir_rizal@hotmail.com', '085696303627', NULL),
-(12, 5, 5271, 'Estio Nurcahyanto', 'Bekasi', 'estio@hotmail.com', '085696303627', NULL),
-(13, 6, 34, 'Imam Fajrul Falah', 'Kauman', 'imam@hotmail.com', '085696303627', NULL),
-(14, 7, NULL, 'Sharfina Aulia Puspasari', 'Pasekaran', 'fina@hotmail.com', '085696303627', NULL);
+(1, 1, NULL, 'Mukhammad Fakhir Rizal', 'Tegal', 'helmi@gmail.com', '0891239123', NULL),
+(2, 2, NULL, 'Subdit Kemitraan dan Kelembagaan', 'Gedung Blok G Lt. 7 Kementerian PUPR', 'kemitraankelembagaan@pu.go.id', '1234567890', NULL),
+(15, 3, 81, 'Provinsi Maluku', 'Kota Ambon', 'maluku@gmail.com', '1234567890', NULL),
+(16, 4, 32, 'Provinsi Jawa Barat', 'Bandung', 'jabarjuara@gmail.com', '1234567890', NULL),
+(17, 5, 16, 'Sumatera Selatan', 'Palembang', 'sumsel@gmail.com', '1234567890', NULL),
+(18, 6, 7501, 'Kabupaten Boalemo', 'Kabupaten Boalemo', 'boalemo@gmail.com', '1234567890', NULL),
+(19, 7, 8271, 'Kota Ternate', 'Kota Ternate', 'ternate@gmail.com', '1234567890', NULL),
+(20, 8, 7271, 'Kota Palu', 'Kota Palu', 'palu@gmail.com', '1234567890', NULL),
+(21, 9, 1303, 'Kabupaten Solok', 'Kabupaten Solok', 'barehsolok@gmail.com', '1234567890', NULL),
+(22, 10, 3307, 'Kabupaten Wonosobo', 'Kabupaten Wonosobo', 'wonosobo@gmail.com', '1234567890', NULL),
+(23, 11, 34, 'Provinsi DIY', 'Provinsi Daerah Istimewa Yogyakarta', 'yogyakarta@gmail.com', '12345678901', NULL),
+(24, 12, 3402, 'Kabupaten Bantul', 'Kabupaten Bantul', 'kabupatenbantul@gmail.com', '1234567890', NULL),
+(25, 13, 3403, 'Kabupaten Gunungkidul', 'Kabupaten Gunungkidul', 'gunungkidul@gmail.com', '1234567890', NULL),
+(26, 14, 3401, 'Kabupaten Kulon Progo', 'Kabupaten Kulon Progo', 'kulonprogo@gmail.com', '1234567890', NULL),
+(27, 15, 3404, 'Kabupaten Sleman', 'Kabupaten Sleman', 'sleman@gmail.com', '1234567890', NULL),
+(28, 16, 3471, 'Kota Yogyakarta', 'Kota Yogyakarta', 'yogyakarta@gmail.com', '1234567890', NULL);
 
 -- --------------------------------------------------------
 
@@ -1103,9 +916,7 @@ CREATE TABLE `profil_dir` (
 --
 
 INSERT INTO `profil_dir` (`id_profil`, `visi_misi`, `tupoksi`, `struktur_organisasi`) VALUES
-(1, '<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;">\n	<span style="box-sizing: border-box; font-weight: 700;">&quot;TERWUJUDNYA INFRASTRUKTUR PEKERJAAN UMUM DAN PERUMAHAN RAKYAT YANG HANDAL</span></p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;">\n	<span style="box-sizing: border-box; font-weight: 700;">DALAM MENDUKUNG INDONESIA YANG BERDAULAT, MANDIRI, DAN BERKEPRIBADIAN</span></p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;">\n	<span style="box-sizing: border-box; font-weight: 700;">BERLANDASKAN GOTONG ROYONG&quot;</span></p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: justify;">\n	&nbsp;</p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: justify;">\n	Misi Kementerian Pekerjaan Umum dan Perumahan Rakyat yang merupakan rumusan upaya yang akan dilaksanakan selama periode Renstra 2015 &ndash; 2019 dalam rangka mencapai visi serta mendukung upaya pencapaian target pembangunan nasional, berdasarkan mandat yang diemban oleh Kementerian Pekerjaan Umum dan Perumahan Rakyat sebagaimana yang tercantum di dalam Peraturan Pemerintah Nomor 165 Tahun 2014 tentang Penataan Tugas dan Fungsi Kabinet Kerja, amanat RPJMN tahap ketiga serta perubahan kondisi lingkungan strategis yang dinamis adalah sebagai berikut :</p>\n<ol style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;">\n	<li style="box-sizing: border-box; text-align: justify;">\n		Mempercepat pembangunan infrastruktur sumberdaya air termasuk sumber daya maritim untuk mendukung ketahanan air, kedaulatan pangan, dan kedaulatan energi, guna menggerakkan sektor-sektor strategis ekonomi domestik dalam rangka kemandirian ekonomi;</li>\n	<li style="box-sizing: border-box; text-align: justify;">\n		Mempercepat pembangunan infrastruktur jalan untuk mendukung konektivitas guna meningkatkan produktivitas, efisiensi, dan pelayanan sistem logistik nasional bagi penguatan daya saing bangsa di lingkup global yang berfokus pada keterpaduan konektivitas daratan dan maritim;</li>\n	<li style="box-sizing: border-box; text-align: justify;">\n		Mempercepat pembangunan infrastruktur permukiman dan perumahan rakyat untuk mendukung layanan infrastruktur dasar yang layak dalam rangka mewujudkan kualitas hidup manusia Indonesia sejalan dengan prinsip &lsquo;infrastruktur untuk semua&rsquo;;</li>\n	<li style="box-sizing: border-box; text-align: justify;">\n		Mempercepat pembangunan infrastruktur pekerjaan umum dan perumahan rakyat secara terpadu dari pinggiran didukung industri konstruksi yang berkualitas untuk keseimbangan pembangunan antardaerah, terutama di kawasan tertinggal, kawasan perbatasan, dan kawasan perdesaan, dalam kerangka NKRI;</li>\n	<li style="box-sizing: border-box; text-align: justify;">\n		Meningkatkan tata kelola sumber daya organisasi bidang pekerjaan umum dan perumahan rakyat yang meliputi sumber daya manusia, pengendalian dan pengawasan, kesekertariatan serta penelitian dan pengembangan untuk mendukung fungsi manajemen meliputi perencanaan yang terpadu, pengorganisasian yang efisien, pelaksanaan yang tepat, dan pengawasan yang ketat.</li>\n</ol>\n', '<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;">\n	Sesuai dengan Peraturan Presiden Nomor 15 Tahun 2015 tentang&nbsp;Kementerian Pekerjaan Umum dan Perumahan Rakyat dan Peraturan Presiden Nomor 135 Tahun 2018 tentang Perubahan atas&nbsp;Peraturan Presiden Nomor 15 Tahun 2015 tentang&nbsp;Kementerian Pekerjaan Umum dan Perumahan Rakyat.</p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;">\n	Kementerian Pekerjaan Umum dan Perumahan Rakyat mempunyai tugas menyelenggarakan urusan pemerintahan di bidang pekerjaan umum dan perumahan rakyat untuk membantu Presiden dalam menyelenggarakan pemerintahan negara.</p>\n<p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;">\n	Dalam melaksanakan tugas sebagaimana dimaksud di atas, Kementerian Pekerjaan Umum dan Perumahan Rakyat menyelenggarakan&nbsp; fungsi:</p>\n<ol style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; list-style-type: lower-alpha;">\n	<li style="box-sizing: border-box;">\n		perumusan, penetapan, dan pelaksanaan kebijakan di bidang pengelolaan sumber daya air, penyelenggaraan jalan, penyediaan perumahan dan pengembangan kawasan permukiman, pembiayaan infrastruktur, penataan bangunan gedung, sistem penyediaan air minum, sistem pengelolaan air limbah dan drainase lingkungan serta persampahan, dan pembinaan jasa konstruksi;</li>\n	<li style="box-sizing: border-box;">\n		koordinasi pelaksanaan tugas, pembinaan, dan pemberian dukungan administrasi kepada seluruh unsur organisasi di lingkungan Kementerian Pekerjaan Umum dan perumahan Rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pengelolaan barang milik/kekayaan negara yang menjadi tanggung jawab Kementerian Pekerjaan Umum dan Perumahan Rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pengawasan atas pelaksanaan tugas di lingkungan Kementerian Pekerjaan Umum dan Perumahan Rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan bimbingan teknis dan supervisi atas pelaksanaan urusan Kementerian Pekerjaan Umum dan Perumahan Rakyat di daerah;</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan penyusunan kebijakan teknis dan strategi keterpaduan pengembangan infrastruktur pekerjaan umum dan perumahan rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan penelitian dan pengembangan di bidang pekerjaan umum dan perumahan rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan pengembangan sumber daya manusia di bidang pekerjaan umum dan perrrmahan rakyat;</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan dukungan yang bersifat substantif kepada seluruh unsur organisasi di lingkungan Kementerian Pekerjaan Umum dan Perumahan Rakyat; dan</li>\n	<li style="box-sizing: border-box;">\n		pelaksanaan fungsi lain yang diberikan oleh Presiden.</li>\n</ol>\n', '<p>\n	<img alt="" src="/sibilup/assets/images/article/images/20190402-struktur-organisasi-kementerian-pupr.jpg" style="width: 900px; height: 675px;" /></p>\n'),
-(2, '', '<p>\n	hyrt</p>\n', ''),
-(3, '', '<p>\n	fghfdg</p>\n', '');
+(1, '<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;\">\n	<span style=\"box-sizing: border-box; font-weight: 700;\">&quot;TERWUJUDNYA INFRASTRUKTUR PEKERJAAN UMUM DAN PERUMAHAN RAKYAT YANG HANDAL</span></p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;\">\n	<span style=\"box-sizing: border-box; font-weight: 700;\">DALAM MENDUKUNG INDONESIA YANG BERDAULAT, MANDIRI, DAN BERKEPRIBADIAN</span></p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: center;\">\n	<span style=\"box-sizing: border-box; font-weight: 700;\">BERLANDASKAN GOTONG ROYONG&quot;</span></p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: justify;\">\n	&nbsp;</p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: justify;\">\n	Misi Kementerian Pekerjaan Umum dan Perumahan Rakyat yang merupakan rumusan upaya yang akan dilaksanakan selama periode Renstra 2015 &ndash; 2019 dalam rangka mencapai visi serta mendukung upaya pencapaian target pembangunan nasional, berdasarkan mandat yang diemban oleh Kementerian Pekerjaan Umum dan Perumahan Rakyat sebagaimana yang tercantum di dalam Peraturan Pemerintah Nomor 165 Tahun 2014 tentang Penataan Tugas dan Fungsi Kabinet Kerja, amanat RPJMN tahap ketiga serta perubahan kondisi lingkungan strategis yang dinamis adalah sebagai berikut :</p>\n<ol style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;\">\n	<li style=\"box-sizing: border-box; text-align: justify;\">\n		Mempercepat pembangunan infrastruktur sumberdaya air termasuk sumber daya maritim untuk mendukung ketahanan air, kedaulatan pangan, dan kedaulatan energi, guna menggerakkan sektor-sektor strategis ekonomi domestik dalam rangka kemandirian ekonomi;</li>\n	<li style=\"box-sizing: border-box; text-align: justify;\">\n		Mempercepat pembangunan infrastruktur jalan untuk mendukung konektivitas guna meningkatkan produktivitas, efisiensi, dan pelayanan sistem logistik nasional bagi penguatan daya saing bangsa di lingkup global yang berfokus pada keterpaduan konektivitas daratan dan maritim;</li>\n	<li style=\"box-sizing: border-box; text-align: justify;\">\n		Mempercepat pembangunan infrastruktur permukiman dan perumahan rakyat untuk mendukung layanan infrastruktur dasar yang layak dalam rangka mewujudkan kualitas hidup manusia Indonesia sejalan dengan prinsip &lsquo;infrastruktur untuk semua&rsquo;;</li>\n	<li style=\"box-sizing: border-box; text-align: justify;\">\n		Mempercepat pembangunan infrastruktur pekerjaan umum dan perumahan rakyat secara terpadu dari pinggiran didukung industri konstruksi yang berkualitas untuk keseimbangan pembangunan antardaerah, terutama di kawasan tertinggal, kawasan perbatasan, dan kawasan perdesaan, dalam kerangka NKRI;</li>\n	<li style=\"box-sizing: border-box; text-align: justify;\">\n		Meningkatkan tata kelola sumber daya organisasi bidang pekerjaan umum dan perumahan rakyat yang meliputi sumber daya manusia, pengendalian dan pengawasan, kesekertariatan serta penelitian dan pengembangan untuk mendukung fungsi manajemen meliputi perencanaan yang terpadu, pengorganisasian yang efisien, pelaksanaan yang tepat, dan pengawasan yang ketat.</li>\n</ol>\n', '<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;\">\n	Sesuai dengan Peraturan Presiden Nomor 15 Tahun 2015 tentang&nbsp;Kementerian Pekerjaan Umum dan Perumahan Rakyat dan Peraturan Presiden Nomor 135 Tahun 2018 tentang Perubahan atas&nbsp;Peraturan Presiden Nomor 15 Tahun 2015 tentang&nbsp;Kementerian Pekerjaan Umum dan Perumahan Rakyat.</p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;\">\n	Kementerian Pekerjaan Umum dan Perumahan Rakyat mempunyai tugas menyelenggarakan urusan pemerintahan di bidang pekerjaan umum dan perumahan rakyat untuk membantu Presiden dalam menyelenggarakan pemerintahan negara.</p>\n<p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px;\">\n	Dalam melaksanakan tugas sebagaimana dimaksud di atas, Kementerian Pekerjaan Umum dan Perumahan Rakyat menyelenggarakan&nbsp; fungsi:</p>\n<ol style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; list-style-type: lower-alpha;\">\n	<li style=\"box-sizing: border-box;\">\n		perumusan, penetapan, dan pelaksanaan kebijakan di bidang pengelolaan sumber daya air, penyelenggaraan jalan, penyediaan perumahan dan pengembangan kawasan permukiman, pembiayaan infrastruktur, penataan bangunan gedung, sistem penyediaan air minum, sistem pengelolaan air limbah dan drainase lingkungan serta persampahan, dan pembinaan jasa konstruksi;</li>\n	<li style=\"box-sizing: border-box;\">\n		koordinasi pelaksanaan tugas, pembinaan, dan pemberian dukungan administrasi kepada seluruh unsur organisasi di lingkungan Kementerian Pekerjaan Umum dan perumahan Rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pengelolaan barang milik/kekayaan negara yang menjadi tanggung jawab Kementerian Pekerjaan Umum dan Perumahan Rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pengawasan atas pelaksanaan tugas di lingkungan Kementerian Pekerjaan Umum dan Perumahan Rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan bimbingan teknis dan supervisi atas pelaksanaan urusan Kementerian Pekerjaan Umum dan Perumahan Rakyat di daerah;</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan penyusunan kebijakan teknis dan strategi keterpaduan pengembangan infrastruktur pekerjaan umum dan perumahan rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan penelitian dan pengembangan di bidang pekerjaan umum dan perumahan rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan pengembangan sumber daya manusia di bidang pekerjaan umum dan perrrmahan rakyat;</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan dukungan yang bersifat substantif kepada seluruh unsur organisasi di lingkungan Kementerian Pekerjaan Umum dan Perumahan Rakyat; dan</li>\n	<li style=\"box-sizing: border-box;\">\n		pelaksanaan fungsi lain yang diberikan oleh Presiden.</li>\n</ol>\n', '<p>\n	<img alt=\"\" src=\"/sibilup/assets/images/article/images/20190402-struktur-organisasi-kementerian-pupr.jpg\" style=\"width: 900px; height: 675px;\" /></p>\n');
 
 -- --------------------------------------------------------
 
@@ -1173,18 +984,9 @@ CREATE TABLE `regulasi` (
   `judul` varchar(100) NOT NULL,
   `file` varchar(200) NOT NULL,
   `keterangan` text NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `upload_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `regulasi`
---
-
-INSERT INTO `regulasi` (`id_reg`, `judul`, `file`, `keterangan`, `create_at`, `upload_by`) VALUES
-(1, 'tes', '6e5cd-dok-baru-2019-08-28-14.22.pdf', 'tes', '2019-10-01 08:33:49', 0),
-(2, 'Tes', '6df88-proposal-it-asia-wisata-2.pdf', '-', '2019-10-01 03:00:00', 1),
-(3, 'Tes 3', '624d0-panduan-aplikasi-keuangan-lazis-pln-lama-.pdf', '-', '2019-10-04 03:45:47', 8);
 
 -- --------------------------------------------------------
 
@@ -1201,7 +1003,7 @@ CREATE TABLE `rekap_pokja_pkp_kabkota` (
   `forum` enum('Tidak','Ya') DEFAULT NULL COMMENT 'Telah membentuk& mengaktifkan Forum PKP ',
   `apbd` enum('Tidak','Ya') DEFAULT NULL,
   `tahun` int(4) NOT NULL,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1209,14 +1011,190 @@ CREATE TABLE `rekap_pokja_pkp_kabkota` (
 --
 
 INSERT INTO `rekap_pokja_pkp_kabkota` (`id_kabupaten`, `status`, `sk`, `penggabungan`, `program`, `forum`, `apbd`, `tahun`, `updated_at`) VALUES
-(1101, 'Selesai', 'V', 'Sudah', 'Ya', '', '', 2019, '2019-10-21 19:15:00'),
-(1107, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Ya', 2019, '2019-10-15 09:18:14'),
-(1110, 'Belum', 'V', 'Proses', 'Ya', '', 'Tidak', 2019, '2019-10-21 18:51:32'),
-(1112, NULL, NULL, 'Sudah', NULL, NULL, NULL, 2019, '2019-10-15 09:18:14'),
-(1175, 'Selesai', 'V', 'Sudah', 'Ya', 'Ya', 'Ya', 2019, '2019-10-21 19:19:09'),
-(3316, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-15 09:18:14'),
-(3471, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-15 09:18:14'),
-(8172, 'Proses', NULL, 'Sudah', NULL, NULL, NULL, 2019, '2019-10-15 09:18:14');
+(1101, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:14:50'),
+(1107, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-23 19:41:27'),
+(1109, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:15:52'),
+(1110, 'Belum', NULL, 'Belum', 'Ya', 'Tidak', 'Ya', 2019, '2019-10-23 13:14:28'),
+(1115, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:22:17'),
+(1117, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:22:52'),
+(1172, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:21:38'),
+(1174, 'Selesai', 'V', 'Sudah', 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 13:18:33'),
+(1175, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:15:36'),
+(1206, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:27:16'),
+(1209, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:28:17'),
+(1214, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:26:55'),
+(1217, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:28:30'),
+(1218, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:27:50'),
+(1219, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:25:31'),
+(1221, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:27:38'),
+(1224, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:25:55'),
+(1276, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:26:41'),
+(1301, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:15:21'),
+(1302, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:16:05'),
+(1303, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:16:08'),
+(1304, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:17:20'),
+(1305, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:17:16'),
+(1306, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:17:24'),
+(1307, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:16:12'),
+(1308, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:16:01'),
+(1309, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:15:57'),
+(1310, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:17:28'),
+(1311, 'Selesai', 'V', NULL, NULL, NULL, 'Tidak', 2019, '2019-10-21 20:15:07'),
+(1312, 'Selesai', 'V', NULL, 'Ya', NULL, NULL, 2019, '2019-10-21 20:15:46'),
+(1371, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:16:18'),
+(1372, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:17:03'),
+(1373, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:16:55'),
+(1374, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:16:59'),
+(1375, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:16:51'),
+(1376, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:17:07'),
+(1377, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:17:11'),
+(1401, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:18:50'),
+(1402, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:20:07'),
+(1403, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:19:09'),
+(1404, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:18:42'),
+(1405, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:19:06'),
+(1406, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:20:02'),
+(1407, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:18:59'),
+(1408, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:19:18'),
+(1409, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:18:54'),
+(1410, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:19:13'),
+(1471, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:19:03'),
+(1473, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:18:46'),
+(1604, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:29:54'),
+(1605, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:29:45'),
+(1671, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:30:27'),
+(1672, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:30:07'),
+(1673, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:30:38'),
+(1701, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:32:53'),
+(1702, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:32:25'),
+(1704, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:31:45'),
+(1705, 'Proses', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:31:25'),
+(1706, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:32:09'),
+(1707, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:31:34'),
+(1708, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:31:59'),
+(1771, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:32:39'),
+(1901, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:22:34'),
+(1902, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:22:14'),
+(1903, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:22:38'),
+(1904, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:22:25'),
+(1905, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:22:29'),
+(1906, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:22:18'),
+(1971, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:22:22'),
+(2101, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:23:46'),
+(2102, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:23:27'),
+(2103, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:23:33'),
+(2104, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:23:24'),
+(2105, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:23:38'),
+(2171, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:23:30'),
+(2172, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:23:42'),
+(3202, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:40:06'),
+(3204, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:37:57'),
+(3206, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:38:59'),
+(3208, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:38:15'),
+(3210, 'Proses', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:38:47'),
+(3211, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:39:15'),
+(3213, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:38:31'),
+(3217, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:39:48'),
+(3278, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:39:34'),
+(3401, 'Selesai', 'V', 'Sudah', 'Ya', 'Tidak', 'Ya', 2019, '2019-10-21 18:54:25'),
+(3402, 'Selesai', 'V', NULL, NULL, NULL, 'Ya', 2019, '2019-10-21 18:54:13'),
+(3403, 'Selesai', 'V', NULL, NULL, NULL, 'Ya', 2019, '2019-10-21 18:54:19'),
+(3404, 'Selesai', 'V', NULL, NULL, NULL, 'Ya', 2019, '2019-10-21 18:54:02'),
+(3471, 'Selesai', 'V', NULL, NULL, NULL, 'Ya', 2019, '2019-10-21 18:54:08'),
+(3601, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:28:37'),
+(3602, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:28:23'),
+(3603, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:28:27'),
+(3604, 'Selesai', NULL, NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:28:31'),
+(3671, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:28:16'),
+(3672, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:28:46'),
+(3673, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:28:42'),
+(3674, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:28:19'),
+(5101, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:30:19'),
+(5102, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:30:32'),
+(5103, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:30:07'),
+(5104, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:29:55'),
+(5105, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:30:02'),
+(5106, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:30:10'),
+(5107, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:30:24'),
+(5108, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:29:59'),
+(5171, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:30:16'),
+(5201, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:42:05'),
+(5202, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:41:27'),
+(5203, 'Selesai', 'V', 'Proses', 'Ya', 'Tidak', 'Tidak', 2019, '2019-10-23 13:42:21'),
+(5205, 'Proses', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:41:14'),
+(5206, 'Selesai', 'V', 'Belum', 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 13:42:57'),
+(5207, 'Proses', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:41:55'),
+(5208, 'Belum', NULL, 'Belum', 'Ya', 'Ya', 'Tidak', 2019, '2019-10-23 13:42:39'),
+(5272, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:41:40'),
+(6101, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:49:46'),
+(6102, 'Selesai', 'V', 'Proses', 'Tidak', 'Tidak', 'Ya', 2019, '2019-10-23 13:48:52'),
+(6106, 'Selesai', 'V', 'Sudah', 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 13:48:27'),
+(6107, 'Belum', NULL, NULL, 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 13:47:09'),
+(6108, 'Belum', NULL, 'Belum', 'Ya', 'Tidak', 'Ya', 2019, '2019-10-23 13:46:53'),
+(6109, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:49:15'),
+(6111, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:49:32'),
+(6112, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:47:40'),
+(6171, 'Selesai', 'V', 'Proses', 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 13:47:29'),
+(6172, 'Selesai', 'V', 'Proses', 'Tidak', 'Tidak', 'Ya', 2019, '2019-10-23 13:47:53'),
+(6301, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:24:48'),
+(6302, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:25:20'),
+(6303, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:25:35'),
+(6304, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:24:56'),
+(6305, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:25:31'),
+(6306, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:25:08'),
+(6307, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:25:00'),
+(6308, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:25:25'),
+(6309, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:24:52'),
+(6310, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:25:05'),
+(6311, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:25:12'),
+(6371, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:25:39'),
+(6372, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:25:15'),
+(6401, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:26:44'),
+(6402, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:26:54'),
+(6403, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:26:58'),
+(6404, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:27:06'),
+(6405, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:27:09'),
+(6409, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:26:36'),
+(6411, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:26:40'),
+(6471, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:27:13'),
+(6472, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:27:02'),
+(6474, 'Selesai', 'V', NULL, NULL, NULL, NULL, 2019, '2019-10-21 20:26:50'),
+(7102, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Ya', 2019, '2019-10-23 13:51:56'),
+(7106, 'Selesai', NULL, 'Proses', 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 13:53:02'),
+(7108, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:52:10'),
+(7109, 'Belum', NULL, 'Belum', 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 13:51:43'),
+(7110, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 13:51:16'),
+(7171, 'Selesai', 'V', 'Proses', 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 13:52:48'),
+(7172, 'Selesai', 'V', 'Belum', 'Ya', 'Tidak', 'Ya', 2019, '2019-10-23 13:51:29'),
+(7174, 'Selesai', 'V', 'Belum', 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 13:52:27'),
+(7301, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:07:40'),
+(7303, 'Selesai', 'V', 'Belum', 'Tidak', 'Ya', 'Ya', 2019, '2019-10-23 14:09:42'),
+(7308, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Ya', 2019, '2019-10-23 14:08:40'),
+(7310, 'Belum', NULL, 'Belum', 'Tidak', 'Ya', 'Ya', 2019, '2019-10-23 14:08:58'),
+(7313, 'Selesai', 'V', 'Proses', 'Ya', 'Tidak', 'Tidak', 2019, '2019-10-23 14:08:25'),
+(7316, 'Belum', NULL, 'Proses', 'Ya', 'Ya', 'Tidak', 2019, '2019-10-23 14:07:53'),
+(7371, 'Selesai', 'V', 'Belum', 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 14:09:25'),
+(7372, 'Belum', NULL, 'Belum', 'Tidak', 'Ya', 'Ya', 2019, '2019-10-23 14:08:06'),
+(9101, 'Selesai', 'V', 'Proses', 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 14:24:01'),
+(9102, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:16:22'),
+(9103, 'Belum', NULL, 'Belum', 'Ya', 'Tidak', 'Ya', 2019, '2019-10-23 14:24:32'),
+(9104, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:24:12'),
+(9105, 'Selesai', 'V', 'Proses', 'Ya', 'Ya', 'Ya', 2019, '2019-10-23 14:23:48'),
+(9106, 'Belum', NULL, 'Belum', 'Ya', 'Ya', 'Tidak', 2019, '2019-10-23 14:24:34'),
+(9109, 'Proses', NULL, 'Proses', 'Tidak', 'Ya', 'Ya', 2019, '2019-10-23 14:24:54'),
+(9110, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:14:17'),
+(9111, 'Selesai', 'V', 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:16:43'),
+(9171, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:17:17'),
+(9402, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:12:12'),
+(9409, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:12:34'),
+(9411, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:12:03'),
+(9413, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:12:47'),
+(9415, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:12:40'),
+(9417, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:12:57'),
+(9419, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:12:19'),
+(9430, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:11:45'),
+(9433, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:11:54'),
+(9435, 'Belum', NULL, 'Belum', 'Tidak', 'Tidak', 'Tidak', 2019, '2019-10-23 14:11:38');
 
 -- --------------------------------------------------------
 
@@ -1228,11 +1206,11 @@ CREATE TABLE `rekap_pokja_pkp_provinsi` (
   `id_provinsi` int(10) NOT NULL,
   `penggabungan` enum('Belum','Proses','Sudah') DEFAULT NULL COMMENT 'Penggabungan Berbagai Pokja (AMPL, Sanitasi, PKP, dsb)',
   `program` enum('Tidak','Ya') DEFAULT NULL COMMENT 'Punya Program Kerja 5 Tahun',
-  `ketua` text COMMENT 'Ketua Pokja',
+  `ketua` text DEFAULT NULL COMMENT 'Ketua Pokja',
   `perayaan` enum('Tidak','Ada') DEFAULT NULL COMMENT 'Perayaan Hapernas/ Hari Habitat/ dsb',
   `apbd` enum('Tidak','Ada') DEFAULT NULL COMMENT 'Dukungan APBD untuk Pokja PKP',
   `tahun` int(4) NOT NULL,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1240,7 +1218,39 @@ CREATE TABLE `rekap_pokja_pkp_provinsi` (
 --
 
 INSERT INTO `rekap_pokja_pkp_provinsi` (`id_provinsi`, `penggabungan`, `program`, `ketua`, `perayaan`, `apbd`, `tahun`, `updated_at`) VALUES
-(11, 'Sudah', 'Ya', 'Dinas PKP', 'Ada', 'Ada', 2019, '2019-10-15 09:19:41');
+(11, 'Belum', 'Tidak', 'Dinas PKP', 'Tidak', 'Tidak', 2019, '2019-10-17 15:07:25'),
+(12, 'Sudah', 'Tidak', 'Dinas PKP', 'Ada', 'Tidak', 2019, '2019-10-17 15:07:56'),
+(13, 'Belum', 'Ya', 'Dinas PKP', 'Tidak', 'Ada', 2019, '2019-10-17 15:08:34'),
+(14, 'Belum', 'Ya', 'Dinas PKP', 'Ada', 'Tidak', 2019, '2019-10-17 15:08:59'),
+(15, 'Belum', 'Ya', 'Dinas PUPR', 'Ada', 'Tidak', 2019, '2019-10-17 15:09:30'),
+(16, 'Belum', 'Ya', 'Sekda', 'Tidak', 'Tidak', 2019, '2019-10-17 15:10:04'),
+(17, 'Belum', 'Ya', 'Dinas PKPP', 'Tidak', 'Tidak', 2019, '2019-10-17 15:10:35'),
+(18, 'Belum', 'Ya', 'Dinas PKP', 'Ada', 'Ada', 2019, '2019-10-17 15:10:57'),
+(19, 'Belum', 'Ya', 'Dinas PKP', 'Tidak', 'Tidak', 2019, '2019-10-17 15:11:20'),
+(21, 'Proses', 'Ya', 'Dinas PKP', 'Ada', 'Tidak', 2019, '2019-10-17 15:11:40'),
+(32, 'Belum', 'Ya', 'Dinas PKP', 'Ada', 'Ada', 2019, '2019-10-17 15:12:32'),
+(33, 'Belum', 'Ya', 'Dinas PKP', 'Ada', 'Ada', 2019, '2019-10-17 15:12:51'),
+(34, 'Belum', 'Ya', 'Akademisi', 'Tidak', 'Tidak', 2019, '2019-10-17 15:13:11'),
+(35, 'Belum', 'Ya', 'Bappeda', 'Tidak', 'Tidak', 2019, '2019-10-17 15:13:32'),
+(36, 'Belum', 'Ya', 'Asda', 'Ada', 'Ada', 2019, '2019-10-17 15:13:50'),
+(51, 'Belum', 'Ya', 'Asda', 'Tidak', 'Ada', 2019, '2019-10-17 15:14:15'),
+(52, 'Sudah', 'Ya', 'Sekda', 'Ada', 'Tidak', 2019, '2019-10-17 15:14:36'),
+(53, 'Belum', 'Ya', 'Dinas PRKP', 'Ada', 'Ada', 2019, '2019-10-17 15:14:54'),
+(61, 'Belum', 'Tidak', 'Dinas LH dan PR', 'Tidak', 'Ada', 2019, '2019-10-17 15:15:15'),
+(62, 'Belum', 'Ya', 'Dinas PKP', 'Tidak', 'Ada', 2019, '2019-10-17 15:15:39'),
+(63, 'Belum', 'Ya', 'Sekda', 'Tidak', 'Ada', 2019, '2019-10-17 15:16:03'),
+(64, 'Belum', 'Ya', 'Bappeda', 'Ada', 'Ada', 2019, '2019-10-17 15:17:12'),
+(65, 'Belum', 'Ya', 'Dinas PU', 'Ada', 'Ada', 2019, '2019-10-17 15:17:35'),
+(71, 'Belum', 'Ya', 'Dinas PKP', 'Tidak', 'Ada', 2019, '2019-10-17 15:18:28'),
+(72, 'Belum', 'Tidak', 'Kadis PKP', 'Tidak', 'Ada', 2019, '2019-10-17 15:18:58'),
+(73, 'Belum', 'Ya', 'Dinas PKP', 'Ada', 'Tidak', 2019, '2019-10-17 15:19:55'),
+(74, 'Belum', 'Ya', 'Bappeda', 'Tidak', 'Tidak', 2019, '2019-10-17 15:20:31'),
+(75, 'Sudah', 'Ya', 'Bappeda', 'Tidak', 'Ada', 2019, '2019-10-17 15:21:15'),
+(76, 'Belum', 'Tidak', 'Dinas PKP', 'Tidak', 'Tidak', 2019, '2019-10-17 15:21:38'),
+(81, 'Belum', 'Ya', 'Bappeda', 'Tidak', 'Tidak', 2019, '2019-10-17 15:21:55'),
+(82, 'Belum', 'Tidak', 'Dinas PKP', 'Ada', 'Tidak', 2019, '2019-10-17 15:22:16'),
+(91, 'Belum', 'Ya', 'Dinas PKP', 'Tidak', 'Tidak', 2019, '2019-10-17 15:22:43'),
+(94, 'Belum', 'Ya', 'Dinas PKP', 'Ada', 'Tidak', 2019, '2019-10-17 15:22:57');
 
 -- --------------------------------------------------------
 
@@ -1256,10 +1266,10 @@ CREATE TABLE `rekap_rp3kp_kabkota` (
   `belum_legal` enum('X','V') DEFAULT NULL,
   `review` enum('X','V') DEFAULT NULL,
   `sudah` enum('X','V') DEFAULT NULL,
-  `bentuk_kegiatan` text,
-  `anggaran` text,
+  `bentuk_kegiatan` text DEFAULT NULL,
+  `anggaran` text DEFAULT NULL,
   `tahun` int(4) NOT NULL,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1267,10 +1277,411 @@ CREATE TABLE `rekap_rp3kp_kabkota` (
 --
 
 INSERT INTO `rekap_rp3kp_kabkota` (`id_kabupaten`, `belum`, `menganggarkan`, `sedang`, `belum_legal`, `review`, `sudah`, `bentuk_kegiatan`, `anggaran`, `tahun`, `updated_at`) VALUES
-(1107, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-15 09:21:25'),
-(1112, 'X', 'V', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-20 09:40:17'),
-(1117, 'X', NULL, 'X', 'X', 'X', 'V', NULL, '', 2019, '2019-10-15 09:21:25'),
-(1707, 'X', NULL, 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-15 09:21:25');
+(1101, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:41:13'),
+(1102, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:43:16'),
+(1103, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:51:10'),
+(1104, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:43:37'),
+(1105, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:44:03'),
+(1106, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:43:33'),
+(1107, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-15 09:21:09'),
+(1108, 'V', NULL, 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:50:13'),
+(1109, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:42:19'),
+(1110, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:41:09'),
+(1111, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:44:06'),
+(1112, 'V', NULL, 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:49:50'),
+(1113, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:42:36'),
+(1114, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:43:28'),
+(1115, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:42:29'),
+(1116, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:44:09'),
+(1117, 'X', 'X', 'V', 'X', 'X', 'V', NULL, '', 2019, '2019-10-22 17:42:16'),
+(1118, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:43:12'),
+(1171, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:43:05'),
+(1172, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:42:25'),
+(1173, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:43:08'),
+(1174, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:42:22'),
+(1175, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:41:17'),
+(1201, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 07:27:07'),
+(1202, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:26:59'),
+(1203, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 07:20:32'),
+(1204, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:20:43'),
+(1205, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:20:52'),
+(1206, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:48:34'),
+(1207, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:24:53'),
+(1208, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:20:13'),
+(1209, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:49:17'),
+(1210, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:23:28'),
+(1211, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:24:35'),
+(1212, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:24:21'),
+(1213, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:26:51'),
+(1214, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 17:48:23'),
+(1215, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:24:28'),
+(1216, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:49:47'),
+(1217, 'X', 'X', 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 17:49:36'),
+(1218, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:48:59'),
+(1219, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:46:26'),
+(1220, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:23:11'),
+(1221, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:48:49'),
+(1222, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:26:11'),
+(1223, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:28:44'),
+(1224, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:46:32'),
+(1225, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:27:20'),
+(1271, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:22:37'),
+(1272, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:22:52'),
+(1273, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:22:29'),
+(1274, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:27:41'),
+(1275, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:22:03'),
+(1276, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 17:46:55'),
+(1277, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:22:11'),
+(1278, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:21:08'),
+(1301, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 17:51:51'),
+(1302, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:52:26'),
+(1303, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 17:52:35'),
+(1304, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:32:35'),
+(1305, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:30:44'),
+(1307, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:52:47'),
+(1308, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:52:18'),
+(1309, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:52:09'),
+(1310, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:30:51'),
+(1311, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:51:44'),
+(1312, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 17:51:59'),
+(1371, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 17:52:55'),
+(1372, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:32:50'),
+(1373, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:53:06'),
+(1374, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:30:28'),
+(1375, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 17:53:00'),
+(1376, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:30:09'),
+(1377, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:30:17'),
+(1401, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:57:55'),
+(1402, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:59:35'),
+(1403, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:58:49'),
+(1404, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:57:39'),
+(1405, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:58:39'),
+(1406, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:59:27'),
+(1407, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:58:26'),
+(1408, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:59:19'),
+(1409, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:58:04'),
+(1410, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:59:10'),
+(1471, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:58:32'),
+(1473, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-20 10:01:18'),
+(1501, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:33:00'),
+(1502, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:31:56'),
+(1503, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:32:53'),
+(1504, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:33:06'),
+(1505, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:35:07'),
+(1506, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:31:22'),
+(1507, 'X', 'X', 'V', 'X', 'X', 'V', NULL, '', 2019, '2019-10-18 00:59:12'),
+(1508, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:32:28'),
+(1509, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:31:45'),
+(1571, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:30:58'),
+(1572, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-20 10:01:14'),
+(1601, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:55:34'),
+(1602, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:55:40'),
+(1603, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-20 10:01:54'),
+(1604, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:54:12'),
+(1605, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:54:05'),
+(1607, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:37:35'),
+(1608, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:55:14'),
+(1609, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 17:55:06'),
+(1610, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:55:47'),
+(1671, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:54:43'),
+(1672, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 17:54:26'),
+(1673, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 17:54:53'),
+(1674, 'X', 'V', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:37:46'),
+(1701, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:42:38'),
+(1702, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:39:23'),
+(1703, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:42:56'),
+(1704, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:38:56'),
+(1705, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:38:38'),
+(1706, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:39:16'),
+(1707, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:38:48'),
+(1708, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:39:10'),
+(1709, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:42:50'),
+(1771, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-20 09:59:48'),
+(1801, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:39:56'),
+(1802, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:40:35'),
+(1803, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:41:30'),
+(1804, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:41:18'),
+(1805, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:41:24'),
+(1806, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:41:10'),
+(1807, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:40:11'),
+(1808, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:40:18'),
+(1809, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:40:58'),
+(1810, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:40:42'),
+(1811, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:41:04'),
+(1812, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:40:27'),
+(1813, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:40:50'),
+(1871, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:40:05'),
+(1872, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-20 09:59:07'),
+(1901, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-20 09:59:03'),
+(1902, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:43:23'),
+(1903, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:43:02'),
+(1904, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:43:14'),
+(1905, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:43:08'),
+(1906, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:43:31'),
+(1971, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:43:37'),
+(2101, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:45:20'),
+(2102, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-20 09:58:25'),
+(2103, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:45:41'),
+(2104, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:45:35'),
+(2105, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:45:27'),
+(2171, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:45:52'),
+(2172, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:46:05'),
+(3201, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:10:07'),
+(3202, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:06:15'),
+(3203, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:11:02'),
+(3204, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:06:05'),
+(3205, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:11:28'),
+(3206, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:06:41'),
+(3207, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:10:48'),
+(3208, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:11:45'),
+(3209, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:11:16'),
+(3210, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:11:57'),
+(3211, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:06:29'),
+(3212, 'X', 'X', 'V', 'X', 'X', 'V', NULL, '', 2019, '2019-10-18 00:58:14'),
+(3213, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:09:15'),
+(3214, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:09:28'),
+(3215, 'X', 'V', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-20 09:50:37'),
+(3216, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:56:07'),
+(3217, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:57:45'),
+(3218, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:09:39'),
+(3271, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:07:28'),
+(3272, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:08:50'),
+(3273, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:06:51'),
+(3274, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:08:27'),
+(3275, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:07:16'),
+(3276, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:08:35'),
+(3277, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:07:41'),
+(3278, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:12:19'),
+(3279, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:06:59'),
+(3301, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 19:01:53'),
+(3302, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:20:03'),
+(3303, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 19:02:07'),
+(3304, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:16:02'),
+(3305, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:22:44'),
+(3306, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 19:01:42'),
+(3307, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:18:26'),
+(3308, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:23:28'),
+(3309, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 19:01:59'),
+(3310, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:23:10'),
+(3311, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:17:05'),
+(3312, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:18:19'),
+(3313, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:22:17'),
+(3314, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:16:55'),
+(3315, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:21:58'),
+(3316, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:21:28'),
+(3317, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 19:01:23'),
+(3318, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 19:01:47'),
+(3319, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:23:18'),
+(3320, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:22:08'),
+(3321, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:21:50'),
+(3322, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:55:06'),
+(3323, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:17:35'),
+(3324, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:22:54'),
+(3325, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:21:21'),
+(3326, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 19:02:47'),
+(3327, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:19:46'),
+(3328, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:17:16'),
+(3329, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 19:00:47'),
+(3371, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:18:40'),
+(3372, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 19:02:33'),
+(3373, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:19:15'),
+(3374, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:19:25'),
+(3375, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:18:59'),
+(3376, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:23:35'),
+(3401, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-18 00:54:21'),
+(3402, 'X', 'V', 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-18 00:53:59'),
+(3403, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:54:40'),
+(3404, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:53:26'),
+(3471, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:52:18'),
+(3501, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:58:54'),
+(3502, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:27:15'),
+(3503, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:59:33'),
+(3504, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:58:28'),
+(3505, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:30:46'),
+(3506, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:32:04'),
+(3507, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:33:29'),
+(3508, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:32:22'),
+(3509, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:31:43'),
+(3510, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:30:36'),
+(3511, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:31:19'),
+(3512, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:27:47'),
+(3513, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:27:28'),
+(3514, 'X', 'X', 'V', 'X', 'X', 'V', NULL, '', 2019, '2019-10-18 01:01:05'),
+(3515, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:59:03'),
+(3516, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:33:40'),
+(3517, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:31:53'),
+(3518, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:33:48'),
+(3519, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:33:04'),
+(3520, 'X', 'V', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:33:17'),
+(3521, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:59:14'),
+(3522, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:30:58'),
+(3523, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:59:26'),
+(3524, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:32:11'),
+(3525, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:31:30'),
+(3526, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:27:02'),
+(3527, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:59:21'),
+(3528, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:29:56'),
+(3529, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:27:59'),
+(3571, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:29:04'),
+(3572, 'X', 'V', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:59:08'),
+(3573, 'X', 'X', 'V', 'X', 'X', 'V', NULL, '', 2019, '2019-10-18 01:01:20'),
+(3574, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:29:45'),
+(3575, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:29:36'),
+(3576, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:29:28'),
+(3577, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:29:11'),
+(3578, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:34:06'),
+(3579, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:58:45'),
+(3601, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:56:41'),
+(3602, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:56:54'),
+(3603, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:57:17'),
+(3604, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:03:42'),
+(3671, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:04:13'),
+(3672, 'X', 'V', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:03:56'),
+(3673, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:04:04'),
+(3674, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-18 00:57:27'),
+(5101, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:38:25'),
+(5102, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:38:48'),
+(5103, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:37:48'),
+(5104, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:38:17'),
+(5105, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:38:38'),
+(5106, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:37:55'),
+(5107, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:38:32'),
+(5108, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:38:02'),
+(5171, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:38:56'),
+(5201, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:57:08'),
+(5202, 'X', 'V', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:56:45'),
+(5203, 'X', 'V', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:57:15'),
+(5204, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:57:34'),
+(5205, 'X', 'V', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:56:40'),
+(5206, 'X', 'V', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:57:27'),
+(5207, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:56:56'),
+(5208, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:57:19'),
+(5271, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:57:40'),
+(5272, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-22 18:56:51'),
+(5301, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:43:18'),
+(5302, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:43:40'),
+(5303, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:45:45'),
+(5304, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:43:50'),
+(5305, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:43:56'),
+(5306, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 08:45:19'),
+(5307, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:42:41'),
+(5308, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:45:55'),
+(5309, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:45:35'),
+(5310, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:43:09'),
+(5311, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:45:26'),
+(5312, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:45:01'),
+(5313, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:46:11'),
+(5314, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:42:50'),
+(5315, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:46:19'),
+(5316, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:43:33'),
+(5317, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:43:25'),
+(5318, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:45:09'),
+(5319, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:46:25'),
+(5320, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:43:02'),
+(5321, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:46:04'),
+(5371, 'X', 'X', 'V', 'V', 'X', 'X', NULL, '', 2019, '2019-10-23 08:46:33'),
+(6101, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:48:17'),
+(6102, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:47:22'),
+(6103, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:49:12'),
+(6104, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:48:27'),
+(6105, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:48:09'),
+(6106, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:49:52'),
+(6107, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:47:56'),
+(6108, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:50:07'),
+(6109, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:48:03'),
+(6110, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:48:45'),
+(6111, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:50:01'),
+(6112, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:49:44'),
+(6171, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-20 09:58:08'),
+(6172, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:50:15'),
+(6201, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:56:32'),
+(6202, 'X', 'X', 'V', 'X', 'X', 'V', NULL, '', 2019, '2019-10-18 00:59:49'),
+(6203, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:56:58'),
+(6204, 'X', 'X', 'V', 'X', 'X', 'V', NULL, '', 2019, '2019-10-18 01:00:04'),
+(6205, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:57:11'),
+(6206, 'X', 'V', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-20 09:57:02'),
+(6207, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:56:17'),
+(6208, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:55:49'),
+(6209, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:56:47'),
+(6210, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:55:58'),
+(6211, 'X', 'X', 'V', 'X', 'X', 'V', NULL, '', 2019, '2019-10-18 01:00:33'),
+(6212, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-20 09:52:11'),
+(6213, 'X', 'X', 'V', 'X', 'X', 'V', NULL, '', 2019, '2019-10-18 01:00:19'),
+(6271, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:57:27'),
+(6301, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:51:47'),
+(6302, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:52:12'),
+(6303, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:53:13'),
+(6304, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:53:03'),
+(6305, 'X', 'V', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:51:36'),
+(6306, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:52:53'),
+(6307, 'X', 'V', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:52:47'),
+(6308, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:52:22'),
+(6309, 'V', 'X', 'X', 'V', 'X', 'X', NULL, '', 2019, '2019-10-20 09:52:06'),
+(6310, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:51:55'),
+(6311, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:51:16'),
+(6371, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:53:21'),
+(6372, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:51:28'),
+(6401, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:59:05'),
+(6402, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:59:46'),
+(6403, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:59:31'),
+(6404, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:59:21'),
+(6405, 'X', 'V', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-23 07:58:31'),
+(6409, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:58:53'),
+(6411, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-23 07:59:13'),
+(6471, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-20 09:55:01'),
+(6472, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-20 09:56:16'),
+(6474, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-20 09:56:12'),
+(6501, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 19:04:30'),
+(6502, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 19:04:22'),
+(6503, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 19:03:46'),
+(6504, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 19:03:40'),
+(6571, 'X', 'X', 'V', 'X', 'V', 'X', NULL, '', 2019, '2019-10-20 09:56:19'),
+(7201, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:53:27'),
+(7202, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:53:39'),
+(7203, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:54:48'),
+(7205, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:54:04'),
+(7206, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:53:33'),
+(7207, 'X', 'X', 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:54:18'),
+(7209, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:53:59'),
+(7210, 'X', 'X', 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:54:11'),
+(7211, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:53:53'),
+(7212, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:54:33'),
+(7307, 'X', NULL, 'X', 'X', 'X', 'V', NULL, '', 2019, '2019-10-18 01:02:01'),
+(7308, 'X', NULL, 'X', 'X', 'X', 'V', NULL, '', 2019, '2019-10-18 01:01:48'),
+(7401, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:51:38'),
+(7404, 'X', 'X', 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:52:21'),
+(7405, 'X', 'X', 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:51:59'),
+(7406, 'X', 'X', 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:51:19'),
+(7409, 'X', 'X', 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:51:25'),
+(7412, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:52:30'),
+(7414, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:51:44'),
+(7415, 'X', 'X', 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:51:33'),
+(7471, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:52:08'),
+(7501, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:48:57'),
+(7502, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:49:16'),
+(7503, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:49:02'),
+(7504, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:49:26'),
+(7505, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:49:21'),
+(7571, 'X', 'V', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:49:08'),
+(8101, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:47:29'),
+(8102, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:48:05'),
+(8104, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:47:47'),
+(8105, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:47:11'),
+(8106, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:46:46'),
+(8107, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:47:16'),
+(8108, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:48:11'),
+(8109, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:47:42'),
+(8171, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:47:35'),
+(8172, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:47:22'),
+(9101, 'X', 'X', 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:45:13'),
+(9102, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:44:46'),
+(9103, 'X', 'X', 'X', 'X', 'V', 'X', NULL, '', 2019, '2019-10-22 18:45:30'),
+(9104, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:45:25'),
+(9105, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:45:06'),
+(9106, 'X', 'X', 'V', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:45:37'),
+(9110, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:44:36'),
+(9111, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:44:55'),
+(9171, 'V', 'X', 'X', 'X', 'X', 'X', NULL, '', 2019, '2019-10-22 18:45:00');
 
 -- --------------------------------------------------------
 
@@ -1286,10 +1697,10 @@ CREATE TABLE `rekap_rp3kp_provinsi` (
   `belum_legal` enum('X','V') DEFAULT NULL,
   `review` enum('X','V') DEFAULT NULL,
   `sudah` enum('X','V') DEFAULT NULL,
-  `bentuk_kegiatan` text,
-  `anggaran` text,
+  `bentuk_kegiatan` text DEFAULT NULL,
+  `anggaran` text DEFAULT NULL,
   `tahun` int(4) NOT NULL,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1297,8 +1708,40 @@ CREATE TABLE `rekap_rp3kp_provinsi` (
 --
 
 INSERT INTO `rekap_rp3kp_provinsi` (`id_provinsi`, `belum`, `menganggarkan`, `sedang`, `belum_legal`, `review`, `sudah`, `bentuk_kegiatan`, `anggaran`, `tahun`, `updated_at`) VALUES
-(11, 'V', 'X', 'X', 'X', 'X', 'X', NULL, NULL, 2019, '2019-10-15 09:20:30'),
-(12, 'X', 'X', 'X', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-15 09:20:30');
+(11, 'V', 'X', 'X', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-15 09:21:01'),
+(12, 'X', 'X', 'V', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-15 09:21:01'),
+(13, 'X', 'V', 'X', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-15 09:21:01'),
+(14, 'X', 'X', 'V', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 11:05:00'),
+(15, 'X', 'X', 'X', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-17 11:05:35'),
+(16, 'X', 'V', 'X', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 11:06:04'),
+(17, 'X', 'X', 'X', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-17 11:06:25'),
+(18, 'X', 'X', 'X', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-17 11:06:38'),
+(19, 'X', 'X', 'V', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 11:07:06'),
+(21, 'X', 'X', 'X', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-17 11:07:19'),
+(31, 'V', 'X', 'X', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 11:07:40'),
+(32, 'X', 'X', 'X', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-17 11:08:00'),
+(33, 'X', 'X', 'X', 'X', 'X', 'V', NULL, NULL, 2019, '2019-10-17 11:08:10'),
+(34, 'X', 'X', 'V', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-17 11:08:19'),
+(35, 'X', 'X', 'V', 'X', 'X', 'X', NULL, NULL, 2019, '2019-10-17 11:09:09'),
+(36, 'X', 'X', 'X', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-17 11:09:45'),
+(51, 'X', 'X', 'V', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 11:09:58'),
+(52, 'V', 'X', 'X', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 14:56:42'),
+(53, 'V', 'X', 'X', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 14:56:58'),
+(61, 'V', 'X', 'X', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 14:57:12'),
+(62, 'V', 'X', 'X', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 14:57:23'),
+(63, 'X', 'X', 'V', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 14:57:41'),
+(64, 'X', 'X', 'V', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 14:57:57'),
+(65, 'X', 'X', 'V', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 14:58:08'),
+(71, 'V', 'X', 'X', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 14:58:20'),
+(72, 'X', 'X', 'X', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-17 14:58:39'),
+(73, 'X', 'X', 'V', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 14:59:51'),
+(74, 'X', 'X', 'V', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 15:00:04'),
+(75, 'X', 'X', 'X', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-17 15:00:17'),
+(76, 'X', 'X', 'X', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-17 15:00:30'),
+(81, 'X', 'X', 'V', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 15:00:44'),
+(82, 'V', 'X', 'X', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 15:00:57'),
+(91, 'X', 'X', 'X', 'X', 'V', 'X', NULL, NULL, 2019, '2019-10-17 15:01:10'),
+(94, 'V', 'X', 'X', 'V', 'X', 'X', NULL, NULL, 2019, '2019-10-17 15:01:23');
 
 -- --------------------------------------------------------
 
@@ -1311,30 +1754,6 @@ CREATE TABLE `tr_guru_mapel` (
   `id_guru` int(6) NOT NULL,
   `id_mapel` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tr_guru_mapel`
---
-
-INSERT INTO `tr_guru_mapel` (`id`, `id_guru`, `id_mapel`) VALUES
-(3, 6, 1),
-(4, 6, 2),
-(5, 6, 3),
-(6, 6, 4),
-(8, 7, 4),
-(9, 2, 1),
-(10, 2, 2),
-(12, 4, 1),
-(13, 4, 2),
-(14, 4, 3),
-(15, 4, 4),
-(16, 5, 1),
-(17, 5, 2),
-(18, 5, 3),
-(19, 5, 4),
-(20, 7, 1),
-(21, 7, 2),
-(22, 7, 3);
 
 -- --------------------------------------------------------
 
@@ -1356,16 +1775,6 @@ CREATE TABLE `tr_guru_tes` (
   `token` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `tr_guru_tes`
---
-
-INSERT INTO `tr_guru_tes` (`id`, `id_guru`, `id_mapel`, `nama_ujian`, `jumlah_soal`, `waktu`, `jenis`, `detil_jenis`, `tgl_mulai`, `terlambat`, `token`) VALUES
-(1, 3, 1, 'tes', 10, 100, 'acak', '', '2019-09-09 10:10:00', '2019-09-20 10:10:00', 'UWZCK'),
-(2, 3, 2, 'tes', 2, 30, 'acak', '', '2019-09-14 10:10:00', '2019-09-30 10:08:00', ''),
-(3, 0, 3, 'tes', 10, 30, 'acak', '', '2019-09-17 10:10:00', '2019-10-31 10:10:00', ''),
-(4, 3, 0, 'cek', 5, 35, 'acak', '', '2019-09-17 10:10:00', '2019-10-31 10:10:00', '');
-
 -- --------------------------------------------------------
 
 --
@@ -1386,14 +1795,6 @@ CREATE TABLE `tr_ikut_ujian` (
   `status` enum('Y','N') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `tr_ikut_ujian`
---
-
-INSERT INTO `tr_ikut_ujian` (`id`, `id_tes`, `id_user`, `list_soal`, `list_jawaban`, `jml_benar`, `nilai`, `nilai_bobot`, `tgl_mulai`, `tgl_selesai`, `status`) VALUES
-(19, 2, 8, '50,51', '50:C:N,51:B:N', 0, '0.00', '0.00', '2019-09-16 14:55:07', '2019-09-16 15:25:07', 'N'),
-(20, 1, 8, '48,46,39,40,49,41,43,37,34,45', '48:C:N,46:C:N,39::N,40::N,49::N,41::N,43::N,37::N,34::N,45::N', 0, '0.00', '0.00', '2019-09-17 17:29:17', '2019-09-17 19:09:17', 'Y');
-
 -- --------------------------------------------------------
 
 --
@@ -1408,15 +1809,6 @@ CREATE TABLE `ujian_modul` (
   `urutan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `ujian_modul`
---
-
-INSERT INTO `ujian_modul` (`id_ujianmodul`, `id_ujian`, `id_modul`, `jml_soal`, `urutan`) VALUES
-(1, 1, 1, '5', 5),
-(3, 1, 2, '8', 10),
-(4, 1, 3, '10', 10);
-
 -- --------------------------------------------------------
 
 --
@@ -1426,26 +1818,26 @@ INSERT INTO `ujian_modul` (`id_ujianmodul`, `id_ujian`, `id_modul`, `jml_soal`, 
 CREATE TABLE `user` (
   `id` int(9) UNSIGNED NOT NULL,
   `username` varchar(200) DEFAULT NULL,
-  `pass` varchar(64) DEFAULT NULL,
-  `total_login` int(9) UNSIGNED NOT NULL DEFAULT '0',
+  `pass` varchar(200) DEFAULT NULL,
+  `total_login` int(9) UNSIGNED NOT NULL DEFAULT 0,
   `last_login` datetime DEFAULT NULL,
   `last_activity` datetime DEFAULT NULL,
-  `login_attempts` int(9) UNSIGNED DEFAULT '0',
+  `login_attempts` int(9) UNSIGNED DEFAULT 0,
   `last_login_attempt` datetime DEFAULT NULL,
   `remember_time` datetime DEFAULT NULL,
-  `remember_exp` text,
-  `ip_address` text,
-  `is_active` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `remember_exp` text DEFAULT NULL,
+  `ip_address` text DEFAULT NULL,
+  `is_active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `verification_token` varchar(128) DEFAULT NULL,
   `recovery_token` varchar(128) DEFAULT NULL,
   `unlock_token` varchar(128) DEFAULT NULL,
-  `created_by` int(9) UNSIGNED NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` int(9) UNSIGNED NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_by` int(9) UNSIGNED DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_by` int(9) UNSIGNED DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
-  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1453,13 +1845,22 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `pass`, `total_login`, `last_login`, `last_activity`, `login_attempts`, `last_login_attempt`, `remember_time`, `remember_exp`, `ip_address`, `is_active`, `verification_token`, `recovery_token`, `unlock_token`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_by`, `deleted_at`, `deleted`) VALUES
-(1, 'admin', '1', 66, '2019-11-22 09:57:25', '2019-11-22 09:57:25', 70, '2019-11-22 09:57:25', NULL, NULL, '::1', 1, NULL, NULL, NULL, 0, '2019-09-06 12:45:51', NULL, NULL, NULL, NULL, 0),
-(2, 'udin', '1', 3, '2019-10-16 10:17:54', '2019-10-16 10:17:54', 3, '2019-10-16 10:17:54', NULL, NULL, '::1', 1, NULL, NULL, NULL, 0, '2019-09-18 12:25:40', NULL, NULL, NULL, NULL, 0),
-(3, 'kurniawan', '1', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 0, '2019-09-18 12:26:07', NULL, NULL, NULL, NULL, 0),
-(4, 'a', '1', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-09-18 17:01:17', NULL, NULL, NULL, NULL, 0),
-(5, 'estio', 'a', 11, '2019-11-09 22:49:29', '2019-11-09 22:49:29', 14, '2019-11-09 22:49:29', NULL, NULL, '::1', 1, NULL, NULL, NULL, 1, '2019-09-19 21:59:14', NULL, NULL, NULL, NULL, 0),
-(6, 'imam', '1', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-09-19 22:27:17', NULL, NULL, NULL, NULL, 0),
-(7, 'fina', '1', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-09-19 22:32:14', NULL, NULL, NULL, NULL, 0);
+(1, 'admin', '1', 52, '2020-01-02 14:30:10', '2020-01-02 14:30:10', 60, '2020-01-02 14:30:10', NULL, NULL, '115.178.254.50', 1, NULL, NULL, NULL, 0, '2019-09-06 12:45:51', NULL, NULL, NULL, NULL, 0),
+(2, 'admin_pusat', 'admin123', 37, '2019-12-02 08:09:17', '2019-12-02 08:09:17', 45, '2019-12-02 08:09:17', NULL, NULL, '103.211.50.6', 1, NULL, NULL, NULL, 1, '2019-09-19 22:32:14', 1, '2019-10-06 14:02:57', NULL, NULL, 0),
+(3, 'provinsi_maluku', 'maluku123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:04:33', NULL, NULL, NULL, NULL, 0),
+(4, 'provinsi_jabar', 'jabarjuara123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:07:05', NULL, NULL, NULL, NULL, 0),
+(5, 'provinsi_sumsel', 'wongkitogalo', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:13:54', NULL, NULL, NULL, NULL, 0),
+(6, 'kabupaten_boalem', 'boalemo123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:15:03', NULL, NULL, NULL, NULL, 0),
+(7, 'kota_ternate', 'ternate123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:16:06', NULL, NULL, NULL, NULL, 0),
+(8, 'kota_palu', 'palu123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:17:54', NULL, NULL, NULL, NULL, 0),
+(9, 'kabupaten_solok', 'barehsolok', 1, '2019-10-06 14:23:05', '2019-10-06 14:23:05', 2, '2019-10-06 14:23:05', NULL, NULL, '114.124.204.241', 1, NULL, NULL, NULL, 1, '2019-10-06 14:18:53', NULL, NULL, NULL, NULL, 0),
+(10, 'kabupaten_wonoso', 'carica123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:19:59', NULL, NULL, NULL, NULL, 0),
+(11, 'yogyakarta', 'yogya123', 11, '2019-11-16 10:14:16', '2019-11-16 10:14:16', 11, '2019-11-16 10:14:16', NULL, NULL, '202.65.119.132', 1, NULL, NULL, NULL, 2, '2019-10-17 16:31:29', 2, '2019-10-22 19:13:37', NULL, NULL, 0),
+(12, 'kabupaten_bantul', 'bantul456', 13, '2019-10-31 14:16:44', '2019-10-31 14:16:44', 15, '2019-10-31 14:16:44', NULL, NULL, '114.124.212.185', 1, NULL, NULL, NULL, 2, '2019-10-17 16:34:44', NULL, NULL, NULL, NULL, 0),
+(13, 'gunung_kidul', 'gunungkidul456', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 2, '2019-10-17 16:35:59', 2, '2019-10-23 19:59:53', NULL, NULL, 0),
+(14, 'kabupaten_kulon_', 'kulonprogo456', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 2, '2019-10-17 16:40:02', NULL, NULL, NULL, NULL, 0),
+(15, 'kabupaten_sleman', 'sleman456', 9, '2019-10-23 19:59:55', '2019-10-23 19:59:55', 15, '2019-10-23 19:59:55', NULL, NULL, '117.20.54.249', 1, NULL, NULL, NULL, 2, '2019-10-17 16:41:30', NULL, NULL, NULL, NULL, 0),
+(16, 'kota_yogyakarta', 'yogyakarta456', 11, '2019-10-24 10:07:41', '2019-10-24 10:07:41', 11, '2019-10-24 10:07:41', NULL, NULL, '103.141.234.29', 1, NULL, NULL, NULL, 2, '2019-10-17 16:42:46', 2, '2019-10-22 19:14:15', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1470,14 +1871,14 @@ INSERT INTO `user` (`id`, `username`, `pass`, `total_login`, `last_login`, `last
 CREATE TABLE `user_profile` (
   `id` int(9) NOT NULL,
   `user_id` int(9) NOT NULL,
-  `fullname` text,
-  `nin` text COMMENT 'National Identity Number',
-  `bdt_id` text,
+  `fullname` text DEFAULT NULL,
+  `nin` text DEFAULT NULL COMMENT 'National Identity Number',
+  `bdt_id` text DEFAULT NULL,
   `pkh_id` varchar(30) DEFAULT NULL,
   `kks_id` varchar(30) DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
-  `address` text,
-  `photo` text
+  `address` text DEFAULT NULL,
+  `photo` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1502,12 +1903,12 @@ CREATE TABLE `user_role` (
   `description` varchar(255) DEFAULT NULL,
   `route` varchar(32) DEFAULT NULL,
   `created_by` int(9) NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime DEFAULT current_timestamp(),
   `updated_by` int(9) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_by` int(9) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0'
+  `deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1531,8 +1932,8 @@ INSERT INTO `user_role` (`id`, `name`, `level`, `kon_id`, `definition`, `descrip
 --
 
 CREATE TABLE `user_to_role` (
-  `user_id` int(9) UNSIGNED NOT NULL DEFAULT '0',
-  `role_id` int(9) UNSIGNED NOT NULL DEFAULT '0'
+  `user_id` int(9) UNSIGNED NOT NULL DEFAULT 0,
+  `role_id` int(9) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1541,122 +1942,28 @@ CREATE TABLE `user_to_role` (
 
 INSERT INTO `user_to_role` (`user_id`, `role_id`) VALUES
 (1, 1),
-(2, 3),
-(3, 6),
+(2, 2),
+(3, 3),
 (4, 3),
-(5, 6),
-(6, 7),
-(7, 2);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `view_rekap_pokja_pkp_kabkota`
---
-CREATE TABLE `view_rekap_pokja_pkp_kabkota` (
-`id_kabupaten` int(10)
-,`nm_kabupaten` varchar(50)
-,`status` enum('Belum','Proses','Selesai')
-,`sk` enum('','V')
-,`penggabungan` enum('Belum','Proses','Sudah')
-,`program` enum('Tidak','Ya')
-,`forum` enum('Tidak','Ya')
-,`apbd` enum('Tidak','Ya')
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `view_rekap_pokja_pkp_provinsi`
---
-CREATE TABLE `view_rekap_pokja_pkp_provinsi` (
-`id_provinsi` int(5)
-,`nm_provinsi` varchar(20)
-,`penggabungan` enum('Belum','Proses','Sudah')
-,`program` enum('Tidak','Ya')
-,`ketua` text
-,`perayaan` enum('Tidak','Ada')
-,`apbd` enum('Tidak','Ada')
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `view_rekap_rp3kp_kabkota`
---
-CREATE TABLE `view_rekap_rp3kp_kabkota` (
-`id_kabupaten` int(10)
-,`nm_kabupaten` varchar(50)
-,`belum` enum('X','V')
-,`menganggarkan` enum('X','V')
-,`sedang` enum('X','V')
-,`belum_legal` enum('X','V')
-,`review` enum('X','V')
-,`sudah` enum('X','V')
-,`bentuk_kegiatan` text
-,`anggaran` text
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `view_rekap_rp3kp_provinsi`
---
-CREATE TABLE `view_rekap_rp3kp_provinsi` (
-`id_provinsi` int(5)
-,`nm_provinsi` varchar(20)
-,`belum` enum('X','V')
-,`menganggarkan` enum('X','V')
-,`sedang` enum('X','V')
-,`belum_legal` enum('X','V')
-,`review` enum('X','V')
-,`sudah` enum('X','V')
-,`bentuk_kegiatan` text
-,`anggaran` text
-);
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `view_rekap_pokja_pkp_kabkota`
---
-DROP TABLE IF EXISTS `view_rekap_pokja_pkp_kabkota`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_rekap_pokja_pkp_kabkota`  AS  select `b`.`id_kabupaten` AS `id_kabupaten`,`b`.`nm_kabupaten` AS `nm_kabupaten`,`a`.`status` AS `status`,`a`.`sk` AS `sk`,`a`.`penggabungan` AS `penggabungan`,`a`.`program` AS `program`,`a`.`forum` AS `forum`,`a`.`apbd` AS `apbd` from (`kabupaten` `b` left join `rekap_pokja_pkp_kabkota` `a` on((`a`.`id_kabupaten` = `b`.`id_kabupaten`))) ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `view_rekap_pokja_pkp_provinsi`
---
-DROP TABLE IF EXISTS `view_rekap_pokja_pkp_provinsi`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_rekap_pokja_pkp_provinsi`  AS  select `a`.`id_provinsi` AS `id_provinsi`,`a`.`nm_provinsi` AS `nm_provinsi`,`b`.`penggabungan` AS `penggabungan`,`b`.`program` AS `program`,`b`.`ketua` AS `ketua`,`b`.`perayaan` AS `perayaan`,`b`.`apbd` AS `apbd` from (`provinsi` `a` left join `rekap_pokja_pkp_provinsi` `b` on((`a`.`id_provinsi` = `b`.`id_provinsi`))) ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `view_rekap_rp3kp_kabkota`
---
-DROP TABLE IF EXISTS `view_rekap_rp3kp_kabkota`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_rekap_rp3kp_kabkota`  AS  select `b`.`id_kabupaten` AS `id_kabupaten`,`b`.`nm_kabupaten` AS `nm_kabupaten`,`a`.`belum` AS `belum`,`a`.`menganggarkan` AS `menganggarkan`,`a`.`sedang` AS `sedang`,`a`.`belum_legal` AS `belum_legal`,`a`.`review` AS `review`,`a`.`sudah` AS `sudah`,`a`.`bentuk_kegiatan` AS `bentuk_kegiatan`,`a`.`anggaran` AS `anggaran` from (`kabupaten` `b` left join `rekap_rp3kp_kabkota` `a` on((`a`.`id_kabupaten` = `b`.`id_kabupaten`))) ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `view_rekap_rp3kp_provinsi`
---
-DROP TABLE IF EXISTS `view_rekap_rp3kp_provinsi`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_rekap_rp3kp_provinsi`  AS  select `a`.`id_provinsi` AS `id_provinsi`,`a`.`nm_provinsi` AS `nm_provinsi`,`b`.`belum` AS `belum`,`b`.`menganggarkan` AS `menganggarkan`,`b`.`sedang` AS `sedang`,`b`.`belum_legal` AS `belum_legal`,`b`.`review` AS `review`,`b`.`sudah` AS `sudah`,`b`.`bentuk_kegiatan` AS `bentuk_kegiatan`,`b`.`anggaran` AS `anggaran` from (`provinsi` `a` left join `rekap_rp3kp_provinsi` `b` on((`a`.`id_provinsi` = `b`.`id_provinsi`))) ;
+(5, 3),
+(6, 4),
+(7, 4),
+(8, 4),
+(9, 4),
+(10, 4),
+(11, 3),
+(12, 4),
+(13, 4),
+(14, 4),
+(15, 4),
+(16, 4);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `activity_logs`
+-- Indeks untuk tabel `activity_logs`
 --
 ALTER TABLE `activity_logs`
   ADD PRIMARY KEY (`activity_id`),
@@ -1665,80 +1972,74 @@ ALTER TABLE `activity_logs`
 ALTER TABLE `activity_logs` ADD FULLTEXT KEY `activity_type` (`activity_type`);
 
 --
--- Indexes for table `agenda`
+-- Indeks untuk tabel `agenda`
 --
 ALTER TABLE `agenda`
   ADD PRIMARY KEY (`id_agenda`);
 
 --
--- Indexes for table `aspirasi`
+-- Indeks untuk tabel `aspirasi`
 --
 ALTER TABLE `aspirasi`
   ADD PRIMARY KEY (`id_aspirasi`);
 
 --
--- Indexes for table `diskusi`
+-- Indeks untuk tabel `diskusi`
 --
 ALTER TABLE `diskusi`
   ADD PRIMARY KEY (`id_diskusi`);
 
 --
--- Indexes for table `dokumen`
+-- Indeks untuk tabel `dokumen`
 --
 ALTER TABLE `dokumen`
   ADD PRIMARY KEY (`id_dokumen`);
 
 --
--- Indexes for table `faq`
+-- Indeks untuk tabel `faq`
 --
 ALTER TABLE `faq`
   ADD PRIMARY KEY (`id_faq`);
 
 --
--- Indexes for table `galeri`
+-- Indeks untuk tabel `galeri`
 --
 ALTER TABLE `galeri`
   ADD PRIMARY KEY (`id_galeri`);
 
 --
--- Indexes for table `hubungi_kami`
+-- Indeks untuk tabel `hubungi_kami`
 --
 ALTER TABLE `hubungi_kami`
   ADD PRIMARY KEY (`id_hub`);
 
 --
--- Indexes for table `kabupaten`
+-- Indeks untuk tabel `kabupaten`
 --
 ALTER TABLE `kabupaten`
   ADD PRIMARY KEY (`id_kabupaten`);
 
 --
--- Indexes for table `level_user`
+-- Indeks untuk tabel `level_user`
 --
 ALTER TABLE `level_user`
   ADD PRIMARY KEY (`id_level`);
 
 --
--- Indexes for table `materi`
+-- Indeks untuk tabel `materi`
 --
 ALTER TABLE `materi`
   ADD PRIMARY KEY (`id_materi`),
   ADD KEY `sub_kategori` (`sub_kategori`);
 
 --
--- Indexes for table `materi_substantif_pkp`
---
-ALTER TABLE `materi_substantif_pkp`
-  ADD PRIMARY KEY (`id_materi_substantif_pkp`);
-
---
--- Indexes for table `modul`
+-- Indeks untuk tabel `modul`
 --
 ALTER TABLE `modul`
   ADD PRIMARY KEY (`id_modul`);
 
 --
--- Indexes for table `m_soal`
+-- Indeks untuk tabel `m_soal`
 --
 ALTER TABLE `m_soal`
   ADD PRIMARY KEY (`id`),
@@ -1746,7 +2047,7 @@ ALTER TABLE `m_soal`
   ADD KEY `id_mapel` (`id_mapel`);
 
 --
--- Indexes for table `pegawai`
+-- Indeks untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`id_pegawai`),
@@ -1754,52 +2055,52 @@ ALTER TABLE `pegawai`
   ADD KEY `wilayah` (`wilayah`);
 
 --
--- Indexes for table `profil_dir`
+-- Indeks untuk tabel `profil_dir`
 --
 ALTER TABLE `profil_dir`
   ADD PRIMARY KEY (`id_profil`);
 
 --
--- Indexes for table `provinsi`
+-- Indeks untuk tabel `provinsi`
 --
 ALTER TABLE `provinsi`
   ADD PRIMARY KEY (`id_provinsi`);
 
 --
--- Indexes for table `regulasi`
+-- Indeks untuk tabel `regulasi`
 --
 ALTER TABLE `regulasi`
   ADD PRIMARY KEY (`id_reg`);
 
 --
--- Indexes for table `rekap_pokja_pkp_kabkota`
+-- Indeks untuk tabel `rekap_pokja_pkp_kabkota`
 --
 ALTER TABLE `rekap_pokja_pkp_kabkota`
   ADD PRIMARY KEY (`id_kabupaten`);
 
 --
--- Indexes for table `rekap_pokja_pkp_provinsi`
+-- Indeks untuk tabel `rekap_pokja_pkp_provinsi`
 --
 ALTER TABLE `rekap_pokja_pkp_provinsi`
   ADD PRIMARY KEY (`id_provinsi`),
   ADD KEY `id_provinsi` (`id_provinsi`);
 
 --
--- Indexes for table `rekap_rp3kp_kabkota`
+-- Indeks untuk tabel `rekap_rp3kp_kabkota`
 --
 ALTER TABLE `rekap_rp3kp_kabkota`
   ADD PRIMARY KEY (`id_kabupaten`),
   ADD KEY `id_provinsi` (`id_kabupaten`);
 
 --
--- Indexes for table `rekap_rp3kp_provinsi`
+-- Indeks untuk tabel `rekap_rp3kp_provinsi`
 --
 ALTER TABLE `rekap_rp3kp_provinsi`
   ADD PRIMARY KEY (`id_provinsi`),
   ADD KEY `id_provinsi` (`id_provinsi`);
 
 --
--- Indexes for table `tr_guru_mapel`
+-- Indeks untuk tabel `tr_guru_mapel`
 --
 ALTER TABLE `tr_guru_mapel`
   ADD PRIMARY KEY (`id`),
@@ -1807,7 +2108,7 @@ ALTER TABLE `tr_guru_mapel`
   ADD KEY `id_mapel` (`id_mapel`);
 
 --
--- Indexes for table `tr_guru_tes`
+-- Indeks untuk tabel `tr_guru_tes`
 --
 ALTER TABLE `tr_guru_tes`
   ADD PRIMARY KEY (`id`),
@@ -1815,7 +2116,7 @@ ALTER TABLE `tr_guru_tes`
   ADD KEY `id_mapel` (`id_mapel`);
 
 --
--- Indexes for table `tr_ikut_ujian`
+-- Indeks untuk tabel `tr_ikut_ujian`
 --
 ALTER TABLE `tr_ikut_ujian`
   ADD PRIMARY KEY (`id`),
@@ -1823,13 +2124,13 @@ ALTER TABLE `tr_ikut_ujian`
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indexes for table `ujian_modul`
+-- Indeks untuk tabel `ujian_modul`
 --
 ALTER TABLE `ujian_modul`
   ADD PRIMARY KEY (`id_ujianmodul`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
@@ -1837,7 +2138,7 @@ ALTER TABLE `user`
   ADD KEY `is_active_index` (`is_active`);
 
 --
--- Indexes for table `user_profile`
+-- Indeks untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
   ADD PRIMARY KEY (`id`),
@@ -1846,14 +2147,14 @@ ALTER TABLE `user_profile`
   ADD KEY `id_kks` (`kks_id`);
 
 --
--- Indexes for table `user_role`
+-- Indeks untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`),
   ADD KEY `name_index` (`name`);
 
 --
--- Indexes for table `user_to_role`
+-- Indeks untuk tabel `user_to_role`
 --
 ALTER TABLE `user_to_role`
   ADD PRIMARY KEY (`user_id`,`role_id`),
@@ -1861,134 +2162,154 @@ ALTER TABLE `user_to_role`
   ADD KEY `user_id` (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `activity_logs`
+-- AUTO_INCREMENT untuk tabel `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `activity_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `activity_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
--- AUTO_INCREMENT for table `agenda`
+-- AUTO_INCREMENT untuk tabel `agenda`
 --
 ALTER TABLE `agenda`
   MODIFY `id_agenda` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `aspirasi`
+-- AUTO_INCREMENT untuk tabel `aspirasi`
 --
 ALTER TABLE `aspirasi`
-  MODIFY `id_aspirasi` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_aspirasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
--- AUTO_INCREMENT for table `diskusi`
+-- AUTO_INCREMENT untuk tabel `diskusi`
 --
 ALTER TABLE `diskusi`
-  MODIFY `id_diskusi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_diskusi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
 --
--- AUTO_INCREMENT for table `dokumen`
+-- AUTO_INCREMENT untuk tabel `dokumen`
 --
 ALTER TABLE `dokumen`
-  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
--- AUTO_INCREMENT for table `faq`
+-- AUTO_INCREMENT untuk tabel `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `id_faq` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_faq` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `galeri`
+-- AUTO_INCREMENT untuk tabel `galeri`
 --
 ALTER TABLE `galeri`
-  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `hubungi_kami`
+-- AUTO_INCREMENT untuk tabel `hubungi_kami`
 --
 ALTER TABLE `hubungi_kami`
-  MODIFY `id_hub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_hub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
 --
--- AUTO_INCREMENT for table `kabupaten`
+-- AUTO_INCREMENT untuk tabel `kabupaten`
 --
 ALTER TABLE `kabupaten`
   MODIFY `id_kabupaten` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9473;
+
 --
--- AUTO_INCREMENT for table `level_user`
+-- AUTO_INCREMENT untuk tabel `level_user`
 --
 ALTER TABLE `level_user`
   MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
--- AUTO_INCREMENT for table `materi`
+-- AUTO_INCREMENT untuk tabel `materi`
 --
 ALTER TABLE `materi`
-  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `materi_substantif_pkp`
---
-ALTER TABLE `materi_substantif_pkp`
-  MODIFY `id_materi_substantif_pkp` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT for table `modul`
+-- AUTO_INCREMENT untuk tabel `modul`
 --
 ALTER TABLE `modul`
-  MODIFY `id_modul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_modul` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `m_soal`
+-- AUTO_INCREMENT untuk tabel `m_soal`
 --
 ALTER TABLE `m_soal`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `pegawai`
+-- AUTO_INCREMENT untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
 --
--- AUTO_INCREMENT for table `profil_dir`
+-- AUTO_INCREMENT untuk tabel `profil_dir`
 --
 ALTER TABLE `profil_dir`
-  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `provinsi`
+-- AUTO_INCREMENT untuk tabel `provinsi`
 --
 ALTER TABLE `provinsi`
   MODIFY `id_provinsi` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+
 --
--- AUTO_INCREMENT for table `regulasi`
+-- AUTO_INCREMENT untuk tabel `regulasi`
 --
 ALTER TABLE `regulasi`
-  MODIFY `id_reg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_reg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `tr_guru_mapel`
+-- AUTO_INCREMENT untuk tabel `tr_guru_mapel`
 --
 ALTER TABLE `tr_guru_mapel`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `tr_guru_tes`
+-- AUTO_INCREMENT untuk tabel `tr_guru_tes`
 --
 ALTER TABLE `tr_guru_tes`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `tr_ikut_ujian`
+-- AUTO_INCREMENT untuk tabel `tr_ikut_ujian`
 --
 ALTER TABLE `tr_ikut_ujian`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `ujian_modul`
+-- AUTO_INCREMENT untuk tabel `ujian_modul`
 --
 ALTER TABLE `ujian_modul`
-  MODIFY `id_ujianmodul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_ujianmodul` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
 --
--- AUTO_INCREMENT for table `user_profile`
+-- AUTO_INCREMENT untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
   MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `user_role`
+-- AUTO_INCREMENT untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
