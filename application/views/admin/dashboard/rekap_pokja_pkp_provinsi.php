@@ -51,7 +51,7 @@
 		<h3>Catatan</h3>
 	</li>
 	<li>
-		Data yang disajikan adalah data pada tahun berjalan (<?= date('Y'); ?>)
+		Data yang disajikan adalah data pada tahun berjalan (<?= $tahun; ?>)
 	</li>
 	<li>
 		
@@ -136,7 +136,7 @@
 								pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%)</b>'
 								},
 								title: {
-								text: 'Rekap Data Pokja PKP Tahun <?= date('Y'); ?>'
+								text: 'Rekap Data Pokja PKP Tahun <?= $tahun; ?>'
 								},
 								subtitle: {
 								text: 'Penggabungan Berbagai Pokja'
@@ -169,15 +169,15 @@
 								'name':'Jumlah Provinsi',
 								'data':[
 									['Belum',<?php
-									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.penggabungan='Belum' OR a.penggabungan IS NULL) AND a.tahun='".date('Y')."'")->result();
+									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.penggabungan='Belum' OR a.penggabungan IS NULL) AND a.tahun='".$tahun."'")->result();
 									echo count($get_belum);
 									?>],
 									['Proses',<?php
-									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.penggabungan='Proses' AND a.tahun='".date('Y')."'")->result();
+									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.penggabungan='Proses' AND a.tahun='".$tahun."'")->result();
 									echo count($get_proses);
 									?>],
 									['Sudah',<?php
-									$get_sudah = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.penggabungan='Sudah' AND a.tahun='".date('Y')."'")->result();
+									$get_sudah = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.penggabungan='Sudah' AND a.tahun='".$tahun."'")->result();
 									echo count($get_sudah);
 									?>]
 								]
@@ -202,7 +202,7 @@
 								pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%)</b>'
 								},
 								title: {
-								text: 'Rekap Data Pokja PKP Tahun <?= date('Y'); ?>'
+								text: 'Rekap Data Pokja PKP Tahun <?= $tahun; ?>'
 								},
 								subtitle: {
 								text: 'Punya Program Kerja 5 Tahun'
@@ -235,11 +235,11 @@
 								'name':'Jumlah Provinsi',
 								'data':[
 									['Tidak',<?php
-									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.program='Tidak' OR a.program IS NULL) AND a.tahun='".date('Y')."'")->result();
+									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.program='Tidak' OR a.program IS NULL) AND a.tahun='".$tahun."'")->result();
 									echo count($get_belum);
 									?>],
 									['Ya',<?php
-									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.program='Ya' AND a.tahun='".date('Y')."'")->result();
+									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.program='Ya' AND a.tahun='".$tahun."'")->result();
 									echo count($get_proses);
 									?>]
 								]
@@ -264,7 +264,7 @@
 								pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%)</b>'
 								},
 								title: {
-								text: 'Rekap Data Pokja PKP Tahun <?= date('Y'); ?>'
+								text: 'Rekap Data Pokja PKP Tahun <?= $tahun; ?>'
 								},
 								subtitle: {
 								text: 'Perayaan Hapernas/ Hari Habitat/ dsb'
@@ -297,11 +297,11 @@
 								'name':'Jumlah Provinsi',
 								'data':[
 									['Tidak',<?php
-									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.perayaan='Tidak' OR a.perayaan IS NULL) AND a.tahun='".date('Y')."'")->result();
+									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.perayaan='Tidak' OR a.perayaan IS NULL) AND a.tahun='".$tahun."'")->result();
 									echo count($get_belum);
 									?>],
 									['Ada',<?php
-									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.perayaan='Ada' AND a.tahun='".date('Y')."'")->result();
+									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.perayaan='Ada' AND a.tahun='".$tahun."'")->result();
 									echo count($get_proses);
 									?>]
 								]
@@ -326,7 +326,7 @@
 								pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%)</b>'
 								},
 								title: {
-								text: 'Rekap Data Pokja PKP Tahun <?= date('Y'); ?>'
+								text: 'Rekap Data Pokja PKP Tahun <?= $tahun; ?>'
 								},
 								subtitle: {
 								text: 'Dukungan APBD'
@@ -359,11 +359,11 @@
 								'name':'Jumlah Provinsi',
 								'data':[
 									['Tidak',<?php
-									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.apbd='Tidak' OR a.apbd IS NULL) AND a.tahun='".date('Y')."'")->result();
+									$get_belum = $this->db->query("SELECT a.*,b.id_provinsi FROM provinsi b LEFT JOIN rekap_pokja_pkp_provinsi a ON b.id_provinsi=a.id_provinsi WHERE (a.apbd='Tidak' OR a.apbd IS NULL) AND a.tahun='".$tahun."'")->result();
 									echo count($get_belum);
 									?>],
 									['Ada',<?php
-									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.apbd='Ada' AND a.tahun='".date('Y')."'")->result();
+									$get_proses = $this->db->query("SELECT a.* FROM rekap_pokja_pkp_provinsi a WHERE a.apbd='Ada' AND a.tahun='".$tahun."'")->result();
 									echo count($get_proses);
 									?>]
 								]
@@ -381,7 +381,12 @@
 										<option value="2">Punya Program Kerja 5 Tahun</option>
 										<option value="3">Perayaan Hapernas/ Hari Habitat/ dsb</option>
 										<option value="4">Dukungan APBD</option>
-									</select>&nbsp;&nbsp;
+									</select>
+									<select name="tahun" id="tahun" style="background: white;color: black;padding: 5px;" required>
+										<option value="">-- Pilih Tahun --</option>
+										<option value="2019">2019</option>
+										<option value="2020">2020</option>
+                                    </select>&nbsp;&nbsp;
 									<!-- <input type="button" style="width: 50px;" value="Cari" class="crud_search" id="crud_search"> -->
 									<button type='submit' class="crud_search">Proses</button>
 									</form>

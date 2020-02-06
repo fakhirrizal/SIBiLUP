@@ -24,7 +24,14 @@ class Dashboard extends CI_Controller {
 	{
         $data['title_page'] = "Rekap RP3KP Provinsi";
         $data['breadcrumb'] = "Dashboard,Rekap RP3KP Provinsi";
-        $data['load']       =  array("admin/dashboard/rekap_rp3kp_provinsi"); 
+        $data['load']       =  array("admin/dashboard/rekap_rp3kp_provinsi");
+        $tahun = date('Y');
+        if($this->input->post('tahun')==''){
+            echo'';
+        }else{
+            $tahun = $this->input->post('tahun');
+        }
+        $data['tahun'] = $tahun;
 
         $this->load->view('template/footer', $data);
     }
@@ -114,6 +121,13 @@ class Dashboard extends CI_Controller {
         }else{
             $data['get_where'] = $this->input->post('search_field');
         }
+        $tahun = date('Y');
+        if($this->input->post('tahun')==''){
+            echo'';
+        }else{
+            $tahun = $this->input->post('tahun');
+        }
+        $data['tahun'] = $tahun;
         $data['data_provinsi'] = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
 
         $this->load->view('template/footer', $data);
@@ -229,6 +243,13 @@ class Dashboard extends CI_Controller {
         }else{
             echo'';
         }
+        $tahun = date('Y');
+        if($this->input->post('tahun')==''){
+            echo'';
+        }else{
+            $tahun = $this->input->post('tahun');
+        }
+        $data['tahun'] = $tahun;
 
         $this->load->view('template/footer', $data);
     }
@@ -284,6 +305,13 @@ class Dashboard extends CI_Controller {
         }else{
             $data['get_where'] = $this->input->post('search_field');
         }
+        $tahun = date('Y');
+        if($this->input->post('tahun')==''){
+            echo'';
+        }else{
+            $tahun = $this->input->post('tahun');
+        }
+        $data['tahun'] = $tahun;
         $data['data_provinsi'] = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
 
         $data['data_hitung1'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE (c.status="Selesai" OR c.sk="V") AND b.id_provinsi=a.id_provinsi AND c.tahun='.date('Y').') AS jml')->result();

@@ -51,7 +51,7 @@
 		<h3>Catatan</h3>
 	</li>
 	<li>
-		Data yang disajikan adalah data pada tahun berjalan (<?= date('Y'); ?>)
+		Data yang disajikan adalah data pada tahun berjalan (<?= $tahun; ?>)
 	</li>
 	<li>
 		
@@ -102,7 +102,7 @@
 							{
 								prov: "Belum",
 								jml: <?php
-								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.belum'=>'V','a.tahun'=>date('Y')))->result();
+								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.belum'=>'V','a.tahun'=>$tahun))->result();
 								// if(count($getdata)==NULL){
 								// 	echo'0';
 								// }else{
@@ -111,23 +111,23 @@
 								?>
 							},
 							{
-								prov: "Menganggarkan TA <?= date('Y'); ?>",
+								prov: "Menganggarkan TA <?= $tahun; ?>",
 								jml: <?php
-								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.menganggarkan'=>'V','a.tahun'=>date('Y')))->result();
+								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.menganggarkan'=>'V','a.tahun'=>$tahun))->result();
 								echo count($getdata);
 								?>
 							},
 							{
 								prov: "Sedang",
 								jml: <?php
-								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.sedang'=>'V','a.tahun'=>date('Y')))->result();
+								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.sedang'=>'V','a.tahun'=>$tahun))->result();
 								echo count($getdata);
 								?>
 							},
 							{
 								prov: "Sudah",
 								jml: <?php
-								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.sudah'=>'V','a.tahun'=>date('Y')))->result();
+								$getdata = $this->Main_model->getSelectedData('rekap_rp3kp_provinsi a', 'a.*', array('a.sudah'=>'V','a.tahun'=>$tahun))->result();
 								echo count($getdata);
 								?>
 							}
@@ -154,6 +154,21 @@
 
 							<!-- HTML -->
 							<div id="chartdiv"></div><br>
+							<br>
+							<div class="sDiv quickSearchBox" id="quickSearchBox">
+								<div class="sDiv2">
+									<form action="<?=base_url('admin_side/rekap_rp3kp_provinsi');?>" method="post">
+									Filter Pencarian&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<select name="tahun" id="tahun" style="background: white;color: black;padding: 5px;" required>
+										<option value="">-- Pilih Tahun --</option>
+										<option value="2019">2019</option>
+										<option value="2020">2020</option>
+                                    </select>
+									<!-- <input type="button" style="width: 50px;" value="Cari" class="crud_search" id="crud_search"> -->
+									<button type='submit' class="crud_search">Proses</button>
+									</form>
+								</div>
+							</div><hr><br>
 							<!-- <div class="ex1"> -->
 							<!-- <div style="overflow-x: auto;"> -->
 							<table class="table table-striped table-bordered" id="tbl">
@@ -216,7 +231,7 @@
 									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="3%"/>&nbsp;&nbsp;<b>Belum (Belum Menganggarkan)</b></td>
 								</tr>
 								<tr>
-									<td><img src="<?= site_url(); ?>assets/images/question.png" width="3%"/>&nbsp;&nbsp;<b>Menganggarkan TA 2019 (Menyusun Profil PKP)</b></td>
+									<td><img src="<?= site_url(); ?>assets/images/question.png" width="3%"/>&nbsp;&nbsp;<b>Menganggarkan TA <?= $tahun; ?> (Menyusun Profil PKP)</b></td>
 								</tr>
 								<tr>
 									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="3%"/>&nbsp;&nbsp;<b>Sedang (Lelang/ Menyusun Buku Data dan Analisis atau Buku Rencana)</b></td>
