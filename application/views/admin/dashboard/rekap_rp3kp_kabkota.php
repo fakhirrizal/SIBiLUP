@@ -418,7 +418,7 @@
                                         "ajax" : {
 											type:"POST",
                                             url:"<?= site_url('admin/Map/json_rekap_rp3kp_kabupaten'); ?>",
-											data: {modul:"<?= $get_where; ?>"}
+											data: {modul:"<?= $get_where; ?>",tahun:"<?= $tahun; ?>"}
                                         },
                                         "aoColumns": [
                                                     { mData: 'number', sClass: "alignCenter" },

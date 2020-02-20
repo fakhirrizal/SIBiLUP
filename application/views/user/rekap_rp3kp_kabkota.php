@@ -51,7 +51,7 @@
 		<h3>Catatan</h3>
 	</li>
 	<li>
-		Data yang disajikan adalah data pada tahun berjalan (<?= date('Y'); ?>)
+		Data yang disajikan adalah data pada tahun berjalan (<?= $tahun; ?>)
 	</li>
 	<li>
 		
@@ -122,13 +122,13 @@
 									<?php
 									foreach ($data_provinsi as $key => $value) {
 										echo'{"nm_provinsi": "'.$value->nm_provinsi.'",';
-										$get_sudah = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.review='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
+										$get_sudah = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.review='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".$tahun."'")->result();
 										echo'"sudah": '.count($get_sudah).',';
-										$get_sedang = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.sedang='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
+										$get_sedang = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.sedang='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".$tahun."'")->result();
 										echo'"sedang": '.count($get_sedang).',';
-										$get_menganggarkan = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.menganggarkan='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
+										$get_menganggarkan = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.menganggarkan='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".$tahun."'")->result();
 										echo'"menganggarkan": '.count($get_menganggarkan).',';
-										$get_belum = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.belum='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".date('Y')."'")->result();
+										$get_belum = $this->db->query("SELECT a.* FROM rekap_rp3kp_kabkota a LEFT JOIN kabupaten b ON a.id_kabupaten=b.id_kabupaten WHERE a.belum='V' AND b.id_provinsi='".$value->id_provinsi."' AND a.tahun='".$tahun."'")->result();
 										echo'"belum": '.count($get_belum).'},';
 									}
 									?>];
@@ -164,9 +164,9 @@
 									var series3 = chart.series.push(new am4charts.ColumnSeries3D());
 									series3.dataFields.valueY = "menganggarkan";
 									series3.dataFields.categoryX = "nm_provinsi";
-									series3.name = "Menganggarkan TA <?= date('Y'); ?>";
+									series3.name = "Menganggarkan TA <?= $tahun; ?>";
 									series3.clustered = false;
-									series3.columns.template.tooltipText = "di {categoryX} yang masih Menganggarkan RP3KP TA 2019: [bold]{valueY}[/] Kabupaten/ Kota";
+									series3.columns.template.tooltipText = "di {categoryX} yang masih Menganggarkan RP3KP TA <?= $tahun; ?>: [bold]{valueY}[/] Kabupaten/ Kota";
 
 									var series4 = chart.series.push(new am4charts.ColumnSeries3D());
 									series4.dataFields.valueY = "belum";
@@ -244,7 +244,7 @@
 									<td><img src="<?= site_url(); ?>assets/images/remove.png" width="3%"/>&nbsp;&nbsp;<b>Belum (Belum Menganggarkan)</b></td>
 								</tr>
 								<tr>
-									<td><img src="<?= site_url(); ?>assets/images/question.png" width="3%"/>&nbsp;&nbsp;<b>Menganggarkan TA 2019 (Menyusun Profil PKP)</b></td>
+									<td><img src="<?= site_url(); ?>assets/images/question.png" width="3%"/>&nbsp;&nbsp;<b>Menganggarkan TA <?= $tahun; ?> (Menyusun Profil PKP)</b></td>
 								</tr>
 								<tr>
 									<td><img src="<?= site_url(); ?>assets/images/checkmark.png" width="3%"/>&nbsp;&nbsp;<b>Sedang (Lelang/ Menyusun Buku Data dan Analisis atau Buku Rencana)</b></td>

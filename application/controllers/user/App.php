@@ -30,17 +30,38 @@ class App extends CI_Controller {
 		$this->load->view('user/home_page');
 	}
 	public function rekap_rp3kp_provinsi(){
+        $tahun = $this->input->post('tahun');
+        if($this->input->post('tahun')==''){
+            echo'';
+        }else{
+            $tahun = $this->input->post('tahun');
+        }
+        $data['tahun'] = $tahun;
         $data['load']       =  array("user/rekap_rp3kp_provinsi"); 
 
         $this->load->view('user/template/footer', $data);
 	}
 	public function rekap_rp3kp_kabkota(){
+        $tahun = $this->input->post('tahun');
+        if($this->input->post('tahun')==''){
+            echo'';
+        }else{
+            $tahun = $this->input->post('tahun');
+        }
+        $data['tahun'] = $tahun;
 		$data['load']       =  array("user/rekap_rp3kp_kabkota"); 
 		$data['data_provinsi'] = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
         $this->load->view('user/template/footer', $data);
 	}
 	public function rekap_pokja_pkp_provinsi()
 	{
+        $tahun = $this->input->post('tahun');
+        if($this->input->post('tahun')==''){
+            echo'';
+        }else{
+            $tahun = $this->input->post('tahun');
+        }
+        $data['tahun'] = $tahun;
         $data['load']       =  array("user/rekap_pokja_pkp_provinsi"); 
         $data['get_where'] = '';
         if($this->input->post('jenis')!=NULL){
@@ -53,6 +74,13 @@ class App extends CI_Controller {
 	}
 	public function rekap_pokja_pkp_kabkota()
 	{
+        $tahun = $this->input->post('tahun');
+        if($this->input->post('tahun')==''){
+            echo'';
+        }else{
+            $tahun = $this->input->post('tahun');
+        }
+        $data['tahun'] = $tahun;
         $data['load']       =  array("user/rekap_pokja_pkp_kabkota");
         if($this->input->post('search_field')==NULL){
             $data['get_where'] = 'semua';

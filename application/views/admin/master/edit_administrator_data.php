@@ -56,7 +56,7 @@
 				<div class="card-block">
 					<div class="portlet light ">
 						<div class="portlet-body">
-							<form role="form" class="form-horizontal" action="<?=base_url('admin_side/perbarui_data_pengguna');?>" method="post"  enctype='multipart/form-data'>
+							<form role="form" class="form-horizontal" action="<?=base_url('admin_side/perbarui_data_pengguna');?>" method="post" enctype='multipart/form-data'>
                                 <?php
                                 foreach ($data_utama as $key => $value) {
                                 ?>

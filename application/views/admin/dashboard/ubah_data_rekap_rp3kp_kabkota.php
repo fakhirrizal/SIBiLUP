@@ -22,7 +22,7 @@
 				<div class="card-block">
 					<div class="portlet light ">
 						<div class="portlet-body">
-                            <form role="form" class="form-horizontal" action="<?=base_url('admin_side/perbarui_data_rekap_rp3kp_kabkota');?>" method="post"  enctype='multipart/form-data'>
+                            <form role="form" class="form-horizontal" action="<?=base_url('admin_side/perbarui_data_rekap_rp3kp_kabkota');?>" method="post" enctype='multipart/form-data'>
                                 <input type="hidden" name="id_kabupaten" value="<?= $data_utama->id; ?>">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-danger">
@@ -52,7 +52,7 @@
                                         <input name="group1" type="radio" id="radio_1" value="belum" <?php if($data_utama->belum=='V'){echo'checked';}else{echo'';} ?>>
                                         <label for="radio_1">Belum (Belum Menganggarkan)</label><br>
                                         <input name="group1" type="radio" id="radio_2" value="menganggarkan" <?php if($data_utama->menganggarkan=='V'){echo'checked';}else{echo'';} ?>>
-                                        <label for="radio_2">Menganggarkan TA 2019 (Menyusun Profil PKP)</label><br>
+                                        <label for="radio_2">Menganggarkan TA <?= $data_utama->tahun; ?> (Menyusun Profil PKP)</label><br>
                                         <input name="group1" type="radio" id="radio_3" value="sedang" <?php if($data_utama->sedang=='V'){echo'checked';}else{echo'';} ?>>
                                         <label for="radio_3">Sedang (Lelang / Menyusun Buku Data dan Analisis atau Buku Rencana)</label><br>
                                     </div>

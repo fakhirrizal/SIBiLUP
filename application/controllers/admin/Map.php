@@ -51,7 +51,7 @@ class Map extends CI_Controller {
 		echo json_encode($results);
 	}
 	public function json_rekap_rp3kp_provinsi(){
-		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi,a.regional', array('b.tahun'=>date('Y')), '', '', '', '', array(
+		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi,a.regional', array('b.tahun'=>$this->input->post('tahun')), '', '', '', '', array(
 			'table' => 'rekap_rp3kp_provinsi b',
 			'on' => 'a.id_provinsi=b.id_provinsi',
 			'pos' => 'LEFT'
@@ -139,7 +139,7 @@ class Map extends CI_Controller {
 		// print_r($get_data);
 	}
 	public function json_rekap_rp3kp_provinsi2(){
-		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi,a.regional', array('b.tahun'=>date('Y')), '', '', '', '', array(
+		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi,a.regional', array('b.tahun'=>$this->input->post('tahun')), '', '', '', '', array(
 			'table' => 'rekap_rp3kp_provinsi b',
 			'on' => 'a.id_provinsi=b.id_provinsi',
 			'pos' => 'LEFT'
@@ -184,7 +184,7 @@ class Map extends CI_Controller {
 		// print_r($get_data);
 	}
 	public function json_rekap_pokja_pkp_provinsi(){
-		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi', array('b.tahun'=>date('Y')), '', '', '', '', array(
+		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi', array('b.tahun'=>$this->input->post('tahun')), '', '', '', '', array(
 			'table' => 'rekap_pokja_pkp_provinsi b',
 			'on' => 'a.id_provinsi=b.id_provinsi',
 			'pos' => 'LEFT'
@@ -257,7 +257,7 @@ class Map extends CI_Controller {
 		// print_r($get_data);
 	}
 	public function json_rekap_pokja_pkp_provinsi2(){
-		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi', array('b.tahun'=>date('Y')), '', '', '', '', array(
+		$get_data = $this->Main_model->getSelectedData('provinsi a', 'b.*,a.id_provinsi AS id,a.nm_provinsi', array('b.tahun'=>$this->input->post('tahun')), '', '', '', '', array(
 			'table' => 'rekap_pokja_pkp_provinsi b',
 			'on' => 'a.id_provinsi=b.id_provinsi',
 			'pos' => 'LEFT'
@@ -525,7 +525,7 @@ class Map extends CI_Controller {
 		$data_tampil = array();
 		$no = 1;
 		foreach ($get_data as $key => $value) {
-			if($value->tahun=='' OR $value->tahun==date('Y')){
+			if($value->tahun=='' OR $value->tahun==$this->input->post('tahun')){
 				$isi['number'] = $no++.'.';
 				$isi['prov'] = $value->nm_provinsi;
 				$isi['nm_kabupaten'] = $value->nm_kabupaten;
@@ -618,7 +618,7 @@ class Map extends CI_Controller {
 		$data_tampil = array();
 		$no = 1;
 		foreach ($get_data as $key => $value) {
-			if($value->tahun=='' OR $value->tahun==date('Y')){
+			if($value->tahun=='' OR $value->tahun==$this->input->post('tahun')){
 				$isi['number'] = $no++.'.';
 				$isi['prov'] = $value->nm_provinsi;
 				$isi['nm_kabupaten'] = $value->nm_kabupaten;
@@ -726,7 +726,7 @@ class Map extends CI_Controller {
 		$data_tampil = array();
 		$no = 1;
 		foreach ($get_data as $key => $value) {
-			if($value->tahun=='' OR $value->tahun==date('Y')){
+			if($value->tahun=='' OR $value->tahun==$this->input->post('tahun')){
 				$isi['number'] = $no++.'.';
 				$isi['prov'] = $value->nm_provinsi;
 				$isi['nm_kabupaten'] = $value->nm_kabupaten;
@@ -825,7 +825,7 @@ class Map extends CI_Controller {
 		$data_tampil = array();
 		$no = 1;
 		foreach ($get_data as $key => $value) {
-			if($value->tahun=='' OR $value->tahun==date('Y')){
+			if($value->tahun=='' OR $value->tahun==$this->input->post('tahun')){
 				$isi['number'] = $no++.'.';
 				$isi['prov'] = $value->nm_provinsi;
 				$isi['nm_kabupaten'] = $value->nm_kabupaten;

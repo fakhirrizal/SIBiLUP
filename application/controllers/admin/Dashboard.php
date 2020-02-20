@@ -314,10 +314,10 @@ class Dashboard extends CI_Controller {
         $data['tahun'] = $tahun;
         $data['data_provinsi'] = $this->Main_model->getSelectedData('provinsi a', 'a.*')->result();
 
-        $data['data_hitung1'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE (c.status="Selesai" OR c.sk="V") AND b.id_provinsi=a.id_provinsi AND c.tahun='.date('Y').') AS jml')->result();
-        $data['data_hitung2'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.penggabungan="Sudah" AND b.id_provinsi=a.id_provinsi AND c.tahun='.date('Y').') AS jml')->result();
-        $data['data_hitung3'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.forum="Ya" AND b.id_provinsi=a.id_provinsi AND c.tahun='.date('Y').') AS jml')->result();
-        $data['data_hitung4'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.apbd="Ya" AND b.id_provinsi=a.id_provinsi AND c.tahun='.date('Y').') AS jml')->result();
+        $data['data_hitung1'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE (c.status="Selesai" OR c.sk="V") AND b.id_provinsi=a.id_provinsi AND c.tahun='.$tahun.') AS jml')->result();
+        $data['data_hitung2'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.penggabungan="Sudah" AND b.id_provinsi=a.id_provinsi AND c.tahun='.$tahun.') AS jml')->result();
+        $data['data_hitung3'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.forum="Ya" AND b.id_provinsi=a.id_provinsi AND c.tahun='.$tahun.') AS jml')->result();
+        $data['data_hitung4'] = $this->Main_model->getSelectedData('provinsi a', 'a.*,(SELECT COUNT(c.id_kabupaten) FROM rekap_pokja_pkp_kabkota c LEFT JOIN kabupaten b ON c.id_kabupaten=b.id_kabupaten WHERE c.apbd="Ya" AND b.id_provinsi=a.id_provinsi AND c.tahun='.$tahun.') AS jml')->result();
         $this->load->view('template/footer', $data);
     }
     public function ubah_data_rekap_pokja_pkp_kabkota()
