@@ -62,7 +62,7 @@
 		<h3>Catatan</h3>
 	</li>
 	<li>
-		Data yang disajikan adalah data pada tahun berjalan (<?= date('Y'); ?>)
+		Data yang disajikan adalah data pada tahun berjalan (<?= $tahun; ?>)
 	</li>
 	<li>
 		
