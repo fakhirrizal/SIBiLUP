@@ -110,10 +110,10 @@ class App extends CI_Controller {
         // $this->Main_model->log_activity($this->session->userdata('id'),'Insert data',"Menyimpan data kritik/ saran dari masyarakat (".$this->input->post('nama').")",$this->session->userdata('location'));
         $this->db->trans_complete();
         if($this->db->trans_status() === false){
-            echo "<script>window.location='http://blog-sibilup.aplikasiku.online/hubungi-kami/'</script>";
+            echo "<script>window.location='http://profil.perumahan.pu.go.id/sibilup/hubungi-kami/'</script>";
         }
         else{
-            echo "<script>window.location='http://blog-sibilup.aplikasiku.online/hubungi-kami/'</script>";
+            echo "<script>window.location='http://profil.perumahan.pu.go.id/sibilup/hubungi-kami/'</script>";
         }
     }
 }
