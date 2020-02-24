@@ -30,7 +30,7 @@ class App extends CI_Controller {
 		$this->load->view('user/home_page');
 	}
 	public function rekap_rp3kp_provinsi(){
-        $tahun = $this->input->post('tahun');
+        $tahun = date('Y');
         if($this->input->post('tahun')==''){
             echo'';
         }else{
@@ -42,7 +42,7 @@ class App extends CI_Controller {
         $this->load->view('user/template/footer', $data);
 	}
 	public function rekap_rp3kp_kabkota(){
-        $tahun = $this->input->post('tahun');
+        $tahun = date('Y');
         if($this->input->post('tahun')==''){
             echo'';
         }else{
@@ -55,7 +55,7 @@ class App extends CI_Controller {
 	}
 	public function rekap_pokja_pkp_provinsi()
 	{
-        $tahun = $this->input->post('tahun');
+        $tahun = date('Y');
         if($this->input->post('tahun')==''){
             echo'';
         }else{
@@ -74,7 +74,7 @@ class App extends CI_Controller {
 	}
 	public function rekap_pokja_pkp_kabkota()
 	{
-        $tahun = $this->input->post('tahun');
+        $tahun = date('Y');
         if($this->input->post('tahun')==''){
             echo'';
         }else{
