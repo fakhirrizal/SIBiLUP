@@ -311,7 +311,7 @@
                                         "ajax" : {
                                             type:"POST",
                                             url:"<?= site_url('admin/Map/json_rekap_pokja_pkp_kabupaten2'); ?>",
-                                            data: {modul:"<?= $get_where; ?>"}
+                                            data: {modul:"<?= $get_where; ?>",tahun:"<?= $tahun; ?>"}
                                         },
                                         "aoColumns": [
                                                     { mData: 'number', sClass: "alignCenter" },

@@ -386,7 +386,9 @@
                                         "order": [[ 0, "asc" ]],
                                         "bProcessing": true,
                                         "ajax" : {
-                                            url:"<?= site_url('admin/Map/json_rekap_pokja_pkp_provinsi2'); ?>"
+											type:'POST',
+											url:"<?= site_url('admin/Map/json_rekap_pokja_pkp_provinsi2'); ?>",
+											data: {tahun:"<?= $tahun; ?>"}
                                         },
                                         "aoColumns": [
                                                     { mData: 'number', sClass: "alignCenter" },
