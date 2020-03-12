@@ -11,9 +11,10 @@
 .abc {
   background-color: lightgrey;
   width: 450px;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   padding: 5px;
   margin: 2px;
+  border-radius: 0px 10px 0px 10px;
 }
 
 * {box-sizing: border-box}
@@ -62,11 +63,6 @@ div.ex1 {
 .card-block ::-webkit-scrollbar {
   width: 10px;
 }
-
-
-
-
-
 
 .profiletimeline {
   margin-left: 0px;
@@ -149,42 +145,75 @@ div.ex1 {
                                     
                                     <div class="sl-item">
                                         <div class="ex1">
+                                            
                                             <?php foreach ($ulasan as $ul) { ?>
-                                                <div class="sl-right">
-                                                    <div><b><h3><?= $ul['nama_pegawai'] ?></h3></b> <span class="sl-date"><?= fdate($ul['create_at'], "HHDDMMYYYY"); ?></span>
-                                                      <?php if ($ul['reply'] != '0') {
-                                                      $reply = $ul['reply']; 
-                                                        $rep = $this->db->query("SELECT a.*,b.nama_pegawai FROM diskusi a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_diskusi = '$reply'")->row_array(); ?>
-                                                        <div class="abc"><div><b><h5><?= $rep['nama_pegawai'] ?></h5></b> <div class="chat-time d-inline-block text-right text-muted"><span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span></div><p> <?= $rep['isi'] ?> </p></div></div>
-                                                      <?php } ?>
-                                                        <br><div class="p-2 manas rounded bg-light-info d-inline-block mb-2 text-dark"><p> <?= $ul['isi'] ?> </p></div>
-                                                          <br><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?= $ul['id_diskusi'] ?>">Balas</button>
-                                                    </div>
-                                                </div>
-
-                                                  <div class="modal fade" id="myModal<?= $ul['id_diskusi'] ?>" role="dialog">
-                                                    <div class="modal-dialog">
-                                                      <div class="modal-content">
-                                                        <div class="modal-header">
-                                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                          <h4 class="modal-title"><?= $ul['nama_pegawai'] ?></h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                         <form method="post" action="" enctype="multipart/form-data">
-                                                          <div class="form-group">
-                                                            <label for="exampleInputPassword1">Pesan</label><br>
-                                                            <textarea class="form-control editor" name="pesan" style="width: 220px; height: 250px"></textarea>
-                                                            <input type="hidden" name="reply" value="<?= $ul['id_diskusi'] ?>">
+                                                <!-- <div class="sl-right"> -->
+                                                    <!-- <div> -->
+                                                      <!-- <b><h3><?= $ul['nama_pegawai'] ?></h3></b> <span class="sl-date"><?= fdate($ul['create_at'], "HHDDMMYYYY"); ?></span> -->
+                                                      <?php
+                                                      $cek_pesan = ''; $nama_pengguna = ''; $tanggal_pesan = '';
+                                                      if ($ul['reply'] != '0') {
+                                                        $reply = $ul['reply']; 
+                                                        $rep = $this->db->query("SELECT a.*,b.nama_pegawai FROM diskusi a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_diskusi = '$reply'")->row_array();
+                                                        $cek_pesan = $rep['isi'];
+                                                        $nama_pengguna = $rep['nama_pegawai'];
+                                                        $tanggal_pesan = fdate($rep['create_at'], "HHDDMMYYYY"); ?>
+                                                        <!-- <div class="abc">
+                                                          <div><b><h5><?= $rep['nama_pegawai'] ?></h5></b>
+                                                            <div class="chat-time d-inline-block text-right text-muted"><span class="sl-date"><?= fdate($rep['create_at'], "HHDDMMYYYY"); ?></span></div><p> <?= $rep['isi'] ?> </p>
                                                           </div>
-                                                          <input type="submit" class="btn btn-warning" value="KIRIM">
-                                                        </form>
-                                                        </div>
-                                                        <!-- <div class="modal-footer">
-                                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                         </div> -->
+                                                      <?php } ?>
+                                                    <!-- </div> -->
+                                                <!-- </div> -->
+                                                <div class="card-body">
+                                                  <!-- <div class="d-flex mb-5"> -->
+                                                    <!-- <div>
+                                                      <a href="javascript:void(0)"><img src="../assets/images/users/1.jpg" width="40" class="rounded-circle"></a>
+                                                    </div> -->
+                                                    <div class="pl-2">
+                                                      <h4 class="mb-0"><?= $ul['nama_pegawai'] ?></h4>
+                                                      <small class="text-muted"><?= fdate($ul['create_at'], "HHDDMMYYYY"); ?></small>
+                                                    </div>
+                                                    <br>
+                                                  <!-- </div> -->
+                                                  <div class="p-2 manas rounded bg-light-info d-inline-block mb-2 text-dark">
+                                                    <?php
+                                                      if($cek_pesan==NULL OR $cek_pesan==''){
+                                                        echo'';
+                                                      }
+                                                      else{ ?>
+                                                        <div class='abc'><b><h5><font color='#6aa84f'><?= $nama_pengguna; ?></font></h5></b>
+                                                        <!-- <div class="chat-time d-inline-block text-right text-muted"><span class="sl-date"><?= $tanggal_pesan; ?></span></div> -->
+                                                        <?= $cek_pesan; ?></div>
+                                                    <?php } ?>
+                                                    <?= $ul['isi'] ?>
+                                                  </div>
+                                                  <br><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?= $ul['id_diskusi'] ?>">Balas</button><hr>
+                                                </div>
+                                                <div class="modal fade" id="myModal<?= $ul['id_diskusi'] ?>" role="dialog">
+                                                  <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title"><?= $ul['nama_pegawai'] ?></h4>
                                                       </div>
+                                                      <div class="modal-body">
+                                                        <form method="post" action="" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                          <label for="exampleInputPassword1">Pesan</label><br>
+                                                          <textarea class="form-control editor" name="pesan" style="width: 220px; height: 250px"></textarea>
+                                                          <input type="hidden" name="reply" value="<?= $ul['id_diskusi'] ?>">
+                                                        </div>
+                                                        <input type="submit" class="btn btn-warning" value="KIRIM">
+                                                      </form>
+                                                      </div>
+                                                      <!-- <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                      </div> -->
                                                     </div>
                                                   </div>
+                                                </div>
                                             <?php } ?>
                                         </div>
                                     </div>
