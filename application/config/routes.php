@@ -59,18 +59,24 @@ $route['adm/act_login'] = 'Adm/act_login';
 $route['login_process'] = 'Auth/login_process';
 $route['registrasi'] = 'Auth/registration';
 $route['register_process'] = 'Auth/register_process';
+$route['reset_password'] = 'Auth/reset_password';
+$route['tentang_aplikasi'] = 'Auth/about';
 
 /* Perpustakaan */
-/*$route['regulasi'] = 'admin/Perpustakaan/regulasi';
+/*
+$route['regulasi'] = 'admin/Perpustakaan/regulasi';
 $route['materi'] = 'admin/Perpustakaan/materi';
 $route['modul'] = 'admin/Perpustakaan/modul';
 $route['soal_un'] = 'admin/Perpustakaan/soal_un';
 $route['photo'] = 'admin/Perpustakaan/photo';
 $route['vidio'] = 'admin/Perpustakaan/vidio';
-$route['ujian_ol'] = 'admin/Perpustakaan/ujian_ol';*/
+$route['ujian_ol'] = 'admin/Perpustakaan/ujian_ol';
+*/
+
+$route['diskusi'] = 'admin/Diskusi/tamu';
+$route['ruang_konsultasi'] = 'admin/Hubungi_kami/ruang_konsultasi';
 
 /* Admin */
-$route['admin_side/launcher'] = 'admin/App/launcher';
 $route['admin_side/beranda'] = 'admin/App/home';
 $route['admin_side/visimisi'] = 'admin/Master/visi_misi';
 $route['admin_side/tupoksi'] = 'admin/Master/tupoksi';
@@ -88,6 +94,9 @@ $route['admin_side/simpan_data_pengguna'] = 'admin/Master/save_administrator_dat
 $route['admin_side/ubah_data_pengguna/(:any)'] = 'admin/Master/edit_administrator_data/$1';
 $route['admin_side/perbarui_data_pengguna'] = 'admin/Master/update_administrator_data';
 $route['admin_side/hapus_data_pengguna/(:any)'] = 'admin/Master/delete_administrator_data/$1';
+
+$route['admin_side/tamu'] = 'admin/Master/tamu_data';
+$route['admin_side/hapus_data_tamu/(:any)'] = 'admin/Master/delete_tamu_data/$1';
 
 $route['admin_side/data_provinsi'] = 'admin/Map/province';
 $route['admin_side/tambah_data_provinsi'] = 'admin/Map/add_province';
@@ -133,8 +142,11 @@ $route['admin_side/hapus_aspirasi/(:any)'] = 'admin/Report/hapus_aspirasi/$1';
 /* User */
 $route['simpan_aspirasi'] = 'user/App/simpan_aspirasi';
 
+/* Tamu */
+
 /* REST API */
 $route['api'] = 'Rest_server/documentation';
+
 
 /*
 | -------------------------------------------------------------------------

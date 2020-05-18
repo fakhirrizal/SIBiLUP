@@ -38,7 +38,8 @@
         <!-- End PAge Content -->
         <!-- ============================================================== -->
     </div>
-<footer class="footer"> © 2019 Kementerian Pekerjaan Umum dan Perumahan Rakyat - Material Pro Admin by wrappixel.com </footer>
+    <!-- <footer class="footer"> © 2019 Kementerian Pekerjaan Umum dan Perumahan Rakyat - Material Pro Admin by wrappixel.com </footer> -->
+    <div class='text-align:center'><footer class="footer"> © 2019 Kementerian Pekerjaan Umum dan Perumahan Rakyat</footer></div>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->

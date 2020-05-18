@@ -6,21 +6,16 @@ class Master extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->helper('url');
-
 		$this->load->library('grocery_CRUD');
-
-		// //ROLE ACCESS
+		// ROLE ACCESS
 		// cek_role();
-		date_default_timezone_set('Asia/Jakarta');
-      //  $this->load->view('auth/authorized');
+    	// $this->load->view('auth/authorized');
 	}
-
 
 	public function output($output = null)
 	{	
 		// echo $output;
 		$this->load->view('grocery.php',$output);
-
 	}
 
 	public function templates()
@@ -28,9 +23,7 @@ class Master extends CI_Controller {
 		// echo $output;
 		$this->load->view('template/header');
 		$this->load->view('template/aside');
-
 	}
-
 
 	public function index($output = null) {
 		echo "<script>document.location.href='".base_url('sm-admin')."'</script>";
@@ -51,7 +44,7 @@ class Master extends CI_Controller {
 		$crud->change_field_type('struktur_organisasi' , 'invisible');
 
 		$crud->unset_read();
-		//$crud->unset_edit();
+		// $crud->unset_edit();
 		$crud->unset_delete();
 		$crud->unset_back_to_list();
 
@@ -102,8 +95,8 @@ class Master extends CI_Controller {
 		$crud->unset_delete();
 		$crud->unset_back_to_list();
 
-		//enkripsi password md5 (silahkan rubah di function pass_md5)
-		//$crud->callback_before_update(array($this,'pass_md5'));
+		// enkripsi password md5 (silahkan rubah di function pass_md5)
+		// $crud->callback_before_update(array($this,'pass_md5'));
 
 		$output = $crud->render();
 		$output->title_page = "Pengaturan Akun";
@@ -121,9 +114,9 @@ class Master extends CI_Controller {
 		$crud->set_theme('flexigrid');
 		$crud->set_table('pegawai');
 
-	//	$crud->display_as('pass','Password');
+		// $crud->display_as('pass','Password');
 
-		//$crud->columns('username','pass');
+		// $crud->columns('username','pass');
 		$crud->change_field_type('user_id' , 'invisible');
 		$crud->change_field_type('wilayah' , 'invisible');
 		$this->config->set_item('grocery_crud_file_upload_allow_file_types','png');
@@ -157,7 +150,7 @@ class Master extends CI_Controller {
 
 		$crud->change_field_type('create_at' , 'invisible');
 		$crud->unset_read();
-		//$crud->unset_edit();
+		// $crud->unset_edit();
 		$crud->unset_delete();
 		$crud->unset_back_to_list();
 
@@ -168,7 +161,7 @@ class Master extends CI_Controller {
 	}
 
 	public function faq() {
-		//$this->templates();
+		// $this->templates();
         $data['title_page'] = "FAQ";
         $data['breadcrumb'] = "FAQ (Frequently Ask Question)";
         $data['load']       =  array("admin/master/faq"); 
@@ -209,7 +202,7 @@ class Master extends CI_Controller {
 		$crud->change_field_type('struktur_organisasi' , 'invisible');
 
 		$crud->unset_read();
-		//$crud->unset_edit();
+		// $crud->unset_edit();
 		$crud->unset_delete();
 		$crud->unset_back_to_list();
 
@@ -249,7 +242,7 @@ class Master extends CI_Controller {
 		$crud->change_field_type('tupoksi' , 'invisible');
 
 		$crud->unset_read();
-		//$crud->unset_edit();
+		// $crud->unset_edit();
 		$crud->unset_delete();
 		$crud->unset_back_to_list();
 
@@ -314,7 +307,7 @@ class Master extends CI_Controller {
 
 		$crud->unset_columns('create_at','update_at','method');
 
-// 		$crud->unset_fields('method');
+		// $crud->unset_fields('method');
 
 		$crud->display_as('id_type' ,'method');
 
@@ -392,8 +385,8 @@ class Master extends CI_Controller {
 		$crud->set_theme('flexigrid');
 		$crud->set_table('smt_setting');
 		$crud->set_subject('Logo');
-		//$crud->unset_operations(); 
-		//$crud->unset_list();
+		// $crud->unset_operations(); 
+		// $crud->unset_list();
 
 		$crud->edit_fields('logo');
 
@@ -427,8 +420,8 @@ class Master extends CI_Controller {
 		$crud->set_theme('flexigrid');
 		$crud->set_table('smt_setting');
 		$crud->set_subject('Setting');
-		//$crud->unset_operations(); 
-		//$crud->unset_list();
+		// $crud->unset_operations(); 
+		// $crud->unset_list();
 
 		$crud->edit_fields('favicon');
 
@@ -443,7 +436,7 @@ class Master extends CI_Controller {
 			$this->output($output);
 		} catch(Exception $e) {
 		 
-			if($e->getCode() == 14) //The 14 is the code of the "You don't have permissions" error on grocery CRUD.
+			if($e->getCode() == 14) //	The 14 is the code of the "You don't have permissions" error on grocery CRUD.
 			{
 			        echo direct(strtolower(__CLASS__).'/'.strtolower(__FUNCTION__).'/edit/1');
 			}
@@ -493,8 +486,8 @@ class Master extends CI_Controller {
 		$crud->set_theme('flexigrid');
 		$crud->set_table('smt_setting');
 		$crud->set_subject('Metadata');
-		//$crud->unset_operations(); 
-		//$crud->unset_list();
+		// $crud->unset_operations(); 
+		// $crud->unset_list();
 
 		$crud->display_as('deskripsi_ind','Deskripsi [IN]');
 		$crud->display_as('deskripsi','Deskripsi [EN]');
@@ -517,7 +510,7 @@ class Master extends CI_Controller {
 			$this->output($output);
 		} catch(Exception $e) {
 		 
-			if($e->getCode() == 14) //The 14 is the code of the "You don't have permissions" error on grocery CRUD.
+			if($e->getCode() == 14) // The 14 is the code of the "You don't have permissions" error on grocery CRUD.
 			{
 			        echo direct(strtolower(__CLASS__).'/'.strtolower(__FUNCTION__).'/edit/1');
 			}
@@ -548,7 +541,7 @@ class Master extends CI_Controller {
 			$this->output($output);
 		} catch(Exception $e) {
 		 
-			if($e->getCode() == 14) //The 14 is the code of the "You don't have permissions" error on grocery CRUD.
+			if($e->getCode() == 14) // The 14 is the code of the "You don't have permissions" error on grocery CRUD.
 			{
 			        echo direct(strtolower(__CLASS__).'/'.strtolower(__FUNCTION__).'/edit/1');
 			}
@@ -915,8 +908,8 @@ class Master extends CI_Controller {
 
 		$crud->required_fields('nama','title','link');
 
-		//$this->session->set_userdata('field_link','nama');
-		//$crud->callback_field('link', array($this, 'link_callback'));
+		// $this->session->set_userdata('field_link','nama');
+		// $crud->callback_field('link', array($this, 'link_callback'));
 
 		$unset_column = array('images','type','link','content','isi');
 		$unset_field = array('images','type','views');
@@ -926,17 +919,17 @@ class Master extends CI_Controller {
 			array_push($unset_field,'publish');
 		}
 
-		/*if (get_bahasa()) {
+		/* if (get_bahasa()) {
 			array_push($unset_column, 'content');
 			array_push($unset_field, 'content');
 
 			array_push($unset_column, 'title');
 			array_push($unset_field, 'title');
-		}*/
+		} */
 		$crud->unset_fields($unset_field);
 		$crud->unset_columns($unset_column);
 
-		//$crud->set_relation('id_menu','smt_menu','{nama}',['type' => 'article']);
+		// $crud->set_relation('id_menu','smt_menu','{nama}',['type' => 'article']);
 
 		$crud->change_field_type('tgl','invisible');
 		$crud->callback_before_insert(array($this,'tgl'));
@@ -1063,7 +1056,7 @@ class Master extends CI_Controller {
 		$this->output($output);
 	}
 
-	/*CALLBACK FUNCTION*/
+	/* CALLBACK FUNCTION */
 	public function password($post_array)
 	{
 		$post_array['pasid_usr'] = PasswordEncryption($post_array['password_baru']);
@@ -1131,12 +1124,12 @@ class Master extends CI_Controller {
         }
 	}
 
-	/*IMAGE RESIZER*/
+	/* IMAGE RESIZER */
 	function resize($uploader_response,$field_info, $files_to_upload)
 	{	 
 		$this->load->library('Image_moo');
  
-		//Is only one file uploaded so it ok to use it with $uploader_response[0].
+		// Is only one file uploaded so it ok to use it with $uploader_response[0].
 		// $file_uploaded = $field_info->upload_path.'/'.$uploader_response[0]->name; 
 		// $this->image_moo->load($file_uploaded)->resize(400,300)->save($file_uploaded,true);
 
@@ -1156,7 +1149,7 @@ class Master extends CI_Controller {
 
 		$this->image_lib->clear();
  
-		//Is only one file uploaded so it ok to use it with $uploader_response[0].
+		// Is only one file uploaded so it ok to use it with $uploader_response[0].
 		// $file_uploaded = $field_info->upload_path.'/'.$uploader_response[0]->name; 
 		// $this->image_moo->load($file_uploaded)->resize(400,300)->save($file_uploaded,true);
 
@@ -1168,7 +1161,7 @@ class Master extends CI_Controller {
 		return true;
 	}
 
-	//AUTO FILL LINK
+	// AUTO FILL LINK
 	function link_callback($value = '', $primary_key = null)
 	{
 		$field = $this->session->userdata('field_link');
@@ -1191,7 +1184,62 @@ class Master extends CI_Controller {
 	    			</script>";
 	    return $returner;
 	}
-	/* Pengguna */
+	/* Tamu */
+	public function tamu_data(){
+		$this->templates();
+        $data['title_page'] = "Tamu";
+        $data['breadcrumb'] = "Master,Tamu";
+        $data['load']       =  array("admin/master/tamu_data"); 
+
+        $this->load->view('template/footer', $data);
+	}
+	public function json_tamu_data(){
+		$get_data = $this->Main_model->getSelectedData('tamu a', 'a.*')->result();
+		$data_tampil = array();
+		$no = 1;
+		foreach ($get_data as $key => $value) {
+			$isi['number'] = $no++.'.';
+			$isi['nama'] = $value->nama;
+			$isi['nik'] = $value->nik;
+			$isi['alamat'] = $value->alamat;
+			$isi['email'] = $value->email;
+			$isi['no_hp'] = $value->no_hp;
+			$return_on_click = "return confirm('Anda yakin?')";
+			$isi['action'] =	'
+									<a href="'.base_url('admin_side/hapus_data_tamu/'.md5($value->user_id)).'" onclick="'.$return_on_click.'" class="link" title="Hapus Data"><i class="mdi mdi-delete-empty"></i></a>
+								';
+			$data_tampil[] = $isi;
+		}
+		$results = array(
+			"sEcho" => 1,
+			"iTotalRecords" => count($data_tampil),
+			"iTotalDisplayRecords" => count($data_tampil),
+			"aaData"=>$data_tampil);
+		echo json_encode($results);
+	}
+	public function delete_tamu_data(){
+		$this->db->trans_start();
+		$nama = '';
+		$id = '';
+		$get_data = $this->Main_model->getSelectedData('tamu a', 'a.*', array('md5(a.user_id)'=>$this->uri->segment(3)))->row();
+		$nama = $get_data->nama;
+		$id = $get_data->user_id;
+		$this->Main_model->deleteData('tamu', array('user_id'=>$id));
+		$this->Main_model->deleteData('user', array('id'=>$id));
+		$this->Main_model->deleteData('user_profile', array('user_id'=>$id));
+		$this->Main_model->deleteData('user_to_role', array('user_id'=>$id));
+		$this->Main_model->log_activity($this->session->userdata('id'),'Deleting data',"Menghapus data tamu (".$nama.")",$this->session->userdata('location'));
+		$this->db->trans_complete();
+		if($this->db->trans_status() === false){
+			$this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>data gagal dihapus.<br /></div>' );
+			echo "<script>window.location='".base_url()."admin_side/tamu/'</script>";
+		}
+		else{
+			$this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil dihapus.<br /></div>' );
+			echo "<script>window.location='".base_url()."admin_side/tamu/'</script>";
+		}
+	}
+	/* Administrator */
 	public function administrator_data(){
 		$this->templates();
         $data['title_page'] = "Pengguna";

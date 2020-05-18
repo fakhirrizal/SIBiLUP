@@ -41,37 +41,69 @@ class Auth extends CI_Controller {
 					);
 					$this->Main_model->updateData('user',$data_log,array('id'=>$value->id));
 					$this->Main_model->log_activity($value->id,'Login to system','Login via web browser',$this->input->post('location'));
-					$role = $this->Main_model->getSelectedData('user_to_role a', 'b.*,a.user_id,c.id_pegawai,c.nama_pegawai,c.foto', array('a.user_id'=>$value->id,'b.deleted'=>'0'), "",'','','',array(
-						array(
-							'table' => 'user_role b',
-							'on' => 'a.role_id=b.id',
-							'pos' => 'left'
-						),
-						array(
-							'table' => 'pegawai c',
-							'on' => 'a.user_id=c.user_id',
-							'pos' => 'left'
-						)
-					))->result();
+					$role = $this->Main_model->getSelectedData('user_to_role a', 'b.*,a.user_id', array('a.user_id'=>$value->id,'b.deleted'=>'0'), "",'','','',array(
+						'table' => 'user_role b',
+						'on' => 'a.role_id=b.id',
+						'pos' => 'left'
+					))->row();
 					if($role==NULL){
 						$this->session->set_flashdata('error','<div class="alert alert-danger alert-dismissible" role="alert" style="text-align: justify;">
 															<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 															<strong>Ups! </strong>Akun Anda tidak dikenali sistem.
 														</div>' );
-						echo "<script>window.location='".base_url('login')."'</script>";
+						echo "<script>window.location='".base_url()."'</script>";
 					}else{
-						foreach ($role as $key => $value2) {
-							$sess_data['id'] = $value2->user_id;
-							$sess_data['location'] = $this->input->post('location');
-							$sess_data['admin_id'] = $value2->id; // ini mau ambil user_id atau id_pegawai?kalo user_id ada di session "id", kalo id_pegawai ada di session "admin_konid"
-		                    $sess_data['admin_user'] = $this->input->post('username');
-		                    $sess_data['admin_level'] = $value2->level;
-		                    $sess_data['admin_konid'] = $value2->id_pegawai;
-		                    $sess_data['admin_nama'] = $value2->nama_pegawai;
-		                    $sess_data['foto'] = $value2->foto;
-							$sess_data['admin_valid'] = true;
-							$this->session->set_userdata($sess_data);
-							redirect($value2->route);
+						if($role->role_id=='9'){
+							$get_data_akun = $this->Main_model->getSelectedData('user_to_role a', 'b.*,a.user_id,c.fullname AS nama_pegawai,c.photo', array('a.user_id'=>$value->id,'b.deleted'=>'0'), "",'','','',array(
+								array(
+									'table' => 'user_role b',
+									'on' => 'a.role_id=b.id',
+									'pos' => 'left'
+								),
+								array(
+									'table' => 'user_profile c',
+									'on' => 'a.user_id=c.user_id',
+									'pos' => 'left'
+								)
+							))->result();
+							foreach ($get_data_akun as $key => $value2) {
+								$sess_data['id'] = $value2->user_id;
+								$sess_data['location'] = $this->input->post('location');
+								$sess_data['admin_id'] = $value2->id; // ini mau ambil user_id atau id_pegawai?kalo user_id ada di session "id", kalo id_pegawai ada di session "admin_konid"
+								$sess_data['admin_user'] = $this->input->post('username');
+								$sess_data['admin_level'] = $value2->level;
+								$sess_data['admin_nama'] = $value2->nama_pegawai;
+								$sess_data['foto'] = $value2->photo;
+								$sess_data['admin_valid'] = true;
+								$this->session->set_userdata($sess_data);
+								redirect($value2->route);
+							}
+						}else{
+							$get_data_akun = $this->Main_model->getSelectedData('user_to_role a', 'b.*,a.user_id,c.id_pegawai,c.nama_pegawai,c.foto', array('a.user_id'=>$value->id,'b.deleted'=>'0'), "",'','','',array(
+								array(
+									'table' => 'user_role b',
+									'on' => 'a.role_id=b.id',
+									'pos' => 'left'
+								),
+								array(
+									'table' => 'pegawai c',
+									'on' => 'a.user_id=c.user_id',
+									'pos' => 'left'
+								)
+							))->result();
+							foreach ($get_data_akun as $key => $value2) {
+								$sess_data['id'] = $value2->user_id;
+								$sess_data['location'] = $this->input->post('location');
+								$sess_data['admin_id'] = $value2->id; // ini mau ambil user_id atau id_pegawai?kalo user_id ada di session "id", kalo id_pegawai ada di session "admin_konid"
+								$sess_data['admin_user'] = $this->input->post('username');
+								$sess_data['admin_level'] = $value2->level;
+								$sess_data['admin_konid'] = $value2->id_pegawai;
+								$sess_data['admin_nama'] = $value2->nama_pegawai;
+								$sess_data['foto'] = $value2->foto;
+								$sess_data['admin_valid'] = true;
+								$this->session->set_userdata($sess_data);
+								redirect($value2->route);
+							}
 						}
 					}
 				}
@@ -87,7 +119,7 @@ class Auth extends CI_Controller {
 													<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 													<strong>Ups! </strong>Password yg Anda masukkan tidak valid.
 												</div>' );
-					echo "<script>window.location='".base_url('login')."'</script>";
+					echo "<script>window.location='".base_url()."'</script>";
 				}
 			}
 		}
@@ -96,47 +128,27 @@ class Auth extends CI_Controller {
 											<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 											<strong>Ups! </strong>Username/ Email yang Anda masukkan tidak terdaftar.
 										</div>' );
-			echo "<script>window.location='".base_url('login')."'</script>";
-		}
-	}
-	public function registration()
-	{
-		if(($this->session->userdata('id'))==NULL){
-			$this->load->view('auth/register');
-		}else{
-			$cek = $this->Main_model->getSelectedData('user_to_role a', 'b.route', array('a.user_id'=>$this->session->userdata('id'),'b.deleted'=>'0'), "",'','','',array(
-				'table' => 'user_role b',
-				'on' => 'a.role_id=b.id',
-				'pos' => 'left',
-			))->result();
-			if($cek!=NULL){
-				foreach ($cek as $key => $value) {
-					redirect($value->route);
-				}
-			}
-			else{
-				$this->load->view('auth/register');
-			}
+			echo "<script>window.location='".base_url()."'</script>";
 		}
 	}
 	public function register_process(){
-		$cek = $this->Main_model->getSelectedData('student a', 'a.*', array("a.fullname" => $this->input->post('fullname'),'a.mother' => $this->input->post('mother')))->result();
+		$cek = $this->Main_model->getSelectedData('user a', 'a.*', array("a.username" => $this->input->post('nik')))->row();
 		if($cek!=NULL){
 			$this->session->set_flashdata('error','
 			<div class="alert alert-danger alert-dismissible" role="alert" style="text-align: justify;">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<strong>Ups! </strong>Akun ini telah digunakan.
+				<strong>Ups! </strong>NIK ini telah digunakan.
 			</div>' );
-			echo "<script>window.location='".base_url('registrasi')."'</script>";
+			echo "<script>window.location='".base_url()."'</script>";
 		}
 		else{
 			$this->db->trans_start();
 			$user_id = $this->Main_model->getLastID('user','id');
-
+            $new_id = $user_id['id']+1;
 			$data1 = array(
-						'id' => $user_id['id']+1,
-						'username' => $this->input->post('fullname'),
-						'pass' => $this->input->post('mother'),
+						'id' => $new_id,
+						'username' => $this->input->post('nik'),
+						'pass' => $this->input->post('password'),
 						'total_login' => '1',
 						'last_login' => date('Y-m-d H-i-s'),
 						'last_activity' => date('Y-m-d H-i-s'),
@@ -145,110 +157,113 @@ class Auth extends CI_Controller {
 						'ip_address' => $this->input->ip_address(),
 						'is_active' => '1',
 						'created_at' => date('Y-m-d H:i:s'),
-						'created_by' => $user_id['id']+1
+						'created_by' => $new_id
 					);
 			// print_r($data1);
 			$this->Main_model->insertData('user',$data1);
 
 			$data2 = array(
-				'user_id' => $user_id['id']+1,
-				'fullname' => $this->input->post('fullname'),
+				'user_id' => $new_id,
+				'fullname' => $this->input->post('nama'),
+				'nin' => $this->input->post('nik'),
+				'address' => $this->input->post('alamat')
 			);
 			// print_r($data2);
 			$this->Main_model->insertData('user_profile',$data2);
 
 			$data3 = array(
-				'user_id' => $user_id['id']+1,
-				'role_id' => '2',
+				'user_id' => $new_id,
+				'role_id' => '9',
 			);
 			// print_r($data3);
 			$this->Main_model->insertData('user_to_role',$data3);
 
 			$data4 = array(
-				'user_id' => $user_id['id']+1,
-				'fullname' => $this->input->post('fullname'),
-				'mother' => $this->input->post('mother'),
-				'number_phone' => $this->input->post('number_phone'),
-				'mother_phone' => $this->input->post('mother_phone'),
+				'user_id' => $new_id,
+				'nama' => $this->input->post('nama'),
+				'nik' => $this->input->post('nik'),
+				'alamat' => $this->input->post('alamat'),
 				'email' => $this->input->post('email'),
-				'school' => $this->input->post('school'),
-				'class' => $this->input->post('class'),
-				'passcode' => $this->input->post('passcode')
+				'no_hp' => $this->input->post('no_hp'),
+				'created_at' => date('Y-m-d H:i:s')
 			);
 			// print_r($data4);
-			$this->Main_model->insertData('student',$data4);
+			$this->Main_model->insertData('tamu',$data4);
 
-			$this->Main_model->log_activity($user_id['id']+1,'Registration new account',"Creating student data (".$this->input->post('fullname').")");
+			$this->Main_model->log_activity($new_id,'Registration new account',"Tamu registrasi (".$this->input->post('nama').")");
 			$this->db->trans_complete();
 			if($this->db->trans_status() === false){
-				echo 'Gagal!';
+				$this->session->set_flashdata('error','
+				<div class="alert alert-danger alert-dismissible" role="alert" style="text-align: justify;">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>Ups! </strong>Silahkan ulangi kembali.
+				</div>' );
+				echo "<script>window.location='".base_url()."'</script>";
 			}
 			else{
-				echo 'Berhasil :)';
+				$sess_data['id'] = $new_id;
+				$sess_data['role_id'] = '9';
+				$this->session->set_userdata($sess_data);
+				redirect('tentang_aplikasi');
 			}
 		}
 	}
+	public function about()
+	{
+        $data['title_page'] = "Tentang Aplikasi";
+        $data['breadcrumb'] = "Dashboard,Tentang Aplikasi";
+        $data['load']    =  array("auth/about");  
+        $this->load->view('template/layout', $data);
+    }
 	public function logout(){
 		$this->session->sess_destroy();
-		echo "<script>window.location='".base_url('login')."'</script>";
+		echo "<script>window.location='".base_url()."'</script>";
 	}
-	public function forget_password() {
-		$q1 = "SELECT a.*,b.fullname FROM user a LEFT JOIN user_profile b ON a.id=b.user_id WHERE a.email='".$this->input->post('email')."' AND a.deleted='0'";
-		$cek = $this->Main_model->manualQuery($q1);
-        if($cek==NULL){
+	public function reset_password() {
+		$this->db->trans_start();
+		$get_data = $this->Main_model->getSelectedData('tamu a', 'a.*', array('a.email'=>$this->input->post('email')))->row();
+		if($get_data==NULL){
 			$this->session->set_flashdata('error','<div class="alert alert-danger alert-dismissible" role="alert" style="text-align: justify;">
-													<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-													<strong>Ups! </strong>Email tidak terdaftar.
-												</div>' );
-			echo "<script>window.location='".base_url('login')."'</script>";
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<strong>Ups! </strong>Email yang Anda masukkan tidak terdaftar.
+										</div>' );
+			echo "<script>window.location='".base_url()."'</script>";
+		}else{
+			require_once(APPPATH.'libraries/class.phpmailer.php');
+			$new_pass = rand();
+			$mail = new PHPMailer; 
+			$mail->IsSMTP();
+			$mail->SMTPSecure = 'ssl'; 
+			$mail->Host = "mail.aplikasiku.online";
+			// 0 = off (for production use, No debug messages)
+			// 1 = client messages
+			// 2 = client and server messages
+			$mail->SMTPDebug = 0;
+			$mail->Port = 465;
+			$mail->SMTPAuth = true;
+			$mail->Username = "service@aplikasiku.online";
+			$mail->Password = "Asbak425##";
+			$mail->SetFrom("service@aplikasiku.online","Admin SIBiLUP");
+			$mail->Subject = "Reset Password";
+			$mail->MsgHTML("Kata sandi baru Anda adalah : ".$new_pass);
+			$mail->AddAddress($get_data->email,$get_data->nama);
+			$mail->Send();
+			$this->Main_model->updateData('user',array('pass'=>$new_pass),array('id'=>$get_data->user_id));
+			$this->db->trans_complete();
+			if($this->db->trans_status() === false){
+				$this->session->set_flashdata('error','<div class="alert alert-danger alert-dismissible" role="alert" style="text-align: justify;">
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<strong>Ups! </strong>Silahkan ulangi kembali.
+										</div>' );
+				echo "<script>window.location='".base_url()."'</script>";
+			}
+			else{
+				$this->session->set_flashdata('error','<div class="alert alert-success alert-dismissible" role="alert" style="text-align: justify;">
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<strong>Yeah! </strong>Silahkan cek inbox/ spam email Anda.
+										</div>' );
+				echo "<script>window.location='".base_url()."'</script>";
+			}
 		}
-		else{
-			foreach ($cek as $key => $value) {
-			// PHPMailer
-			// require_once(APPPATH.'libraries/PHPMailerAutoload.php');
-
-			// $mail = new PHPMailer;
-
-			// $mail->isSMTP();
-			// $mail->Host = 'webmail.hostinger.co.id';
-			// $mail->SMTPAuth = true;
-			// $mail->Username = 'support.gbnku.co.id';
-			// $mail->Password = 'Ms@xLoUV9T#J';
-
-			// $mail->SMTPSecure = 'TLS';
-			// $mail->Port = 25; //port tidak usah di ubah, biarkan 587
-			// //$mail->SMTPDebug = 2;
-
-			// $mail->setFrom('support@gbnku.co.id', 'PT. Gita Bhakti Negeri');
-			// $mail->addAddress($value->email, $value->fullname);
-			// //$mail->addReplyTo('indoguardsmg@gmail.com', 'apa');
-			// $mail->isHTML(true);
-
-			// $mail->Subject = 'Lupa Kata Sandi';
-			// $mail->Body    = '<p>Berikut adalah data akun Anda</p>
-			// 				<p>Username : '.$value->email.'<br>Password : '.$value->password.'</p><p>Silahkan login kembali di sistem.</p>';
-			// $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-			// if(!$mail->send()) {
-			// 	echo 'Pesan gagal dikirim.';
-			// 	echo 'Kirim Pesan Error: ' . $mail->ErrorInfo;
-			// } else {
-			// 	echo "<script>alert('Pesan telah dikirim. Silahkan cek di Folder Kotak Masuk (Inbox) atau Spam')</script>";
-			// 	echo "<script>window.location='".base_url('login')."'</script>";
-			// }
-			// Biasa
-			$to = $value->email;
-			$dari = "support@gbnku.co.id";
-			$pesan = '<p>Berikut adalah data akun Anda</p>
-			<p>Username : '.$value->email.'<br>Password : '.$value->password.'</p><p>Silahkan login kembali di sistem.</p>';
-
-			ini_set( 'display_errors', 1 );
-			error_reporting( E_ALL );
-			$headers = "From:" . $dari;
-			$subjek = 'Lupa Kata Sandi';
-			mail($to,$subjek,$pesan, $headers);
-			echo "<script>alert('Pesan telah dikirim. Silahkan cek di Folder Kotak Masuk (Inbox) atau Spam')</script>";
-			echo "<script>window.location='".base_url('login')."'</script>";
-		}}
     }
 }

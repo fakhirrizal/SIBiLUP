@@ -22,9 +22,9 @@ class Hubungi_kami extends CI_Controller {
         $pt['join']['table']	= "pegawai";
         $pt['join']['ref']		= "id_pgw";
         $pt['join']['key']		= "id_pegawai";
-       // $pt['condition']['id_pgw'] = $this->session->userdata('admin_konid');
+        // $pt['condition']['id_pgw'] = $this->session->userdata('admin_konid');
         $pt['column']			= "hubungi_kami.*,nama_pegawai,id_pegawai";
-        //$data['ulasan'] = $this->Crud_model->get_data($pt);
+        // $data['ulasan'] = $this->Crud_model->get_data($pt);
 
         $pt['groupby']			= "id_pgw";
         $data['datpgw'] = $this->Crud_model->get_data($pt);
@@ -58,8 +58,9 @@ class Hubungi_kami extends CI_Controller {
             }
             $this->Crud_model->input('hubungi_kami',$datauploads);
 
-            //$data['kepada'] = $post['kepada'];
-            redirect('admin/hubungi_kami/index/'.$datauploads['id_pgw'], 'refresh');
+            // $data['kepada'] = $post['kepada'];
+            redirect('admin/hubungi_kami', 'refresh');
+            // redirect('admin/hubungi_kami/index/'.$datauploads['id_pgw'], 'refresh');
         } else {
             if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') {
                 $data['load']    =  array("admin/hubungi_kami/list"); 
@@ -71,10 +72,9 @@ class Hubungi_kami extends CI_Controller {
 	}
 
 	public function save(){
-
         $post = $this->input->post();
-       
-        /*$path = "upload/hubungi_kami/";
+        /*
+        $path = "upload/hubungi_kami/";
         if(!is_dir($path)){
             mkdir($path,0777,TRUE);
             fopen($path."/index.php", "w");
@@ -94,32 +94,84 @@ class Hubungi_kami extends CI_Controller {
         $this->load->library('upload', $config);
         $this->upload->initialize($config);*/
 
-       // if($this->upload->do_upload('foto')){
-
+        // if($this->upload->do_upload('foto')){
             $datauploads ['id_pgw'] = $post['kepada'];
-           // $datauploads ['file'] = $path.$name;
+            // $datauploads ['file'] = $path.$name;
             $datauploads ['isi'] = $post['pesan'];
             $this->Crud_model->input('hubungi_kami',$datauploads);
-        //}
+        // }
         $data['kepada'] = $post['kepada'];
         redirect('admin/hubungi_kami', 'refresh');
-    
     }
 
     public function _rules(){
-
         $config = array(
-
             array(
                 'field'  => 'pesan',
                 'label'  => 'pesan',
                 'rules'  => 'required',
                 'errors' => array('required' => 'Mohon isi %s ')
             )
-
         );
-
         $this->form_validation->set_rules($config);
-
     }
+    /* Untuk Tamu */
+    public function ruang_konsultasi($id = 0)
+	{
+		$data['title_page'] = "Ruang Konsultasi";
+        $data['breadcrumb'] = "";
+        $data['kepada'] = $id;
+        $pt['table']			= "ruang_konsultasi";
+        $pt['type']				= "multiple";
+        $pt['join']['table']	= "user_profile";
+        $pt['join']['ref']		= "id_pgw";
+        $pt['join']['key']		= "user_id";
+        // $pt['condition']['id_pgw'] = $this->session->userdata('admin_konid');
+        $pt['column']			= "ruang_konsultasi.*,fullname AS nama_pegawai,user_id AS id_pegawai";
+        // $data['ulasan'] = $this->Crud_model->get_data($pt);
+
+        $pt['groupby']			= "id_pgw";
+        $data['datpgw'] = $this->Crud_model->get_data($pt);
+
+        if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { 
+            $upd['status'] = '1';
+            $this->Crud_model->update("ruang_konsultasi",$upd,array("status"=>"0"));
+        }
+
+        $pt1['table']			= "user_profile";
+        $pt1['type']		    = "multiple";
+        $pt1['column']			= "fullname AS nama_pegawai,user_id AS id_pegawai";
+        $data['pegawai'] = $this->Crud_model->get_data($pt1);
+
+        $post = $this->input->post();
+        $this->_rules();
+        if($this->form_validation->run() === TRUE){
+            if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') {
+                $datauploads['penjawab'] = $this->session->userdata('id');
+                $datauploads['id_pgw'] = $post['kepada'];
+            } else {
+                $datauploads['id_pgw'] = $this->session->userdata('id');
+            }
+
+            if ($this->input->post('reply')) {
+                $psn = explode("*/", $post['pesan']);
+                $datauploads['isi'] = $psn[1];
+                $datauploads['reply'] = $post['reply'];
+            } else {
+                $datauploads['isi'] = $post['pesan'];
+            }
+            $this->Crud_model->input('ruang_konsultasi',$datauploads);
+
+            // $data['kepada'] = $post['kepada'];
+            redirect('ruang_konsultasi', 'refresh');
+            // redirect('admin/hubungi_kami/index/'.$datauploads['id_pgw'], 'refresh');
+        } else {
+            if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') {
+                $data['load']    =  array("admin/hubungi_kami/list_tamu"); 
+            } else {
+                $data['load']    =  array("admin/hubungi_kami/list_user_tamu"); 
+            }
+            $this->load->view('template/layout', $data);
+        }
+	}
 }

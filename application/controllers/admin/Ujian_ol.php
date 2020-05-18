@@ -6,18 +6,14 @@ class Ujian_ol extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->helper('url');
-
 		$this->load->library('grocery_CRUD');
 		if ($this->session->userdata('admin_valid') == false && $this->session->userdata('admin_id') == "") {
 			redirect('auth/login');
 		} 
-
 		// //ROLE ACCESS
 		// cek_role();
-		date_default_timezone_set('Asia/Jakarta');
-      //  $this->load->view('auth/authorized');
+      	// $this->load->view('auth/authorized');
 	}
-
 
 	public function output($output = null)
 	{	

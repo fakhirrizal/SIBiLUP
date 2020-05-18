@@ -6,15 +6,11 @@ class Perpustakaan extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->helper('url');
-
 		$this->load->library('grocery_CRUD');
-
 		// //ROLE ACCESS
 		// cek_role();
-		date_default_timezone_set('Asia/Jakarta');
-      //  $this->load->view('auth/authorized');
+    	// $this->load->view('auth/authorized');
 	}
-
 
 	public function output($output = null)
 	{	

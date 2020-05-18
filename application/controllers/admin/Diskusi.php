@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Diskusi extends CI_Controller {
-
 	
     function __construct() {
         parent::__construct();/*
@@ -49,23 +48,55 @@ class Diskusi extends CI_Controller {
         }
 	}
     public function _rules(){
-
         $config = array(
-
             array(
                 'field'  => 'pesan',
                 'label'  => 'pesan',
                 'rules'  => 'required',
                 'errors' => array('required' => 'Mohon isi %s ')
             )
-
         );
-
         $this->form_validation->set_rules($config);
-
     }
+    /* Untuk Tamu */
+    public function tamu()
+	{
+		$data['title_page'] = "Diskusi";
+        $data['breadcrumb'] = "";
 
-    /*function index(){
+        $pt['table']      = "diskusi_tamu";
+        $pt['type']       = "multiple";
+        $pt['orderby']['column'] = "create_at";
+        $pt['orderby']['sort']   = "DESC";
+        $pt['join']['table']  = "user_profile";
+        $pt['join']['ref']    = "id_pgw";
+        $pt['join']['key']    = "user_id";
+        $pt['column']     = "diskusi_tamu.*,fullname AS nama_pegawai";
+        $data['ulasan'] = $this->Crud_model->get_data($pt);
+
+        if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') { 
+            $upd['status'] = '1';
+            $this->Crud_model->update("diskusi_tamu",$upd,array("status"=>"0"));
+        }
+
+        $post = $this->input->post();
+        $this->_rules();
+        if($this->form_validation->run() === TRUE){
+            $datauploads['id_pgw'] = $this->session->userdata('id');
+            $datauploads['isi'] = $post['pesan'];
+            if ($this->input->post('reply')) {
+                $datauploads['reply'] = $post['reply'];
+            }
+            $this->Crud_model->input('diskusi_tamu',$datauploads);
+            redirect('diskusi', 'refresh');
+        } else {
+            $data['load']    =  array("admin/diskusi/list_tamu"); 
+            $this->load->view('template/layout', $data);
+        }
+	}
+
+    /*
+    function index(){
         $data['title_page'] = "Diskusi";
         $data['breadcrumb'] = "";
         $data['load']    =  array("admin/diskusi/chat"); 
@@ -96,5 +127,6 @@ class Diskusi extends CI_Controller {
 
         $data['message'] = 'success';
         $pusher->trigger('my-channel', 'my-event', $data);
-    }*/
+    }
+    */
 }

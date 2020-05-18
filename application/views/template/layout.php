@@ -1,3 +1,12 @@
+<?php
+if(($this->session->userdata('id'))==NULL){
+            echo "<script>alert('Harap login terlebih dahulu')</script>";
+            echo "<script>window.location='".base_url()."'</script>";
+        }
+else{
+	echo'';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -170,19 +179,34 @@
                             } else {
                                 $fotoku = $this->session->userdata('foto');
                             } ?>
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url()."assets/images/".$fotoku ?>" alt="user" class="profile-pic m-r-10" /><?= $this->session->userdata('admin_nama') ?></a>
+                            <?php
+                            $nama_tampil = '';
+                            if($this->session->userdata('admin_id')=='9'){
+                                $get_data_user = $this->Main_model->getSelectedData('user_profile a', 'a.*', array('a.user_id'=>$this->session->userdata('id')))->row();
+                                $nama_tampil = $get_data_user->fullname;
+                            ?>
+                                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url()."assets/images/".$fotoku ?>" alt="user" class="profile-pic m-r-10" /><?= $get_data_user->fullname; ?></a>
+                            <?php
+                            }else{
+                                $get_data_user = $this->Main_model->getSelectedData('pegawai a', 'a.*', array('a.user_id'=>$this->session->userdata('id')))->row();
+                                $nama_tampil = $get_data_user->nama_pegawai;
+                            ?>
+                                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url()."assets/images/".$fotoku ?>" alt="user" class="profile-pic m-r-10" /><?= $get_data_user->nama_pegawai; ?></a>
+                            <?php
+                            }
+                            ?>
                             <div class="dropdown-menu dropdown-menu-right scale-up">
                                 <ul class="dropdown-user">
                                     <li>
-                                        <div class="dw-user-box">
+                                        <div class="dw-user-box" style='text-align:center'>
                                             <div class="u-img"><img src="<?= base_url()."assets/images/".$fotoku ?>" alt="user"></div>
                                             <div class="u-text">
-                                                <h4><?= $this->session->userdata('admin_nama') ?></h4></div>
-                                        </div>
+                                                </div>
+                                        </div><div style='text-align:center'><h4><?= $nama_tampil; ?></h4></div>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="<?= base_url()."admin/master/profiles/edit/".$this->session->userdata('admin_konid'); ?>"><i class="ti-user"></i> Edit Profil</a></li>
-                                    <li><a href="<?= base_url()."admin/master/akun/edit/".$this->session->userdata('id'); ?>"><i class="ti-settings"></i> Edit Akun</a></li>
+                                    <li><a href="<?= base_url()."admin/master/profiles/edit/".$this->session->userdata('admin_konid'); ?>"><i class="ti-user"></i> Pengaturan Profil</a></li>
+                                    <li><a href="<?= base_url()."admin/master/akun/edit/".$this->session->userdata('id'); ?>"><i class="ti-settings"></i> Pengaturan Akun</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="<?php echo site_url('Auth/logout'); ?>"><i class="fa fa-power-off"></i> Keluar</a></li>
                                 </ul>
@@ -248,7 +272,7 @@
         <!-- ============================================================== -->
     </div>
 
-    <footer class="footer"> © 2019 Kementerian Pekerjaan Umum dan Perumahan Rakyat - Material Pro Admin by wrappixel.com </footer>
+    <div class='text-align:center'><footer class="footer"> © 2019 Kementerian Pekerjaan Umum dan Perumahan Rakyat</footer></div>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->

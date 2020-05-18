@@ -173,7 +173,7 @@
 				<p class="hint-text">Sign in with your social media account</p> -->
 				<div class="social-btn text-center">
 					<!-- <a href="#" class="btn btn-danger btn-lg" title="Google"><i class="fa fa-google"></i></a> -->
-					<img src="https://upload.wikimedia.org/wikipedia/id/a/a7/Logo_PU_%28RGB%29.jpg" width='45%'>
+					<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Logo_PU_%28RGB%29.jpg/440px-Logo_PU_%28RGB%29.jpg" width='45%'>
 					<br><br><p><font size="5">Silahkan login<br>untuk menggunakan sistem</font></p><hr>
 				</div>
 				<!-- <div class="or-seperator"><b></b></div> -->
@@ -186,7 +186,11 @@
 				<div class="form-group">
 					<button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Masuk</button>
 				</div>
-				<div class="text-center small"><a href="#">Lupa Kata Sandi?</a></div>
+				<div class="text-center">
+					<a data-toggle="modal" data-target="#lupa">Lupa Kata Sandi?</a>
+					|
+					<a data-toggle="modal" data-target="#regis">Daftar sebagai tamu</a>
+				</div>
 			</form>
 			<!-- <div class="text-center small">Don't have an account? <a href="#">Sign up</a></div> -->
 			<script>
@@ -203,5 +207,78 @@
 				}
 			</script>
 		</div>
+
+		<div id="lupa" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Form Atur Ulang Kata Sandi</h4>
+				</div>
+				<div class="modal-body">
+					<font color='red'>*</font> Silahkan masukkan alamat email Anda.
+						<br>
+						<br>
+						<form action="<?= site_url('reset_password'); ?>" method='post'>
+							<div class='row'>
+								<div class='col-md-12'>
+									<div class='col-md-10'>
+										<input type="email" class='form-control' name="email" required>
+									</div>
+									<div class='col-md-2'>
+										<input type="submit" class="btn btn-success" value="Proses">
+									</div>
+								</div>
+							</div>
+						</form>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="regis" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Form Registrasi</h4>
+					</div>
+					<div class="modal-body">
+						<font color='red'>*</font> Jika telah mendaftar sebelumnya silahkan masuk lewat menu login.<br>
+						<font color='red'>*</font> <b>NIK</b> berguna sebagai <b>username</b> saata login.
+						<br>
+						<br>
+						<form role="form" action="<?= site_url('register_process'); ?>" method='post'>
+							<p id="getLocation"></p>
+							<div class="form-group">
+								<input type="text" class="form-control input-lg" name="nama" placeholder="Nama Pengguna" required="required">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control input-lg" name="nik" placeholder="NIK" maxlength='16' required="required">
+							</div>
+							<div class="form-group">
+								<textarea class="form-control input-lg" name="alamat" placeholder="Alamat sesuai KTP" required="required"></textarea>
+							</div>
+							<div class="form-group">
+								<input type="email" class="form-control input-lg" name="email" placeholder="Email" maxlength='100' required="required">
+							</div>
+							<div class="form-group">
+								<input type="number" class="form-control input-lg" name="no_hp" placeholder="Nomor HP aktif" maxlength='13' required="required">
+							</div>
+							<hr>
+							<div class="form-group">
+								<input type="text" class="form-control input-lg" name="password" placeholder="Kata Sandi" required="required">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Proses</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</body>
 </html>

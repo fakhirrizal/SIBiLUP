@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class App extends CI_Controller {
-
 	
     function __construct() {
         parent::__construct();/*
@@ -12,12 +11,6 @@ class App extends CI_Controller {
 			redirect('auth/login');
 		} 
 	}
-	public function launcher()
-	{
-		// $this->load->view('admin/template/header',$data);
-		$this->load->view('admin/app/launcher');
-		// $this->load->view('admin/template/footer');
-	}
     public function home()
 	{
 		$data['title_page'] = "Beranda";
@@ -26,26 +19,6 @@ class App extends CI_Controller {
 
         
         $this->load->view('template/layout', $data);
-	}
-	public function menu()
-	{
-		$data['parent'] = 'menu';
-		$data['child'] = '';
-		$data['grand_child'] = '';
-		$data['clinic_center_menu'] = $this->Main_model->getSelectedData('menu a', '*', array("parent_id" => "", "a.app_key" => "clinic_center", "a.menu_status" => '1', 'deleted' => '0'), 'a.menu_order ASC','','','','')->result();
-		// $q2 = "SELECT a.* FROM job a WHERE a.deleted='0'";
-		// $data['do_kegiatan'] = $this->Main_model->manualQuery($q2);
-		// $q3 = "SELECT a.* FROM job_type a WHERE a.deleted='0'";
-		// $data['jenis_kegiatan'] = $this->Main_model->manualQuery($q3);
-		// $q4 = "SELECT a.* FROM category a WHERE a.deleted='0'";
-		// $data['jenis_pemeriksaan'] = $this->Main_model->manualQuery($q4);
-		// $q5 = "SELECT a.id,b.job_name,c.fullname,d.name,a.created_at FROM monitoring a LEFT JOIN job b ON a.job_id=b.id LEFT JOIN user_profile c ON a.user_id=c.user_id LEFT JOIN patient d ON a.patient_id=d.id WHERE a.deleted='0' ORDER BY `a`.`created_at` DESC";
-		// $data['laporan'] = $this->Main_model->manualQuery($q5);
-		// $q6 = "SELECT a.* FROM job_type a WHERE a.deleted='0'";
-		// $data['data_jenis'] = $this->Main_model->manualQuery($q6);
-		$this->load->view('admin/template/header',$data);
-		$this->load->view('admin/app/menu',$data);
-		$this->load->view('admin/template/footer');
 	}
 	public function log_activity()
 	{
@@ -73,24 +46,6 @@ class App extends CI_Controller {
 			$this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil dihapus.<br /></div>' );
 			echo "<script>window.location='".base_url()."admin_side/log_activity/'</script>";
 		}
-	}
-	public function about()
-	{
-		$data['parent'] = 'about';
-		$data['child'] = '';
-		$data['grand_child'] = '';
-		$this->load->view('admin/template/header',$data);
-		$this->load->view('admin/app/about',$data);
-		$this->load->view('admin/template/footer');
-	}
-	public function helper()
-	{
-		$data['parent'] = 'helper';
-		$data['child'] = '';
-		$data['grand_child'] = '';
-		$this->load->view('admin/template/header',$data);
-		$this->load->view('admin/app/helper',$data);
-		$this->load->view('admin/template/footer');
 	}
 	/* Menu setting and user's permission */
 	public function ajax_function(){

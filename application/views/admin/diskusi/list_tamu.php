@@ -154,7 +154,7 @@ div.ex1 {
                                                       $cek_pesan = ''; $nama_pengguna = ''; $tanggal_pesan = '';
                                                       if ($ul['reply'] != '0') {
                                                         $reply = $ul['reply']; 
-                                                        $rep = $this->db->query("SELECT a.*,b.nama_pegawai FROM diskusi a LEFT JOIN pegawai b ON a.id_pgw=b.id_pegawai WHERE id_diskusi = '$reply'")->row_array();
+                                                        $rep = $this->db->query("SELECT a.*,b.fullname AS nama_pegawai FROM diskusi_tamu a LEFT JOIN user_profile b ON a.id_pgw=b.user_id WHERE a.id_diskusi_tamu = '$reply'")->row_array();
                                                         $cek_pesan = $rep['isi'];
                                                         $nama_pengguna = $rep['nama_pegawai'];
                                                         $tanggal_pesan = fdate($rep['create_at'], "HHDDMMYYYY"); ?>
@@ -201,9 +201,9 @@ div.ex1 {
                                                     <?php } ?>
                                                     <?= $ul['isi'] ?>
                                                   </div>
-                                                  <br><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?= $ul['id_diskusi'] ?>">Balas</button><hr>
+                                                  <br><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?= $ul['id_diskusi_tamu'] ?>">Balas</button><hr>
                                                 </div>
-                                                <div class="modal fade" id="myModal<?= $ul['id_diskusi'] ?>" role="dialog">
+                                                <div class="modal fade" id="myModal<?= $ul['id_diskusi_tamu'] ?>" role="dialog">
                                                   <div class="modal-dialog">
                                                     <div class="modal-content">
                                                       <div class="modal-header">
@@ -221,7 +221,7 @@ div.ex1 {
                                                         <div class="form-group">
                                                           <label for="exampleInputPassword1">Pesan</label><br>
                                                           <textarea class="form-control editor" name="pesan" style="width: 220px; height: 250px"></textarea>
-                                                          <input type="hidden" name="reply" value="<?= $ul['id_diskusi'] ?>">
+                                                          <input type="hidden" name="reply" value="<?= $ul['id_diskusi_tamu'] ?>">
                                                         </div>
                                                         <input type="submit" class="btn btn-warning" value="KIRIM">
                                                       </form>

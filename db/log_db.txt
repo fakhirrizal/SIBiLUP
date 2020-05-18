@@ -31,3 +31,8 @@ Tanggal 10 Oktober 2019
     - ALTER TABLE `diskusi` ADD `status` ENUM('0','1') NOT NULL AFTER `create_at`;
 Tanggal 13 Oktober 2019
     - Buat tabel aspirasi
+Tanggal 17 Mei 2020
+    - Buat tabel tamu
+    - Buat tabel diskusi_tamu
+    - Buat tabel ruang_konsultasi
+    - Menambahkan data baru (role "Tamu") di dalam tabel user_role
