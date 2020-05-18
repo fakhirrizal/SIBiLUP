@@ -132,12 +132,12 @@ class Auth extends CI_Controller {
 		}
 	}
 	public function register_process(){
-		$cek = $this->Main_model->getSelectedData('user a', 'a.*', array("a.username" => $this->input->post('nik')))->row();
+		$cek = $this->Main_model->getSelectedData('user a', 'a.*', array("a.username" => $this->input->post('email')))->row();
 		if($cek!=NULL){
 			$this->session->set_flashdata('error','
 			<div class="alert alert-danger alert-dismissible" role="alert" style="text-align: justify;">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<strong>Ups! </strong>NIK ini telah digunakan.
+				<strong>Ups! </strong>Email ini telah digunakan.
 			</div>' );
 			echo "<script>window.location='".base_url()."'</script>";
 		}
@@ -147,7 +147,7 @@ class Auth extends CI_Controller {
             $new_id = $user_id['id']+1;
 			$data1 = array(
 						'id' => $new_id,
-						'username' => $this->input->post('nik'),
+						'username' => $this->input->post('email'),
 						'pass' => $this->input->post('password'),
 						'total_login' => '1',
 						'last_login' => date('Y-m-d H-i-s'),
@@ -202,7 +202,13 @@ class Auth extends CI_Controller {
 			}
 			else{
 				$sess_data['id'] = $new_id;
-				$sess_data['role_id'] = '9';
+				$sess_data['location'] = $this->input->post('location');
+				$sess_data['admin_id'] = '9';
+				$sess_data['admin_user'] = $this->input->post('email');
+				$sess_data['admin_level'] = '';
+				$sess_data['admin_nama'] = $this->input->post('nama');
+				$sess_data['foto'] = '';
+				$sess_data['admin_valid'] = true;
 				$this->session->set_userdata($sess_data);
 				redirect('tentang_aplikasi');
 			}
@@ -214,7 +220,83 @@ class Auth extends CI_Controller {
         $data['breadcrumb'] = "Dashboard,Tentang Aplikasi";
         $data['load']    =  array("auth/about");  
         $this->load->view('template/layout', $data);
-    }
+	}
+	public function pengaturan_profil()
+	{
+        $data['title_page'] = "Pengaturan Profil";
+        $data['breadcrumb'] = "Dashboard,Pengaturan Profil";
+        $data['load']    =  array("auth/profile_setting");  
+        $this->load->view('template/layout', $data);
+	}
+	public function perbarui_profil(){
+		$this->db->trans_start();
+		$nmfile = "file_".time(); // nama file saya beri nama langsung dan diikuti fungsi time
+		$config['upload_path'] = dirname($_SERVER["SCRIPT_FILENAME"]).'/assets/images/'; // path folder
+		$config['allowed_types'] = 'jpg|jpeg|png'; // type yang dapat diakses bisa anda sesuaikan
+		$config['max_size'] = '3072'; // maksimum besar file 3M
+		$config['file_name'] = $nmfile; // nama yang terupload nantinya
+
+		$this->upload->initialize($config);
+		if(isset($_FILES['file']['name']))
+		{
+			if(!$this->upload->do_upload('file'))
+			{
+				$pesan_error = $this->upload->display_errors();
+			}
+			else
+			{
+				$file_foto = $this->upload->data();
+				if($this->session->userdata('admin_id')=='9'){
+					$this->Main_model->updateData('user_profile',array('photo'=>$file_foto['file_name']),array('user_id'=>$this->session->userdata('id')));
+				}else{
+					$this->Main_model->updateData('pegawai',array('foto'=>$file_foto['file_name']),array('user_id'=>$this->session->userdata('id')));
+					if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') {
+						$this->Main_model->updateData('user_profile',array('photo'=>$file_foto['file_name']),array('user_id'=>$this->session->userdata('id')));
+					}else{
+						echo'';
+					}
+				}
+				
+			}
+		}else{echo'';}
+		if($this->session->userdata('admin_id')=='9'){
+			$data_update1 = array(
+				'nama' => $this->input->post('nama'),
+				'nik' => $this->input->post('nik'),
+				'alamat' => $this->input->post('alamat'),
+				'email' => $this->input->post('email'),
+				'no_hp' => $this->input->post('no_hp')
+			);
+			$this->Main_model->updateData('tamu',$data_update1,array('user_id'=>$this->session->userdata('id')));
+			$data_update2 = array(
+				'fullname' => $this->input->post('nama'),
+				'nin' => $this->input->post('nik')
+			);
+			$this->Main_model->updateData('user_profile',$data_update2,array('user_id'=>$this->session->userdata('id')));
+		}else{
+			$data_update1 = array(
+				'nama_pegawai' => $this->input->post('nama'),
+				'alamat' => $this->input->post('alamat'),
+				'email' => $this->input->post('email'),
+				'phone' => $this->input->post('no_hp')
+			);
+			$this->Main_model->updateData('pegawai',$data_update1,array('user_id'=>$this->session->userdata('id')));
+			if ($this->session->userdata('admin_level') == '1' OR $this->session->userdata('admin_level') == '2') {
+				$this->Main_model->updateData('user_profile',array('fullname'=>$this->input->post('nama')),array('user_id'=>$this->session->userdata('id')));
+			}else{
+				echo'';
+			}
+		}
+		$this->db->trans_complete();
+		if($this->db->trans_status() === false){
+			$this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>data gagal diperbarui.<br /></div>' );
+			echo "<script>window.location='".base_url()."pengaturan_profil/'</script>";
+		}
+		else{
+			$this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil diperbarui.<br /></div>' );
+			echo "<script>window.location='".base_url()."pengaturan_profil/'</script>";
+		}
+	}
 	public function logout(){
 		$this->session->sess_destroy();
 		echo "<script>window.location='".base_url()."'</script>";
@@ -223,11 +305,50 @@ class Auth extends CI_Controller {
 		$this->db->trans_start();
 		$get_data = $this->Main_model->getSelectedData('tamu a', 'a.*', array('a.email'=>$this->input->post('email')))->row();
 		if($get_data==NULL){
-			$this->session->set_flashdata('error','<div class="alert alert-danger alert-dismissible" role="alert" style="text-align: justify;">
-											<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<strong>Ups! </strong>Email yang Anda masukkan tidak terdaftar.
-										</div>' );
-			echo "<script>window.location='".base_url()."'</script>";
+			$cek_pegawai = $this->Main_model->getSelectedData('pegawai a', 'a.*', array('a.email'=>$this->input->post('email')))->row();
+			if($cek_pegawai==NULL){
+				$this->session->set_flashdata('error','<div class="alert alert-danger alert-dismissible" role="alert" style="text-align: justify;">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>Ups! </strong>Email yang Anda masukkan tidak terdaftar.
+				</div>' );
+				echo "<script>window.location='".base_url()."'</script>";
+			}else{
+				require_once(APPPATH.'libraries/class.phpmailer.php');
+				$new_pass = rand();
+				$mail = new PHPMailer; 
+				$mail->IsSMTP();
+				$mail->SMTPSecure = 'ssl'; 
+				$mail->Host = "mail.aplikasiku.online";
+				// 0 = off (for production use, No debug messages)
+				// 1 = client messages
+				// 2 = client and server messages
+				$mail->SMTPDebug = 0;
+				$mail->Port = 465;
+				$mail->SMTPAuth = true;
+				$mail->Username = "service@aplikasiku.online";
+				$mail->Password = "Asbak425##";
+				$mail->SetFrom("service@aplikasiku.online","Admin SIBiLUP");
+				$mail->Subject = "Reset Password";
+				$mail->MsgHTML("Kata sandi baru Anda adalah : ".$new_pass);
+				$mail->AddAddress($cek_pegawai->email,$cek_pegawai->nama_pegawai);
+				$mail->Send();
+				$this->Main_model->updateData('user',array('pass'=>$new_pass),array('id'=>$cek_pegawai->user_id));
+				$this->db->trans_complete();
+				if($this->db->trans_status() === false){
+					$this->session->set_flashdata('error','<div class="alert alert-danger alert-dismissible" role="alert" style="text-align: justify;">
+												<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<strong>Ups! </strong>Silahkan ulangi kembali.
+											</div>' );
+					echo "<script>window.location='".base_url()."'</script>";
+				}
+				else{
+					$this->session->set_flashdata('error','<div class="alert alert-success alert-dismissible" role="alert" style="text-align: justify;">
+												<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<strong>Yeah! </strong>Silahkan cek inbox/ spam email Anda.
+											</div>' );
+					echo "<script>window.location='".base_url()."'</script>";
+				}
+			}
 		}else{
 			require_once(APPPATH.'libraries/class.phpmailer.php');
 			$new_pass = rand();

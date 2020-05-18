@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Waktu pembuatan: 17 Jan 2020 pada 14.25
--- Versi server: 10.3.21-MariaDB-cll-lve
--- Versi PHP: 7.3.6
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 18 Bulan Mei 2020 pada 19.07
+-- Versi server: 10.4.11-MariaDB
+-- Versi PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `aplikasi_sibilup`
+-- Database: `b_datum`
 --
 
 -- --------------------------------------------------------
@@ -41,16 +41,6 @@ CREATE TABLE `activity_logs` (
   `activity_browser` varchar(16) DEFAULT NULL,
   `activity_location` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `activity_logs`
---
-
-INSERT INTO `activity_logs` (`activity_id`, `user_id`, `company_id`, `activity_type`, `activity_data`, `activity_time`, `activity_ip_address`, `activity_device`, `activity_os`, `activity_browser`, `activity_location`) VALUES
-(1, 1, 0, 'Login to system', 'Login via web browser', '2019-11-21 23:38:54', '182.253.62.123', 'PC', 'Windows 10', 'Chrome 78.0.3904', NULL),
-(2, 2, 0, 'Login to system', 'Login via web browser', '2019-11-29 14:27:07', '103.211.50.6', 'PC', 'Windows 10', 'Chrome 78.0.3904', NULL),
-(3, 2, 0, 'Login to system', 'Login via web browser', '2019-12-02 08:09:17', '103.211.50.6', 'PC', 'Windows 10', 'Chrome 78.0.3904', NULL),
-(4, 1, 0, 'Login to system', 'Login via web browser', '2020-01-02 14:30:10', '115.178.254.50', 'PC', 'Windows 10', 'Chrome 79.0.3945', NULL);
 
 -- --------------------------------------------------------
 
@@ -82,14 +72,6 @@ CREATE TABLE `aspirasi` (
   `waktu` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `aspirasi`
---
-
-INSERT INTO `aspirasi` (`id_aspirasi`, `nama`, `email`, `nohp`, `pesan`, `waktu`) VALUES
-(1, 'rizal', 'rizal@gmail.com', '12345678', 'kapan kita berjumpa lagi', '2019-10-23 19:49:26'),
-(2, 'andi', '', '', 'bagus aplikasinya terimakasih', '2019-10-23 19:49:35');
-
 -- --------------------------------------------------------
 
 --
@@ -105,39 +87,20 @@ CREATE TABLE `diskusi` (
   `reply` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data untuk tabel `diskusi`
+-- Struktur dari tabel `diskusi_tamu`
 --
 
-INSERT INTO `diskusi` (`id_diskusi`, `id_pgw`, `isi`, `create_at`, `status`, `reply`) VALUES
-(8, 27, '<p>tes</p>', '2019-11-15 03:15:28', '1', 0),
-(9, 27, '<p>test :D</p>', '2019-11-15 03:15:28', '1', 0),
-(10, 28, '<p>Test</p>', '2019-11-15 03:15:28', '1', 0),
-(11, 28, '<p>Cek. Coba</p>', '2019-11-15 03:15:28', '1', 0),
-(12, 2, '<p>mari kita mulai diskusi malam ini</p>', '2019-11-15 03:15:28', '1', 0),
-(13, 24, '<p>kegiatan saat ini sampai jam berapa</p>\r\n<p> </p>', '2019-11-15 03:15:28', '1', 0),
-(14, 27, '<p>terimakasih</p>', '2019-11-15 03:15:28', '1', 0),
-(15, 27, '<p>saya mau tanya</p>', '2019-11-15 03:15:28', '1', 0),
-(16, 24, '<p>tess</p>', '2019-11-15 03:15:28', '1', 0),
-(17, 28, '<p>P</p>', '2019-11-15 03:15:28', '1', 0),
-(18, 27, '<p>iya mas</p>', '2019-11-15 03:15:28', '1', 0),
-(19, 23, '<p>Bekerja keras, bergerak cepat, bertindak tepat, selamat dunia akhirat</p>', '2019-11-15 03:15:28', '1', 0),
-(20, 27, '<p>kenapa</p>', '2019-11-15 03:15:28', '1', 0),
-(21, 27, '<p>sampai pulang mas mbantul</p>', '2019-11-15 03:15:28', '1', 0),
-(22, 2, '<p>Apa pendapat anda tentang SIBiLUP ini ?</p>\r\n<p> </p>', '2019-11-15 03:15:28', '1', 0),
-(23, 27, '<p>Mau tanya, jika sudah masuk page admin, ingin kembali ke tampilan sibilup umum, ada icon khusus untuk diklik?</p>', '2019-11-15 03:15:28', '1', 0),
-(24, 23, '<p>Sepertinya perlu sistem reply ???? </p>', '2019-11-15 03:15:28', '1', 0),
-(25, 27, '<p>nganu mas..kok saya sebagai admin kabupaten bisa ngedit kabupaten lain ya?</p>', '2019-11-15 03:15:28', '1', 0),
-(26, 2, '<p>Untuk Provinsi DIY</p>\r\n<p>Semboyan PU plus-plus </p>', '2019-11-15 03:15:28', '1', 0),
-(27, 2, '<p>Provinsi Yogyakarta</p>\r\n<p>PU tenan </p>', '2019-11-15 03:15:28', '1', 0),
-(28, 2, '<p>Kabupaten Sleman</p>\r\n<p>Usulan bagus mas. Terima kasih masukannya</p>', '2019-11-15 03:15:28', '1', 0),
-(29, 24, '<p>Dirjen ciptakarya sudah mengembangankan SIM terkait dengan permukiman, mungkin bisa dilinkkan supaya bisa terintegrasi</p>', '2019-11-15 03:15:28', '1', 0),
-(30, 28, '<p>Perumahan</p>', '2019-11-15 03:15:28', '1', 0),
-(31, 2, '<p>cek</p>', '2019-11-15 03:15:28', '1', 0),
-(32, 1, '<p>balas tes</p>', '2019-11-15 03:15:28', '1', 8),
-(33, 2, '<p>cek lagi</p>', '2019-11-15 03:15:28', '1', 0),
-(34, 2, '<p>cek lagi dan lagi</p>', '2019-11-15 03:15:28', '1', 33),
-(35, 2, '<p>zsfh</p>', '2019-11-15 03:15:51', '1', 22);
+CREATE TABLE `diskusi_tamu` (
+  `id_diskusi_tamu` int(11) NOT NULL,
+  `id_pgw` int(11) NOT NULL,
+  `isi` mediumtext NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` enum('0','1') NOT NULL,
+  `reply` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -153,14 +116,6 @@ CREATE TABLE `dokumen` (
   `upload_by` int(11) NOT NULL,
   `create_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `dokumen`
---
-
-INSERT INTO `dokumen` (`id_dokumen`, `judul`, `keterangan`, `file`, `upload_by`, `create_at`) VALUES
-(1, 'Dokumen SIBiLUP', 'Dokumen ini adalah dokumen contoh yang akan diupload', 'f1f2e-berita-4-bimbingan-teknis-bidang-perencanaan-perumahan-regional-sulawesi-tahun-2019.docx', 24, 0),
-(2, 'Arus utama gender', '', '45778-pug-penyediaan-perumahan.pdf', 23, 0);
 
 -- --------------------------------------------------------
 
@@ -205,24 +160,6 @@ CREATE TABLE `hubungi_kami` (
   `status` enum('0','1') NOT NULL,
   `reply` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `hubungi_kami`
---
-
-INSERT INTO `hubungi_kami` (`id_hub`, `id_pgw`, `penjawab`, `isi`, `file`, `create_at`, `status`, `reply`) VALUES
-(7, 27, 0, '<p>terimakasih</p>', '', '2019-11-15 03:16:00', '1', 0),
-(8, 27, 2, '<p>beli oleh2 dimana mas?</p>', '', '2019-11-15 03:16:00', '1', 0),
-(9, 23, 0, '<p>Mohon izin bertanya</p>', '', '2019-11-15 03:16:00', '1', 0),
-(10, 27, 0, '<p>di toko pusat oleh-oleh</p>', '', '2019-11-15 03:16:00', '1', 0),
-(11, 28, 0, '<p>Halloo..</p>', '', '2019-11-15 03:16:00', '1', 0),
-(12, 23, 2, '<p>Silakan Bp/ibu</p>', '', '2019-11-15 03:16:00', '1', 0),
-(13, 27, 2, '<p>Dimana lokasinya mas ?</p>\r\n<p>Rekomendasinya dimana, yang murah dan komplit </p>\r\n<p>hehhehehehe....</p>', '', '2019-11-15 03:16:00', '1', 0),
-(14, 25, 2, '<p>Mas, kabarnya ada tempat wisata baru yang cukup viral, namanya Heha sky view</p>\r\n<p>itu dimana posisinya ?</p>', '', '2019-11-15 03:16:00', '1', 0),
-(15, 28, 2, '<p>Halo juga</p>', '', '2019-11-15 03:16:00', '1', 0),
-(16, 24, 0, 'selamat siang bapak/ibu, \r\nuntuk informasi terkait Pokja PKP bisa kami download dimana bapak/ibu?\r\nterimakasih.', '', '2019-11-15 03:16:00', '1', 0),
-(17, 24, 2, '<p>selamat siang, infomasi terkait Pokja PKP dapat di download di menu Pustaka pada website SIBiLUP</p>\r\n<p>terimakasih :)</p>', '', '2019-11-15 03:16:00', '1', 0),
-(18, 23, 2, '</p>\r\n<p> </p>\r\n<p>iya silahkan</p>', '', '2019-11-15 03:16:00', '1', 9);
 
 -- --------------------------------------------------------
 
@@ -870,9 +807,9 @@ CREATE TABLE `pegawai` (
   `user_id` int(10) NOT NULL,
   `wilayah` int(10) DEFAULT NULL,
   `nama_pegawai` varchar(100) NOT NULL,
-  `alamat` text NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `phone` varchar(15) NOT NULL,
+  `alamat` text DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
   `foto` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -881,7 +818,7 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `user_id`, `wilayah`, `nama_pegawai`, `alamat`, `email`, `phone`, `foto`) VALUES
-(1, 1, NULL, 'Mukhammad Fakhir Rizal', 'Tegal', 'helmi@gmail.com', '0891239123', NULL),
+(1, 1, NULL, 'Super Admin', NULL, NULL, NULL, NULL),
 (2, 2, NULL, 'Subdit Kemitraan dan Kelembagaan', 'Gedung Blok G Lt. 7 Kementerian PUPR', 'kemitraankelembagaan@pu.go.id', '1234567890', NULL),
 (15, 3, 81, 'Provinsi Maluku', 'Kota Ambon', 'maluku@gmail.com', '1234567890', NULL),
 (16, 4, 32, 'Provinsi Jawa Barat', 'Bandung', 'jabarjuara@gmail.com', '1234567890', NULL),
@@ -1746,6 +1683,40 @@ INSERT INTO `rekap_rp3kp_provinsi` (`id_provinsi`, `belum`, `menganggarkan`, `se
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `ruang_konsultasi`
+--
+
+CREATE TABLE `ruang_konsultasi` (
+  `id_hub` int(11) NOT NULL,
+  `id_pgw` int(11) NOT NULL,
+  `penjawab` int(11) NOT NULL,
+  `isi` mediumtext NOT NULL,
+  `file` varchar(100) NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` enum('0','1') NOT NULL,
+  `reply` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tamu`
+--
+
+CREATE TABLE `tamu` (
+  `id_tamu` int(9) NOT NULL,
+  `user_id` int(9) NOT NULL,
+  `nama` text NOT NULL,
+  `nik` varchar(16) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `no_hp` text NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tr_guru_mapel`
 --
 
@@ -1845,14 +1816,14 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `pass`, `total_login`, `last_login`, `last_activity`, `login_attempts`, `last_login_attempt`, `remember_time`, `remember_exp`, `ip_address`, `is_active`, `verification_token`, `recovery_token`, `unlock_token`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_by`, `deleted_at`, `deleted`) VALUES
-(1, 'admin', '1', 52, '2020-01-02 14:30:10', '2020-01-02 14:30:10', 60, '2020-01-02 14:30:10', NULL, NULL, '115.178.254.50', 1, NULL, NULL, NULL, 0, '2019-09-06 12:45:51', NULL, NULL, NULL, NULL, 0),
-(2, 'admin_pusat', 'admin123', 37, '2019-12-02 08:09:17', '2019-12-02 08:09:17', 45, '2019-12-02 08:09:17', NULL, NULL, '103.211.50.6', 1, NULL, NULL, NULL, 1, '2019-09-19 22:32:14', 1, '2019-10-06 14:02:57', NULL, NULL, 0),
+(1, 'admin', '1', 61, '2020-05-18 15:43:23', '2020-05-18 15:43:23', 69, '2020-05-18 15:43:23', NULL, NULL, '::1', 1, NULL, NULL, NULL, 0, '2019-09-06 12:45:51', NULL, NULL, NULL, NULL, 0),
+(2, 'admin_pusat', '1', 41, '2020-05-18 06:23:05', '2020-05-18 06:23:05', 49, '2020-05-18 06:23:05', NULL, NULL, '::1', 1, NULL, NULL, NULL, 1, '2019-09-19 22:32:14', 1, '2019-10-06 14:02:57', NULL, NULL, 0),
 (3, 'provinsi_maluku', 'maluku123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:04:33', NULL, NULL, NULL, NULL, 0),
 (4, 'provinsi_jabar', 'jabarjuara123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:07:05', NULL, NULL, NULL, NULL, 0),
 (5, 'provinsi_sumsel', 'wongkitogalo', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:13:54', NULL, NULL, NULL, NULL, 0),
-(6, 'kabupaten_boalem', 'boalemo123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:15:03', NULL, NULL, NULL, NULL, 0),
+(6, 'kabupaten_boalem', '1', 1, '2020-05-17 23:27:53', '2020-05-17 23:27:53', 1, '2020-05-17 23:27:53', NULL, NULL, '::1', 1, NULL, NULL, NULL, 1, '2019-10-06 14:15:03', NULL, NULL, NULL, NULL, 0),
 (7, 'kota_ternate', 'ternate123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:16:06', NULL, NULL, NULL, NULL, 0),
-(8, 'kota_palu', 'palu123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:17:54', NULL, NULL, NULL, NULL, 0),
+(8, 'kota_palu', '1', 5, '2020-05-18 15:43:36', '2020-05-18 15:43:36', 6, '2020-05-18 15:43:36', NULL, NULL, '::1', 1, NULL, NULL, NULL, 1, '2019-10-06 14:17:54', NULL, NULL, NULL, NULL, 0),
 (9, 'kabupaten_solok', 'barehsolok', 1, '2019-10-06 14:23:05', '2019-10-06 14:23:05', 2, '2019-10-06 14:23:05', NULL, NULL, '114.124.204.241', 1, NULL, NULL, NULL, 1, '2019-10-06 14:18:53', NULL, NULL, NULL, NULL, 0),
 (10, 'kabupaten_wonoso', 'carica123', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2019-10-06 14:19:59', NULL, NULL, NULL, NULL, 0),
 (11, 'yogyakarta', 'yogya123', 11, '2019-11-16 10:14:16', '2019-11-16 10:14:16', 11, '2019-11-16 10:14:16', NULL, NULL, '202.65.119.132', 1, NULL, NULL, NULL, 2, '2019-10-17 16:31:29', 2, '2019-10-22 19:13:37', NULL, NULL, 0),
@@ -1873,9 +1844,6 @@ CREATE TABLE `user_profile` (
   `user_id` int(9) NOT NULL,
   `fullname` text DEFAULT NULL,
   `nin` text DEFAULT NULL COMMENT 'National Identity Number',
-  `bdt_id` text DEFAULT NULL,
-  `pkh_id` varchar(30) DEFAULT NULL,
-  `kks_id` varchar(30) DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
   `address` text DEFAULT NULL,
   `photo` text DEFAULT NULL
@@ -1885,8 +1853,9 @@ CREATE TABLE `user_profile` (
 -- Dumping data untuk tabel `user_profile`
 --
 
-INSERT INTO `user_profile` (`id`, `user_id`, `fullname`, `nin`, `bdt_id`, `pkh_id`, `kks_id`, `birth_date`, `address`, `photo`) VALUES
-(1, 1, 'Administrator', NULL, NULL, NULL, NULL, NULL, NULL, 'file_1562515936.jpg');
+INSERT INTO `user_profile` (`id`, `user_id`, `fullname`, `nin`, `birth_date`, `address`, `photo`) VALUES
+(0, 1, 'Super Admin', NULL, NULL, NULL, NULL),
+(1, 2, 'Subdit Kemitraan dan Kelembagaan', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1897,8 +1866,8 @@ INSERT INTO `user_profile` (`id`, `user_id`, `fullname`, `nin`, `bdt_id`, `pkh_i
 CREATE TABLE `user_role` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL,
-  `level` int(11) NOT NULL,
-  `kon_id` int(11) NOT NULL,
+  `level` int(11) DEFAULT NULL,
+  `kon_id` int(11) DEFAULT NULL,
   `definition` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `route` varchar(32) DEFAULT NULL,
@@ -1916,14 +1885,15 @@ CREATE TABLE `user_role` (
 --
 
 INSERT INTO `user_role` (`id`, `name`, `level`, `kon_id`, `definition`, `description`, `route`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_by`, `deleted_at`, `deleted`) VALUES
-(1, 'Super Admin', 1, 0, 'Super Administrator', NULL, 'admin_side/rekap_rp3kp_provinsi', 0, '2018-10-27 17:52:08', NULL, NULL, NULL, NULL, 0),
-(2, 'Admin Pusat', 2, 0, 'Admin Pusat', NULL, 'admin_side/rekap_rp3kp_provinsi', 0, '2017-03-06 01:19:26', 2, '2018-10-27 18:55:37', NULL, NULL, 0),
+(1, 'Super Admin', 1, NULL, 'Super Administrator', NULL, 'admin_side/rekap_rp3kp_provinsi', 0, '2018-10-27 17:52:08', NULL, NULL, NULL, NULL, 0),
+(2, 'Admin Pusat', 2, NULL, 'Admin Pusat', NULL, 'admin_side/rekap_rp3kp_provinsi', 0, '2017-03-06 01:19:26', 2, '2018-10-27 18:55:37', NULL, NULL, 0),
 (3, 'Admin Provinsi', 3, 8, 'Admin Provinsi', 'Kepala Bidang', 'admin_side/rekap_rp3kp_provinsi', 0, '2017-03-06 01:19:26', NULL, NULL, NULL, NULL, 0),
 (4, 'Admin Kabupaten/ Kota', 4, 6, 'Admin Kabupaten/ Kota', 'Kepala Bidang', 'admin_side/rekap_rp3kp_provinsi', 0, '2018-09-02 14:20:07', NULL, NULL, NULL, NULL, 0),
-(5, 'Admin Provinsi', 0, 0, 'Admin Provinsi', 'Kepala Bagian', 'admin_side/rekap_rp3kp_provinsi', 0, '2019-09-19 21:21:10', NULL, NULL, NULL, NULL, 0),
-(6, 'Admin Kabupaten/ Kota', 0, 0, 'Admin Kabupaten/ Kota', 'Kepala Bagian', 'admin_side/rekap_rp3kp_provinsi', 0, '2019-09-19 21:21:59', NULL, NULL, NULL, NULL, 0),
-(7, 'Admin Provinsi', 0, 0, 'Admin Provinsi', 'Staff', 'admin_side/rekap_rp3kp_provinsi', 0, '2019-09-19 21:21:59', NULL, NULL, NULL, NULL, 0),
-(8, 'Admin Kabupaten/ Kota', 0, 0, 'Admin Kabupaten/ Kota', 'Staff', 'admin_side/rekap_rp3kp_provinsi', 0, '2019-09-19 21:22:51', NULL, NULL, NULL, NULL, 0);
+(5, 'Admin Provinsi', 3, 8, 'Admin Provinsi', 'Kepala Bagian', 'admin_side/rekap_rp3kp_provinsi', 0, '2019-09-19 21:21:10', NULL, NULL, NULL, NULL, 0),
+(6, 'Admin Kabupaten/ Kota', 4, 6, 'Admin Kabupaten/ Kota', 'Kepala Bagian', 'admin_side/rekap_rp3kp_provinsi', 0, '2019-09-19 21:21:59', NULL, NULL, NULL, NULL, 0),
+(7, 'Admin Provinsi', 3, 8, 'Admin Provinsi', 'Staff', 'admin_side/rekap_rp3kp_provinsi', 0, '2019-09-19 21:21:59', NULL, NULL, NULL, NULL, 0),
+(8, 'Admin Kabupaten/ Kota', 4, 6, 'Admin Kabupaten/ Kota', 'Staff', 'admin_side/rekap_rp3kp_provinsi', 0, '2019-09-19 21:22:51', NULL, NULL, NULL, NULL, 0),
+(9, 'Tamu', NULL, NULL, 'Pengunjung selain petugas', 'Masyarakat yang mengakses aplikasi SIBiLUP', 'tentang_aplikasi', 0, '2020-05-17 00:57:00', NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1988,6 +1958,12 @@ ALTER TABLE `aspirasi`
 --
 ALTER TABLE `diskusi`
   ADD PRIMARY KEY (`id_diskusi`);
+
+--
+-- Indeks untuk tabel `diskusi_tamu`
+--
+ALTER TABLE `diskusi_tamu`
+  ADD PRIMARY KEY (`id_diskusi_tamu`);
 
 --
 -- Indeks untuk tabel `dokumen`
@@ -2100,6 +2076,20 @@ ALTER TABLE `rekap_rp3kp_provinsi`
   ADD KEY `id_provinsi` (`id_provinsi`);
 
 --
+-- Indeks untuk tabel `ruang_konsultasi`
+--
+ALTER TABLE `ruang_konsultasi`
+  ADD PRIMARY KEY (`id_hub`);
+
+--
+-- Indeks untuk tabel `tamu`
+--
+ALTER TABLE `tamu`
+  ADD PRIMARY KEY (`id_tamu`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indeks untuk tabel `tr_guru_mapel`
 --
 ALTER TABLE `tr_guru_mapel`
@@ -2142,9 +2132,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `user_profile`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `id_pkh` (`pkh_id`),
-  ADD KEY `id_kks` (`kks_id`);
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indeks untuk tabel `user_role`
@@ -2169,7 +2157,7 @@ ALTER TABLE `user_to_role`
 -- AUTO_INCREMENT untuk tabel `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `activity_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `activity_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `agenda`
@@ -2181,19 +2169,25 @@ ALTER TABLE `agenda`
 -- AUTO_INCREMENT untuk tabel `aspirasi`
 --
 ALTER TABLE `aspirasi`
-  MODIFY `id_aspirasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_aspirasi` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `diskusi`
 --
 ALTER TABLE `diskusi`
-  MODIFY `id_diskusi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_diskusi` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `diskusi_tamu`
+--
+ALTER TABLE `diskusi_tamu`
+  MODIFY `id_diskusi_tamu` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `dokumen`
 --
 ALTER TABLE `dokumen`
-  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `faq`
@@ -2211,7 +2205,7 @@ ALTER TABLE `galeri`
 -- AUTO_INCREMENT untuk tabel `hubungi_kami`
 --
 ALTER TABLE `hubungi_kami`
-  MODIFY `id_hub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_hub` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `kabupaten`
@@ -2268,6 +2262,18 @@ ALTER TABLE `regulasi`
   MODIFY `id_reg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT untuk tabel `ruang_konsultasi`
+--
+ALTER TABLE `ruang_konsultasi`
+  MODIFY `id_hub` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `tamu`
+--
+ALTER TABLE `tamu`
+  MODIFY `id_tamu` int(9) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `tr_guru_mapel`
 --
 ALTER TABLE `tr_guru_mapel`
@@ -2295,19 +2301,19 @@ ALTER TABLE `ujian_modul`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

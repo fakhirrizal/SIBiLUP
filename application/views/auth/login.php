@@ -247,7 +247,7 @@
 					</div>
 					<div class="modal-body">
 						<font color='red'>*</font> Jika telah mendaftar sebelumnya silahkan masuk lewat menu login.<br>
-						<font color='red'>*</font> <b>NIK</b> berguna sebagai <b>username</b> saata login.
+						<font color='red'>*</font> <b>Email</b> berguna sebagai <b>username</b> saata login.
 						<br>
 						<br>
 						<form role="form" action="<?= site_url('register_process'); ?>" method='post'>
@@ -256,10 +256,10 @@
 								<input type="text" class="form-control input-lg" name="nama" placeholder="Nama Pengguna" required="required">
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control input-lg" name="nik" placeholder="NIK" maxlength='16' required="required">
+								<input type="text" class="form-control input-lg" name="nik" placeholder="NIK" minlength='16' maxlength='16' >
 							</div>
 							<div class="form-group">
-								<textarea class="form-control input-lg" name="alamat" placeholder="Alamat sesuai KTP" required="required"></textarea>
+								<textarea class="form-control input-lg" name="alamat" placeholder="Alamat sesuai KTP" ></textarea>
 							</div>
 							<div class="form-group">
 								<input type="email" class="form-control input-lg" name="email" placeholder="Email" maxlength='100' required="required">

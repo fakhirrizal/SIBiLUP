@@ -167,22 +167,28 @@ else{
                         </li>
                         <?php }else{echo'';}?>
                         <li class="nav-item dropdown">
-                            <?php if ($this->session->userdata('foto') == "") {
-                                $fotoku = "user.png";
-                            } else {
-                                $fotoku = $this->session->userdata('foto');
-                            } ?>
+                            <?php $fotoku = "user.png"; ?>
                             <?php
                             $nama_tampil = '';
                             if($this->session->userdata('admin_id')=='9'){
                                 $get_data_user = $this->Main_model->getSelectedData('user_profile a', 'a.*', array('a.user_id'=>$this->session->userdata('id')))->row();
                                 $nama_tampil = $get_data_user->fullname;
+                                if($get_data_user->photo==NULL){
+                                    echo'';
+                                }else{
+                                    $fotoku = $get_data_user->photo;
+                                }
                             ?>
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url()."assets/images/".$fotoku ?>" alt="user" class="profile-pic m-r-10" /><?= $get_data_user->fullname; ?></a>
                             <?php
                             }else{
                                 $get_data_user = $this->Main_model->getSelectedData('pegawai a', 'a.*', array('a.user_id'=>$this->session->userdata('id')))->row();
                                 $nama_tampil = $get_data_user->nama_pegawai;
+                                if($get_data_user->foto==NULL){
+                                    echo'';
+                                }else{
+                                    $fotoku = $get_data_user->foto;
+                                }
                             ?>
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url()."assets/images/".$fotoku ?>" alt="user" class="profile-pic m-r-10" /><?= $get_data_user->nama_pegawai; ?></a>
                             <?php
@@ -198,7 +204,8 @@ else{
                                         </div><div style='text-align:center'><h4><?= $nama_tampil; ?></h4></div>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="<?= base_url()."admin/master/profiles/edit/".$this->session->userdata('admin_konid'); ?>"><i class="ti-user"></i> Pengaturan Profil</a></li>
+                                    <!-- <li><a href="<?= base_url()."admin/master/profiles/edit/".$this->session->userdata('admin_konid'); ?>"><i class="ti-user"></i> Pengaturan Profil</a></li> -->
+                                    <li><a href="<?= base_url()."pengaturan_profil"; ?>"><i class="ti-user"></i> Pengaturan Profil</a></li>
                                     <li><a href="<?= base_url()."admin/master/akun/edit/".$this->session->userdata('id'); ?>"><i class="ti-settings"></i> Pengaturan Akun</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="<?php echo site_url('Auth/logout'); ?>"><i class="fa fa-power-off"></i> Keluar</a></li>

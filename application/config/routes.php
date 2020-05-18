@@ -73,6 +73,8 @@ $route['vidio'] = 'admin/Perpustakaan/vidio';
 $route['ujian_ol'] = 'admin/Perpustakaan/ujian_ol';
 */
 
+$route['pengaturan_profil'] = 'Auth/pengaturan_profil';
+$route['perbarui_profil'] = 'Auth/perbarui_profil';
 $route['diskusi'] = 'admin/Diskusi/tamu';
 $route['ruang_konsultasi'] = 'admin/Hubungi_kami/ruang_konsultasi';
 
