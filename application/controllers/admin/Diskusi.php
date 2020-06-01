@@ -58,6 +58,20 @@ class Diskusi extends CI_Controller {
         );
         $this->form_validation->set_rules($config);
     }
+    public function hapus_diskusi($id){
+        $this->db->trans_start();
+		$this->Main_model->deleteData('diskusi', array('id_diskusi'=>$id));
+		$this->Main_model->log_activity($this->session->userdata('id'),'Deleting data',"Menghapus data chat di menu diskusi",$this->session->userdata('location'));
+		$this->db->trans_complete();
+		if($this->db->trans_status() === false){
+			$this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>data gagal dihapus.<br /></div>' );
+			echo "<script>window.location='".base_url()."admin/diskusi/'</script>";
+		}
+		else{
+			$this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil dihapus.<br /></div>' );
+			echo "<script>window.location='".base_url()."admin/diskusi/'</script>";
+		}
+    }
     /* Untuk Tamu */
     public function tamu()
 	{
@@ -94,7 +108,20 @@ class Diskusi extends CI_Controller {
             $this->load->view('template/layout', $data);
         }
 	}
-
+    public function hapus_diskusi_tamu($id){
+        $this->db->trans_start();
+		$this->Main_model->deleteData('diskusi_tamu', array('id_diskusi_tamu'=>$id));
+		$this->Main_model->log_activity($this->session->userdata('id'),'Deleting data',"Menghapus data chat di menu diskusi tamu",$this->session->userdata('location'));
+		$this->db->trans_complete();
+		if($this->db->trans_status() === false){
+			$this->session->set_flashdata('gagal','<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Oops! </strong>data gagal dihapus.<br /></div>' );
+			echo "<script>window.location='".base_url()."diskusi/'</script>";
+		}
+		else{
+			$this->session->set_flashdata('sukses','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><strong></i>Yeah! </strong>data telah berhasil dihapus.<br /></div>' );
+			echo "<script>window.location='".base_url()."diskusi/'</script>";
+		}
+    }
     /*
     function index(){
         $data['title_page'] = "Diskusi";

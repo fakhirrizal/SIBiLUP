@@ -201,7 +201,7 @@ div.ex1 {
                                                     <?php } ?>
                                                     <?= $ul['isi'] ?>
                                                   </div>
-                                                  <br><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?= $ul['id_diskusi'] ?>">Balas</button><hr>
+                                                  <br><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?= $ul['id_diskusi'] ?>">Balas</button>&ensp;<a onclick="return confirm('Anda yakin?')" class="btn btn-danger" href="<?= base_url().'admin/Diskusi/hapus_diskusi/'.$ul['id_diskusi'] ?>">Hapus</a><hr>
                                                 </div>
                                                 <div class="modal fade" id="myModal<?= $ul['id_diskusi'] ?>" role="dialog">
                                                   <div class="modal-dialog">

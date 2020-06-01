@@ -142,7 +142,7 @@ $route['admin_side/aspirasi'] = 'admin/Report/aspirasi';
 $route['admin_side/hapus_aspirasi/(:any)'] = 'admin/Report/hapus_aspirasi/$1';
 
 /* User */
-$route['simpan_aspirasi'] = 'user/App/simpan_aspirasi';
+$route['simpan_aspirasi'] = 'guest/App/simpan_aspirasi';
 
 /* Tamu */
 
